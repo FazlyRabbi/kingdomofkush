@@ -1,7 +1,7 @@
 const EmailSection = () => {
     return (
         <div className="lg:p-10 p-2 mt-10 mb-7">
-            <div className="lg:flex gap-10 justify-left ">
+            <div className="lg:flex gap-10 lg:justify-left ">
                 <div>
                     <h1>Email</h1>
                     <p className="font-bold">info@kingdomofkush.org</p>
@@ -11,7 +11,7 @@ const EmailSection = () => {
                     <img src="https://i.postimg.cc/dV7VPv0M/Kush-Location-2-png.webp" alt="" />
                 </div>
             </div>
-            <hr className="text-[#ccc]" />
+            <hr className="text-[#ccc] mt-5" />
         </div>
 
     );

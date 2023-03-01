@@ -2,7 +2,7 @@ import { AiOutlineArrowRight } from 'react-icons/ai';
 const JoinPage = () => {
     return (
         <div className="bg-cover bg-center" style={{ backgroundImage: `url('https://i.postimg.cc/5txLS635/oh-img158-1.jpg')` }}>
-            <div className="text-white p-10">
+            <div className="text-white p-10 mt-10">
                 <h1 className="text-[#82838C]">CARRERS</h1>
                 <div className="lg:flex justify-between">
                     <div>
