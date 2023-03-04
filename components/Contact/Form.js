@@ -46,7 +46,7 @@ const Form = () => {
                         Message
                     </label>
                     <textarea
-                        class="resize border border-[#ccc] rounded-md w-full h-48 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline "
+                        className="resize border border-[#ccc] rounded-md w-full h-48 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline "
                         placeholder="Enter your message"
                     ></textarea>
                 </div>
