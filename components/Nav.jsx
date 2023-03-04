@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Style from "../styles/styles.module.css";
 import { RxCross2 } from "react-icons/rx";
 import { AiOutlinePlus } from "react-icons/ai";
+import { useRouter } from "next/router";
 //import next hoc
 import Image from "next/image";
 import Link from "next/link";
@@ -25,28 +26,29 @@ import { IoIosArrowDown } from "react-icons/io";
 
 export default function Nav() {
   const [openNav, setOpenNav] = useState(false);
+  const [scroll, setScroll] = useState(false);
 
-
+  const route = useRouter();
 
   useEffect(() => {
-
-
-    if (typeof window !== "undefined") {
-      var width = window.innerWidth; 
-       console.log(width);   
-   }
-
-
-  }, [])
-
+ 
+    document.addEventListener("scroll", () => {
+      if (window.scrollY >= 100) {
+        setScroll(true);
+      } else if (window.screenY === 0) {
+        setScroll(false);
+      }
+    });
+  }, []);
 
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography
         as="li"
         variant="h4"
-        color="white"
-        className="p-1 font-normal"
+        className={`${
+          scroll || route.pathname != "/" ? "text-black" : "text-white"
+        }  p-1 font-normal`}
       >
         <Link href="/" className="flex items-center">
           Home
@@ -57,7 +59,9 @@ export default function Nav() {
         as="li"
         variant="h4"
         color="white"
-        className="p-1 font-normal"
+        className={`${
+          scroll || route.pathname != "/" ? "text-black" : "text-white"
+        }  p-1 font-normal`}
       >
         <Link href={"/aboutus"} className="flex items-center">
           About
@@ -67,20 +71,32 @@ export default function Nav() {
         as="li"
         variant="h4"
         color="white"
-        className="p-1 font-normal"
+        className={`${
+          scroll || route.pathname != "/" ? "text-black" : "text-white"
+        }  p-1 font-normal`}
       >
         <Menu>
           <MenuHandler>
             <Button
               ripple={false}
-              className=" capitalize  px-0 font-normal hover:shadow-none shadow-none text-[1rem] text-white bg-transparent flex     items-center  "
+              className={`
+              ${scroll || route.pathname != "/" ? "text-black" : "text-white"}
+             
+              capitalize  px-0 font-normal hover:shadow-none shadow-none text-[1rem] bg-transparent flex  items-center`}
             >
               Get Involved
-              <IoIosArrowDown className="text-[1rem] text-white  " />
+              <IoIosArrowDown
+                className={`text-[1rem] text-white ${
+                  scroll || route.pathname != "/" ? "text-black" : "text-white"
+                }`}
+              />
             </Button>
           </MenuHandler>
           <MenuList>
-            <Link href={"/membership_applicationt"} className={"[&>button]:outline-0 "}>
+            <Link
+              href={"/membership_applicationt"}
+              className={"[&>button]:outline-0 "}
+            >
               <MenuItem className="  text-[.9rem]  text-primary hover:text-primary active:text-primary overflow-hidden">
                 Membership
               </MenuItem>
@@ -103,7 +119,9 @@ export default function Nav() {
         as="li"
         variant="h4"
         color="white"
-        className="p-1 font-normal"
+        className={`${
+          scroll || route.pathname != "/" ? "text-black" : "text-white"
+        }  p-1 font-normal`}
       >
         <Link href={`/petition`} className="flex items-center">
           Petition
@@ -113,7 +131,9 @@ export default function Nav() {
         as="li"
         variant="h4"
         color="white"
-        className="p-1 font-normal"
+        className={`${
+          scroll || route.pathname != "/" ? "text-black" : "text-white"
+        }  p-1 font-normal`}
       >
         <Link href={`/project`} className="flex items-center">
           Projects
@@ -123,7 +143,9 @@ export default function Nav() {
         as="li"
         variant="h4"
         color="white"
-        className="p-1 font-normal"
+        className={`${
+          scroll || route.pathname != "/" ? "text-black" : "text-white"
+        }  p-1 font-normal`}
       >
         <Link href={`/invest`} className="flex items-center">
           Invest
@@ -133,7 +155,9 @@ export default function Nav() {
         as="li"
         variant="h4"
         color="white"
-        className="p-1 font-normal"
+        className={`${
+          scroll || route.pathname != "/" ? "text-black" : "text-white"
+        }  p-1 font-normal`}
       >
         <Link href={`/donation`} className="flex items-center">
           Donation
@@ -143,7 +167,9 @@ export default function Nav() {
         as="li"
         variant="h4"
         color="white"
-        className="p-1 font-normal"
+        className={`${
+          scroll || route.pathname != "/" ? "text-black" : "text-white"
+        }  p-1 font-normal`}
       >
         <Link href={`/contact`} className="flex items-center">
           Contact
@@ -154,39 +180,106 @@ export default function Nav() {
 
   return (
     <>
-      <div className=" w-[100%]   bg-[#00000050] absolute top-0 left-0 z-[999] ">
-        <div className="container shadow-none max-w-[96%]  h-[5rem]  mx-auto flex items-center justify-between  ">
-          <div className=" logo__box flex  items-center   space-x-6">
-            <div>
-              <span
-                className="  rounded-full p-2   "
-                onClick={() => {
-                  setOpenNav(true);
-                }}
-              >
-                <CgMenuLeftAlt className="  text-white border-solid hover:border-[1px] border-primary text-[3.2rem] cursor-pointer bg-[#8484842c] rounded-full p-2 transition-all" />
-              </span>
+      {route.pathname === "/" ? (
+        <div
+          className={`${
+            scroll ? "bg-white  fixed" : "bg-[#00000050] absolute top-0 left-0"
+          } w-[100%]    transition-all duration-400  z-[999] `}
+        >
+          <div className="container shadow-none max-w-[96%]  h-[5rem]  mx-auto flex items-center justify-between  ">
+            <div className=" logo__box flex  items-center   space-x-6">
+              <div>
+                <span
+                  className="  rounded-full p-2   "
+                  onClick={() => {
+                    setOpenNav(true);
+                  }}
+                >
+                  <CgMenuLeftAlt
+                    className={` border-solid hover:border-[1px] border-primary text-[3.2rem] cursor-pointer bg-[#8484842c] rounded-full p-2 transition-all ${
+                      scroll || route.pathname != "/"
+                        ? "text-black"
+                        : "text-white"
+                    }`}
+                  />
+                </span>
+              </div>
+              <Link href={"/"}>
+                <Image src={logo} width={50} height={50} alt="logo" />
+              </Link>
             </div>
-            <Link href={"/"}>
-              <Image src={logo} width={50} height={50} alt="logo" />
-            </Link>
-          </div>
 
-          <div className="hidden lg:block ">{navList}</div>
+            <div className="hidden lg:block ">{navList}</div>
 
-          <div>
-            <Select color="green" label="Language" className={`${Style.select}  text-white`}  >
-              <Option>English</Option>
-              <Option>Spanish</Option>
-              <Option>Urdho</Option>
-
-            </Select>
+            <div>
+              <form action="/action_page.php">
+                <select
+                  id="countries"
+                  className="bg-gray-50 border border-gray-300 text-gray-900  rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500  text-base"
+                >
+                  <option selected>Choose a Languge</option>
+                  <option value="US">United States</option>
+                  <option value="CA">Canada</option>
+                  <option value="FR">France</option>
+                  <option value="DE">Germany</option>
+                </select>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div
+          className={`${
+            scroll ? " fixed" : "static"
+          } w-[100%]  bg-white   transition-all duration-400  z-[999] `}
+        >
+          <div className="container shadow-none max-w-[96%]  h-[5rem]  mx-auto flex items-center justify-between  ">
+            <div className=" logo__box flex  items-center   space-x-6">
+              <div>
+                <span
+                  className="  rounded-full p-2   "
+                  onClick={() => {
+                    setOpenNav(true);
+                  }}
+                >
+                  <CgMenuLeftAlt
+                    className={` border-solid hover:border-[1px] border-primary text-[3.2rem] cursor-pointer bg-[#8484842c] rounded-full p-2 transition-all ${
+                      scroll || route.pathname != "/"
+                        ? "text-black"
+                        : "text-white"
+                    }`}
+                  />
+                </span>
+              </div>
+              <Link href={"/"}>
+                <Image src={logo} width={50} height={50} alt="logo" />
+              </Link>
+            </div>
+
+            <div className="hidden lg:block ">{navList}</div>
+
+            <div>
+              <form action="/action_page.php">
+                <select
+                  id="countries"
+                  className="bg-gray-50 border border-gray-300 text-gray-900  rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500  text-base"
+                >
+                  <option selected>Choose a Languge</option>
+                  <option value="US">United States</option>
+                  <option value="CA">Canada</option>
+                  <option value="FR">France</option>
+                  <option value="DE">Germany</option>
+                </select>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div
-        className={`mobile__menu  w-[100%]  overflow-hidden h-[100%]  top-0 left-0  bg-black  fixed ${openNav ? "block" : "hidden"
-          }  transition-all    duration-500 z-[9999]`}
+        className={`mobile__menu  w-[100%]  overflow-hidden h-[100%]  top-0 left-0  bg-black  fixed ${
+          openNav ? "block" : "hidden"
+        }  transition-all    duration-500 z-[9999]`}
       >
         <div className="menu_wrapper p-10 text-white">
           <RxCross2
@@ -240,8 +333,3 @@ export default function Nav() {
   );
 }
 
-// bg-[#00000060]
-{/* <Navbar 
-className="mx-auto max-w-[100%]backdrop-blur-none bg-opacity-100 py-0 px-4 lg:px-8 shadow-none   outline-0 border-none
-rounded-none"
-/> */}

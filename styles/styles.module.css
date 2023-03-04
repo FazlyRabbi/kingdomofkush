@@ -92,6 +92,11 @@
 
 
 .select + label {
-  color: #fff !important;
-  border:#fff !important;
+  color: #000 !important;
+  border:#000 !important;
+  display: none;
+}
+
+.select:active + label{
+  color: white !important;
 }
