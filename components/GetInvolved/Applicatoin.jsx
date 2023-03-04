@@ -6,7 +6,6 @@ function Applicatoin() {
     <>
       {" "}
       <MemberShips />
-      
     </>
   );
 }
