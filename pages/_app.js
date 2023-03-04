@@ -13,11 +13,11 @@ export default function MyApp({ Component, pageProps }) {
 
   return (
     <>
-        <AuthProvider>
       <ThemeProvider>
+        <AuthProvider>
           <Component {...pageProps} />
-      </ThemeProvider>
         </AuthProvider>
+      </ThemeProvider>
     </>
   );
 }

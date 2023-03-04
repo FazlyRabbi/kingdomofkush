@@ -6,7 +6,7 @@ import Logo from "../img/logo.png";
 export default function Foot() {
   return (
     <footer className="bg-[#F9F8FA] ">
-      <div className="container mx-auto max-w-[85rem]">
+      <div className="container mx-auto max-w-[75rem] 2xl:max-w-[85rem]">
         <div className=" grid grid-cols-1 md:grid-cols-4 py-[5rem]  gap-x-[3.5rem]   border-softGray   px-4 space-y-10 border-spacing-2 border-b-[1px]   ">
           <div className="  self-center">
             <Image src={Logo} width={60} height={60} alt="logo" />

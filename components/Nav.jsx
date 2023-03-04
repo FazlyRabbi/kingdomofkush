@@ -11,7 +11,6 @@ import { CgMenuLeftAlt } from "react-icons/cg";
 import logo from "../img/logo.png";
 // imports MT
 import {
-  Navbar,
   Typography,
   Button,
   Select,
@@ -26,6 +25,20 @@ import { IoIosArrowDown } from "react-icons/io";
 
 export default function Nav() {
   const [openNav, setOpenNav] = useState(false);
+
+
+
+  useEffect(() => {
+
+
+    if (typeof window !== "undefined") {
+      var width = window.innerWidth; 
+       console.log(width);   
+   }
+
+
+  }, [])
+
 
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
@@ -67,28 +80,34 @@ export default function Nav() {
             </Button>
           </MenuHandler>
           <MenuList>
-            <Link href={"/membership_applicationt"}>
-              <MenuItem className=" outline-none text-[.9rem] first-line:border-none text-primary hover:text-primary active:text-primary overflow-hidden">
+            <Link href={"/membership_applicationt"} className={"[&>button]:outline-0 "}>
+              <MenuItem className="  text-[.9rem]  text-primary hover:text-primary active:text-primary overflow-hidden">
                 Membership
               </MenuItem>
             </Link>
 
-            <Link href={"/volunteer"}>
-              <MenuItem className=" outline-none text-[.9rem] first-line:border-none text-primary hover:text-primary active:text-primary">
+            <Link href={"/volunteer"} className={"[&>button]:outline-0 "}>
+              <MenuItem className="  outline-none text-[.9rem]  text-primary hover:text-primary active:text-primary">
                 Volunteer
               </MenuItem>
             </Link>
-            <Link href={"/vendor"}>
-              <MenuItem className=" outline-none text-[.9rem] first-line:border-none text-primary hover:text-primary active:text-primary">
+            <Link href={"/vendor"} className={"[&>button]:outline-0 "}>
+              <MenuItem className="  text-[.9rem]  text-primary hover:text-primary active:text-primary">
                 Vendor
               </MenuItem>
             </Link>
           </MenuList>
         </Menu>
-
-        {/* <a href="#" className="flex items-center">
-          Get Involved
-        </a> */}
+      </Typography>
+      <Typography
+        as="li"
+        variant="h4"
+        color="white"
+        className="p-1 font-normal"
+      >
+        <Link href={`/petition`} className="flex items-center">
+          Petition
+        </Link>
       </Typography>
       <Typography
         as="li"
@@ -135,13 +154,9 @@ export default function Nav() {
 
   return (
     <>
-      <div className="navbar  w-[100%]   z-[999] bg-[#0000001a] ">
-        <Navbar
-          className="mx-auto max-w-[100%] backdrop-blur-none bg-opacity-100 py-0 px-4 lg:px-8 shadow-none bg-[#00000060] outline-0 border-none
-        rounded-none"
-        />
-        <div className="container shadow-none max-w-[96%]  mx-auto flex items-center justify-between  text-white">
-          <div className=" logo__box flex  items-center  space-x-6">
+      <div className=" w-[100%]   bg-[#00000050] absolute top-0 left-0 z-[999] ">
+        <div className="container shadow-none max-w-[96%]  h-[5rem]  mx-auto flex items-center justify-between  ">
+          <div className=" logo__box flex  items-center   space-x-6">
             <div>
               <span
                 className="  rounded-full p-2   "
@@ -149,7 +164,7 @@ export default function Nav() {
                   setOpenNav(true);
                 }}
               >
-                <CgMenuLeftAlt className=" border-solid hover:border-[1px] border-primary text-[3.2rem] cursor-pointer bg-[#8484842c] rounded-full p-2 transition-all" />
+                <CgMenuLeftAlt className="  text-white border-solid hover:border-[1px] border-primary text-[3.2rem] cursor-pointer bg-[#8484842c] rounded-full p-2 transition-all" />
               </span>
             </div>
             <Link href={"/"}>
@@ -160,18 +175,18 @@ export default function Nav() {
           <div className="hidden lg:block ">{navList}</div>
 
           <div>
-            <Select label="Select Languege" className="text-white" error>
+            <Select color="green" label="Language" className={`${Style.select}  text-white`}  >
               <Option>English</Option>
-              <Option>Franch</Option>
+              <Option>Spanish</Option>
+              <Option>Urdho</Option>
+
             </Select>
           </div>
         </div>
       </div>
-
       <div
-        className={`mobile__menu  w-[100%]    overflow-hidden h-[100%]  top-0 left-0  bg-black  fixed ${
-          openNav ? "block" : "hidden"
-        }  transition-all    duration-500 z-[9999]`}
+        className={`mobile__menu  w-[100%]  overflow-hidden h-[100%]  top-0 left-0  bg-black  fixed ${openNav ? "block" : "hidden"
+          }  transition-all    duration-500 z-[9999]`}
       >
         <div className="menu_wrapper p-10 text-white">
           <RxCross2
@@ -204,6 +219,9 @@ export default function Nav() {
               </ul>
             </li>
             <li className=" font-bold lg:text-[2.5rem] text-[1.5rem] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
+              <Link href={"/petition"}>Petition</Link>
+            </li>
+            <li className=" font-bold lg:text-[2.5rem] text-[1.5rem] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
               <Link href={"/project"}>Projects</Link>
             </li>
             <li className=" font-bold lg:text-[2.5rem] text-[1.5rem] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
@@ -223,3 +241,7 @@ export default function Nav() {
 }
 
 // bg-[#00000060]
+{/* <Navbar 
+className="mx-auto max-w-[100%]backdrop-blur-none bg-opacity-100 py-0 px-4 lg:px-8 shadow-none   outline-0 border-none
+rounded-none"
+/> */}

@@ -1,20 +1,44 @@
-const EmailSection = () => {
+
+import React from 'react'
+import Image from 'next/image';
+import Link from 'next/link';
+import { Breadcrumbs } from "@material-tailwind/react";
+
+function EmailSection() {
     return (
-        <div className="lg:p-10 p-2 mt-10 mb-7">
-            <div className="lg:flex gap-10 justify-left ">
-                <div>
-                    <h1>Email</h1>
-                    <p className="font-bold">info@kingdomofkush.org</p>
-                    <p className="mt-5">Assistance hours: Monday – Friday 8 am to 8 pm EST</p>
+        <section className="EmailSection p-4">
+            <div className=" container mx-auto  ">
+               
+                <div className='bradecamp'>
+                    <Breadcrumbs className=' bg-transparent'>
+                        <Link href={`/`} className=" text-primary font-bold">
+                            Home
+                        </Link>
+                        <Link href={`#`} className=" cursor-text  text-black hover:text-black" >
+                            Contact
+                        </Link>
+                    </Breadcrumbs>
                 </div>
-                <div>
-                    <img src="https://i.postimg.cc/dV7VPv0M/Kush-Location-2-png.webp" alt="" />
+
+                <div className='grid  pt-[5rem] pb-[2rem] px-[2rem]  justify-items-center md:justify-items-center  xl:gap-x-[20rem] 
+                gap-x-[5rem] 
+                
+                gap-y-[3rem]
+                grid-cols-1 md:grid-cols-2'>
+                    <div>
+                        <h1>Email</h1>
+                        <p className="font-bold">info@kingdomofkush.org</p>
+                        <p className="mt-5">Assistance hours: Monday – Friday 8 am to 8 pm EST</p>
+                    </div>
+                    <div>
+                        <Image src="https://i.postimg.cc/dV7VPv0M/Kush-Location-2-png.webp" height={450} width={450} alt="contact__image" />
+                    </div>
                 </div>
-            </div>
             <hr className="text-[#ccc]" />
-        </div>
+            </div>
+        </section>
 
-    );
-};
+    )
+}
 
-export default EmailSection;
+export default EmailSection
