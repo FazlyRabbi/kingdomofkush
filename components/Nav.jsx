@@ -14,8 +14,6 @@ import logo from "../img/logo.png";
 import {
   Typography,
   Button,
-  Select,
-  Option,
   Menu,
   MenuHandler,
   MenuList,
@@ -31,7 +29,6 @@ export default function Nav() {
   const route = useRouter();
 
   useEffect(() => {
- 
     document.addEventListener("scroll", () => {
       if (window.scrollY >= 100) {
         setScroll(true);
@@ -217,7 +214,9 @@ export default function Nav() {
                   id="countries"
                   className="bg-gray-50 border border-gray-300 text-gray-900  rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500  text-base"
                 >
-                  <option selected>Choose a Languge</option>
+                  <option defaultValue="Choose a Languge">
+                    Choose a Languge
+                  </option>
                   <option value="US">United States</option>
                   <option value="CA">Canada</option>
                   <option value="FR">France</option>
@@ -332,4 +331,3 @@ export default function Nav() {
     </>
   );
 }
-
