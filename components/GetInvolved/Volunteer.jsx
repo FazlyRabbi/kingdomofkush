@@ -2,14 +2,13 @@ import React from "react";
 import { Button } from "@material-tailwind/react";
 import Link from "next/link";
 import Vulunteer_Contact from "./Vulunteer_Contact";
-
 import styles from "../../styles/styles.module.css";
+
 function Volunteer() {
   return (
     <section>
       <div className=" grid grid-cols-1 md:grid-cols-2   transition-all justify-items-center lg:justify-items-start  items-center ">
         <div className={` ${styles.vulunteerBg}  min-h-[36rem]   `}></div>
-
         <div className=" py-[4rem]  px-4 2xl:pl-[8rem] md:pl-[4rem] md:pr-8">
           <div className="content mb-[1.5rem] mt-4">
             <h1 className="leading-[3rem]  xl:hidden font-bold  text-[2.8rem] ">

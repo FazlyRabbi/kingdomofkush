@@ -1,19 +1,20 @@
 import { createContext, useEffect, useState } from "react";
-import { NEXT_URL } from "@/config/index";
+import { API_URL, API_TOKEN } from "@/config/index";
 export const AuthContext = createContext();
 import { destroyCookie } from "nookies";
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
-
   const [amount, setAmount] = useState(null);
   const [date, setDate] = useState(null);
 
   // useEffect(() => {
+
   //   checkUserLoggedId();
   // }, []);
 
-  // const signup = async ({ username, email, password }) => {
+  // onst signup = async ({ username, email, password }) => {
   //   const res = await fetch(`${NEXT_URL}/api/signup`, {
   //     method: "POST",
   //     headers: {
@@ -70,11 +71,7 @@ export const AuthProvider = ({ children }) => {
   //   } else {
   //     setUser(null);
   //   }
-  // };
+  //
 
-  return (
-    <AuthContext.Provider value={{ amount, setAmount, setDate , date }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{}}>{children}</AuthContext.Provider>;
 };
