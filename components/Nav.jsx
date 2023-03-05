@@ -232,7 +232,7 @@ export default function Nav() {
             scroll ? " fixed" : "static"
           } w-[100%]  bg-white   transition-all duration-400  z-[999] `}
         >
-          <div className="container shadow-none max-w-[96%]  h-[5rem]  mx-auto flex items-center justify-between  ">
+          <div className="container shadow-none max-w-[96%]  h-[7rem]  mx-auto flex items-center justify-between  ">
             <div className=" logo__box flex  items-center   space-x-6">
               <div>
                 <span
