@@ -44,7 +44,6 @@ const Application = () => {
             </div>
           </div>
 
-          
           {/* ///////// */}
           <div className=" grid grid-cols-1 mb-5">
             <div>
