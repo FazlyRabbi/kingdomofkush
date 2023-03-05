@@ -1,0 +1,383 @@
+
+[
+  {
+      "id": 1,
+  "category_name": "All"
+  
+  },
+  {
+      "id": 2,
+  "category_id": "2",
+  "category_name": "Angola",
+  "title": "Angola – Land for Carbon Credit",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2020/03/Angola_Land-for-Carbon-Credit.jpg"
+  },
+  {
+      "id": 3,
+  "category_id": "3",
+  "category_name": "Benin",
+  "title": "Benin – Soybean",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/Benin_Soybean-02.jpg"
+  },
+  {
+      "id": 4,
+  "category_id": "3",
+  "title": "Benin – Soybean",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/Benin_Soybean-01.jpg"
+  },
+  {
+      "id": 5,
+  "category_id": "3",
+  "category_name": "Benin",
+  "title": "Benin – Cassava Fields",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/Benin_Cassava-Fields-02.jpg"
+  },
+  {
+      "id": 6,
+  "category_id": "3",
+  "category_name": "Benin",
+  "title": "Benin – Cassava Fields",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/Benin_Cassava-Fields-01.jpg"
+  },
+  {
+      "id": 7,
+  "category_id": "3",
+  "category_name": "Benin",
+  "title": "Benin Housing project",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/Benin-02.jpg"
+  },
+  {
+      "id": 8,
+  "category_id": "3",
+  "category_name": "Benin",
+  "title": "Benin Housing project",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/Benin-01.jpg"
+  },
+  {
+      "id": 9,
+  "category_id": "3",
+  "category_name": "Benin",
+  "title": "Republique Du Benin",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2019/09/Republique-Du-Benin.jpg"
+  },
+  {
+      "id": 10,
+  "category_id": "4",
+  "category_name": "Burkina Faso",
+  "title": "Burkina Faso 02",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/KK_G008.jpeg"
+  },
+  {
+      "id": 11,
+  "category_id": "4",
+  "category_name": "Burkina Faso",
+  "title": "Burkina Faso 01",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/KK_G008.jpeg"
+  },
+  {
+      "id": 12,
+  "category_id": "5",
+  "category_name": "DRC",
+  "title": "DRC – Lithium Mine 04",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/DRC-Lithium-Mine_04.jpg"
+  },
+  {
+      "id": 13,
+"category_id": "5",
+  "category_name": "DRC",
+  "title": "DRC – Lithium Mine 03",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/DRC-Lithium-Mine_03.jpg"
+  },
+  {
+      "id": 14,
+"category_id": "5",
+  "category_name": "DRC",
+  "title": "DRC – Lithium Mine 02",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/DRC-Lithium-Mine_02.jpg"
+  },
+  {
+      "id": 15,
+"category_id": "5",
+  "category_name": "DRC",
+  "title": "DRC – Lithium Mine 01",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/DRC-Lithium-Mine_01.jpg"
+  },
+  {
+      "id": 16,
+"category_id": "5",
+  "category_name": "DRC",
+  "title": "DRC – Gold Mine 02",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/DRC-Gold-Mine-02.jpg"
+  },
+  {
+      "id": 17,
+"category_id": "5",
+  "category_name": "DRC",
+  "title": "DRC 04",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/KK_G067.jpeg"
+  },
+  {
+      "id": 18,
+"category_id": "5",
+  "category_name": "DRC",
+  "title": "DRC 03",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/DRC_03.jpg"
+  },
+  {
+      "id": 19,
+"category_id": "5",
+  "category_name": "DRC",
+  "title": "DRC 02",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/DRC_02.jpg"
+  },
+  {
+      "id": 20,
+"category_id": "6",
+  "category_name": "Guinea",
+  "title": "Guinea 01",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/DRC-Lithium-Mine_04.jpg"
+  },
+  {
+      "id": 21,
+"category_id": "7",
+  "category_name": "Indonesia",
+   "title": "Oji String Beans Farm",
+  "type": "video",
+ "video":  "https://youtu.be/T7pncBw2tuA"
+  },
+  {
+      "id": 22,
+"category_id": "7",
+  "category_name": "Indonesia",
+   "title": "Adang Peppercorn Farm",
+  "type": "video",
+ "video":  "https://youtu.be/8QadPRPG6tA"
+  },
+  {
+      "id": 23,
+"category_id": "7",
+  "category_name": "Indonesia",
+   "title": "Happy Greetings Video Message",
+  "type": "video",
+ "video":  "https://youtu.be/B29HF_ZmwhA"
+  },
+  {
+      "id": 24,
+"category_id": "7",
+  "category_name": "Indonesia",
+   "title": "Idrus Rice Field",
+  "type": "video",
+ "video":  "https://youtu.be/FvWXncZBRmQ"
+  },
+  {
+      "id": 25,
+"category_id": "7",
+  "category_name": "Indonesia",
+   "title": "Nasir Rice Field",
+  "type": "video",
+ "video":  "https://youtu.be/agX_Uky6iUM"
+  },
+  {
+      "id": 26,
+"category_id": "7",
+  "category_name": "Indonesia",
+   "title": "Hambali Duck & Goat Farming",
+  "type": "video",
+ "video":  "https://youtu.be/cadap6bIRHs"
+  },
+  {
+      "id": 27,
+"category_id": "7",
+  "category_name": "Indonesia",
+   "title": "Rossy Goat and Beef Cattle Farming",
+  "type": "video",
+ "video":  "https://youtu.be/LG0-diE_zA0"
+  },
+  {
+      "id": 28,
+"category_id": "7",
+  "category_name": "Indonesia",
+   "title": "Iing Tomato Farm",
+  "type": "video",
+ "video":  "https://youtu.be/0-_k00h96FY"
+  },
+  {
+      "id": 29,
+"category_id": "7",
+  "category_name": "Indonesia",
+   "title": "Gita Corn Farm",
+  "type": "video",
+ "video":  "https://youtu.be/HvHfzZQJWOg"
+  },
+  {
+      "id": 30,
+"category_id": "7",
+  "category_name": "Indonesia",
+   "title": "Eeng Coffee Plantation",
+  "type": "video",
+ "video":  "https://youtu.be/LTNH37lmQRM"
+  },
+  {
+      "id": 31,
+"category_id": "8",
+  "category_name": "Ivory Coast",
+   "title": "Ivory Coast – Rice Farm",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/Ivory-Coast_Rice-Farm-02.jpg"
+  },
+  {
+      "id": 32,
+"category_id": "8",
+  "category_name": "Ivory Coast",
+   "title": "Ivory Coast – Rice Farm",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/Ivory-Coast_Rice-Farm.jpg"
+  },
+  {
+      "id": 33,
+"category_id": "9",
+  "category_name": "Mali",
+   "title": "Mali 01",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/Ivory-Coast_Rice-Farm.jpg"
+  },
+  {
+      "id": 34,
+"category_id": "12",
+  "category_name": "Sudan",
+   "title": "Sudan – Gold Mines 08",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/Nigeria-01.jpg"
+  },
+  {
+      "id": 35,
+"category_id": "12",
+  "category_name": "Sudan",
+   "title": "Sudan – Gold Mines 08",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/Sudan_Gold-Mines_08.jpg"
+  },
+  {
+      "id": 36,
+"category_id": "12",
+  "category_name": "Sudan",
+   "title": "Sudan – Gold Mines 07",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/Sudan_Gold-Mines_07.jpg"
+  },
+  {
+      "id": 37,
+"category_id": "12",
+  "category_name": "Sudan",
+   "title": "Sudan – Gold Mines 06",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/Sudan_Gold-Mines_06.jpg"
+  },
+  {
+      "id": 38,
+"category_id": "12",
+  "category_name": "Sudan",
+   "title": "Sudan – Gold Mines 05",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/Sudan_Gold-Mines_05.jpg"
+  },
+  {
+      "id": 39,
+"category_id": "12",
+  "category_name": "Sudan",
+   "title": "Sudan – Gold Mines 04",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/Sudan_Gold-Mines_04.jpg"
+  },
+  {
+      "id": 40,
+"category_id": "11",
+  "category_name": "Nigeria",
+   "title": "Sudan – Gold Mines 03",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/Sudan_Gold-Mines_03.jpg"
+  },
+  {
+      "id": 41,
+"category_id": "12",
+  "category_name": "Sudan",
+   "title": "Sudan – Gold Mines 02",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/Sudan_Gold-Mines_02.jpg"
+  },
+  {
+      "id": 42,
+"category_id": "12",
+  "category_name": "Sudan",
+   "title": "Sudan – Gold Mines 01",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/Sudan_Gold-Mines_01.jpg"
+  },
+  {
+      "id": 43,
+"category_id": "13",
+  "category_name": "Togo",
+   "title": "Togo – Soccer team practice",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/Togo_Soccer-team-practice-02.jpg"
+  },
+  {
+      "id": 44,
+"category_id": "13",
+  "category_name": "Togo",
+   "title": "Togo – Soccer team practice",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/Togo_Soccer-team-practice-01.jpg"
+  },
+ {
+      "id": 45,
+"category_id": "14",
+  "category_name": "Zimbabwe",
+   "title": "Zimbabwe 04",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/Zimbabwe-03-2.jpg"
+  },
+ {
+      "id": 46,
+"category_id": "14",
+  "category_name": "Zimbabwe",
+   "title": "Zimbabwe 03",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/Zimbabwe-03-2.jpg"
+  },
+ {
+      "id": 47,
+"category_id": "14",
+  "category_name": "Zimbabwe",
+   "title": "Zimbabwe 02",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/Zimbabwe-03.jpg"
+  },
+ {
+      "id": 48,
+"category_id": "14",
+  "category_name": "Zimbabwe",
+   "title": "Zimbabwe 01",
+  "type": "image",
+ "image":  "https://kingdomofkush.org/images/2023/01/Zimbabwe-01.jpg"
+  }
+      ]
