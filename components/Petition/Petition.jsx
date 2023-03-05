@@ -21,7 +21,9 @@ const Petition = () => {
             </div>
                         </div>
                         <div className="flex justify-between gap-4">
-                            <HiArrowTrendingUp className='h-10 w-10 p-1 font-bold rounded-full bg-green-800 text-white' />
+                            <div className=''>
+                            <HiArrowTrendingUp className='h-8 w-8 p-1 rounded-full bg-green-800 text-white' />
+                            </div>
                             <div>
                                 <h1 className='text-2xl'>
                                     <span className='text-lg font-bold'>At 1000 signatures,</span> this petition is more likely to be <span className='font-bold'>Featured in recommendations!</span>
@@ -78,7 +80,14 @@ const Petition = () => {
                                         <p className="font-bold">1226 Longworth h.o.b.</p>
                                         <p className="font-bold">Washington, dc 20514</p>
                                         </div>
+                                        <p>(Hereafter collectively “Elected Officials” or “You”),</p>
+                                        <p>Dear Elected Officials,  
+The Kingdom of Kush (“Kingdom”) is proclaiming sovereignty in the territory of Bir Tawil in accordance with the applicable international law. Bir Tawil (a territory located between Egypt and Sudan) has not been claimed by any state and therefore is what is referred to as Terra Nullius "no man's land."</p>
+<p>The Kingdom will attract and welcome people of all races and religions. It will serve as an education and cutting edge technology empowerment cradle for generations to come. The Kingdom will help bring economic prosperity and social stability to the entire continent.</p>
+<p>In addition, with the Kingdom of Kush functioning as a sovereign state, the African Diaspora will have the “right of return” to a place it can call home. These efforts are in accordance with the U.N. General Assembly Resolution 194 (III) The Universal Declaration of Human Rights (10 December 1948). Article 13(2) of the Universal Declaration of Human Rights states: "Everyone has the right to leave any country, including his own, and to return to his country." African Diaspora as the "sixth region" of Africa exists in the constitution of the African Union (“AU”).</p>
+<p>Therefore, for the benefit of 41.6 million African Americans in the United States, 1.6 billion people of African descent around the world, and the entire human race, we, the undersigned, hereby petition You, the Elected Officials, to recognize the Kingdom of Kush as a sovereign state, establish full diplomatic relations with the Kingdom, and support the Kingdom and its efforts politically and socially.</p>
                                         </div>
+                                        
                         </div>
                 {/* start petition form */}
                         <div className="form lg:col-span-1 lg:ml-[3rem] w-full mb-10 lg:mb-0">
