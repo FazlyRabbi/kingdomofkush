@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
 const Application = () => {
-    return (
-        <div className=" container mx-auto py-[2rem] xl:mt-[2rem] xl:px-[4rem] px-[1rem] ">
+  return (
+    <div className=" container mx-auto py-[2rem] xl:mt-[2rem] xl:px-[4rem] px-[1rem] ">
       <div>
         <h1
           className=" text-[1.5rem] font-bold
@@ -30,7 +30,7 @@ const Application = () => {
               </p>
             </div>
             <div>
-            <label
+              <label
                 className="  font-bold after:content-['*'] after:text-red  after:pl-1 block"
                 htmlFor="name"
               >
@@ -47,7 +47,7 @@ const Application = () => {
           {/* ///////// */}
           <div className=" grid grid-cols-1 mb-5">
             <div>
-            <label
+              <label
                 className="  after:pl-1   font-bold after:content-['*'] after:text-red  block"
                 htmlFor="address_1"
               >
@@ -58,28 +58,24 @@ const Application = () => {
                 id="address_1"
                 className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
               />
-              
             </div>
           </div>
-          
+
           {/* ///////// */}
           <div className=" grid grid-cols-1 mb-5">
-            <label
-                className="after:pl-1 font-bold block"
-                htmlFor="address_2"
-              >
-                Address Line 2
-              </label>
-              <input
-                type="text"
-                id="address_2"
-                className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
-              />
+            <label className="after:pl-1 font-bold block" htmlFor="address_2">
+              Address Line 2
+            </label>
+            <input
+              type="text"
+              id="address_2"
+              className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
+            />
           </div>
           {/* ///////// */}
           <div className=" grid grid-cols-1 lg:grid-cols-3 gap-x-5 mb-5">
             <div>
-            <label
+              <label
                 className="  after:pl-1   font-bold after:content-['*'] after:text-red block"
                 htmlFor="zipCode"
               >
@@ -88,8 +84,8 @@ const Application = () => {
               <input
                 required
                 type="text"
-                placeholder="Zip Code" 
-                title="Please enter a Zip Code" 
+                placeholder="Zip Code"
+                title="Please enter a Zip Code"
                 pattern="^\s*?\d{5}(?:[-\s]\d{4})?\s*?$"
                 id="zipCode"
                 className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
@@ -98,7 +94,7 @@ const Application = () => {
                 This field is required.
               </p>
             </div>
-            <div className='col-span-2'>
+            <div className="col-span-2">
               <label
                 className="  after:pl-1   font-bold after:content-['*'] after:text-red  block"
                 htmlFor="phoneNumber"
@@ -118,8 +114,8 @@ const Application = () => {
           </div>
           {/* ///////// */}
           <div className=" grid grid-cols-1 lg:grid-cols-3 gap-x-5 mb-5">
-            <div className='col-span-2'>
-            <label
+            <div className="col-span-2">
+              <label
                 className="  after:pl-1   font-bold after:content-['*'] after:text-red  block"
                 htmlFor="zipCode"
               >
@@ -128,8 +124,8 @@ const Application = () => {
               <input
                 required
                 type="text"
-                placeholder="e-mail" 
-                title="Please enter a your email" 
+                placeholder="e-mail"
+                title="Please enter a your email"
                 id="zipCode"
                 className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
               />
@@ -137,52 +133,53 @@ const Application = () => {
                 This field is required.
               </p>
             </div>
-            <div className='col-span-1'>
+            <div className="col-span-1">
               <label
                 className="  after:pl-1   font-bold after:content-['*'] after:text-red  block"
                 htmlFor="phoneNumber"
               >
                 Phone number
               </label>
-              <input id="remember" type="checkbox" value="" class="w-5 h-5 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
+              <input
+                id="remember"
+                type="checkbox"
+                value=""
+                class="w-5 h-5 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
+              />
             </div>
           </div>
           {/* ///////// */}
           <div className=" grid grid-cols-1 mb-5">
             <label
-                className="after:pl-1 font-bold block after:content-['*'] after:text-red"
-                htmlFor="address_2"
+              className="after:pl-1 font-bold block after:content-['*'] after:text-red"
+              htmlFor="address_2"
+            >
+              Signature
+            </label>
+            <div class="mb-5">
+              <input type="file" name="file" id="file" class="sr-only" />
+              <label
+                for="file"
+                class="relative w-full flex min-h-[200px] items-center justify-center rounded-md border border-[#e0e0e0] p-12 text-center"
               >
-                Signature
+                <div className="absolute border-b border-[#cdcbcb] w-[80%] mx-10"></div>
               </label>
-              <div class="mb-5">
-          <input type="file" name="file" id="file" class="sr-only" />
-          <label
-            for="file"
-            class="relative w-full flex min-h-[200px] items-center justify-center rounded-md border border-[#e0e0e0] p-12 text-center"
-          >
-            <div className='absolute border-b border-[#cdcbcb] w-[80%] mx-10'>
-              
-              
             </div>
-          </label>
-        </div>
-              
           </div>
-          
-          
+
           {/* ///////// */}
           <div className=" grid grid-cols-1 mt-6">
             <button
               type="submit"
-              className=" bg-black rounded-md  shadow-none capitalize text-base hover:shadow-none w-[40%] xl:w-[20%]    font-normal text-primary py-3">
+              className=" bg-black rounded-md  shadow-none capitalize text-base hover:shadow-none w-[40%] xl:w-[20%]    font-normal text-primary py-3"
+            >
               Submit
             </button>
           </div>
         </form>
       </div>
     </div>
-    );
+  );
 };
 
 export default Application;
