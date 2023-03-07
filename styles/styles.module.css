@@ -22,6 +22,15 @@
   background-attachment: left;
 }
 
+.questionTouchBg {
+  width: 100%;
+  height: 100%;
+  background-image: url("../img/aboutus/oh__img156-1-scaled.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: left;
+}
+
 .memberBg {
   width: 100%;
   height: 100%;
