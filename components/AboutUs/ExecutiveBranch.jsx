@@ -3,7 +3,7 @@ import React from 'react'
 const ExecutiveBranch = () => {
   return (
     <section className='' style={{background:"rgba(241, 64, 5, 0.07)"}}>
-        <div className='mx-auto py-20  container max-w-[75rem] 2xl:max-w-[85rem]'>
+        <div className='mx-auto py-20 px-[2rem] container max-w-[75rem] 2xl:max-w-[85rem]'>
             <div className='flex md:flex-row flex-col justify-between mb-9'>
                 <div>
                      <div className='uppercase text-[rgba(25,31,35,0.8)] font-medium' >STATE ORGANIZATIONS</div>
