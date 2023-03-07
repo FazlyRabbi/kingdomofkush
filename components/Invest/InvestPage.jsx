@@ -9,7 +9,7 @@ function InvestPage() {
   return (
     <section>
       <div className=" grid grid-cols-1 md:grid-cols-2   space-x-10  lg:justify-items-start   ">
-        <div className={`  min-h-[25rem]   bg-center w-[100%] `} style={{
+        <div className={`  min-h-[30rem]   bg-center w-[100%] `} style={{
           backgroundImage: `url(${bg.src})`
         }}></div>
 

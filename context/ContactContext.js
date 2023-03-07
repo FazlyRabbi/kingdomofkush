@@ -3,7 +3,8 @@ import { API_URL, API_TOKEN } from "@/config/index";
 export const contactContext = createContext();
 
 export const ContactProvider = ({ children }) => {
-  
+  const [time, setTime] = useState("month");
+
   const contactInitial = {
     Name: "",
     Email: "",
@@ -12,7 +13,7 @@ export const ContactProvider = ({ children }) => {
   };
 
   const [contact, setContact] = useState(contactInitial);
-
+  
   const pstContact = async () => {
     try {
       const res = await fetch(`${API_URL}/api/contacts`, {
@@ -38,7 +39,7 @@ export const ContactProvider = ({ children }) => {
 
   return (
     <contactContext.Provider
-      value={{ contact, setContact, pstContact, contactInitial }}
+      value={{ contact, setContact, pstContact, contactInitial, time, setTime }}
     >
       {children}
     </contactContext.Provider>

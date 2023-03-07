@@ -1,9 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Button } from "@material-tailwind/react";
 import { VolunteerContext } from "@/context/VolunteerContext";
+import toast, { Toaster } from "react-hot-toast";
+import Styles from "../../styles/styles.module.css";
+
+const notify = () =>
+  toast.success("Your is created sucessfully!", {
+    duration: 2000,
+    position: "bottom-right",
+  });
 
 function Vulunteer_Contact() {
-  const { volunteer, setVolunteer, postVolunteers , volunteerInitial} =
+  const { volunteer, setVolunteer, postVolunteers, volunteerInitial } =
     useContext(VolunteerContext);
 
   const handleSubmit = (e) => {
@@ -14,6 +22,8 @@ function Vulunteer_Contact() {
 
   return (
     <div className=" container mx-auto py-[2rem] xl:mt-[2rem] xl:px-[4rem] px-[1rem] ">
+      <Toaster />
+
       <div>
         <h1
           className=" text-[1.5rem] font-bold
@@ -42,7 +52,7 @@ function Vulunteer_Contact() {
                 required
               />
               <p className=" text-sm mt-2">First</p>
-              <p className=" text-sm mt-[1px] text-red invisible">
+              <p className=" text-sm mt-[1px] warningMessage text-red  ">
                 This field is required.
               </p>
             </div>
@@ -82,7 +92,9 @@ function Vulunteer_Contact() {
                   setVolunteer({ ...volunteer, Email: e.target.value })
                 }
               />
-              <p className=" invisible text-sm mt-[1px] text-red">
+              <p
+                className={`  text-sm mt-[1px] ${Styles.warningMessage} text-red`}
+              >
                 This field is required.
               </p>
             </div>
@@ -103,7 +115,7 @@ function Vulunteer_Contact() {
                   setVolunteer({ ...volunteer, DateofBirth: e.target.value })
                 }
               />
-              <p className=" invisible text-sm mt-[1px] text-red">
+              <p className=" invisible text-sm mt-[1px] warningMessage text-red">
                 This field is required.
               </p>
             </div>
@@ -124,7 +136,7 @@ function Vulunteer_Contact() {
                   setVolunteer({ ...volunteer, Phone: e.target.value })
                 }
               />
-              <p className=" invisible text-sm mt-[1px] text-red">
+              <p className=" invisible text-sm mt-[1px] warningMessage text-red">
                 This field is required.
               </p>
             </div>
@@ -353,7 +365,7 @@ function Vulunteer_Contact() {
                     })
                   }
                 />
-                <p className=" text-sm mt-[1px] text-red invisible">
+                <p className=" text-sm mt-[1px] warningMessage text-red invisible">
                   This field is required.
                 </p>
               </div>
@@ -383,6 +395,7 @@ function Vulunteer_Contact() {
           {/* ///////// */}
           <div className=" grid grid-cols-1 mt-6">
             <Button
+              onClick={notify}
               type="submit"
               className=" bg-black rounded-md w-[40%] xl:w-[20%] shadow-none capitalize text-base hover:shadow-none   font-normal text-primary
             "

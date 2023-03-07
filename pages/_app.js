@@ -1,7 +1,5 @@
 import "../styles/globals.css";
 import "tailwindcss/tailwind.css";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { ThemeProvider } from "@material-tailwind/react";
 // 1. import `NextUIProvider` component
 import { AuthProvider } from "@/context/AuthContext";
@@ -21,7 +19,7 @@ export default function MyApp({ Component, pageProps }) {
         <VolunteerProvider>
           <ContactProvider>
             <Component {...pageProps} />
-            <ToastContainer />
+            
           </ContactProvider>
         </VolunteerProvider>
       </AuthProvider>

@@ -58,14 +58,11 @@
   background-attachment: left;
 }
 
-
 .aboutBg {
   background-image: url("../img/home.aboutUs.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-
 }
-
 
 .smallGroupBg {
   width: 100%;
@@ -94,18 +91,25 @@
   background-attachment: left;
 }
 
-.child_nav:hover>ul {
+.child_nav:hover > ul {
   transform: translateY(0rem);
   opacity: 1;
 }
 
-
 .select + label {
   color: #000 !important;
-  border:#000 !important;
+  border: #000 !important;
   display: none;
 }
 
-.select:active + label{
+.select:active + label {
   color: white !important;
+}
+
+.warningMessage {
+  visibility: hidden;
+}
+
+input:invalid + .warningMessage {
+  visibility: visible;
 }
