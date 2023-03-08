@@ -2,16 +2,38 @@ import React from 'react'
 import bg from "../../img/Oji-String-Beans-Farm.jpg"
 import {AiFillPlayCircle} from "react-icons/ai"
 import Card from './Card'
+import Link from 'next/link'
+
+const card = [
+    {
+        id:1
+    },
+    {
+        id:2
+    },
+    {
+        id:3
+    },
+    {
+        id:4
+    },
+    {
+        id:5
+    },
+    {
+        id:6
+    }
+]
 
 const Project = () => {
   return (
     <>
-       <section className=''>
-             <div className='px-[2rem]'>
+       <section>
+             <div className='container mx-auto px-4'>
                    <div className='text-center mb-8'>
                         <ul className='flex flex-wrap justify-center gap-3'>
                             <li>Filter by</li>
-                            <li className=''>
+                            <li>
                                 
                                 <a><span className='text-[#cb9833] font-semibold'>All</span></a>
                             </li>
@@ -67,11 +89,11 @@ const Project = () => {
                    </div>
                    <div>
                         <div className='grid grid-cols-1 lg:grid-cols-3 gap-5 my-3'>
-                            <Card />
-                            <Card />
-                            <Card />
-                            
-                            <Card />
+                            {
+                                card.map((id,index) => (   
+                                    <Card key={index} id={id.id}/>
+                                ))
+                            }
                         </div>
                    </div>
              </div>
