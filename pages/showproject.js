@@ -1,11 +1,12 @@
 import React from "react";
 import Layout from "@/components/Layout";
 import Project from "@/components/projects/Project";
+import ShowProject from "@/components/projects/ShowProject";
 
-function project() {
+function showProject() {
   return <Layout title={"Project"}>
-      <Project />
+      <ShowProject />
   </Layout>;
 }
 
-export default project;
+export default showProject;
