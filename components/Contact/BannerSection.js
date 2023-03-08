@@ -1,17 +1,10 @@
 import Link from "next/link";
+import Styles from "../../styles/styles.module.css";
 
 const BannerSection = () => {
   return (
-    <section className="relative max-h-[5rem] h-[10rem]">
-      <div
-        className="bg-cover   bg-top  "
-        style={{
-
-          backgroundImage: `url('https://i.postimg.cc/5txLS635/oh-img158-1.jpg',
-       
-          )`,
-        }}
-      >
+    <section className="relative h-[20rem] md:h-[31rem] ">
+      <div className={`${Styles.ContactBg} `}>
         <div className="text-white p-10 absolute bottom-0 left-0 right-0 container mx-auto">
           <p className=" text-[60px] font-bold">Contact</p>
           <p className="mt-5 font-bold">LET'S SHARE WORDS TOGETHER.</p>

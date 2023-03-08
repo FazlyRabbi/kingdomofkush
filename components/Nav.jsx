@@ -44,7 +44,10 @@ export default function Nav() {
         as="li"
         variant="h4"
         className={`${
-          scroll || route.pathname != "/" ? "text-black" : "text-white"
+          (!scroll && route.pathname === "/") ||
+          (!scroll && route.pathname === "/contact")
+            ? "text-white"
+            : "text-black"
         }  p-1 font-normal`}
       >
         <Link href="/" className="flex items-center">
@@ -57,7 +60,10 @@ export default function Nav() {
         variant="h4"
         color="white"
         className={`${
-          scroll || route.pathname != "/" ? "text-black" : "text-white"
+          (!scroll && route.pathname === "/") ||
+          (!scroll && route.pathname === "/contact")
+            ? "text-white"
+            : "text-black"
         }  p-1 font-normal`}
       >
         <Link href={"/aboutus"} className="flex items-center">
@@ -69,7 +75,10 @@ export default function Nav() {
         variant="h4"
         color="white"
         className={`${
-          scroll || route.pathname != "/" ? "text-black" : "text-white"
+          (!scroll && route.pathname === "/") ||
+          (!scroll && route.pathname === "/contact")
+            ? "text-white"
+            : "text-black"
         }  p-1 font-normal`}
       >
         <Menu>
@@ -77,14 +86,22 @@ export default function Nav() {
             <Button
               ripple={false}
               className={`
-              ${scroll || route.pathname != "/" ? "text-black" : "text-white"}
+              ${
+                (!scroll && route.pathname === "/") ||
+                (!scroll && route.pathname === "/contact")
+                  ? "text-white"
+                  : "text-black"
+              }
              
               capitalize  px-0 font-normal hover:shadow-none shadow-none text-[1rem] bg-transparent flex  items-center`}
             >
               Get Involved
               <IoIosArrowDown
-                className={`text-[1rem] text-white ${
-                  scroll || route.pathname != "/" ? "text-black" : "text-white"
+                className={`text-[1rem]  ${
+                  (!scroll && route.pathname === "/") ||
+                  (!scroll && route.pathname === "/contact")
+                    ? "text-white"
+                    : "text-black"
                 }`}
               />
             </Button>
@@ -117,7 +134,10 @@ export default function Nav() {
         variant="h4"
         color="white"
         className={`${
-          scroll || route.pathname != "/" ? "text-black" : "text-white"
+          (!scroll && route.pathname === "/") ||
+          (!scroll && route.pathname === "/contact")
+            ? "text-white"
+            : "text-black"
         }  p-1 font-normal`}
       >
         <Link href={`/petition`} className="flex items-center">
@@ -129,7 +149,10 @@ export default function Nav() {
         variant="h4"
         color="white"
         className={`${
-          scroll || route.pathname != "/" ? "text-black" : "text-white"
+          (!scroll && route.pathname === "/") ||
+          (!scroll && route.pathname === "/contact")
+            ? "text-white"
+            : "text-black"
         }  p-1 font-normal`}
       >
         <Link href={`/project`} className="flex items-center">
@@ -141,7 +164,10 @@ export default function Nav() {
         variant="h4"
         color="white"
         className={`${
-          scroll || route.pathname != "/" ? "text-black" : "text-white"
+          (!scroll && route.pathname === "/") ||
+          (!scroll && route.pathname === "/contact")
+            ? "text-white"
+            : "text-black"
         }  p-1 font-normal`}
       >
         <Link href={`/invest`} className="flex items-center">
@@ -153,7 +179,10 @@ export default function Nav() {
         variant="h4"
         color="white"
         className={`${
-          scroll || route.pathname != "/" ? "text-black" : "text-white"
+          (!scroll && route.pathname === "/") ||
+          (!scroll && route.pathname === "/contact")
+            ? "text-white"
+            : "text-black"
         }  p-1 font-normal`}
       >
         <Link href={`/donation`} className="flex items-center">
@@ -165,7 +194,10 @@ export default function Nav() {
         variant="h4"
         color="white"
         className={`${
-          scroll || route.pathname != "/" ? "text-black" : "text-white"
+          (!scroll && route.pathname === "/") ||
+          (!scroll && route.pathname === "/contact")
+            ? "text-white"
+            : "text-black"
         }  p-1 font-normal`}
       >
         <Link href={`/contact`} className="flex items-center">
@@ -177,7 +209,7 @@ export default function Nav() {
 
   return (
     <>
-      {route.pathname === "/" ? (
+      {route.pathname === "/" || "/contact" ? (
         <div
           className={`${
             scroll ? "bg-white  fixed" : "bg-[#00000050] absolute top-0 left-0"
@@ -194,9 +226,10 @@ export default function Nav() {
                 >
                   <CgMenuLeftAlt
                     className={` border-solid hover:border-[1px] border-primary text-[3.2rem] cursor-pointer bg-[#8484842c] rounded-full p-2 transition-all ${
-                      scroll || route.pathname != "/"
-                        ? "text-black"
-                        : "text-white"
+                      (!scroll && route.pathname === "/") ||
+                      (!scroll && route.pathname === "/contact")
+                        ? "text-white"
+                        : "text-black"
                     }`}
                   />
                 </span>

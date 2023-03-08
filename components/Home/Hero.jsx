@@ -17,7 +17,7 @@ function Hero() {
           className=" w-[300%] -ml-[100%] h-[120%]      max-h-[40rem] xl:max-h-[120%] lg:max-h-[100%]  md:max-h-[100%]  "
         ></iframe>
         <div className="   text-heading text-black   top-[40%] md:top-[50%] left-[7%] absolute">
-          <p className=" text-base font-bold text-black mb-3">
+          <p className=" text-base font-bold  text-white mb-3">
             TOGETHER WE PROSPER. THE FUTURE IS NOW
           </p>
           <h1 className=" text-[2.5rem] md:text-[4rem] font-bold text-white md:leading-[4rem] leading-[2.5rem] ">

@@ -91,6 +91,18 @@
   background-attachment: left;
 }
 
+.ContactBg {
+  width: 100%;
+  height: 100%;
+  background-image: url("../img/work.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: center;
+}
+
+/* // utitilies */
+
 .child_nav:hover > ul {
   transform: translateY(0rem);
   opacity: 1;
