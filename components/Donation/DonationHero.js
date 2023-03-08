@@ -72,9 +72,7 @@ const DonationHero = () => {
       if (confirmError) return alert("Payment unsuccessfull!");
       setDonation({
         ...donation,
-        CardInfo: `Amount: $${paymentIntent.amount}  \n ClientSecret: ${
-          paymentIntent.client_secret
-        }`,
+        CardInfo: `Amount: $${paymentIntent.amount}  \n ClientSecret: ${paymentIntent.client_secret}`,
       });
       setButton(true);
       elements.getElement(CardElement).clear();
@@ -135,19 +133,15 @@ const DonationHero = () => {
 
       const { paymentIntent, error: confirmError } =
         await stripe.confirmCardPayment(data.clientSecret);
-        setDonation({
-          ...donation,
-          CardInfo: `Amount: $${paymentIntent.amount}  \n ClientSecret: ${
-            paymentIntent.client_secret
-          }`,
-        });
+      setDonation({
+        ...donation,
+        CardInfo: `Amount: $${paymentIntent.amount}  \n ClientSecret: ${paymentIntent.client_secret}`,
+      });
       setButton(false);
 
       if (confirmError) return alert("Payment unsuccessfull!");
 
       setButton(true);
-
-      setDonation(donationInitial);
 
       elements.getElement(CardElement).clear();
 
@@ -165,6 +159,7 @@ const DonationHero = () => {
           message: "Your Monthly Donation is Succefully actived!",
         }),
       });
+      setDonation(donationInitial);
     } catch (err) {
       console.error(err);
       alert("Payment Faild!" + err.message);
