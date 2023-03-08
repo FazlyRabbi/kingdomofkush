@@ -1,7 +1,7 @@
 // stripe related import
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { BiShapePolygon } from "react-icons/bi";
 import { CgPathCrop } from "react-icons/cg";
 import img from "../../img/donation/donationHero.jpg";
@@ -10,11 +10,10 @@ import { DonationContext } from "@/context/DonationContext";
 const DonationHero = () => {
   const [selectedAmount, setSelectedAmount] = useState(0);
   const [packages, setPackages] = useState(0);
-
   const [cardError, setCardError] = useState(null);
   const [button, setButton] = useState(true);
 
-  const { donation, setDonation, donationInitial } =
+  const { donation, setDonation, donationInitial, postDonation } =
     useContext(DonationContext);
 
   const styling = {
@@ -28,26 +27,27 @@ const DonationHero = () => {
 
   ///////////////////////////////////
   //  stripe related funtionality
-
   // to access stripe server
   const stripe = useStripe();
   // to access card element
   const elements = useElements();
 
-  // createMonthlySubscription
+  // onetime payment
   const createOntimePayment = async () => {
     try {
       if (elements.getElement("card") === null) return;
 
       const { error } = await stripe.createPaymentMethod({
         type: "card",
-        card: elements.getElement("card"), // for card info
+        card: elements.getElement("card"),
       });
 
       if (error) {
         setCardError(error);
         return;
       }
+
+      setCardError(null);
 
       const res = await fetch(`/api/chargepayment`, {
         method: "POST",
@@ -59,11 +59,8 @@ const DonationHero = () => {
         }),
       });
 
-      setButton(false);
-
-      if (!res.ok) return alert("Payment unsuccessfull!");
-
       const data = await res.json();
+      if (!res.ok) return alert("Payment unsuccessfull!");
 
       const { paymentIntent, error: confirmError } =
         await stripe.confirmCardPayment(data.clientSecret, {
@@ -71,23 +68,43 @@ const DonationHero = () => {
             card: elements.getElement("card"),
           },
         });
-
-      console.log(paymentIntent);
+      setButton(false);
       if (confirmError) return alert("Payment unsuccessfull!");
+      setDonation({
+        ...donation,
+        CardInfo: `Amount: $${paymentIntent.amount}  \n ClientSecret: ${
+          paymentIntent.client_secret
+        }`,
+      });
       setButton(true);
-
+      elements.getElement(CardElement).clear();
       alert("Payment successfull!");
+
+      // send mail
+      const sendmail = await fetch(`/api/sendmail`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: donation.Email,
+          subject: `Your Donation $${donation.Amount} to people!`,
+          message: "Thanks for Donation",
+        }),
+      });
+      setDonation(donationInitial);
     } catch (err) {
       console.error(err);
       alert("Payment Faild!" + err.message);
     }
   };
+
   // createMonthlySubscription
   const createMonthlySubscription = async () => {
     try {
       if (elements.getElement("card") === null) return;
 
-      const { error, paymentMethod } = await stripe.createPaymentMethod({
+      const { paymentMethod, error } = await stripe.createPaymentMethod({
         type: "card",
         card: elements.getElement("card"), // for card info
       });
@@ -97,6 +114,8 @@ const DonationHero = () => {
         return;
       }
 
+      setCardError(null);
+
       const res = await fetch(`/api/monthlysubscripton`, {
         method: "POST",
         headers: {
@@ -105,47 +124,74 @@ const DonationHero = () => {
         body: JSON.stringify({
           name: donation.Name,
           email: donation.Email,
-          time: donation.Frequency,
           amount: donation.Amount,
           paymentMethod: paymentMethod.id,
         }),
       });
-      setButton(false);
+
       if (!res.ok) return alert("Payment unsuccessfull!");
 
       const data = await res.json();
 
       const { paymentIntent, error: confirmError } =
-        await stripe.confirmCardPayment(data.clientSecret.client_secret, {
-          payment_method: {
-            card: elements.getElement("card"),
-          },
+        await stripe.confirmCardPayment(data.clientSecret);
+        setDonation({
+          ...donation,
+          CardInfo: `Amount: $${paymentIntent.amount}  \n ClientSecret: ${
+            paymentIntent.client_secret
+          }`,
         });
+      setButton(false);
 
-      if (confirmError) {
-        console.log(confirmError);
-        return;
-      }
+      if (confirmError) return alert("Payment unsuccessfull!");
+
       setButton(true);
-      console.log(paymentIntent);
+
+      setDonation(donationInitial);
+
+      elements.getElement(CardElement).clear();
+
       alert("Payment successfull! Subscripton active");
+
+      // send mail
+      const sendmail = await fetch(`/api/sendmail`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: donation.Email,
+          subject: `Your  $${donation.Amount} Monthly Donation`,
+          message: "Your Monthly Donation is Succefully actived!",
+        }),
+      });
     } catch (err) {
       console.error(err);
       alert("Payment Faild!" + err.message);
     }
   };
+
   //////////////////////////////////
+
+  useEffect(() => {
+    if (donation.CardInfo != "") {
+      postDonation();
+      return;
+    }
+  }, [donation.CardInfo]);
 
   // handle selectedAmount
   const handleSubmit = (e) => {
     e.preventDefault();
-    setDonation(donationInitial);
     setSelectedAmount(0);
-    if (packages === 1) {
-      createMonthlySubscription();
-      return;
-    } else if (packages === 0) {
-      createOntimePayment();
+    if (elements.getElement("card") != null) {
+      if (packages === 1) {
+        createMonthlySubscription();
+        return;
+      } else if (packages === 0) {
+        createOntimePayment();
+        return;
+      }
       return;
     }
   };
@@ -262,7 +308,7 @@ const DonationHero = () => {
               </button>
             </div>
 
-            <form className="my-3" onSubmit={handleSubmit}>
+            <form className="my-3">
               <div className="mb-4">
                 <label
                   htmlFor="email"
@@ -308,12 +354,21 @@ const DonationHero = () => {
                   Card info
                 </label>
                 <CardElement className=" border p-3  rounded-md" />
+                {cardError ? (
+                  <p className="  mt-2 text-base text-red">
+                    {cardError.message}
+                  </p>
+                ) : (
+                  ""
+                )}
               </div>
 
               <button
+                onClick={handleSubmit}
                 className={`px-6 py-3 mt-4 font-bold bg-softBlack text-sm text-primary rounded  ${
                   button ? "" : "cursor-not-allowed"
                 } `}
+                disabled={button ? false : true}
               >
                 Donate
               </button>

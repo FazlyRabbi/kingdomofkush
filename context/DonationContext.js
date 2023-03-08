@@ -13,9 +13,9 @@ export const DonationProvider = ({ children }) => {
 
   const [donation, setDonation] = useState(donationInitial);
 
-  const pstContact = async () => {
+  const postDonation = async () => {
     try {
-      const res = await fetch(`${API_URL}/api/contacts`, {
+      const res = await fetch(`${API_URL}/api/donations`, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -25,7 +25,7 @@ export const DonationProvider = ({ children }) => {
 
         body: JSON.stringify({
           data: {
-            ...contact,
+            ...donation,
           },
         }),
       });
@@ -37,7 +37,7 @@ export const DonationProvider = ({ children }) => {
   };
 
   return (
-    <DonationContext.Provider value={{ donation, setDonation, donationInitial }}>
+    <DonationContext.Provider value={{ donation, setDonation, donationInitial , postDonation}}>
       {children}
     </DonationContext.Provider>
   );

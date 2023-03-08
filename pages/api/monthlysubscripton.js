@@ -6,7 +6,7 @@ export default async function monthlysubscripton(req, res) {
   try {
     if (req.method != "POST") return res.status(400);
     // payment details
-    const { name, email, paymentMethod, time, amount } = req.body;
+    const { name, email, paymentMethod, amount } = req.body;
     // crate a customer
     const customer = await stripe.customers.create({
       name,
@@ -17,8 +17,6 @@ export default async function monthlysubscripton(req, res) {
       },
     });
 
-    if (!time === "month") return;
-    
     const monthly = await stripe.products.create({
       name: "Monthly Subscripton",
     });
@@ -47,9 +45,10 @@ export default async function monthlysubscripton(req, res) {
       expand: [`latest_invoice.payment_intent`],
     });
     // send back the client secret
-    res.send({
+    res.json({
       message: "Subscription Successfull",
-      clientSecret: monthlySubscription.latest_invoice.payment_intent,
+      name,
+      clientSecret: monthlySubscription.latest_invoice.payment_intent.client_secret,
       subscriptionId: monthlySubscription.id,
     });
   } catch (err) {
