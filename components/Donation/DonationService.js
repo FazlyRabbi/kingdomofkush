@@ -1,5 +1,6 @@
 import React from "react";
 import { FaArrowRight } from "react-icons/fa";
+import Link from "next/link";
 import img from "../../img/donation/questionbg.jpg";
 const DonationService = () => {
   const styling = {
@@ -22,10 +23,12 @@ const DonationService = () => {
             Get in touch.
           </h1>
 
-          <button className="px-6 bg-black py-1  mt-10 rounded text-primary font-bold flex items-center gap-2">
-            <span>Send an Email</span>
-            <FaArrowRight />
-          </button>
+          <Link href={`/contact`}>
+            <button className="px-6 bg-black py-1  mt-10 rounded text-primary font-bold flex items-center gap-2">
+              <span>Send an Email</span>
+              <FaArrowRight />
+            </button>
+          </Link>
         </div>
       </div>
     </div>

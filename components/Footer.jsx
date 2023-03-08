@@ -25,12 +25,14 @@ export default function Foot() {
             </p>
           </div>
           <div>
-            <Button
-              className=" bg-black rounded-md  shadow-none capitalize text-base hover:shadow-none w-[100%]    font-normal text-primary
+            <Link href={"/donation"}>
+              <Button
+                className=" bg-black rounded-md  shadow-none capitalize text-base hover:shadow-none w-[100%]    font-normal text-primary
             "
-            >
-              <Link href={"/donation"}>Donation</Link>
-            </Button>
+              >
+                Donation
+              </Button>
+            </Link>
           </div>
         </div>
         <div className="footer__bottom    text-left  py-6 px-4">

@@ -1,11 +1,22 @@
-import { useState } from "react";
+// stripe related import
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+
+import { useState, useContext } from "react";
 import { BiShapePolygon } from "react-icons/bi";
 import { CgPathCrop } from "react-icons/cg";
 import img from "../../img/donation/donationHero.jpg";
+import { DonationContext } from "@/context/DonationContext";
 
 const DonationHero = () => {
   const [selectedAmount, setSelectedAmount] = useState(0);
   const [packages, setPackages] = useState(0);
+
+  const [cardError, setCardError] = useState(null);
+  const [button, setButton] = useState(true);
+
+  const { donation, setDonation, donationInitial } =
+    useContext(DonationContext);
+
   const styling = {
     backgroundImage: `url('${img.src}')`,
     backgroundRepeat: "no-repeat",
@@ -13,6 +24,130 @@ const DonationHero = () => {
     backgroundSize: "cover",
     width: "100%",
     height: "100%",
+  };
+
+  ///////////////////////////////////
+  //  stripe related funtionality
+
+  // to access stripe server
+  const stripe = useStripe();
+  // to access card element
+  const elements = useElements();
+
+  // createMonthlySubscription
+  const createOntimePayment = async () => {
+    try {
+      if (elements.getElement("card") === null) return;
+
+      const { error } = await stripe.createPaymentMethod({
+        type: "card",
+        card: elements.getElement("card"), // for card info
+      });
+
+      if (error) {
+        setCardError(error);
+        return;
+      }
+
+      const res = await fetch(`/api/chargepayment`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          amount: donation.Amount,
+        }),
+      });
+
+      setButton(false);
+
+      if (!res.ok) return alert("Payment unsuccessfull!");
+
+      const data = await res.json();
+
+      const { paymentIntent, error: confirmError } =
+        await stripe.confirmCardPayment(data.clientSecret, {
+          payment_method: {
+            card: elements.getElement("card"),
+          },
+        });
+
+      console.log(paymentIntent);
+      if (confirmError) return alert("Payment unsuccessfull!");
+      setButton(true);
+
+      alert("Payment successfull!");
+    } catch (err) {
+      console.error(err);
+      alert("Payment Faild!" + err.message);
+    }
+  };
+  // createMonthlySubscription
+  const createMonthlySubscription = async () => {
+    try {
+      if (elements.getElement("card") === null) return;
+
+      const { error, paymentMethod } = await stripe.createPaymentMethod({
+        type: "card",
+        card: elements.getElement("card"), // for card info
+      });
+
+      if (error) {
+        setCardError(error);
+        return;
+      }
+
+      const res = await fetch(`/api/monthlysubscripton`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: donation.Name,
+          email: donation.Email,
+          time: donation.Frequency,
+          amount: donation.Amount,
+          paymentMethod: paymentMethod.id,
+        }),
+      });
+      setButton(false);
+      if (!res.ok) return alert("Payment unsuccessfull!");
+
+      const data = await res.json();
+
+      const { paymentIntent, error: confirmError } =
+        await stripe.confirmCardPayment(data.clientSecret.client_secret, {
+          payment_method: {
+            card: elements.getElement("card"),
+          },
+        });
+
+      if (confirmError) {
+        console.log(confirmError);
+        return;
+      }
+      setButton(true);
+      console.log(paymentIntent);
+      alert("Payment successfull! Subscripton active");
+    } catch (err) {
+      console.error(err);
+      alert("Payment Faild!" + err.message);
+    }
+  };
+  //////////////////////////////////
+
+  // handle selectedAmount
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setDonation(donationInitial);
+    setSelectedAmount(0);
+    if (packages === 1) {
+      createMonthlySubscription();
+      return;
+    } else if (packages === 0) {
+      createOntimePayment();
+      return;
+    }
   };
 
   const amount = [2, 10, 15, 25, 50, 75, 100, "Other"];
@@ -61,7 +196,10 @@ const DonationHero = () => {
                         ? "bg-gray text-primary"
                         : "bg-white text-gray"
                     }`}
-                    onClick={() => setSelectedAmount(index)}
+                    onClick={() => {
+                      setSelectedAmount(index);
+                      setDonation({ ...donation, Amount: item });
+                    }}
                   >
                     <p className="font-bold text-sm">
                       {typeof item === "string" ? null : "$"}
@@ -80,6 +218,13 @@ const DonationHero = () => {
                   <span className="px-4 py-3 bg-white text-lightGray">$</span>
                   <input
                     type="number"
+                    value={donation.Amount}
+                    onChange={(e) =>
+                      setDonation({
+                        ...donation,
+                        Amount: Number(e.target.value),
+                      })
+                    }
                     className="px-4 py-3 focus:bg-softGray bg-white transition-all duration-200"
                   />
                 </div>
@@ -97,7 +242,10 @@ const DonationHero = () => {
                 className={`w-full border-softGray py-2 rounded shadow-md border border-r-0 rounded-r-none ${
                   packages === 0 ? "bg-gray text-primary" : ""
                 }`}
-                onClick={() => setPackages(0)}
+                onClick={() => {
+                  setPackages(0);
+                  setDonation({ ...donation, Frequency: "one-time" });
+                }}
               >
                 One-time
               </button>
@@ -105,13 +253,16 @@ const DonationHero = () => {
                 className={`w-full border-softGray py-2 rounded shadow-md border border-l-0 rounded-l-none ${
                   packages === 1 ? "bg-gray text-primary" : ""
                 }`}
-                onClick={() => setPackages(1)}
+                onClick={() => {
+                  setPackages(1);
+                  setDonation({ ...donation, Frequency: "month" });
+                }}
               >
                 Monthly
               </button>
             </div>
 
-            <form className="my-3">
+            <form className="my-3" onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label
                   htmlFor="email"
@@ -121,13 +272,18 @@ const DonationHero = () => {
                 </label>
 
                 <input
-                  type="text"
+                  type="email"
                   className="rounded py-3 px-4 border block w-full border-softBlack focus:bg-softGray focus:border-link focus:border-2"
+                  value={donation.Email}
+                  onChange={(e) =>
+                    setDonation({ ...donation, Email: e.target.value })
+                  }
+                  required
                 />
               </div>
               <div className="mb-4">
                 <label
-                  htmlFor="email"
+                  htmlFor="name"
                   className="text-lightGray font-bold text-sm mb-2 block"
                 >
                   Cardholder’s name
@@ -135,7 +291,13 @@ const DonationHero = () => {
 
                 <input
                   type="text"
+                  id="name"
                   className="rounded py-3 px-4 border block w-full border-softBlack focus:bg-softGray focus:border-link focus:border-2"
+                  value={donation.Name}
+                  onChange={(e) =>
+                    setDonation({ ...donation, Name: e.target.value })
+                  }
+                  required
                 />
               </div>
               <div className="mb-4">
@@ -145,14 +307,14 @@ const DonationHero = () => {
                 >
                   Card info
                 </label>
-
-                <input
-                  type="text"
-                  className="rounded py-3 px-4 border block w-full border-softBlack focus:bg-softGray focus:border-link focus:border-2"
-                />
+                <CardElement className=" border p-3  rounded-md" />
               </div>
 
-              <button className="px-6 py-3 bg-softBlack text-sm text-primary font-bold rounded">
+              <button
+                className={`px-6 py-3 mt-4 font-bold bg-softBlack text-sm text-primary rounded  ${
+                  button ? "" : "cursor-not-allowed"
+                } `}
+              >
                 Donate
               </button>
             </form>

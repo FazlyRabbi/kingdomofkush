@@ -12,7 +12,7 @@ const Form = () => {
   };
 
   return (
-    <div className="lg:p-10 p-2">
+    <div className="lg:p-10 p-2 container mx-auto scroll-smooth  transition-all duration-200 "  id="contact" >
       <form action="submit" onSubmit={handleSubmit}>
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-3">
           <div>
