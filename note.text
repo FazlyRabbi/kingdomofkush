@@ -63,3 +63,38 @@ Strapi Customization
 ---------------------
 tutorials:false,
 notifications:{release:false}
+
+
+
+
+
+stripe charge payment
+=====================
+
+
+    // for charge payment intent
+    
+     const paymentIntent = await stripe.paymentIntents.create({
+        currency: "USD",
+        amount: "10000" * 100,
+        payment_method_types: ["card"],
+      });
+
+
+   res.json({
+        message: "Subscription Successfull",
+        clientSecret: paymentIntent.client_secret,
+      });
+
+
+// for confirm payment and get payment_intent 
+     const { paymentIntent, error: confirmError } =
+        await stripe.confirmCardPayment(`${data.clientSecret.client_secret}`, {
+          payment_method: {
+            card: "card",
+            billig_details: {
+              name: "rabbi",
+              email: email,
+            },
+          },
+        });

@@ -5,6 +5,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 export default async function handler(req, res) {
   try {
     if (req.method != "POST") return res.status(400);
+
     // payment details
     const { name, email, paymentMethod, time } = req.body;
     // crate a customer
@@ -17,10 +18,11 @@ export default async function handler(req, res) {
       },
     });
 
-    if (time === "month") {
+     if (time === "month") {
       const monthly = await stripe.products.create({
         name: "Monthly Subscripton",
       });
+
       // create a sbuscription
       const monthlySubscription = await stripe.subscriptions.create({
         customer: customer.id,
@@ -36,14 +38,14 @@ export default async function handler(req, res) {
             },
           },
         ],
-        
+
         payment_settings: {
           payment_method_types: ["card"],
           save_default_payment_method: "on_subscription",
         },
+
         expand: [`latest_invoice.payment_intent`],
       });
-
       // send back the client secret
       res.json({
         message: "Subscription Successfull",
@@ -51,6 +53,7 @@ export default async function handler(req, res) {
         subscriptionId: monthlySubscription.id,
       });
     } else if (time === "year") {
+     
       // create a product
       const yearly = await stripe.products.create({
         name: "Yearly Subscripton",

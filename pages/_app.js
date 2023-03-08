@@ -5,6 +5,7 @@ import { ThemeProvider } from "@material-tailwind/react";
 import { AuthProvider } from "@/context/AuthContext";
 import { VolunteerProvider } from "@/context/VolunteerContext";
 import { ContactProvider } from "@/context/ContactContext";
+import { DonationProvider } from "@/context/DonationContext";
 
 export default function MyApp({ Component, pageProps }) {
   // if (pageProps.protected && !user) {
@@ -18,8 +19,9 @@ export default function MyApp({ Component, pageProps }) {
       <AuthProvider>
         <VolunteerProvider>
           <ContactProvider>
-            <Component {...pageProps} />
-            
+            <DonationProvider>
+              <Component {...pageProps} />
+            </DonationProvider>
           </ContactProvider>
         </VolunteerProvider>
       </AuthProvider>

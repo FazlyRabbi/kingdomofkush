@@ -209,7 +209,7 @@ export default function Nav() {
 
   return (
     <>
-      {route.pathname === "/" || "/contact" ? (
+      {route.pathname === "/" || route.pathname === "/contact" ? (
         <div
           className={`${
             scroll ? "bg-white  fixed" : "bg-[#00000050] absolute top-0 left-0"
@@ -312,6 +312,7 @@ export default function Nav() {
         </div>
       )}
 
+      {/* // mobile menu */}
       <div
         className={`mobile__menu  w-[100%]  overflow-hidden h-[100%]  top-0 left-0  bg-black  fixed ${
           openNav ? "block" : "hidden"

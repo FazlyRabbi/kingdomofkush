@@ -5,7 +5,6 @@ import { contactContext } from "@/context/ContactContext";
 function PaymentForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-
   const { time, setTime } = useContext(contactContext);
 
   // to access stripe server
@@ -15,9 +14,11 @@ function PaymentForm() {
 
   const createSubscription = async () => {
     try {
-      const paymentMethod = await stripe.createPaymentMethod({
+      if (elements.getElement("card") === null) return;
+
+      const { error, paymentMethod } = await stripe.createPaymentMethod({
         type: "card",
-        card: elements.getElement("card"),
+        card: elements.getElement("card"), // for card info
       });
 
       const res = await fetch(`/api/subscribe`, {
@@ -37,13 +38,20 @@ function PaymentForm() {
 
       const data = await res.json();
 
-      const confirm = await stripe.confirmCardPayment(
-        data.clientSecret.client_secret
-      );
+      const { paymentIntent, error: confirmError } =
+        await stripe.confirmCardPayment(`${data.clientSecret.client_secret}`, {
+          payment_method: {
+            type: "card",
+            card: elements.getElement("card"),
+            billig_details: {
+              name: "rabbi",
+              email: email,
+            },
+          },
+        });
 
       if (confirm.error) return alert("Payment unsuccessfull!");
       alert("Payment successfull! Subscripton active");
-      
     } catch (err) {
       console.error(err);
       alert("Payment Faild!" + err.message);
