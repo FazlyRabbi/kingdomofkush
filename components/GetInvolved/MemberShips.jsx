@@ -3,6 +3,13 @@ import styles from "../../styles/styles.module.css";
 import MemberShip_Contact from "./MemberShip_Contact";
 // imports imgage
 
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+// connect stripe
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+);
+
 function MemberShips() {
   return (
     <>
@@ -16,7 +23,7 @@ function MemberShips() {
                   Membership application.
                 </h1>
 
-              <h1 className="    leading-[1]  hidden xl:block font-bold text-[5rem] font-sans">
+                <h1 className="    leading-[1]  hidden xl:block font-bold text-[5rem] font-sans">
                   Membershi <br /> p <br /> application.
                 </h1>
                 <p className="font-base mt-12">
@@ -61,7 +68,9 @@ function MemberShips() {
           </div>
           {/* ////// */}
           <div id="membership-contract">
-            <MemberShip_Contact />
+            <Elements stripe={stripePromise}>
+              <MemberShip_Contact />
+            </Elements>
           </div>
         </div>
       </section>

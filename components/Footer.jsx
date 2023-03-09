@@ -27,7 +27,7 @@ export default function Foot() {
           <div>
             <Link href={"/donation"}>
               <Button
-                className=" bg-black rounded-md  shadow-none capitalize text-base hover:shadow-none w-[100%]    font-normal text-primary
+                className=" bg-black rounded-sm  shadow-none capitalize text-base hover:shadow-none w-[100%]    font-normal text-primary
             "
               >
                 Donation

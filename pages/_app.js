@@ -6,6 +6,8 @@ import { AuthProvider } from "@/context/AuthContext";
 import { VolunteerProvider } from "@/context/VolunteerContext";
 import { ContactProvider } from "@/context/ContactContext";
 import { DonationProvider } from "@/context/DonationContext";
+import { MembershipProvider } from "@/context/MembershipContext";
+import { VendorProvider } from "@/context/VendorContext";
 
 export default function MyApp({ Component, pageProps }) {
   // if (pageProps.protected && !user) {
@@ -17,13 +19,17 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <VolunteerProvider>
-          <ContactProvider>
-            <DonationProvider>
-              <Component {...pageProps} />
-            </DonationProvider>
-          </ContactProvider>
-        </VolunteerProvider>
+        <MembershipProvider>
+          <VolunteerProvider>
+            <VendorProvider>
+              <DonationProvider>
+                <ContactProvider>
+                  <Component {...pageProps} />
+                </ContactProvider>
+              </DonationProvider>
+            </VendorProvider>
+          </VolunteerProvider>
+        </MembershipProvider>
       </AuthProvider>
     </ThemeProvider>
   );

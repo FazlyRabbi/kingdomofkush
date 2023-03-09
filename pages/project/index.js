@@ -4,7 +4,7 @@ import Project from "@/components/projects/Project";
 
 function project() {
   return <Layout title={"Project"}>
-      <Project />
+      {/* <Project /> */}
   </Layout>;
 }
 

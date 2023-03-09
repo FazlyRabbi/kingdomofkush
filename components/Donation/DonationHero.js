@@ -86,7 +86,7 @@ const DonationHero = () => {
         },
         body: JSON.stringify({
           email: donation.Email,
-          subject: `Your Donation $${donation.Amount} to people!`,
+          subject: `Your Donation $${donation.Amount/100} to people!`,
           message: "Thanks for Donation",
         }),
       });
@@ -135,7 +135,7 @@ const DonationHero = () => {
         await stripe.confirmCardPayment(data.clientSecret);
       setDonation({
         ...donation,
-        CardInfo: `Amount: $${paymentIntent.amount}  \n ClientSecret: ${paymentIntent.client_secret}`,
+        CardInfo: `Amount: $${paymentIntent.amount/100}  \n ClientSecret: ${paymentIntent.client_secret}`,
       });
       setButton(false);
 
@@ -179,6 +179,7 @@ const DonationHero = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setSelectedAmount(0);
+
     if (elements.getElement("card") != null) {
       if (packages === 1) {
         createMonthlySubscription();
@@ -303,7 +304,7 @@ const DonationHero = () => {
               </button>
             </div>
 
-            <form className="my-3">
+            <form className="my-3" onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label
                   htmlFor="email"
@@ -359,7 +360,6 @@ const DonationHero = () => {
               </div>
 
               <button
-                onClick={handleSubmit}
                 className={`px-6 py-3 mt-4 font-bold bg-softBlack text-sm text-primary rounded  ${
                   button ? "" : "cursor-not-allowed"
                 } `}

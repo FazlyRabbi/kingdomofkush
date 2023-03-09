@@ -3,6 +3,12 @@ import styles from "../../styles/styles.module.css";
 import Link from "next/link";
 import { Button } from "@material-tailwind/react";
 import Vendor_Contact from "./Vendor_Contact";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+// connect stripe
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+);
 
 function Vendor() {
   return (
@@ -32,7 +38,9 @@ function Vendor() {
         </div>
       </div>
       <div>
-        <Vendor_Contact id="becomeaVendor" />
+        <Elements stripe={stripePromise}>
+          <Vendor_Contact id="becomeaVendor" />
+        </Elements>
       </div>
     </section>
   );

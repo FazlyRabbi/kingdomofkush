@@ -14,7 +14,7 @@ function donation() {
     <Layout title={"Donation"}>
       <Elements stripe={stripePromise}>
         <DonationHero />
-      </Elements>
+        </Elements>
       <DonationService />
     </Layout>
   );

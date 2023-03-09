@@ -22,7 +22,7 @@ const Application = () => {
               <input
                 type="text"
                 id="name"
-                className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
+                className=" py-3 rounded-sm  w-[100%] px-2 border-softGray border-[1px]"
                 required
               />
               <p className=" text-sm mt-[1px] text-red invisible">
@@ -39,7 +39,7 @@ const Application = () => {
               <input
                 required
                 type="text"
-                className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
+                className=" py-3 rounded-sm  w-[100%] px-2 border-softGray border-[1px]"
               />
             </div>
           </div>
@@ -56,7 +56,7 @@ const Application = () => {
               <input
                 type="text"
                 id="address_1"
-                className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
+                className=" py-3 rounded-sm  w-[100%] px-2 border-softGray border-[1px]"
               />
             </div>
           </div>
@@ -69,11 +69,11 @@ const Application = () => {
             <input
               type="text"
               id="address_2"
-              className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
+              className=" py-3 rounded-sm  w-[100%] px-2 border-softGray border-[1px]"
             />
           </div>
           {/* ///////// */}
-          <div className=" grid grid-cols-1 lg:grid-cols-3 gap-x-5 mb-5">
+          <div className=" grid grid-cols-1 lg:grid-cols-2 gap-x-5 mb-5">
             <div>
               <label
                 className="  after:pl-1   font-bold after:content-['*'] after:text-red block"
@@ -88,24 +88,24 @@ const Application = () => {
                 title="Please enter a Zip Code"
                 pattern="^\s*?\d{5}(?:[-\s]\d{4})?\s*?$"
                 id="zipCode"
-                className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
+                className=" py-3 rounded-sm  w-[100%] px-2 border-softGray border-[1px]"
               />
               <p className=" invisible text-sm mt-[1px] text-red">
                 This field is required.
               </p>
             </div>
-            <div className="col-span-2">
+            <div>
               <label
                 className="  after:pl-1   font-bold after:content-['*'] after:text-red  block"
                 htmlFor="phoneNumber"
               >
-                Phone number
+                Phone Number
               </label>
               <input
                 required
-                type="tel"
+                type="number"
                 id="phoneNumber"
-                className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
+                className=" py-3 rounded-sm  w-[100%] px-2 border-softGray border-[1px]"
               />
               <p className=" invisible text-sm mt-[1px] text-red">
                 This field is required.
@@ -127,27 +127,34 @@ const Application = () => {
                 placeholder="e-mail"
                 title="Please enter a your email"
                 id="zipCode"
-                className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
+                className=" py-3 rounded-sm  w-[100%] px-2 border-softGray border-[1px]"
               />
               <p className=" invisible text-sm mt-[1px] text-red">
                 This field is required.
               </p>
             </div>
-            <div className="col-span-1">
+          </div>
+
+          {/* ///////// */}
+          <div className=" grid grid-cols-1 mb-5">
+            <div class="mb-5">
               <label
-                className="  after:pl-1   font-bold after:content-['*'] after:text-red  block"
-                htmlFor="phoneNumber"
+                className="after:pl-1 font-bold block mb-2 after:content-['*'] after:text-red"
+                htmlFor="message"
               >
-                Phone number
+                Message
               </label>
-              <input
-                id="remember"
-                type="checkbox"
-                value=""
-                class="w-5 h-5 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
-              />
+              <textarea
+                id="message"
+                name="message"
+                placeholder="Type your message here"
+                rows="5"
+                cols="40"
+                className="border p-2 border-softGray w-[100%] rounded-sm"
+              ></textarea>
             </div>
           </div>
+
           {/* ///////// */}
           <div className=" grid grid-cols-1 mb-5">
             <label
@@ -160,7 +167,7 @@ const Application = () => {
               <input type="file" name="file" id="file" class="sr-only" />
               <label
                 for="file"
-                class="relative w-full flex min-h-[200px] items-center justify-center rounded-md border border-[#e0e0e0] p-12 text-center"
+                class="relative w-full flex min-h-[200px] items-center justify-center rounded-sm border border-[#e0e0e0] p-12 text-center"
               >
                 <div className="absolute border-b border-[#cdcbcb] w-[80%] mx-10"></div>
               </label>
@@ -171,7 +178,7 @@ const Application = () => {
           <div className=" grid grid-cols-1 mt-6">
             <button
               type="submit"
-              className=" bg-black rounded-md  shadow-none capitalize text-base hover:shadow-none w-[40%] xl:w-[20%]    font-normal text-primary py-3"
+              className=" bg-black rounded-sm  shadow-none capitalize text-base hover:shadow-none w-[40%] xl:w-[20%]    font-normal text-primary py-3"
             >
               Submit
             </button>
