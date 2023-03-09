@@ -2,6 +2,9 @@ import React from "react";
 import BasicInfo from "./BasicInfo";
 import MoreInfo from "./MoreInfo";
 import FlagLang from "./FlagLang";
+import ExecutiveBranch from "./ExecutiveBranch";
+import Ourservice from "./ourservice";
+
 
 function AboutPage() {
   return (
@@ -9,6 +12,8 @@ function AboutPage() {
       <BasicInfo />
       <MoreInfo />
       <FlagLang />
+      <ExecutiveBranch />
+      <Ourservice/>
     </>
   );
 }
