@@ -3,7 +3,7 @@ import bg from "../../img/Oji-String-Beans-Farm.jpg"
 import {AiFillPlayCircle} from "react-icons/ai"
 import Link from 'next/link'
 
-const Card = ({id}) => {
+const Card = ({id,country,name}) => {
  
   return (
     <div>
@@ -21,10 +21,10 @@ const Card = ({id}) => {
                         </button>
                      </div>
                      <div className='flex flex-col justify-end'>
-                         <h4 className='text-[1.55rem] font-bold text-[#fff]'>Oji String Beans Farm</h4>
+                         <h4 className='text-[1.55rem] font-bold text-[#fff]'>{name}</h4>
                          <div className='h-[1.8rem] transition-all overflow-hidden'>
                              <div className='show'>
-                                 <span className='text-[#cb9833]'>Indonesia</span>
+                                 <span className='text-[#cb9833]'>{country}</span>
                              </div>
                              <div>
                                <Link href={"/project/singlepage/[id]"} as={`/project/singlepage/${id}`}>
