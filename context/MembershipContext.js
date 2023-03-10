@@ -3,10 +3,10 @@ import { API_URL, API_TOKEN } from "@/config/index";
 export const MembershipContext = createContext();
 
 export const MembershipProvider = ({ children }) => {
+  
   const membershipInitial = {
     Title: "",
     FirstName: "",
-    LastName: "",
     MiddleName: "",
     FamilyLastName: "",
     Email: "",
@@ -33,7 +33,7 @@ export const MembershipProvider = ({ children }) => {
 
   const postMembership = async () => {
     try {
-      const res = await fetch(`${API_URL}/api/donations`, {
+      const res = await fetch(`${API_URL}/api/memberhip-plans`, {
         method: "POST",
         headers: {
           Accept: "application/json",

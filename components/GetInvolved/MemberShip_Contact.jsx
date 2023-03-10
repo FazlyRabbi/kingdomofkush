@@ -12,7 +12,7 @@ const MemberShip_Contact = () => {
     useContext(MembershipContext);
 
   const [cardError, setCardError] = useState(null);
-  const [button, setButton] = useState(true);
+  const [button, setButton] = useState(false);
 
   useEffect(() => {
     if (membership.CardInfo != "") {
@@ -54,6 +54,9 @@ const MemberShip_Contact = () => {
         return;
       }
 
+      const url = sigPad.current.toDataURL();
+      setMembership({ ...membership, Signature: url });
+
       setCardError(null);
 
       const res = await fetch(`/api/yearlysubscription`, {
@@ -76,23 +79,16 @@ const MemberShip_Contact = () => {
       const { paymentIntent, error: confirmError } =
         await stripe.confirmCardPayment(data.clientSecret);
 
+      setButton(true);
+
+      if (confirmError) return alert("Payment unsuccessfull!");
+
       setMembership({
         ...membership,
         CardInfo: `Amount: $${paymentIntent.amount / 100}  \n ClientSecret: ${
           paymentIntent.client_secret
         }`,
       });
-
-      setButton(false);
-
-      if (confirmError) return alert("Payment unsuccessfull!");
-
-      setButton(true);
-
-      elements.getElement(CardElement).clear();
-      const url = sigPad.current.toDataURL();
-      setMembership({ ...membership, Signature: url });
-      sigPad.current.clear();
 
       alert("Payment successfull! Yarly Subscripton active");
 
@@ -104,10 +100,19 @@ const MemberShip_Contact = () => {
         },
         body: JSON.stringify({
           email: membership.Email,
-          subject: `Your  $${membership.Amount} Monthly Donation`,
+          subject: `Your  120$ Yarly Donation`,
           message: "Your Yarly Donation is Succefully actived!",
         }),
       });
+      if (!sendmail.ok) return;
+
+      // adtive button
+      setButton(false);
+      // clear singpad
+      sigPad.current.clear();
+      // clear card
+      elements.getElement(CardElement).clear();
+      // show alart
       setMembership(membershipInitial);
     } catch (err) {
       console.error(err);
@@ -129,6 +134,9 @@ const MemberShip_Contact = () => {
         return;
       }
 
+      const url = sigPad.current.toDataURL();
+      setMembership({ ...membership, Signature: url });
+
       setCardError(null);
 
       const res = await fetch(`/api/monthlysubscripton`, {
@@ -147,9 +155,12 @@ const MemberShip_Contact = () => {
       if (!res.ok) return alert("Payment unsuccessfull!");
 
       const data = await res.json();
-
       const { paymentIntent, error: confirmError } =
         await stripe.confirmCardPayment(data.clientSecret);
+
+      setButton(true);
+
+      if (confirmError) return alert("Payment unsuccessfull!");
 
       setMembership({
         ...membership,
@@ -157,17 +168,6 @@ const MemberShip_Contact = () => {
           paymentIntent.client_secret
         }`,
       });
-
-      setButton(false);
-
-      if (confirmError) return alert("Payment unsuccessfull!");
-
-      setButton(true);
-
-      elements.getElement(CardElement).clear();
-      const url = sigPad.current.toDataURL();
-      setMembership({ ...membership, Signature: url });
-      sigPad.current.clear();
 
       alert("Payment successfull! Subscripton active");
 
@@ -179,10 +179,20 @@ const MemberShip_Contact = () => {
         },
         body: JSON.stringify({
           email: membership.Email,
-          subject: `Your  $${membership.Amount} Monthly Donation`,
+          subject: `Your  $10 Monthly Donation`,
           message: "Your Monthly Donation is Succefully actived!",
         }),
       });
+
+      if (!sendmail.ok) return;
+
+      // adtive button
+      setButton(false);
+      // clear singpad
+      sigPad.current.clear();
+      // clear card
+      elements.getElement(CardElement).clear();
+      // show alart
       setMembership(membershipInitial);
     } catch (err) {
       console.error(err);
@@ -284,7 +294,7 @@ const MemberShip_Contact = () => {
             </div>
             <div>
               <input
-                type="tel"
+                type="number"
                 placeholder="Phone Number"
                 id="tel"
                 className=" py-3 rounded-sm  w-[100%] px-2  bg-[#ededed]"
@@ -494,8 +504,12 @@ const MemberShip_Contact = () => {
         {/* payment card */}
         <div className="">
           <CardElement className=" border p-3  border-softGray rounded-md" />
-          <p className=" text-sm mt-[1px] text-red invisible">
-            Your card number is incomplete.
+          <p
+            className={` text-sm mt-[1px] text-red ${
+              cardError?.message != "" ? "visible" : "invisible"
+            } `}
+          >
+            {cardError?.message}
           </p>
         </div>
         {/* /////Billing Information////// */}
@@ -743,13 +757,13 @@ const MemberShip_Contact = () => {
         {/* ///////// */}
         <div className=" flex justify-between mt-6">
           <button
-            type="submit"
             disabled
             className=" bg-black shadow-none capitalize text-base hover:shadow-none w-[40%] xl:w-[20%]    font-normal text-white py-3"
           >
             Previous
           </button>
           <button
+            disabled={button}
             type="submit"
             className=" bg-black   shadow-none capitalize text-base hover:shadow-none w-[40%] xl:w-[20%]    font-normal text-white py-3"
           >
