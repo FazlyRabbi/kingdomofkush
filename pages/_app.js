@@ -8,6 +8,7 @@ import { ContactProvider } from "@/context/ContactContext";
 import { DonationProvider } from "@/context/DonationContext";
 import { MembershipProvider } from "@/context/MembershipContext";
 import { VendorProvider } from "@/context/VendorContext";
+import { InvestProvider } from "@/context/InvestContext";
 
 export default function MyApp({ Component, pageProps }) {
   // if (pageProps.protected && !user) {
@@ -22,11 +23,13 @@ export default function MyApp({ Component, pageProps }) {
         <MembershipProvider>
           <VolunteerProvider>
             <VendorProvider>
-              <DonationProvider>
-                <ContactProvider>
-                  <Component {...pageProps} />
-                </ContactProvider>
-              </DonationProvider>
+              <InvestProvider>
+                <DonationProvider>
+                  <ContactProvider>
+                    <Component {...pageProps} />
+                  </ContactProvider>
+                </DonationProvider>
+              </InvestProvider>
             </VendorProvider>
           </VolunteerProvider>
         </MembershipProvider>
