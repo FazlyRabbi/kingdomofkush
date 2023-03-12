@@ -53,7 +53,7 @@ function Vulunteer_Contact() {
                 required
               />
               <p className=" text-sm mt-2">First</p>
-              <p className=" text-sm mt-[1px] warningMessage text-red  ">
+              <p className=" text-sm mt-[1px] invisible warningMessage text-red  ">
                 This field is required.
               </p>
             </div>
@@ -366,7 +366,7 @@ function Vulunteer_Contact() {
                     })
                   }
                 />
-                <p className=" text-sm mt-[1px] warningMessage text-red invisible">
+                <p className=" text-sm mt-[1px] invisible warningMessage text-red invisible">
                   This field is required.
                 </p>
               </div>

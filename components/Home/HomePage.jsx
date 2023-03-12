@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 // import sections
 import Hero from "./Hero";
 import AboutUsSection from "./AboutUsSection";

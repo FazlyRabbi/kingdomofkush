@@ -9,7 +9,6 @@ Contact page redesign -- Nafiz Sheikh
 ==== Next work ====
 Cursor effect --
 
-
 Language system -- rabbi
   https://codepen.io/mewmix/pen/bGdNbbZ
 
@@ -99,3 +98,55 @@ stripe charge payment
             },
           },
         });
+
+
+
+==============
+Design fixing
+==============
+
+Home page Navbar height -- Done
+
+  Mobile Menu
+
+  Home page play icon
+
+  Home page slider
+
+  Custom Fonts
+
+
+Petition Page ---
+
+  Add form and fix design issue
+
+
+Project Page ---
+
+  Fixing path issue and add data 
+
+
+Invest Page --
+
+  Handle with form
+  Showing errors
+
+Contact Page --
+  Fixing Responsiveness
+
+
+==================================
+
+Membership Page ---
+
+  Rechapta  
+
+  Showing form error
+
+
+Volunteer Page ---
+
+  Rechapta  
+
+  Showing form error
+

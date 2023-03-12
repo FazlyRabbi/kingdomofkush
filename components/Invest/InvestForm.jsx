@@ -6,6 +6,8 @@ function InvestForm() {
   const { invest, setInvest, InvestInitial, postInvest } =
     useContext(InvextContext);
 
+  const [projectCategory, setPrjectcategory] = useState([]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -90,7 +92,14 @@ function InvestForm() {
                       className="mr-2 w-4 h-5  accent-black"
                       value={"Agriculture"}
                       onChange={(e) => {
-                        console.log(e.target.value);
+                        if (projectCategory.length === 0) {
+                          setPrjectcategory([e.target.value]);
+                        } else {
+                          let fitValue = projectCategory.filter(
+                            (word) => word != e.target.value
+                          );
+                          setPrjectcategory(fitValue);
+                        }
                       }}
                     />
                     <label className="text-[14px]">Agriculture</label>
@@ -102,7 +111,14 @@ function InvestForm() {
                       value={`Houseing`}
                       className="mr-2 w-4 h-5  accent-black"
                       onChange={(e) => {
-                        console.log(e.target.value);
+                        if (projectCategory.length === 0) {
+                          setPrjectcategory([e.target.value]);
+                        } else {
+                          let uniqueArray = projectCategory.filter((valu, index) => {
+                            return projectCategory.indexOf(e.target.vlaue) === index;
+                          });
+                          setPrjectcategory(uniqueArray);
+                        }
                       }}
                     />
                     <label className="text-[14px]">Houseing</label>
@@ -114,7 +130,14 @@ function InvestForm() {
                       value={`Clean Water`}
                       className="mr-2 w-4 h-5  accent-black"
                       onChange={(e) => {
-                        console.log(e.target.value);
+                        if (projectCategory.length === 0) {
+                          setPrjectcategory([e.target.value]);
+                        } else {
+                          let uniqueArray = projectCategory.filter((valu, index) => {
+                            return projectCategory.indexOf(e.target.vlaue) === index;
+                          });
+                          setPrjectcategory(uniqueArray);
+                        }
                       }}
                     />
                     <label className="text-[14px]">Clean Water</label>
@@ -125,7 +148,14 @@ function InvestForm() {
                       value={"Healthcare"}
                       className="mr-2 w-4 h-5  accent-black"
                       onChange={(e) => {
-                        console.log(e.target.value);
+                        if (projectCategory.length === 0) {
+                          setPrjectcategory([e.target.value]);
+                        } else {
+                          let uniqueArray = projectCategory.filter((valu, index) => {
+                            return projectCategory.indexOf(e.target.vlaue) === index;
+                          });
+                          setPrjectcategory(uniqueArray);
+                        }
                       }}
                     />
                     <label className="text-[14px]">Healthcare</label>
@@ -143,6 +173,7 @@ function InvestForm() {
                     <input
                       type="radio"
                       value=""
+                      name="invest"
                       className="mr-2 w-5 h-5  accent-black"
                     />
                     <label className="text-[14px]">Individual</label>
@@ -151,6 +182,7 @@ function InvestForm() {
                     <input
                       type="radio"
                       value=""
+                      name="invest"
                       className="mr-2 w-5 h-5  accent-black"
                     />
                     <label className="text-[14px]">usiness/ Corporation</label>

@@ -32,6 +32,10 @@ html {
 }
 
 
+.kursor  {
+  z-index: 9999999;
+  pointer-events: none;
+}
 
 
 
