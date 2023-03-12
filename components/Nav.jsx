@@ -280,7 +280,7 @@ export default function Nav() {
         <div
           className={`${
             scroll ? " fixed  " : "static  "
-          } w-[100%]  bg-white   transition-all duration-400  z-[99] `}
+          } w-[100%]  bg-white  top-0 left-0  transition-all duration-400  z-[99] `}
         >
           <div
             className={`

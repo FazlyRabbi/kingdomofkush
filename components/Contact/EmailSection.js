@@ -7,6 +7,8 @@ function EmailSection() {
   return (
     <section className="EmailSection p-4 py-6  ">
       <div className=" container mx-auto border-b-[1px] border-[#ccc]  ">
+       
+       
         <div className="bradecamp">
           <Breadcrumbs className=" bg-transparent">
             <Link href={`/`} className=" text-primary font-bold">
@@ -22,7 +24,7 @@ function EmailSection() {
         </div>
 
         <div
-          className="grid  pt-[5rem] pb-[2rem] px-[2rem]  justify-items-center md:justify-items-center  xl:gap-x-[20rem] 
+          className="grid  pt-[5rem] pb-[2rem] px-[1rem]  justify-items-start xl:gap-x-[20rem] 
                 gap-x-[5rem] 
                 
                 gap-y-[3rem]
