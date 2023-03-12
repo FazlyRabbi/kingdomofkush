@@ -6,7 +6,7 @@ import YoutubeStyles from "../../styles/youtube.module.css";
 function Hero() {
   return (
     <section className="Hero">
-      <div className="text-heading text-black   top-[50%] md:top-[40%] left-[7%] absolute">
+      <div className="text-heading text-black   top-[50%] md:top-[53%] left-[7%] absolute">
         <p className=" text-base font-bold  text-white mb-3">
           TOGETHER WE PROSPER. THE FUTURE IS NOW
         </p>
@@ -17,15 +17,15 @@ function Hero() {
 
         <div className=" flex  flex-wrap mt-12 space-x-[6rem]  justify-center items-center">
           <div className=" relative ">
-            <div className=" absolute   top-[15%] left-[15%] animate-ping h-[2.5rem] w-[2.5rem] rounded-full bg-black"></div>
-
-            <div className=" flex justify-center  hover:scale-110 transition-all duration-300 z-[100] items-center bg-white w-[3.5rem] h-[3.5rem] rounded-[100%] hover:border-[1px] border-primary  cursor-pointer">
-              <BsPlayFill className="  text-[2rem]" />
+            <div className=" flex justify-center  hover:scale-110 transition-all duration-300 z-[100] items-center  w-[3.5rem] h-[3.5rem] rounded-[100%] hover:border-[1px] border-primary  cursor-pointer">
+              <BsPlayFill className="  text-[2rem] z-[10]  " />
+              <div className=" absolute  animate-ping h-[2.5rem] w-[2.5rem] rounded-full bg-black"></div>
+              <div className=" absolute   h-[100%] w-[100%] rounded-full bg-white"></div>
             </div>
           </div>
 
           <Button
-            className=" bg-black rounded-sm  shadow-none   text-[1rem]  cursor-pointer hover:shadow-none  w-[10rem] md:w-[35rem]   uppercase font-bold text-primary
+            className=" bg-black rounded-md  shadow-none   text-[1rem]  cursor-pointer hover:shadow-none  w-[10rem] md:w-[35rem]   uppercase font-bold text-primary
             "
           >
             Get in touch

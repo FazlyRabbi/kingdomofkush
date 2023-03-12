@@ -2,14 +2,20 @@ import React, { useState } from "react";
 import Image from "next/image";
 // import image
 import s1 from "../../img/slider/slider_3.jpg";
-import s2 from "../../img/slider/slider_1.jpg";
-import s3 from "../../img/slider/slider_1.jpg";
 
 import {
   Accordion,
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
+
+// import sliders
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";
+
+// import required modules
+SwiperCore.use([Navigation,  Autoplay]);
+
 
 function FutureGoverning() {
   const [open, setOpen] = useState(1);
@@ -20,27 +26,36 @@ function FutureGoverning() {
 
   return (
     <section className="FutureGoverning">
-      <div className=" py-[6rem] grid  justify-items-end grid-cols-1 md:grid-cols-2 xl:gap-x-[3rem]">
-        <div
-          className={` 
-             slider  py-4
-           pl-[2rem]
-           pr-[4rem]
-           xl:pr-[8rem]
-        
-        `}
+      <div className=" py-[6rem] grid items-end  justify-items-start grid-cols-1 md:grid-cols-2 xl:gap-x-[3rem]">
+        <Swiper
+          navigation
+          autoplay={{ delay: 3000 }}
+          className={`max-w-[23rem] h-[35rem] transition-all duration-300`}
         >
-          <Image src={s1} height={650} width={500} alt="slider image" />
-        </div>
+          <SwiperSlide>
+            <Image src={s1} height={650} width={500} alt="slider image" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image src={s1} height={650} width={500} alt="slider image" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image src={s1} height={650} width={500} alt="slider image" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image src={s1} height={650} width={500} alt="slider image" />
+          </SwiperSlide>
+        </Swiper>
 
         <div className=" py-[4rem] md:py-[1rem]   px-[2rem] xl:px-0">
           <div className="content">
-          
-          <p className=" text-base pb-2">JUST A DREAM, NOW PART OF THE AWAKENING OF OVER SEVEN MILLION PEOPLE</p>
-          
-          <h4 className=" font-bold text-[2.5rem] md:text-[3rem]  leading-tight 2xl:pr-[30rem]">Future Governing
-Structures &
-Citizenship</h4>
+            <p className=" text-base pb-2">
+              JUST A DREAM, NOW PART OF THE AWAKENING OF OVER SEVEN MILLION
+              PEOPLE
+            </p>
+
+            <h4 className=" font-bold text-[2.5rem] md:text-[3rem]  leading-tight 2xl:pr-[30rem]">
+              Future Governing Structures & Citizenship
+            </h4>
             <div>
               <Accordion open={open === 1}>
                 <AccordionHeader
@@ -78,12 +93,9 @@ Citizenship</h4>
                 </AccordionBody>
               </Accordion>
             </div>
-          
           </div>
         </div>
       </div>
-     
-    
     </section>
   );
 }

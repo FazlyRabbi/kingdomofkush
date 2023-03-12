@@ -1,6 +1,8 @@
 import React from "react";
 import Styles from "../../styles/styles.module.css"
 import { BsIntersect } from "react-icons/bs";
+import CountUp from "react-countup";
+
 
 function AboutUsSection() {
   return (
@@ -21,7 +23,7 @@ function AboutUsSection() {
               <div className=" flex items-center  space-x-3">
                 <BsIntersect className=" text-white text-[1.5rem]" />
 
-                <p className=" text-[2rem] font-bold">22+</p>
+                <p className=" text-[2rem] font-bold">  <CountUp start={0} end={25}suffix="+" duration={3}   delay={2} /></p>
               </div>
 
               <p className="text-primary font-bold">

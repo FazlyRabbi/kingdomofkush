@@ -1,5 +1,8 @@
 import "../styles/globals.css";
 import "tailwindcss/tailwind.css";
+import "swiper/swiper-bundle.css";
+
+
 import { ThemeProvider } from "@material-tailwind/react";
 // 1. import `NextUIProvider` component
 import { AuthProvider } from "@/context/AuthContext";

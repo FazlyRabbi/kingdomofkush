@@ -2,44 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 input[type="file"] {
   display: none;
 }
+
+
 html {
   scroll-behavior: smooth;
 }
 
-.article-img-holder {
-  width: 100%;
-  height: 100%;
-  background: url(https://awik.io/demo/background-image-zoom/traffic2.jpg);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  transition: all 1s;
-}
-
-.projectCard:hover .project-img {
-  transform: scale(1.2);
-}
-
-
-
-
-.projectCard:hover .show {
-  margin-top: -23px !important;
-  transition: 0.3s;
-}
 
 
 .kursor  {
   z-index: 9999999;
   pointer-events: none;
 }
-
-
-
-
 
 
 
@@ -51,10 +30,6 @@ html {
   padding: 0;
 }
 
-.hello:hover {
-  -webkit-transform: scale3d(1.06, 1.06, 1);
-  transform: scale3d(1.06, 1.06, 1);
-}
 
 :active,
 :hover,
@@ -74,7 +49,56 @@ li {
   cursor: pointer;
 }
 
-.swiper-button-prev,
+/* .swiper-button-prev,
 .swiper-button-next {
   color: #fff !important;
+} */
+.swiper {
+  width: 100%;
+  height: 100%;
+  
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+
+/* swiper-custom.css */
+.swiper-button-prev,
+.swiper-button-next {
+  color: #000 !important; /* change color of the icons */
+  font-size: 24px; 
+ /* change size of the icons */
+}
+
+
+.swiper-button-prev::before,
+.swiper-button-next::before {
+  content: "" !important; /* remove the default arrow content */
+}
+
+.swiper-button-prev::after {
+  content: "\2190" !important; /* add a left arrow icon */
+
+}
+
+.swiper-button-next::after {
+  content: "\2192" !important;
+ /* add a right arrow icon */
 }

@@ -15,9 +15,11 @@
     "nodemailer": "^6.9.1",
     "nookies": "^2.5.2",
     "react": "18.2.0",
+    "react-countup": "^6.4.2",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.0",
     "react-icons": "^4.8.0",
+    "react-id-swiper": "^4.0.0",
     "react-signature-canvas": "^1.0.6",
     "stripe": "^11.13.0",
     "swiper": "^8.4.7"
