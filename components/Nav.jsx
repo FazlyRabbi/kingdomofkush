@@ -19,24 +19,37 @@ import {
   MenuList,
   MenuItem,
 } from "@material-tailwind/react";
+import { FaFacebookF } from "react-icons/fa";
+import {
+  AiOutlineTwitter,
+  AiFillLinkedin,
+  AiFillYoutube,
+  AiOutlineInstagram,
+} from "react-icons/ai";
 
 import { IoIosArrowDown } from "react-icons/io";
 
 export default function Nav() {
   const [openNav, setOpenNav] = useState(false);
   const [scroll, setScroll] = useState(false);
+  const [toogle, setToggle] = useState(false);
+  const [clientWidth, setClientWidth] = useState(null);
 
   const route = useRouter();
 
-  useEffect(() => {
-    document.addEventListener("scroll", () => {
-      if (window.scrollY >= 100) {
-        setScroll(true);
-      } else if (window.screenY === 0) {
-        setScroll(false);
-      }
-    });
-  }, []);
+  if (typeof document !== "undefined") {
+    useEffect(() => {
+      const Width = document.documentElement.clientWidth;
+      setClientWidth(Width);
+      document.addEventListener("scroll", () => {
+        if (window.scrollY >= 100) {
+          setScroll(true);
+        } else if (window.screenY === 0) {
+          setScroll(false);
+        }
+      });
+    }, [document.documentElement.clientWidth]);
+  }
 
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
@@ -317,95 +330,204 @@ export default function Nav() {
       )}
 
       {/* // mobile menu */}
-      <div
-        className={`mobile__menu  w-[100%] z-[9999]  fixed h-[100vh]  bg-[#131214] opacity-96     ${
-          openNav ? "block" : "hidden"
-        }  transition-all    duration-500  `}
-      >
-        <div className="menu_wrapper p-6  text-white">
-          <ul className="  capitalize  flex flex-col  space-y-1 mt-6 ml-5">
-            <li className=" font-bold lg:text-[2rem] mb-2 -ml-[1rem] text-[2.5rem] duration-300">
-              <RxCross2
-                className=" text-[1.5rem] cursor-pointer"
-                onClick={() => setOpenNav(false)}
-              />
-            </li>
-            <li className=" font-bold lg:text-[2rem] text-[2.5rem] text-[#CB9833] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
-              <Link href={"/"}> Home</Link>
-            </li>
-            <li className=" font-bold lg:text-[2rem] text-[2.5rem] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
-              <Link href={"/aboutus"}>About</Link>
-            </li>
-            <li
-              className={`font-bold lg:text-[2rem] text-[2.5rem]  hover:translate-x-4  hover:opacity-70 transition-all ${Style.child_nav} duration-300 relative text-[#CB9833] flex  items-center  `}
-            >
-              Get <br />
-              Involved{" "}
-              <AiOutlinePlus className=" ml-[1rem] text-white text-[1.2rem]" />
-              <ul className=" ml-[10rem] translate-y-[6rem]   opacity-0 transition-all  delay-[80ms]  text-[1rem] lg:text-[2rem] absolute top-0 lg:left-[6%] left-[10%] text-white">
-                <li className="hover:translate-x-4   text-[2.5rem] transition-all duration-300">
-                  <Link href={"/membership_applicationt"}>Membership</Link>
-                </li>
-                <li className="hover:translate-x-4  text-[2.5rem] transition-all duration-300">
-                  <Link href={"/volunteer"}>Volunteer</Link>
-                </li>
-                <li className="hover:translate-x-4   text-[2.5rem] transition-all duration-300">
-                  <Link href={"/vendor"}>Vendor</Link>
-                </li>
-              </ul>
-            </li>
-            <li className=" font-bold lg:text-[2rem] text-[2.5rem] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
-              <Link href={"/petition"}>Petition</Link>
-            </li>
-            <li className=" font-bold lg:text-[2rem] text-[2.5rem] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
-              <Link href={"/project"}>Projects</Link>
-            </li>
-            <li className=" font-bold lg:text-[2rem] text-[2.5rem] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
-              <Link href={"/invest"}>Invest</Link>
-            </li>
-            <li className=" font-bold lg:text-[2rem] text-[2.5rem] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
-              <Link href={"/donation"}>Donation</Link>
-            </li>
-            <li className=" font-bold lg:text-[2rem] text-[2.5rem] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
-              <Link href={"contact"}>Contact</Link>
-            </li>
-            <li className=" w-[80%] md:w-[30%] font-bold lg:text-[2rem] text-[2.5rem] transition-all duration-300">
-              <div>
-                <form>
-                  <select
-                    id="countries"
-                    className="bg-gray-50 border border-gray-300 text-gray-900  rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  text-black  dark:focus:border-blue-500  text-base"
-                  >
-                    <option defaultValue="Choose a Languge">
-                      Choose a Languge
-                    </option>
-                    <option value="US">United States</option>
-                    <option value="CA">Canada</option>
-                    <option value="FR">France</option>
-                    <option value="DE">Germany</option>
-                  </select>
-                </form>
-              </div>
-            </li>
-          </ul>
 
-          <div className=" ml-6 menu__footer flex  justify-start items-center space-x-6">
-            <div className=" mt-[6rem]">
-              <h5
-                className=" font-bold text-base  text-white
-                       "
+      {openNav && clientWidth > 767 ? (
+        <div
+          className={`mobile__menu  w-[100%] z-[9999] top-0 left-0  fixed h-[100vh]  bg-[#131214] opacity-96     ${
+            openNav ? "block" : "hidden"
+          }  transition-all    duration-500  `}
+        >
+          <div className="menu_wrapper p-6  text-white">
+            <ul className="  capitalize  flex flex-col  space-y-1 mt-6 ml-5">
+              <li className=" font-bold lg:text-[2rem] mb-2 -ml-[1rem] text-[1rem] duration-300">
+                <RxCross2
+                  className=" text-[1.5rem] cursor-pointer"
+                  onClick={() => setOpenNav(false)}
+                />
+              </li>
+              <li className=" font-bold lg:text-[2rem] text-[2.5rem] text-[#CB9833] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
+                <Link href={"/"}> Home</Link>
+              </li>
+              <li className=" font-bold lg:text-[2rem] text-[2.5rem] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
+                <Link href={"/aboutus"}>About</Link>
+              </li>
+              <li
+                className={`font-bold lg:text-[2rem] text-[2.5rem]  hover:translate-x-4  hover:opacity-70 transition-all ${Style.child_nav} duration-300 relative text-[#CB9833] flex  items-center  `}
               >
-                Get In Touch
-              </h5>
-              <p className=" text-[#4a4653] w-[50%] text-base">
-                One World Trade Center Floor 85, New York, NY 10007
-                info@kingdomofkush.org
-              </p>
+                Get <br />
+                Involved{" "}
+                <AiOutlinePlus className=" ml-[1rem] text-white text-[1.2rem]" />
+                <ul className=" ml-[10rem] translate-y-[6rem]   opacity-0 transition-all  delay-[80ms]  text-[1rem] lg:text-[2rem] absolute top-0 lg:left-[6%] left-[10%] text-white">
+                  <li className="hover:translate-x-4   text-[2.5rem] transition-all duration-300">
+                    <Link href={"/membership_applicationt"}>Membership</Link>
+                  </li>
+                  <li className="hover:translate-x-4  text-[2.5rem] transition-all duration-300">
+                    <Link href={"/volunteer"}>Volunteer</Link>
+                  </li>
+                  <li className="hover:translate-x-4   text-[2.5rem] transition-all duration-300">
+                    <Link href={"/vendor"}>Vendor</Link>
+                  </li>
+                </ul>
+              </li>
+              <li className=" font-bold lg:text-[2rem] text-[2.5rem] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
+                <Link href={"/petition"}>Petition</Link>
+              </li>
+              <li className=" font-bold lg:text-[2rem] text-[2.5rem] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
+                <Link href={"/project"}>Projects</Link>
+              </li>
+              <li className=" font-bold lg:text-[2rem] text-[2.5rem] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
+                <Link href={"/invest"}>Invest</Link>
+              </li>
+              <li className=" font-bold lg:text-[2rem] text-[2.5rem] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
+                <Link href={"/donation"}>Donation</Link>
+              </li>
+              <li className=" font-bold lg:text-[2rem] text-[2.5rem] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
+                <Link href={"contact"}>Contact</Link>
+              </li>
+              <li className=" w-[80%] md:w-[30%] font-bold lg:text-[2rem] text-[2.5rem] transition-all duration-300">
+                <div>
+                  <form>
+                    <select
+                      id="countries"
+                      className="bg-gray-50 border border-gray-300 text-gray-900  rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  text-black  dark:focus:border-blue-500  text-base"
+                    >
+                      <option defaultValue="Choose a Languge">
+                        Choose a Languge
+                      </option>
+                      <option value="US">United States</option>
+                      <option value="CA">Canada</option>
+                      <option value="FR">France</option>
+                      <option value="DE">Germany</option>
+                    </select>
+                  </form>
+                </div>
+              </li>
+            </ul>
+
+            <div className=" ml-6 menu__footer flex  items-center ">
+              <div className=" mt-[5rem] ">
+                <h5
+                  className=" font-bold text-base  text-white
+                       "
+                >
+                  Get In Touch
+                </h5>
+                <p className=" text-[#4a4653] w-[50%] text-base">
+                  One World Trade Center Floor 85, New York, NY 10007
+                  info@kingdomofkush.org
+                </p>
+              </div>
+              <div className="social__logo flex   -ml-[15rem]  space-x-8 justify-between items-center">
+                <FaFacebookF className=" text-[1.2rem] cursor-pointer" />
+
+                <AiOutlineTwitter className=" text-[1.2rem] cursor-pointer" />
+
+                <AiFillLinkedin className=" text-[1.2rem] cursor-pointer" />
+
+                <AiFillYoutube className=" text-[1.2rem] cursor-pointer" />
+
+                <AiOutlineInstagram className=" text-[1.2rem] cursor-pointer" />
+              </div>
             </div>
-            <div className="social__logo flex justify-start items-center"></div>
           </div>
         </div>
-      </div>
+      ) : (
+        ""
+      )}
+
+      {/* // mobile menu for small device */}
+      {openNav && clientWidth < 767 ? (
+        <div
+          className={`mobile__menu   w-[100%] z-[9999]  top-0 left-0 fixed h-[100vh]  bg-white opacity-96   
+   transition-all    duration-500  `}
+        >
+          <div className="menu_wrapper p-6  text-black">
+            <ul className="  capitalize  flex flex-col  space-y-4 mt-6 ml-5">
+              <li
+                className=" font-bold    text-[2.5rem] duration-300"
+                onClick={() => setOpenNav(false)}
+              >
+                <RxCross2 className=" font-bold ml-2 text-[1.1rem] cursor-pointer" />
+              </li>
+              <li className=" font-bold  text-primary  text-[1.3rem]    hover:opacity-70 transition-all duration-300">
+                <Link href={"/"}> Home</Link>
+              </li>
+              <li className=" font-bold  text-[1.3rem]   hover:opacity-70 transition-all duration-300">
+                <Link href={"/aboutus"}>About</Link>
+              </li>
+
+              <li
+                className={`font-bold  text-[1.3rem]    hover:opacity-70 transition-all duration-300 relative  flex text-primary  items-center      membership `}
+                onClick={() => setToggle(!toogle)}
+              >
+                Get Involved{" "}
+              </li>
+
+              {toogle ? (
+                <div className={` space-y-2 ml-4 `}>
+                  <li className="   font-bold text-[1.3rem] transition-all duration-300">
+                    <Link href={"/membership_applicationt"}>Membership</Link>
+                  </li>
+
+                  <li className="  font-bold text-[1.3rem] transition-all duration-300">
+                    <Link href={"/volunteer"}>Volunteer</Link>
+                  </li>
+
+                  <li className="  font-bold  text-[1.3rem] transition-all duration-300">
+                    <Link href={"/vendor"}>Vendor</Link>
+                  </li>
+                </div>
+              ) : (
+                ""
+              )}
+
+              <li className=" font-bold  text-[1.3rem]   hover:opacity-70 transition-all duration-300">
+                <Link href={"/petition"}>Petition</Link>
+              </li>
+              <li className=" font-bold  text-[1.3rem]   hover:opacity-70 transition-all duration-300">
+                <Link href={"/project"}>Projects</Link>
+              </li>
+              <li className=" font-bold  text-[1.3rem]   hover:opacity-70 transition-all duration-300">
+                <Link href={"/invest"}>Invest</Link>
+              </li>
+              <li className=" font-bold  text-[1.3rem]   hover:opacity-70 transition-all duration-300">
+                <Link href={"/donation"}>Donation</Link>
+              </li>
+              <li className=" font-bold  text-[1.3rem]   hover:opacity-70 transition-all duration-300">
+                <Link href={"contact"}>Contact</Link>
+              </li>
+              <li className=" w-[60%]  font-bold  text-[1.3rem] transition-all duration-300">
+                <div>
+                  <form>
+                    <select
+                      id="countries"
+                      className="bg-gray-50 border border-gray-300 text-gray-900  rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  text-black  dark:focus:border-blue-500  text-base"
+                    >
+                      <option defaultValue="Choose a Languge">
+                        Choose a Languge
+                      </option>
+                      <option value="US">United States</option>
+                      <option value="CA">Canada</option>
+                      <option value="FR">France</option>
+                      <option value="DE">Germany</option>
+                    </select>
+                  </form>
+                </div>
+              </li>
+            </ul>
+
+            <div className=" ml-6 menu__footer flex  justify-start items-center space-x-6">
+              <p className=" text-base mt-4">
+                &#169; 2023{" "}
+                <span className="text-primary">Kingdom of Kush.</span> All
+                rights reserved
+              </p>
+            </div>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
     </>
   );
 }
