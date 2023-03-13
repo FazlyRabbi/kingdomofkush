@@ -4,29 +4,12 @@ import {AiFillPlayCircle} from "react-icons/ai"
 import Card from './Card'
 import Link from 'next/link'
 
-const card = [
-    {
-        id:1
-    },
-    {
-        id:2
-    },
-    {
-        id:3
-    },
-    {
-        id:4
-    },
-    {
-        id:5
-    },
-    {
-        id:6
-    }
-]
 
-const Project = () => {
-  return (
+
+
+const Project = ({data}) => {
+    console.log(data)
+ return (
     <>
        <section>
              <div className='container mx-auto px-4'>
@@ -90,8 +73,8 @@ const Project = () => {
                    <div>
                         <div className='grid grid-cols-1 lg:grid-cols-3 gap-5 my-3'>
                             {
-                                card.map((id,index) => (   
-                                    <Card key={index} id={id.id}/>
+                                data.projects.map((id,index) => (   
+                                    <Card key={index} id={id.id} name={id.name} country={id.country}/>
                                 ))
                             }
                         </div>

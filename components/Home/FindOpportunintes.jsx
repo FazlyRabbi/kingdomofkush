@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import Styles from "../../styles/styles.module.css";
+import { BsPlayFill } from "react-icons/bs";
+import { BsIntersect } from "react-icons/bs";
+import CountUp from "react-countup";
 
 import {
   Accordion,
@@ -8,17 +11,40 @@ import {
 } from "@material-tailwind/react";
 
 function FindOpportunintes() {
-  const [open, setOpen] = useState(0);
+  const [open, setOpen] = useState(1);
 
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
   };
 
   return (
-    <section className="FindOpportunintes">
-      <div className="  transition-all duration-800 grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 ">
-        <div className=" py-[4rem]  2xl:pl-[16.5rem] pl-[1rem] md:pl-[2rem] px-[2rem] md:px-[0]  ">
+    <section className="FindOpportunintes mb-10">
+      <div className="  transition-all duration-800 grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3   items-start">
+        <div className="  2xl:pl-[16.5rem] pl-[1rem] md:pl-[2rem] px-[2rem] md:px-[0]  ">
           <div className="content   pt-[5rem] ">
+            <div className=" relative flex  mb-6 space-x-4 items-center ">
+              <div
+                className=" flex justify-center  hover:scale-110 transition-all duration-300 z-[20] items-center  
+            
+            
+            
+            w-[3rem] h-[3rem]
+
+            md:w-[3.5rem] md:h-[3.5rem]
+            
+            
+            
+            rounded-[100%] hover:border-[1px] border-primary  cursor-pointer"
+              >
+                <BsPlayFill className="  text-[2rem] z-[10] text-white  " />
+                <div className=" absolute  animate-ping h-[2rem] w-[2rem] rounded-full bg-black"></div>
+
+                <div className=" absolute h-[3rem] w-[3rem]  rounded-full bg-black"></div>
+              </div>
+
+              <p className=" font-bold">Play Video</p>
+            </div>
+
             <h1 className=" text-[2rem] xl:text-[3rem] mb-8 font-bold  leading-tight">
               Find The Opportunities And a Better Future in Africa.
             </h1>
@@ -52,11 +78,19 @@ function FindOpportunintes() {
                 onClick={() => handleOpen(2)}
                 className="text-base border-b-0 [&>span]:ml-0    justify-end flex-row-reverse pb-2 text-black text-left"
               >
-              Africa does not need aid or to borrow money that others generated
+                Africa does not need aid or to borrow money that others
+                generated
               </AccordionHeader>
 
               <AccordionBody className="text-base ">
-              by taking resources from Africa. Africa and its people have everything needed to lead and support the world. Let’s make this happen together now! Join the movement of this growing Kingdom which has attracted from over 33 countries impact driven volunteers, talented professionals, service providers and strategic partners to collaborate, share a common vision, and explore the possibilities involved with building a sustainable future for generations to live, work, and appreciate life.
+                by taking resources from Africa. Africa and its people have
+                everything needed to lead and support the world. Let’s make this
+                happen together now! Join the movement of this growing Kingdom
+                which has attracted from over 33 countries impact driven
+                volunteers, talented professionals, service providers and
+                strategic partners to collaborate, share a common vision, and
+                explore the possibilities involved with building a sustainable
+                future for generations to live, work, and appreciate life.
               </AccordionBody>
             </Accordion>
             <Accordion open={open === 3}>
@@ -64,19 +98,88 @@ function FindOpportunintes() {
                 onClick={() => handleOpen(3)}
                 className="text-base border-b-0 [&>span]:ml-0  justify-end flex-row-reverse pb-2 text-black text-left"
               >
-             Our diverse multi-generational community culture celebrates
+                Our diverse multi-generational community culture celebrates
               </AccordionHeader>
 
               <AccordionBody className="text-base ">
-              a lifelong learning approach to sustainable living with access to trade skills training, internships, and mentorship programs to support career opportunities. Building a viable and innovative labor force will involve an integrative approach to pairing skills training, and industrial development with operating entities in the region.
+                a lifelong learning approach to sustainable living with access
+                to trade skills training, internships, and mentorship programs
+                to support career opportunities. Building a viable and
+                innovative labor force will involve an integrative approach to
+                pairing skills training, and industrial development with
+                operating entities in the region.
               </AccordionBody>
             </Accordion>
           </div>
         </div>
 
         <div
-          className={`${Styles.findBg} 2xl:ml-[12rem] 2xl:col-span-2 min-h-[25rem] xl:min-h-[40rem] `}
-        ></div>
+          className={`${Styles.findBg} 2xl:ml-[12rem] 2xl:col-span-2 min-h-[25rem] xl:min-h-[40rem] relative `}
+        >
+
+
+<div className=" absolute left-[5rem] -bottom-10 flex  space-x-10">
+
+          <div
+            className="  xl:w-[17rem] xl:h-[13rem] h-[11rem] w-[10rem]  flex  justify-start    bg-[#000]
+             "
+          >
+            <div className="text-primary flex flex-col pl-[2rem] justify-center  ">
+              <div className=" flex items-center  space-x-3">
+                <BsIntersect className=" text-white text-[1.5rem]" />
+
+                <p className=" text-[2rem] font-bold">
+                  {" "}
+                  <CountUp
+                    start={0}
+                    end={30}
+                    suffix="+"
+                    duration={3}
+                    delay={2}
+                  />
+                </p>
+              </div>
+
+              <p className="text-primary font-bold">
+              develop over 30 million<br />
+hectares of land
+                
+              </p>
+            </div>
+          </div>
+          <div
+            className="  xl:w-[17rem] xl:h-[13rem] h-[11rem] w-[10rem]  flex  justify-start    bg-[#1D2226]
+             "
+          >
+            <div className="text-primary flex flex-col pl-[2rem] justify-center  ">
+              <div className=" flex items-center  space-x-3">
+                <BsIntersect className=" text-white text-[1.5rem]" />
+
+                <p className=" text-[2rem] font-bold">
+                  {" "}
+                  <CountUp
+                    start={0}
+                    end={25}
+                    suffix="+"
+                    duration={3}
+                    delay={2}
+                  />
+                </p>
+              </div>
+
+              <p className="text-primary font-bold">
+
+              projects that span<br />
+over 25 countries
+               
+              </p>
+            </div>
+          </div>
+
+</div>
+
+
+        </div>
       </div>
     </section>
   );

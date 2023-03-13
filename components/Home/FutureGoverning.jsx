@@ -14,8 +14,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";
 
 // import required modules
-SwiperCore.use([Navigation,  Autoplay]);
-
+SwiperCore.use([Navigation, Autoplay]);
 
 function FutureGoverning() {
   const [open, setOpen] = useState(1);
@@ -26,25 +25,33 @@ function FutureGoverning() {
 
   return (
     <section className="FutureGoverning">
-      <div className=" py-[6rem] grid items-end  justify-items-start grid-cols-1 md:grid-cols-2 xl:gap-x-[3rem]">
-        <Swiper
-          navigation
-          autoplay={{ delay: 3000 }}
-          className={`max-w-[23rem] h-[35rem] transition-all duration-300`}
-        >
-          <SwiperSlide>
-            <Image src={s1} height={650} width={500} alt="slider image" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image src={s1} height={650} width={500} alt="slider image" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image src={s1} height={650} width={500} alt="slider image" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image src={s1} height={650} width={500} alt="slider image" />
-          </SwiperSlide>
-        </Swiper>
+      <div className=" py-[6rem] grid items-end  justify-items-center grid-cols-1 md:grid-cols-2  ">  
+        
+        <div className="xl:mr-[25%] 2xl:mr-[18%]">
+
+          <Swiper
+            navigation
+            autoplay={{ delay: 3000 }}
+            className={`max-w-[30rem]
+          h-[34rem] transition-all duration-[1s] mr-[5rem]`}
+          >
+            <SwiperSlide>
+              <Image src={s1} height={650} width={500} alt="slider image" />
+            </SwiperSlide>
+            <SwiperSlide>
+              <Image src={s1} height={650} width={500} alt="slider image" />
+            </SwiperSlide>
+            <SwiperSlide>
+              <Image src={s1} height={650} width={500} alt="slider image" />
+            </SwiperSlide>
+            <SwiperSlide>
+              <Image src={s1} height={650} width={500} alt="slider image" />
+            </SwiperSlide>
+          </Swiper>
+        </div>
+        
+
+
 
         <div className=" py-[4rem] md:py-[1rem]   px-[2rem] xl:px-0">
           <div className="content">
@@ -53,7 +60,7 @@ function FutureGoverning() {
               PEOPLE
             </p>
 
-            <h4 className=" font-bold text-[2.5rem] md:text-[3rem]  leading-tight 2xl:pr-[30rem]">
+            <h4 className=" font-bold text-[2.5rem] md:text-[3rem]  leading-tight 2xl:pr-[25%]">
               Future Governing Structures & Citizenship
             </h4>
             <div>
@@ -65,7 +72,7 @@ function FutureGoverning() {
                   What appeared initially just as
                 </AccordionHeader>
 
-                <AccordionBody className="text-base 2xl:pr-[22rem]">
+                <AccordionBody className="text-base 2xl:pr-[30%]">
                   a dream is now part of an awakening for over seven million
                   people who have already applied for citizenship and have
                   galvanized international luminaries from every continent in
@@ -81,7 +88,7 @@ function FutureGoverning() {
                   The Kingdom will introduce the establishment
                 </AccordionHeader>
 
-                <AccordionBody className="text-base 2xl:pr-[22rem]">
+                <AccordionBody className="text-base 2xl:pr-[30%]">
                   of the Ministry of Peaceful Coexistence and intends to create
                   a better way of life that is free from various humanitarian
                   abuses such as inquisition, holocaust, slavery, or what

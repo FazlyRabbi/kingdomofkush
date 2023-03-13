@@ -2,6 +2,13 @@ import { Button } from "@material-tailwind/react";
 import Link from "next/link";
 import Image from "next/image";
 import Logo from "../img/logo.png";
+import { FaFacebookF } from "react-icons/fa";
+import {
+  AiOutlineTwitter,
+  AiFillLinkedin,
+  AiFillYoutube,
+  AiOutlineInstagram,
+} from "react-icons/ai";
 
 export default function Foot() {
   return (
@@ -35,7 +42,7 @@ export default function Foot() {
             </Link>
           </div>
         </div>
-        <div className="footer__bottom    text-left  py-6 px-4">
+        <div className="footer__bottom   flex justify-between  text-left  py-6 px-4">
           <p
             className=" 
           "
@@ -43,6 +50,18 @@ export default function Foot() {
             © 2023 <span className=" text-primary">Kingdom of Kush.</span> All
             rights reserved
           </p>
+
+          <div className="social__logo flex   space-x-8 justify-between items-center">
+                <FaFacebookF className=" text-[1.2rem] cursor-pointer" />
+
+                <AiOutlineTwitter className=" text-[1.2rem] cursor-pointer" />
+
+                <AiFillLinkedin className=" text-[1.2rem] cursor-pointer" />
+
+                <AiFillYoutube className=" text-[1.2rem] cursor-pointer" />
+
+                <AiOutlineInstagram className=" text-[1.2rem] cursor-pointer" />
+              </div>
         </div>
       </div>
     </footer>

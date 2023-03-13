@@ -67,88 +67,87 @@ notifications:{release:false}
 
 
 
+03/13/2023
+Due Task --------
 
-stripe charge payment
-=====================
+Frontend Due Task 
+==================
+Home Page 
+  youtube video is not  playing on small devices
+  add sliders and counter -- Done
+  linking to get in touch button -- Done
+  Get In touch Button should be 430 w * 52h  -- Done
+  Keep this section 530/540px -- Done
+  Add social media icons on footer -- Done 
 
+Membership Page 
+  Fix Responsiveness
+  Showing error and success message
 
-    // for charge payment intent
-    
-     const paymentIntent = await stripe.paymentIntents.create({
-        currency: "USD",
-        amount: "10000" * 100,
-        payment_method_types: ["card"],
-      });
+Volunteer Page 
+  Showing error and success message
 
+  Thank you so much for volunteering , Your willingness to give your time and service is greatly appreciated. Your support of allows us to continue to fulfill our mission and serve people in our community each year.
 
-   res.json({
-        message: "Subscription Successfull",
-        clientSecret: paymentIntent.client_secret,
-      });
+Vendor Page 
+  Showing error and success message
+  Welcome to Kingdom of Kush 
+  It’s so good to hear from you. 
+  We were waiting for your feedback and it’s much appreciated. 
+  Thank you for your effective participation.
 
+Project Page 
+  Full design complete
+  Project page have to done 
 
-// for confirm payment and get payment_intent 
-     const { paymentIntent, error: confirmError } =
-        await stripe.confirmCardPayment(`${data.clientSecret.client_secret}`, {
-          payment_method: {
-            card: "card",
-            billig_details: {
-              name: "rabbi",
-              email: email,
-            },
-          },
-        });
+Invest Page
+   Showing error and success message
+   intregrate with backend
 
-
-
-==============
-Design fixing
-==============
-
-Home page Navbar height -- Done
-
-  Mobile Menu -- Done 
-
-  Home page play icon -- Done
-
-  Home page slider -- Done 
-
-  Counter -- Done
-
-  Custom Fonts
+   thank you for the quality of service provided by your company. We sincerely appreciate your efficient, gracious customer service, the level of detail and accountability you have demonstrated on each project, and the way you conduct business as a whole.
 
 
-Petition Page ---
 
-  Add form and fix design issue
+Donation Page
+    Showing error and success message
 
+    Thank you so much for your generous gift! It's donors like you that make our work possible. Your contribution is enabling us to accomplish Kingdom of Kush as well as helping us make progress toward 
 
-Project Page ---
+Contact 
+   Showing error and success message
+   Need Clickable Contact page to membership Application  > Send and careers should be highlighted .
 
-  Fixing path issue and add data 
-
-
-Invest Page --
-
-  Handle with form
-  Showing errors
-
-Contact Page --
-  Fixing Responsiveness
+   Dear customer, Thank you for reaching out! You are an invaluable part of everything we do here. And we’re absolutely thrilled to hear from you.
 
 
-==================================
+Petition page
+   Showing error and success message
+   intregrate with backend
+   Need To work on petition page make more eye catching and responsible design  .
+   Add user information
 
-Membership Page ---
-
-  Rechapta  
-
-  Showing form error
+  from Admin panel  , in  Pettion Database And Website Click :                       
+  Recent Activity will shou , person , Location , IP,Device,which operation system, which email account,Sucsess sign
 
 
-Volunteer Page ---
+   Welcome to Kingdom of Kush 
+It’s so good to hear from you. We were waiting for your feedback and it’s much appreciated. Thank you for your effective participation.
 
-  Rechapta  
 
-  Showing form error
 
+Utitlites Due Task 
+=================
+Kursor Effect
+Dark light Mode 
+Language System
+Add loader 
+Add Favicon
+Add lightbox
+
+
+Backend Due Task 
+================
+Correctioon All Collections 
+Store all collection filed name on google sheets
+Fix graphs
+Have To Complete All the Admin Functionality 

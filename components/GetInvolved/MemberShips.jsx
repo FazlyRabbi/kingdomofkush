@@ -42,7 +42,7 @@ function MemberShips() {
         {/* application form */}
         <div className="p-[50px] mb-[20px] bg-white lg:mx-[100px] shadow-2xl">
           <div className="flex flex-col justify-between gap-8 items-center pb-10">
-            <h1 className="text-[30px] lg:text-[23px] leading-6 uppercase text-[#CB9833]">
+            <h1 className=" text-[1.2rem] lg:text-[2rem] xl:text-[2.5rem]  leading-6 uppercase text-[#CB9833]">
               APPLICANT INFORMATION FORM
             </h1>
             <div>

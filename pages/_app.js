@@ -1,9 +1,8 @@
 import "../styles/globals.css";
 import "tailwindcss/tailwind.css";
 import "swiper/swiper-bundle.css";
-
-
 import { ThemeProvider } from "@material-tailwind/react";
+
 // 1. import `NextUIProvider` component
 import { AuthProvider } from "@/context/AuthContext";
 import { VolunteerProvider } from "@/context/VolunteerContext";
@@ -14,6 +13,8 @@ import { VendorProvider } from "@/context/VendorContext";
 import { InvestProvider } from "@/context/InvestContext";
 
 export default function MyApp({ Component, pageProps }) {
+
+
   // if (pageProps.protected && !user) {
   //   return (
   //     <Layout>Loading...</Layout>
@@ -30,6 +31,7 @@ export default function MyApp({ Component, pageProps }) {
                 <DonationProvider>
                   <ContactProvider>
                     <Component {...pageProps} />
+                   
                   </ContactProvider>
                 </DonationProvider>
               </InvestProvider>

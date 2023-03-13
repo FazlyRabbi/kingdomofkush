@@ -417,7 +417,7 @@ export default function Nav() {
                   info@kingdomofkush.org
                 </p>
               </div>
-              <div className="social__logo flex   -ml-[15rem]  space-x-8 justify-between items-center">
+              <div className="social__logo flex  mt-4  -ml-[15rem]  space-x-8 justify-between items-center">
                 <FaFacebookF className=" text-[1.2rem] cursor-pointer" />
 
                 <AiOutlineTwitter className=" text-[1.2rem] cursor-pointer" />

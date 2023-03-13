@@ -730,7 +730,7 @@ const MemberShip_Contact = () => {
               Signature
             </label>
 
-            <div className="relative">
+            <div className="relative w-[100%] h-full">
               <SignatureCanvas
                 penColor="black"
                 dotSize={1}
@@ -741,14 +741,14 @@ const MemberShip_Contact = () => {
                   width: 500,
                   height: 156,
                   className:
-                    " cursor-crosshair    mb-6  rounded-sm bg-[#e6e6e6]",
+                    " cursor-crosshair   mb-6  rounded-sm bg-[#e6e6e6]",
                 }}
               />
               <TfiReload
                 onClick={(e) => {
                   sigPad.current.clear();
                 }}
-                className=" absolute top-[10px] right-[-15px] text-[1rem] font-bold cursor-pointer hover:text-black text-[#3a3a3a]"
+                className=" absolute   top-[10px]    left-[29.5rem]  text-[1rem] font-bold cursor-pointer hover:text-black text-[#3a3a3a]"
               />
             </div>
           </div>
