@@ -114,71 +114,64 @@ function FindOpportunintes() {
         </div>
 
         <div
-          className={`${Styles.findBg} 2xl:ml-[12rem] 2xl:col-span-2 min-h-[25rem] xl:min-h-[40rem] relative `}
+          className={`${Styles.findBg} 2xl:ml-[12rem] 2xl:col-span-2 h-[25rem] xl:h-[45rem] relative `}
         >
-
-
-<div className=" absolute left-[5rem] -bottom-10 flex  space-x-10">
-
-          <div
-            className="  xl:w-[17rem] xl:h-[13rem] h-[11rem] w-[10rem]  flex  justify-start    bg-[#000]
+          <div className=" absolute left-[5rem] -bottom-10 flex  space-x-10">
+            <div
+              className="  xl:w-[17rem] xl:h-[13rem] h-[11rem] w-[10rem]  flex  justify-start    bg-[#000]
              "
-          >
-            <div className="text-primary flex flex-col pl-[2rem] justify-center  ">
-              <div className=" flex items-center  space-x-3">
-                <BsIntersect className=" text-white text-[1.5rem]" />
+            >
+              <div className="text-primary flex flex-col pl-[2rem] justify-center  ">
+                <div className=" flex items-center  space-x-3">
+                  <BsIntersect className=" text-white text-[1.5rem]" />
 
-                <p className=" text-[2rem] font-bold">
-                  {" "}
-                  <CountUp
-                    start={0}
-                    end={30}
-                    suffix="+"
-                    duration={3}
-                    delay={2}
-                  />
+                  <p className=" text-[2rem] font-bold">
+                    {" "}
+                    <CountUp
+                      start={0}
+                      end={30}
+                      suffix="+"
+                      duration={3}
+                      delay={2}
+                    />
+                  </p>
+                </div>
+
+                <p className="text-primary font-bold">
+                  develop over 30 million
+                  <br />
+                  hectares of land
                 </p>
               </div>
-
-              <p className="text-primary font-bold">
-              develop over 30 million<br />
-hectares of land
-                
-              </p>
             </div>
-          </div>
-          <div
-            className="  xl:w-[17rem] xl:h-[13rem] h-[11rem] w-[10rem]  flex  justify-start    bg-[#1D2226]
+            <div
+              className="  xl:w-[17rem] xl:h-[13rem] h-[11rem] w-[10rem]  flex  justify-start    bg-[#1D2226]
              "
-          >
-            <div className="text-primary flex flex-col pl-[2rem] justify-center  ">
-              <div className=" flex items-center  space-x-3">
-                <BsIntersect className=" text-white text-[1.5rem]" />
+            >
+              <div className="text-primary flex flex-col pl-[2rem] justify-center  ">
+                <div className=" flex items-center  space-x-3">
+                  <BsIntersect className=" text-white text-[1.5rem]" />
 
-                <p className=" text-[2rem] font-bold">
-                  {" "}
-                  <CountUp
-                    start={0}
-                    end={25}
-                    suffix="+"
-                    duration={3}
-                    delay={2}
-                  />
+                  <p className=" text-[2rem] font-bold">
+                    {" "}
+                    <CountUp
+                      start={0}
+                      end={25}
+                      suffix="+"
+                      duration={3}
+                      delay={2}
+                    />
+                  </p>
+                </div>
+
+                <p className="text-primary font-bold">
+                  projects that span
+                  <br />
+                  over 25 countries
                 </p>
               </div>
-
-              <p className="text-primary font-bold">
-
-              projects that span<br />
-over 25 countries
-               
-              </p>
             </div>
           </div>
-
-</div>
-
-
         </div>
       </div>
     </section>

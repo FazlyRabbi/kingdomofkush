@@ -15,7 +15,7 @@ function FutureGoverningNext() {
       <div className=" py-[6rem] grid   items-center grid-cols-1 md:grid-cols-2 ">
         <div className=" py-[4rem] md:py-[1rem] 2xl:pl-[9rem]  px-[2rem] xl:px-0">
           <div className="content">
-            <p className=" text-base pb-2 md:pr-[12rem] ">
+            <p className=" text-base pb-2 xl:pr-[12rem]  ">
               The Governing Structure of the Kingdom will be a Constitutional
               Monarchy, with a Monarch elected based on merits. The first
               monarch will be Queen Mother Dr. Delois Blakely, a well known and

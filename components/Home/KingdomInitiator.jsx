@@ -4,7 +4,7 @@ import Styles from "../../styles/styles.module.css";
 function KingdomInitiator() {
   return (
     <section className="KingdomInitiator">
-      <div className="  transition-all duration-800 grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 ">
+      <div className="  transition-all duration-800 grid grid-cols-1 items-center md:grid-cols-2 2xl:grid-cols-3 ">
         <div className=" py-[4rem]  2xl:pl-[16.5rem] pl-[1rem] md:pl-[2rem] px-[2rem] md:px-[0]  ">
           <div className="content   pt-[5rem] ">
             <h1 className=" text-[2rem] xl:text-[3rem] mb-[4rem] font-bold  leading-tight">
@@ -28,7 +28,7 @@ function KingdomInitiator() {
         </div>
 
         <div
-          className={`${Styles.findBg} 2xl:ml-[12rem] 2xl:col-span-2 min-h-[25rem] xl:min-h-[35rem] `}
+          className={`${Styles.findBg} 2xl:ml-[12rem] 2xl:col-span-2 h-[25rem] xl:h-[45rem] `}
         ></div>
       </div>
     </section>

@@ -25,8 +25,8 @@ export const MembershipProvider = ({ children }) => {
     BillingCity: "",
     BillingState: "",
     BillingPostalCode: "",
-    BillingCountry: "",
-    Signature: "",
+    BillingCountry: ""
+    // Signature: "",
   };
 
   const [membership, setMembership] = useState(membershipInitial);

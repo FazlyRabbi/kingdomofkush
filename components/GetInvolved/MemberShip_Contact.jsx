@@ -136,7 +136,7 @@ const MemberShip_Contact = () => {
       }
 
       const url = sigPad.current.toDataURL();
-      setMembership({ ...membership, Signature: url });
+      // setMembership({ ...membership, Signature: url });
 
       setCardError(null);
 
