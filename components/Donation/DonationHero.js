@@ -87,7 +87,7 @@ const DonationHero = () => {
         body: JSON.stringify({
           email: donation.Email,
           subject: `Your Donation $${donation.Amount/100} to people!`,
-          message: "Thanks for Donation",
+          message: `Thank you so much for your generous gift! It's donors like you that make our work possible. Your contribution is enabling us to accomplish Kingdom of Kush as well as helping us make progress toward`,
         }),
       });
       setDonation(donationInitial);
@@ -156,7 +156,7 @@ const DonationHero = () => {
         body: JSON.stringify({
           email: donation.Email,
           subject: `Your  $${donation.Amount} Monthly Donation`,
-          message: "Your Monthly Donation is Succefully actived!",
+          message: ` Thank you so much for your generous gift! It's donors like you that make our work possible. Your contribution is enabling us to accomplish Kingdom of Kush as well as helping us make progress toward `,
         }),
       });
       setDonation(donationInitial);

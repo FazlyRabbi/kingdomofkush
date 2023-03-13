@@ -79,9 +79,11 @@ function vendor_Contact() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: setVendor.Email,
-          subject: `Your Donation $${setVendor.Amount / 100} to people!`,
-          message: "Thanks for Donation",
+          email: vendor.Email,
+          subject: `Your Donation $${vendor.Amount / 100} to people!`,
+          message: `It’s so good to hear from you. 
+          We were waiting for your feedback and it’s much appreciated. 
+          Thank you for your effective participation.`,
         }),
       });
       setVendor(vendorInitial);

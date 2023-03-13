@@ -24,6 +24,30 @@ export const VolunteerProvider = ({ children }) => {
 
   const [volunteer, setVolunteer] = useState(volunteerInitial);
 
+  const sendMailVolunteers = async () => {
+    try {
+      
+      const res = await fetch(`/api/sendmail`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          email: volunteer.Email,
+          subject: "Volunteer Application",
+          message: `Thank you so much ${volunteer.FirstName} for volunteering , Your willingness to give your time and service is greatly appreciated. Your support of allows us to continue to fulfill our mission and serve people in our community each year.`,
+        }),
+      });
+
+      const data = await res.json();
+
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const postVolunteers = async () => {
     try {
       const res = await fetch(`${API_URL}/api/volunteers`, {
@@ -40,8 +64,11 @@ export const VolunteerProvider = ({ children }) => {
           },
         }),
       });
+
       const data = await res.json();
       console.log(data);
+      sendMailVolunteers();
+      if (!res.ok) return;
     } catch (error) {
       console.log(error);
     }
@@ -49,10 +76,9 @@ export const VolunteerProvider = ({ children }) => {
 
   return (
     <VolunteerContext.Provider
-      value={{ volunteer, setVolunteer, postVolunteers,volunteerInitial }}
+      value={{ volunteer, setVolunteer, postVolunteers, volunteerInitial }}
     >
       {children}
-   
     </VolunteerContext.Provider>
   );
 };

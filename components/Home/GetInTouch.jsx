@@ -23,7 +23,7 @@ function GetInTouch() {
               Get in touch.{" "}
             </h1>
             <Button
-              className=" bg-black rounded-md mt-16 shadow-none capitalize text-base hover:shadow-none w-[10rem] flex justify-center items-center  space-x-3   font-bold text-primary
+              className=" bg-black rounded-sm mt-16 shadow-none capitalize text-base hover:shadow-none w-[10rem] flex justify-center items-center  space-x-3   font-bold text-primary
             "
             >
               <Link href={"/contact"}>Contact Us</Link>

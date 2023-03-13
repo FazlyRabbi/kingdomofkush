@@ -6,10 +6,47 @@ function InvestForm() {
   const { invest, setInvest, InvestInitial, postInvest } =
     useContext(InvextContext);
 
-  const [projectCategory, setPrjectcategory] = useState([]);
+  const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    // ========================================
+    // Preferred Investment
+    const preferredInvests = document.querySelectorAll(".preferredInvest");
+    const checkPreferredInvests = [];
+
+    preferredInvests.forEach((checkbox) => {
+      if (checkbox.checked) {
+        checkPreferredInvests.push(checkbox.value);
+      }
+    });
+
+    // project Cetegorys
+    const projectCetegorys = document.querySelectorAll(".projectCetegory");
+
+    const checkedCheckboxes = [];
+
+    projectCetegorys.forEach((checkbox) => {
+      if (checkbox.checked) {
+        checkedCheckboxes.push(checkbox.value);
+      }
+    });
+
+    setInvest({
+      ...invest,
+      ProjectCategories: checkedCheckboxes.join(", "),
+      InvestmentLocation: checkPreferredInvests.join(", "),
+    });
+  }, [checked]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    postInvest();
+    setInvest(InvestInitial);
+    // Loop through all checkboxes and uncheck them
+    const checkboxes = document.querySelectorAll("input[type='checkbox']");
+    checkboxes.forEach((checkboxes) => (checkboxes.checked = false));
+
+     console.log(invest);
   };
 
   return (
@@ -17,10 +54,11 @@ function InvestForm() {
       {" "}
       <div className="container px-[3rem] mx-auto pt-[5rem] ">
         <div className=" shadow-xl min-h-[20rem] p-[3rem] ">
-          <form action="submit" onSubmit={handleSubmit}>
+          <form id="myForm" action="submit" onSubmit={handleSubmit}>
             <div className="grid  md:justify-items-start mdjustify-items-center    rounded-md border-l-4 border-[#eaeaea] grid-cols-1  space-y-5  md:space-y-0   md:grid-cols-2 md:space-x-8 p-[1rem]  bg-[#fbfbfb]">
               <div className="w-[100%]">
                 <input
+                  required
                   type="text"
                   className=" w-[100%]  placeholder-black border-l-2 border-red bg-[#eaeaea] text-black px-2 py-2"
                   placeholder="First Name"
@@ -35,6 +73,7 @@ function InvestForm() {
               </div>
               <div className="w-[100%]">
                 <input
+                  required
                   type="text"
                   className=" w-[100%] placeholder-black border-l-2 border-red bg-[#eaeaea] text-black px-2 py-2"
                   placeholder="Last Name"
@@ -52,6 +91,7 @@ function InvestForm() {
             <div className="grid  mt-8 md:justify-items-start mdjustify-items-center    rounded-md border-l-4 border-[#eaeaea] grid-cols-1  space-y-5  md:space-y-0   md:grid-cols-2 md:space-x-8 p-[1rem]  bg-[#fbfbfb]">
               <div className="w-[100%]">
                 <input
+                  required
                   type="email"
                   className=" w-[100%]  placeholder-black border-l-2 border-red bg-[#eaeaea] text-black px-2 py-2"
                   placeholder="Email"
@@ -66,6 +106,7 @@ function InvestForm() {
               </div>
               <div className="w-[100%]">
                 <input
+                  required
                   type="number"
                   className=" w-[100%] placeholder-black border-l-2 border-red bg-[#eaeaea] text-black px-2 py-2"
                   placeholder="Phone"
@@ -75,7 +116,7 @@ function InvestForm() {
                   }
                 />
                 <Alert className=" bg-[#f9e4e8] invisible text-red text-[12px]  rounded-none py-1 mt-1">
-                  Please input a valid international phone number.
+                  Please input required a valid international phone number.
                 </Alert>
               </div>
             </div>
@@ -89,76 +130,40 @@ function InvestForm() {
                   <div className="flex gap-2 items-center mb-4">
                     <input
                       type={"checkbox"}
-                      className="mr-2 w-4 h-5  accent-black"
+                      className="mr-2 w-4 h-5 projectCetegory   accent-black"
                       value={"Agriculture"}
-                      onChange={(e) => {
-                        if (projectCategory.length === 0) {
-                          setPrjectcategory([e.target.value]);
-                        } else {
-                          let fitValue = projectCategory.filter(
-                            (word) => word != e.target.value
-                          );
-                          setPrjectcategory(fitValue);
-                        }
-                      }}
+                      onChange={() => setChecked(!checked)}
                     />
-                    <label className="text-[14px]">Agriculture</label>
+                    <label className="text-[14px] ">Agriculture</label>
                   </div>
 
                   <div className="flex gap-2 items-center mb-4">
                     <input
                       type={"checkbox"}
                       value={`Houseing`}
-                      className="mr-2 w-4 h-5  accent-black"
-                      onChange={(e) => {
-                        if (projectCategory.length === 0) {
-                          setPrjectcategory([e.target.value]);
-                        } else {
-                          let uniqueArray = projectCategory.filter((valu, index) => {
-                            return projectCategory.indexOf(e.target.vlaue) === index;
-                          });
-                          setPrjectcategory(uniqueArray);
-                        }
-                      }}
+                      className="mr-2 w-4 h-5 projectCetegory  accent-black"
+                      onChange={() => setChecked(!checked)}
                     />
-                    <label className="text-[14px]">Houseing</label>
+                    <label className="text-[14px] ">Houseing</label>
                   </div>
 
                   <div className="flex gap-2 items-center mb-4">
                     <input
                       type={"checkbox"}
                       value={`Clean Water`}
-                      className="mr-2 w-4 h-5  accent-black"
-                      onChange={(e) => {
-                        if (projectCategory.length === 0) {
-                          setPrjectcategory([e.target.value]);
-                        } else {
-                          let uniqueArray = projectCategory.filter((valu, index) => {
-                            return projectCategory.indexOf(e.target.vlaue) === index;
-                          });
-                          setPrjectcategory(uniqueArray);
-                        }
-                      }}
+                      className="mr-2 w-4 h-5 projectCetegory  accent-black"
+                      onChange={() => setChecked(!checked)}
                     />
-                    <label className="text-[14px]">Clean Water</label>
+                    <label className="text-[14px]  ">Clean Water</label>
                   </div>
                   <div className="flex gap-2 items-center mb-4">
                     <input
                       type={"checkbox"}
                       value={"Healthcare"}
-                      className="mr-2 w-4 h-5  accent-black"
-                      onChange={(e) => {
-                        if (projectCategory.length === 0) {
-                          setPrjectcategory([e.target.value]);
-                        } else {
-                          let uniqueArray = projectCategory.filter((valu, index) => {
-                            return projectCategory.indexOf(e.target.vlaue) === index;
-                          });
-                          setPrjectcategory(uniqueArray);
-                        }
-                      }}
+                      className="mr-2 w-4 h-5 projectCetegory  accent-black"
+                      onChange={() => setChecked(!checked)}
                     />
-                    <label className="text-[14px]">Healthcare</label>
+                    <label className="text-[14px] ">Healthcare</label>
                   </div>
                   <Alert className=" bg-[#f9e4e8] invisible text-red text-[12px]  rounded-none py-1 mt-1">
                     This field is required. Please select a value.
@@ -171,21 +176,29 @@ function InvestForm() {
 
                   <div className="flex gap-2 items-center mb-4">
                     <input
+                      required
                       type="radio"
-                      value=""
+                      value="Individual"
                       name="invest"
                       className="mr-2 w-5 h-5  accent-black"
+                      onChange={(e) =>
+                        setInvest({ ...invest, InvestorType: e.target.value })
+                      }
                     />
                     <label className="text-[14px]">Individual</label>
                   </div>
                   <div className="flex gap-2 items-center mb-4">
                     <input
+                      required
                       type="radio"
-                      value=""
+                      value="usiness/Corporation"
                       name="invest"
+                      onChange={(e) =>
+                        setInvest({ ...invest, InvestorType: e.target.value })
+                      }
                       className="mr-2 w-5 h-5  accent-black"
                     />
-                    <label className="text-[14px]">usiness/ Corporation</label>
+                    <label className="text-[14px]">usiness/Corporation</label>
                   </div>
                   <Alert className=" bg-[#f9e4e8] invisible text-red text-[12px]  rounded-none py-1 mt-1">
                     This field is required. Please select a value.
@@ -199,42 +212,54 @@ function InvestForm() {
                   <div className="flex gap-2 items-center mb-4">
                     <input
                       type={"checkbox"}
-                      className="mr-2 w-4 h-5  accent-black"
+                      value="Angola"
+                      className="mr-2 w-4 h-5  preferredInvest accent-black"
+                      onChange={() => setChecked(!checked)}
                     />
                     <label className="text-[14px]">Angola</label>
                   </div>
                   <div className="flex gap-2 items-center mb-4">
                     <input
                       type={"checkbox"}
-                      className="mr-2 w-4 h-5  accent-black"
+                      value="Benin"
+                      className="mr-2 w-4 h-5  preferredInvest accent-black"
+                      onChange={() => setChecked(!checked)}
                     />
                     <label className="text-[14px]">Benin</label>
                   </div>
                   <div className="flex gap-2 items-center mb-4">
                     <input
                       type={"checkbox"}
-                      className="mr-2 w-4 h-5  accent-black"
+                      value="Burkina Faso"
+                      className="mr-2 w-4 h-5  preferredInvest accent-black"
+                      onChange={() => setChecked(!checked)}
                     />
                     <label className="text-[14px]">Burkina Faso</label>
                   </div>
                   <div className="flex gap-2 items-center mb-4">
                     <input
                       type={"checkbox"}
-                      className="mr-2 w-4 h-5  accent-black"
+                      value="DRC"
+                      className="mr-2 w-4 h-5  preferredInvest accent-black"
+                      onChange={() => setChecked(!checked)}
                     />
                     <label className="text-[14px]">DRC</label>
                   </div>
                   <div className="flex gap-2 items-center mb-4">
                     <input
                       type={"checkbox"}
-                      className="mr-2 w-4 h-5  accent-black"
+                      value="Guinea"
+                      className="mr-2 w-4 h-5  preferredInvest accent-black"
+                      onChange={() => setChecked(!checked)}
                     />
                     <label className="text-[14px]">Guinea</label>
                   </div>
                   <div className="flex gap-2 items-center mb-4">
                     <input
                       type={"checkbox"}
-                      className="mr-2 w-4 h-5  accent-black"
+                      value="Indonesia"
+                      className="mr-2 w-4 h-5  preferredInvest accent-black"
+                      onChange={() => setChecked(!checked)}
                     />
                     <label className="text-[14px]">Indonesia</label>
                   </div>
@@ -249,9 +274,14 @@ function InvestForm() {
                     Preferred Investment Amount (USD) *
                   </label>
                   <input
+                    required
                     type={"number"}
+                    value={invest.InvestmentAmount}
                     className="bg-[#EDEDED] px-3 py-3 text-black"
                     placeholder="Amount"
+                    onChange={(e) =>
+                      setInvest({ ...invest, InvestmentAmount: e.target.value })
+                    }
                   />
                   <Alert className=" bg-[#f9e4e8] invisible text-red text-[12px]  rounded-none py-1 mt-1">
                     This field is required. Please select a value.
@@ -261,7 +291,16 @@ function InvestForm() {
                   <label className="text-[18px] font-bold text-[#777771] ">
                     Preferred Investment Start Time *
                   </label>
-                  <select className="bg-[#EDEDED] px-3 py-3">
+                  <select
+                    className="bg-[#EDEDED] px-3 py-3"
+                    value={invest.InvestmentStartTime}
+                    onChange={(e) =>
+                      setInvest({
+                        ...invest,
+                        InvestmentStartTime: e.target.value,
+                      })
+                    }
+                  >
                     <option>1 week</option>
                     <option>2 week</option>
                   </select>
@@ -274,7 +313,7 @@ function InvestForm() {
 
             <button
               className="bg-[#333333] text-[#fff] font-medium text-[14px] px-3 py-2 rounded-sm mt-8"
-              type="button"
+              type="sbumit"
             >
               I am Interested in Investing
             </button>

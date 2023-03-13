@@ -104,6 +104,7 @@ const MemberShip_Contact = () => {
           message: "Your Yarly Donation is Succefully actived!",
         }),
       });
+      
       if (!sendmail.ok) return;
 
       // adtive button

@@ -13,7 +13,30 @@ export const ContactProvider = ({ children }) => {
   };
 
   const [contact, setContact] = useState(contactInitial);
-  
+
+  const sendMailContact = async () => {
+    try {
+      const res = await fetch(`/api/sendmail`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          email: contact.Email,
+          subject: "KingdomofKush",
+          message: `Dear customer, Thank you for reaching out! You are an invaluable part of everything we do here. And we’re absolutely thrilled to hear from you.`,
+        }),
+      });
+
+      const data = await res.json();
+
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const pstContact = async () => {
     try {
       const res = await fetch(`${API_URL}/api/contacts`, {
@@ -30,8 +53,8 @@ export const ContactProvider = ({ children }) => {
           },
         }),
       });
-      const data = await res.json();
-      console.log(data);
+      // const data = await res.json();
+      sendMailContact;
     } catch (error) {
       console.log(error);
     }
@@ -45,21 +68,3 @@ export const ContactProvider = ({ children }) => {
     </contactContext.Provider>
   );
 };
-
-// AddressLine1: "fasf",
-// AddressLine2: "asf",
-// City: "saf",
-// Country: "CA",
-// DateofBirth: "2023-03-02",
-// Email: "rabbim74@gmail.com",
-// EmergencyEmail: "aslkfj@gmail.com",
-// EmergencyPhone: "4141",
-// FirstName: "asfd",
-// InterestAreas: "sadf",
-// InterestPlace: "asf",
-// LastName: "asdf",
-// Phone: "4545",
-// PostalCode: "10",
-// Skills: "sdfsa",
-// State: "sadf",
-// },

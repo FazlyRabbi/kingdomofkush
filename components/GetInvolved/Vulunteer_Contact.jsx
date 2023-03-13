@@ -9,7 +9,6 @@ const notify = () =>
     duration: 2000,
     position: "bottom-right",
   });
-  
 
 function Vulunteer_Contact() {
   const { volunteer, setVolunteer, postVolunteers, volunteerInitial } =
@@ -17,8 +16,8 @@ function Vulunteer_Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setVolunteer(volunteerInitial);
     postVolunteers();
+    setVolunteer(volunteerInitial);
   };
 
   return (
@@ -93,9 +92,7 @@ function Vulunteer_Contact() {
                   setVolunteer({ ...volunteer, Email: e.target.value })
                 }
               />
-              <p
-                className={`  text-sm mt-[1px] ${Styles.warningMessage} text-red`}
-              >
+              <p className={`    text-sm mt-[1px]  invisible text-red`}>
                 This field is required.
               </p>
             </div>

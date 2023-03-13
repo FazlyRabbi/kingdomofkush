@@ -32,7 +32,7 @@ export default async function sendmail(req, res) {
       }
     });
 
-    res.status(200).send("Successfully Send Email!");
+    res.status(200).json({ message: "Successfully Send Email!" });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Internal server error" });
