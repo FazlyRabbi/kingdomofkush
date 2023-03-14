@@ -7,14 +7,7 @@ import { API_URL, API_TOKEN } from "@/config/index";
 export const petitionContext = createContext();
 
 export const PetitionProvider = ({ children }) => {
-
-
   const router = useRouter();
-
-
-
-
-
 
   const petitionInitial = {
     FirstName: "",
@@ -28,7 +21,7 @@ export const PetitionProvider = ({ children }) => {
     PostalCode: "",
     Country: "",
     Message: "",
-    DeviceActivity:"",
+    DeviceActivity: "",
     // Signature: "",
   };
 
@@ -45,13 +38,12 @@ export const PetitionProvider = ({ children }) => {
         body: JSON.stringify({
           email: petition.Email,
           subject: "Petition Application",
-          
         }),
       });
 
       const data = await res.json();
 
-      router.push(`/`)
+      router.push(`/`);
 
       console.log(data);
     } catch (error) {
@@ -60,7 +52,6 @@ export const PetitionProvider = ({ children }) => {
   };
 
   const postpetitions = async () => {
-    
     try {
       const res = await fetch(`${API_URL}/api/petitions`, {
         method: "POST",
