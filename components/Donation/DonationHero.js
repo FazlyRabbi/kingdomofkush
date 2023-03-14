@@ -1,13 +1,46 @@
 // stripe related import
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-
 import { useState, useContext, useEffect } from "react";
 import { BiShapePolygon } from "react-icons/bi";
 import { CgPathCrop } from "react-icons/cg";
 import img from "../../img/donation/donationHero.jpg";
 import { DonationContext } from "@/context/DonationContext";
 
+// alart and messages
+import useSweetAlert from "../lib/sweetalert2";
+
 const DonationHero = () => {
+  // showing alert
+  const { showAlert } = useSweetAlert();
+
+  const showAlerts = (email, name, ammount) => {
+    showAlert({
+      title: `title`,
+      html: `  <div>
+       <div style="display:flex; justify-content: space-between; padding:2 3rem;   ">
+       <h5>Pyament type</h5>
+       <h5 style="color:#000">Card</h5>
+       </div>
+       <div style="display:flex; justify-content: space-between; padding:2 3rem;   ">
+       <h5>Email</h5>
+       <h5 style="color:#000">${email}</h5>
+       </div>
+       <div style="display:flex; justify-content: space-between; padding:2 3rem; margin:2rem 0;  ">
+       <h5 style="font-weight:bold;">Amount Paid</h5>
+       <h5 style="color:#000">$${ammount / 100}</h5>
+       </div>
+
+    </div>`,
+
+      icon: "success",
+      confirmButtonText: "ClOSE",
+      confirmButtonColor: "green",
+      header: "hello",
+    }).then((result) => {
+      console.log(result);
+    });
+  };
+
   const [selectedAmount, setSelectedAmount] = useState(0);
   const [packages, setPackages] = useState(0);
   const [cardError, setCardError] = useState(null);
@@ -69,28 +102,35 @@ const DonationHero = () => {
           },
         });
       setButton(false);
+
       if (confirmError) return alert("Payment unsuccessfull!");
+
       setDonation({
         ...donation,
         CardInfo: `Amount: $${paymentIntent.amount}  \n ClientSecret: ${paymentIntent.client_secret}`,
       });
       setButton(true);
       elements.getElement(CardElement).clear();
-      alert("Payment successfull!");
 
       // send mail
-      const sendmail = await fetch(`/api/sendmail`, {
+      const sendmail = await fetch(`/api/emails/donationmail`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           email: donation.Email,
-          subject: `Your Donation $${donation.Amount/100} to people!`,
+          subject: `Your Donation $${donation.Amount / 100} to people!`,
           message: `Thank you so much for your generous gift! It's donors like you that make our work possible. Your contribution is enabling us to accomplish Kingdom of Kush as well as helping us make progress toward`,
         }),
       });
       setDonation(donationInitial);
+      showAlerts(
+        donation.Email,
+        donation.Name,
+        paymentIntent.amount,
+        paymentIntent.client_secret
+      );
     } catch (err) {
       console.error(err);
       alert("Payment Faild!" + err.message);
@@ -106,14 +146,11 @@ const DonationHero = () => {
         type: "card",
         card: elements.getElement("card"), // for card info
       });
-
       if (error) {
         setCardError(error);
         return;
       }
-
       setCardError(null);
-
       const res = await fetch(`/api/monthlysubscripton`, {
         method: "POST",
         headers: {
@@ -128,27 +165,22 @@ const DonationHero = () => {
       });
 
       if (!res.ok) return alert("Payment unsuccessfull!");
-
       const data = await res.json();
-
       const { paymentIntent, error: confirmError } =
         await stripe.confirmCardPayment(data.clientSecret);
       setDonation({
         ...donation,
-        CardInfo: `Amount: $${paymentIntent.amount/100}  \n ClientSecret: ${paymentIntent.client_secret}`,
+        CardInfo: `Amount: $${paymentIntent.amount / 100}  \n ClientSecret: ${
+          paymentIntent.client_secret
+        }`,
       });
       setButton(false);
-
       if (confirmError) return alert("Payment unsuccessfull!");
-
       setButton(true);
-
       elements.getElement(CardElement).clear();
 
-      alert("Payment successfull! Subscripton active");
-
       // send mail
-      const sendmail = await fetch(`/api/sendmail`, {
+      const sendmail = await fetch(`/api/emails/donationmail`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -159,6 +191,12 @@ const DonationHero = () => {
           message: ` Thank you so much for your generous gift! It's donors like you that make our work possible. Your contribution is enabling us to accomplish Kingdom of Kush as well as helping us make progress toward `,
         }),
       });
+      showAlerts(
+        donation.Email,
+        donation.Name,
+        paymentIntent.amount,
+        paymentIntent.client_secret
+      );
       setDonation(donationInitial);
     } catch (err) {
       console.error(err);

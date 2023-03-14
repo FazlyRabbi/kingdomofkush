@@ -1,10 +1,42 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Button } from "@material-tailwind/react";
 import { vendorContext } from "@/context/VendorContext";
-
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 
+// alart and messages
+import useSweetAlert from "../lib/sweetalert2";
+
 function vendor_Contact() {
+  // showing alert
+  const { showAlert } = useSweetAlert();
+  const showAlerts = (email, ammount) => {
+    showAlert({
+      title: `Payment Informations!`,
+      html: `  <div>
+         <div style="display:flex; justify-content: space-between; padding:2 3rem;   ">
+         <h5>Pyament type</h5>
+         <h5 style="color:#000">Card</h5>
+         </div>
+         <div style="display:flex; justify-content: space-between; padding:2 3rem;   ">
+         <h5>Email</h5>
+         <h5 style="color:#000">${email}</h5>
+         </div>
+         <div style="display:flex; justify-content: space-between; padding:2 3rem; margin:2rem 0;  ">
+         <h5 style="font-weight:bold;">Amount Paid</h5>
+         <h5 style="color:#000">$${ammount / 100}</h5>
+         </div>
+  
+      </div>`,
+
+      icon: "success",
+      confirmButtonText: "ClOSE",
+      confirmButtonColor: "green",
+      header: "hello",
+    }).then((result) => {
+      console.log(result);
+    });
+  };
+
   const [cardError, setCardError] = useState(null);
   const [button, setButton] = useState(true);
 
@@ -70,17 +102,17 @@ function vendor_Contact() {
       });
       setButton(true);
       elements.getElement(CardElement).clear();
-      alert("Payment successfull!");
+      showAlerts(vendor.Email, paymentIntent.amount);
 
       // send mail
-      const sendmail = await fetch(`/api/sendmail`, {
+      const sendmail = await fetch(`/api/emails/vendoremail`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           email: vendor.Email,
-          subject: `Your Donation $${vendor.Amount / 100} to people!`,
+          subject: `Your Donation $${vendor.amount / 100} to people!`,
           message: `It’s so good to hear from you. 
           We were waiting for your feedback and it’s much appreciated. 
           Thank you for your effective participation.`,

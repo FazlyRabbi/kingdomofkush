@@ -27,7 +27,7 @@ export const VolunteerProvider = ({ children }) => {
   const sendMailVolunteers = async () => {
     try {
       
-      const res = await fetch(`/api/sendmail`, {
+      const res = await fetch(`/api/emails/vendoremail`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

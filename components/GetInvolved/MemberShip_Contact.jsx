@@ -4,9 +4,41 @@ import SignatureCanvas from "react-signature-canvas";
 import { TfiReload } from "react-icons/tfi";
 import { MembershipContext } from "@/context/MembershipContext";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+// alart and messages
+import useSweetAlert from "../lib/sweetalert2";
 
 const MemberShip_Contact = () => {
   const sigPad = useRef();
+
+  // showing alert
+  const { showAlert } = useSweetAlert();
+
+  const showAlerts = (email, ammount) => {
+    showAlert({
+      title: `title`,
+      html: `  <div>
+       <div style="display:flex; justify-content: space-between; padding:2 3rem;   ">
+       <h5>Pyament type</h5>
+       <h5 style="color:#000">Card</h5>
+       </div>
+       <div style="display:flex; justify-content: space-between; padding:2 3rem;   ">
+       <h5>Email</h5>
+       <h5 style="color:#000">${email}</h5>
+       </div>
+       <div style="display:flex; justify-content: space-between; padding:2 3rem; margin:2rem 0;  ">
+       <h5 style="font-weight:bold;">Amount Paid</h5>
+       <h5 style="color:#000">$${ammount / 100}</h5>
+       </div>
+
+    </div>`,
+      icon: "success",
+      confirmButtonText: "ClOSE",
+      confirmButtonColor: "green",
+      header: "hello",
+    }).then((result) => {
+      console.log(result);
+    });
+  };
 
   const { membership, setMembership, postMembership, membershipInitial } =
     useContext(MembershipContext);
@@ -89,11 +121,9 @@ const MemberShip_Contact = () => {
           paymentIntent.client_secret
         }`,
       });
-
-      alert("Payment successfull! Yarly Subscripton active");
-
+      showAlerts(membership.Email, paymentIntent.amount);
       // send mail
-      const sendmail = await fetch(`/api/sendmail`, {
+      const sendmail = await fetch(`/api/emails/membershipemail`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -102,9 +132,10 @@ const MemberShip_Contact = () => {
           email: membership.Email,
           subject: `Your  120$ Yarly Donation`,
           message: "Your Yarly Donation is Succefully actived!",
+          ammount: 120,
         }),
       });
-      
+
       if (!sendmail.ok) return;
 
       // adtive button
@@ -162,6 +193,7 @@ const MemberShip_Contact = () => {
       setButton(true);
 
       if (confirmError) return alert("Payment unsuccessfull!");
+      console.log(confirmError);
 
       setMembership({
         ...membership,
@@ -170,10 +202,9 @@ const MemberShip_Contact = () => {
         }`,
       });
 
-      alert("Payment successfull! Subscripton active");
-
+      showAlerts(membership.Email, paymentIntent.amount);
       // send mail
-      const sendmail = await fetch(`/api/sendmail`, {
+      const sendmail = await fetch(`/api/emails/membershipemail`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -182,6 +213,7 @@ const MemberShip_Contact = () => {
           email: membership.Email,
           subject: `Your  $10 Monthly Donation`,
           message: "Your Monthly Donation is Succefully actived!",
+          ammount: 10,
         }),
       });
 

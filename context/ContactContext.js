@@ -16,7 +16,7 @@ export const ContactProvider = ({ children }) => {
 
   const sendMailContact = async () => {
     try {
-      const res = await fetch(`/api/sendmail`, {
+      const res = await fetch(`/api/emails/contactemail`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -25,12 +25,10 @@ export const ContactProvider = ({ children }) => {
         body: JSON.stringify({
           email: contact.Email,
           subject: "KingdomofKush",
-          message: `Dear customer, Thank you for reaching out! You are an invaluable part of everything we do here. And we’re absolutely thrilled to hear from you.`,
         }),
       });
 
       const data = await res.json();
-
       console.log(data);
     } catch (error) {
       console.log(error);
@@ -54,7 +52,7 @@ export const ContactProvider = ({ children }) => {
         }),
       });
       // const data = await res.json();
-      sendMailContact;
+      sendMailContact();
     } catch (error) {
       console.log(error);
     }

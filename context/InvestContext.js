@@ -20,7 +20,7 @@ export const InvestProvider = ({ children }) => {
 
   const sendMailInvest = async () => {
     try {
-      const res = await fetch(`/api/sendmail`, {
+      const res = await fetch(`/api/emails/investemail`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -30,6 +30,7 @@ export const InvestProvider = ({ children }) => {
           email: invest.Email,
           subject: `Invest $${invest.InvestmentAmount}`,
           message: `Thank ${invest.FirstName} for the quality of service provided by your company. We sincerely appreciate your efficient, gracious customer service, the level of detail and accountability you have demonstrated on each project, and the way you conduct business as a whole.`,
+          ammount:invest.InvestmentAmount
         }),
       });
 

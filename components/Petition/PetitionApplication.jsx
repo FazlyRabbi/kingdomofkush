@@ -4,10 +4,26 @@ import { TfiReload } from "react-icons/tfi";
 import SignatureCanvas from "react-signature-canvas";
 import { petitionContext } from "@/context/PetitioContext";
 
-const PetitionApplication = () => {
-  
-  const sigPad = useRef();
+// alart and messages
+import useSweetAlert from "../lib/sweetalert2";
 
+const PetitionApplication = () => {
+  // showing alert
+  const { showAlert } = useSweetAlert();
+
+  const showAlerts = () => {
+    showAlert({
+      text: "Your Petition Application Successfull!",
+      icon: "success",
+      confirmButtonText: "ClOSE",
+      confirmButtonColor: "green",
+      header: "hello",
+    }).then((result) => {
+      console.log(result);
+    });
+  };
+
+  const sigPad = useRef();
   const currentDate = new Date();
 
   const { petition, setPetition, postpetitions, petitionInitial } =
@@ -24,9 +40,10 @@ const PetitionApplication = () => {
       setPetition({
         ...petition,
         DeviceActivity: `
-        Browser :${browserName}
+        Browser : ${browserName}
         Platfrom: ${osName}
         IP: ${fullBrowserVersion}
+        Date : ${currentDate.toLocaleDateString()}
         `,
       });
     }
@@ -38,6 +55,7 @@ const PetitionApplication = () => {
     localStorage.removeItem("pititonData");
     setPetition(petitionInitial);
     sigPad.current.clear();
+    showAlerts();
   };
 
   return (

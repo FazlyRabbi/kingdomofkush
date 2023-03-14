@@ -125,8 +125,8 @@ Petition page
    Need To work on petition page make more eye catching and responsible design  .
    Add user information
 
-  from Admin panel  , in  Pettion Database And Website Click :                       
-  Recent Activity will shou , person , Location , IP,Device,which operation system, which email account,Sucsess sign
+   from Admin panel  , in  Pettion Database And Website Click :                       
+   Recent Activity will shou , person , Location , IP,Device,which operation system, which email account,Sucsess sign
 
 
    Welcome to Kingdom of Kush 
@@ -146,7 +146,12 @@ Add lightbox
 
 Backend Due Task 
 ================
-Correctioon All Collections 
-Store all collection filed name on google sheets
-Fix graphs
-Have To Complete All the Admin Functionality 
+Show alert & Change email tampltes -- Done
+
+Type Signature -- Done 
+
+PDF Download & Print of collection -- Done 
+
+Show Chart on Welcome Page -- Late
+
+Project Page -- Done

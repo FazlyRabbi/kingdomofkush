@@ -1,7 +1,5 @@
 const nodemailer = require("nodemailer");
-
-import memberEmailTamplate from "emailTampletes/memberEmailTamplate";
-
+import volunteerTampEmail from "emailTampletes/volunteerTampEmail";
 export default async function sendmail(req, res) {
   try {
     if (req.method != "POST") return res.status(400);
@@ -20,8 +18,7 @@ export default async function sendmail(req, res) {
       from: "message.delwar@gmail.com",
       to: req.body.email,
       subject: req.body.subject, // Subject line
-      text: req.body.message, // plain text body
-      // html: memberEmailTamplate(), // html body
+      html: volunteerTampEmail(), // html body
     };
 
     transporter.sendMail(info, (error, info) => {

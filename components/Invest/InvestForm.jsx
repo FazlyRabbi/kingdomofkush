@@ -1,8 +1,31 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Alert } from "@material-tailwind/react";
 import { InvextContext } from "@/context/InvestContext";
+// alart and messages
+import useSweetAlert from "../lib/sweetalert2";
 
 function InvestForm() {
+
+
+  // showing alert
+  const { showAlert } = useSweetAlert();
+
+  const showAlerts = () => {
+    showAlert({
+      text: `Thanks for Your Investment Info!`,
+      icon: "success",
+      confirmButtonText: "ClOSE",
+      confirmButtonColor: "green",
+    }).then((result) => {
+      console.log(result);
+    });
+  };
+
+
+
+
+
+
   const { invest, setInvest, InvestInitial, postInvest } =
     useContext(InvextContext);
 
@@ -42,11 +65,12 @@ function InvestForm() {
     e.preventDefault();
     postInvest();
     setInvest(InvestInitial);
+    showAlerts();
     // Loop through all checkboxes and uncheck them
     const checkboxes = document.querySelectorAll("input[type='checkbox']");
     checkboxes.forEach((checkboxes) => (checkboxes.checked = false));
 
-     console.log(invest);
+  
   };
 
   return (

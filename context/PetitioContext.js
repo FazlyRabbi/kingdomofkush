@@ -1,10 +1,21 @@
 import { createContext, useEffect, useState } from "react";
 
+import { useRouter } from "next/router";
+
 import { API_URL, API_TOKEN } from "@/config/index";
 
 export const petitionContext = createContext();
 
 export const PetitionProvider = ({ children }) => {
+
+
+  const router = useRouter();
+
+
+
+
+
+
   const petitionInitial = {
     FirstName: "",
     LastName: "",
@@ -25,7 +36,7 @@ export const PetitionProvider = ({ children }) => {
 
   const sendMailpetitions = async () => {
     try {
-      const res = await fetch(`/api/sendmail`, {
+      const res = await fetch(`/api/emails/petitionemail`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,12 +45,13 @@ export const PetitionProvider = ({ children }) => {
         body: JSON.stringify({
           email: petition.Email,
           subject: "Petition Application",
-          message: `Need To work on petition page make more eye catching and responsible design  .
-          Add user information`,
+          
         }),
       });
 
       const data = await res.json();
+
+      router.push(`/`)
 
       console.log(data);
     } catch (error) {

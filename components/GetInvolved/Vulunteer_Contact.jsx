@@ -1,16 +1,26 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Button } from "@material-tailwind/react";
 import { VolunteerContext } from "@/context/VolunteerContext";
-import toast, { Toaster } from "react-hot-toast";
-import Styles from "../../styles/styles.module.css";
 
-const notify = () =>
-  toast.success("Your is created sucessfully!", {
-    duration: 2000,
-    position: "bottom-right",
-  });
+// alart and messages
+import useSweetAlert from "../lib/sweetalert2";
 
 function Vulunteer_Contact() {
+  // showing alert
+  const { showAlert } = useSweetAlert();
+
+  const showAlerts = () => {
+    showAlert({
+      text: " Vulunteer Application is Successfull!",
+      icon: "success",
+      confirmButtonText: "ClOSE",
+      confirmButtonColor: "green",
+      header: "hello",
+    }).then((result) => {
+      console.log(result);
+    });
+  };
+
   const { volunteer, setVolunteer, postVolunteers, volunteerInitial } =
     useContext(VolunteerContext);
 
@@ -18,11 +28,12 @@ function Vulunteer_Contact() {
     e.preventDefault();
     postVolunteers();
     setVolunteer(volunteerInitial);
+    showAlerts();
   };
 
   return (
     <div className=" container mx-auto py-[2rem] xl:mt-[2rem] xl:px-[4rem] px-[1rem] ">
-      <Toaster />
+
 
       <div>
         <h1
@@ -393,7 +404,7 @@ function Vulunteer_Contact() {
           {/* ///////// */}
           <div className=" grid grid-cols-1 mt-6">
             <Button
-              onClick={notify}
+         
               type="submit"
               className=" bg-black rounded-md w-[40%] xl:w-[20%] shadow-none capitalize text-base hover:shadow-none   font-normal text-primary
             "
