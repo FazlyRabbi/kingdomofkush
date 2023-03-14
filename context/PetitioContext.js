@@ -1,0 +1,84 @@
+import { createContext, useEffect, useState } from "react";
+
+import { API_URL, API_TOKEN } from "@/config/index";
+
+export const petitionContext = createContext();
+
+export const PetitionProvider = ({ children }) => {
+  const petitionInitial = {
+    FirstName: "",
+    LastName: "",
+    Email: "",
+    Phone: "",
+    AddressLine: "",
+    StreetAddress: "",
+    City: "",
+    State: "",
+    PostalCode: "",
+    Country: "",
+    Message: "",
+    DeviceActivity:"",
+    // Signature: "",
+  };
+
+  const [petition, setPetition] = useState(petitionInitial);
+
+  const sendMailpetitions = async () => {
+    try {
+      const res = await fetch(`/api/sendmail`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          email: petition.Email,
+          subject: "Petition Application",
+          message: `Need To work on petition page make more eye catching and responsible design  .
+          Add user information`,
+        }),
+      });
+
+      const data = await res.json();
+
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const postpetitions = async () => {
+    
+    try {
+      const res = await fetch(`${API_URL}/api/petitions`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: API_TOKEN,
+        },
+
+        body: JSON.stringify({
+          data: {
+            ...petition,
+          },
+        }),
+      });
+
+      const data = await res.json();
+      console.log(data);
+      sendMailpetitions();
+      if (!res.ok) return;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <petitionContext.Provider
+      value={{ petition, setPetition, postpetitions, petitionInitial }}
+    >
+      {children}
+    </petitionContext.Provider>
+  );
+};

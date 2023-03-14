@@ -1,9 +1,45 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
+import { browserName, osName, fullBrowserVersion } from "react-device-detect";
 import { TfiReload } from "react-icons/tfi";
 import SignatureCanvas from "react-signature-canvas";
+import { petitionContext } from "@/context/PetitioContext";
 
 const PetitionApplication = () => {
+  
   const sigPad = useRef();
+
+  const currentDate = new Date();
+
+  const { petition, setPetition, postpetitions, petitionInitial } =
+    useContext(petitionContext);
+
+  const [data, setData] = useState();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      // Get petition data items from Local Storage
+      const userString = localStorage.getItem("pititonData");
+      const pititonDatas = JSON.parse(userString);
+      setData(pititonDatas);
+      setPetition({
+        ...petition,
+        DeviceActivity: `
+        Browser :${browserName}
+        Platfrom: ${osName}
+        IP: ${fullBrowserVersion}
+        `,
+      });
+    }
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    postpetitions();
+    localStorage.removeItem("pititonData");
+    setPetition(petitionInitial);
+    sigPad.current.clear();
+  };
+
   return (
     <div>
       <div className=" container mx-auto py-[2rem] xl:mt-[2rem] xl:px-[4rem] px-[1rem] ">
@@ -14,7 +50,7 @@ const PetitionApplication = () => {
           >
             Add your name to show your support for the campaign for action!
           </h1>
-          <form action="">
+          <form action="submit" onSubmit={handleSubmit}>
             <div className="grid grid-cols-2 gap-x-8 mb-5">
               <div>
                 <label
@@ -26,8 +62,10 @@ const PetitionApplication = () => {
                 <input
                   type="text"
                   id="name"
+                  readOnly
                   className=" py-3 rounded-sm  w-[100%] px-2 border-softGray border-[1px]"
                   required
+                  value={data?.FirstName}
                 />
                 <p className=" text-sm mt-[1px] text-red invisible">
                   This field is required.
@@ -43,12 +81,13 @@ const PetitionApplication = () => {
                 <input
                   required
                   type="text"
+                  readOnly
                   className=" py-3 rounded-sm  w-[100%] px-2 border-softGray border-[1px]"
+                  value={data?.LastName}
                 />
               </div>
             </div>
-            
-            
+
             <div className=" grid grid-cols-1 lg:grid-cols-2 gap-x-5 mb-5">
               <div>
                 <label
@@ -62,6 +101,10 @@ const PetitionApplication = () => {
                   type="number"
                   id="phoneNumber"
                   className=" py-3 rounded-sm  w-[100%] px-2 border-softGray border-[1px]"
+                  value={petition.Phone}
+                  onChange={(e) =>
+                    setPetition({ ...petition, Phone: e.target.value })
+                  }
                 />
                 <p className=" invisible text-sm mt-[1px] text-red">
                   This field is required.
@@ -80,6 +123,8 @@ const PetitionApplication = () => {
                   placeholder="e-mail"
                   title="Please enter a your email"
                   id="zipCode"
+                  readOnly
+                  value={data?.Email}
                   className=" py-3 rounded-sm  w-[100%] px-2 border-softGray border-[1px]"
                 />
                 <p className=" invisible text-sm mt-[1px] text-red">
@@ -101,21 +146,15 @@ const PetitionApplication = () => {
                   type="text"
                   id="address_1"
                   className=" py-3 rounded-sm  w-[100%] px-2 border-softGray border-[1px]"
+                  required
+                  value={petition.StreetAddress}
+                  onChange={(e) =>
+                    setPetition({ ...petition, StreetAddress: e.target.value })
+                  }
                 />
               </div>
             </div>
 
-            {/* ///////// */}
-            <div className=" grid grid-cols-1 mb-5">
-              <label className="after:pl-1 font-bold block" htmlFor="address_2">
-                Address Line 2
-              </label>
-              <input
-                type="text"
-                id="address_2"
-                className=" py-3 rounded-sm  w-[100%] px-2 border-softGray border-[1px]"
-              />
-            </div>
             {/* ///////// */}
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 ">
@@ -131,6 +170,10 @@ const PetitionApplication = () => {
                   placeholder="E.g sydney"
                   id="city"
                   className=" py-3 rounded-sm  border border-softGray  w-[100%] px-2 "
+                  value={petition.City}
+                  onChange={(e) =>
+                    setPetition({ ...petition, City: e.target.value })
+                  }
                 />
                 <p className=" text-sm mt-[1px] text-red invisible">
                   This field is required.
@@ -146,7 +189,11 @@ const PetitionApplication = () => {
                 <input
                   type="text"
                   placeholder="E.g New South Wales"
-                  id="city"
+                  id="state"
+                  value={petition.State}
+                  onChange={(e) =>
+                    setPetition({ ...petition, State: e.target.value })
+                  }
                   className=" py-3 rounded-sm  border border-softGray  w-[100%] px-2 "
                 />
                 <p className=" text-sm mt-[1px] text-red invisible">
@@ -164,6 +211,10 @@ const PetitionApplication = () => {
                   type="number"
                   placeholder="E.g 2000"
                   id="zipcode"
+                  value={petition.PostalCode}
+                  onChange={(e) =>
+                    setPetition({ ...petition, PostalCode: e.target.value })
+                  }
                   className=" py-3 rounded-sm  border border-softGray  w-[100%] px-2 "
                 />
                 <p className="text-sm mt-[1px] text-red invisible">
@@ -179,6 +230,10 @@ const PetitionApplication = () => {
                 </label>
                 <select
                   id="countries"
+                  value={petition.Country}
+                  onChange={(e) =>
+                    setPetition({ ...petition, Country: e.target.value })
+                  }
                   className=" rounded-sm  border border-softGray focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-[#ededed] text-[#787676e8]"
                 >
                   <option selected>Select country</option>
@@ -196,7 +251,7 @@ const PetitionApplication = () => {
 
             {/* ///////// */}
             <div className=" grid grid-cols-1 mb-5">
-              <div class="mb-5">
+              <div className="mb-5">
                 <label
                   className="after:pl-1 font-bold block mb-2 after:content-['*'] after:text-red"
                   htmlFor="message"
@@ -209,6 +264,11 @@ const PetitionApplication = () => {
                   placeholder="Type your message here"
                   rows="5"
                   cols="40"
+                  required
+                  value={petition.Message}
+                  onChange={(e) =>
+                    setPetition({ ...petition, Message: e.target.value })
+                  }
                   className="border p-2 border-softGray w-[100%] rounded-sm  "
                 ></textarea>
               </div>
@@ -222,7 +282,7 @@ const PetitionApplication = () => {
               >
                 Signature
               </label>
-              <div class="mb-5">
+              <div className="mb-5">
                 <div className="relative">
                   <SignatureCanvas
                     penColor="black"

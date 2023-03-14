@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { petitionContext } from "@/context/PetitioContext";
 
 const Petition_Contact = () => {
+  const { petition, setPetition, petitionInitial } =
+    useContext(petitionContext);
+
   const router = useRouter();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const pititonData = {
+      FirstName: petition.FirstName,
+      LastName: petition.LastName,
+      Email: petition.Email,
+    };
+    localStorage.setItem("pititonData", JSON.stringify(pititonData));
     router.push("/petition_application");
   };
 
@@ -24,6 +34,10 @@ const Petition_Contact = () => {
           id="name"
           className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[2px]"
           required
+          value={petition.FirstName}
+          onChange={(e) => {
+            setPetition({ ...petition, FirstName: e.target.value });
+          }}
         />
         <p className=" text-sm mt-[1px] text-red invisible">
           This field is required.
@@ -37,6 +51,10 @@ const Petition_Contact = () => {
           type="text"
           id="name"
           className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[2px]"
+          value={petition.LastName}
+          onChange={(e) => {
+            setPetition({ ...petition, LastName: e.target.value });
+          }}
           required
         />
         <p className=" text-sm mt-[1px] text-red invisible">
@@ -52,6 +70,10 @@ const Petition_Contact = () => {
           id="Email"
           className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[2px]"
           required
+          value={petition.Email}
+          onChange={(e) => {
+            setPetition({ ...petition, Email: e.target.value });
+          }}
         />
         <p className=" text-sm mt-[1px] text-red invisible">
           This field is required.
@@ -66,6 +88,10 @@ const Petition_Contact = () => {
           id="address"
           className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[2px]"
           required
+          value={petition.AddressLine}
+          onChange={(e) => {
+            setPetition({ ...petition, AddressLine: e.target.value });
+          }}
         />
         <p className=" text-sm mt-[1px] text-red invisible">
           This field is required.
@@ -78,6 +104,7 @@ const Petition_Contact = () => {
             type="checkbox"
             id="remember"
             name="remember"
+            required
           />
           <span className="text-[18px]">
             Display my name and comment on this petition

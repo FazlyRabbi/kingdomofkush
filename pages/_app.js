@@ -11,10 +11,9 @@ import { DonationProvider } from "@/context/DonationContext";
 import { MembershipProvider } from "@/context/MembershipContext";
 import { VendorProvider } from "@/context/VendorContext";
 import { InvestProvider } from "@/context/InvestContext";
+import { PetitionProvider } from "@/context/PetitioContext";
 
 export default function MyApp({ Component, pageProps }) {
-
-
   // if (pageProps.protected && !user) {
   //   return (
   //     <Layout>Loading...</Layout>
@@ -26,16 +25,17 @@ export default function MyApp({ Component, pageProps }) {
       <AuthProvider>
         <MembershipProvider>
           <VolunteerProvider>
-            <VendorProvider>
-              <InvestProvider>
-                <DonationProvider>
-                  <ContactProvider>
-                    <Component {...pageProps} />
-                   
-                  </ContactProvider>
-                </DonationProvider>
-              </InvestProvider>
-            </VendorProvider>
+            <PetitionProvider>
+              <VendorProvider>
+                <InvestProvider>
+                  <DonationProvider>
+                    <ContactProvider>
+                      <Component {...pageProps} />
+                    </ContactProvider>
+                  </DonationProvider>
+                </InvestProvider>
+              </VendorProvider>
+            </PetitionProvider>
           </VolunteerProvider>
         </MembershipProvider>
       </AuthProvider>
