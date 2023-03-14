@@ -3,7 +3,6 @@ import { browserName, osName, fullBrowserVersion } from "react-device-detect";
 import { TfiReload } from "react-icons/tfi";
 import SignatureCanvas from "react-signature-canvas";
 import { petitionContext } from "@/context/PetitioContext";
-
 // alart and messages
 import useSweetAlert from "../lib/sweetalert2";
 
@@ -39,12 +38,13 @@ const PetitionApplication = () => {
       setData(pititonDatas);
       setPetition({
         ...petition,
-        DeviceActivity: `
-        Browser : ${browserName}
-        Platfrom: ${osName}
-        IP: ${fullBrowserVersion}
-        Date : ${currentDate.toLocaleDateString()}
-        `,
+        DeviceRecentActivitys: {
+          IpAddress: fullBrowserVersion,
+          BrowserName: browserName,
+          OperatingSystemName: osName,
+          Locations: petition.AddressLine,
+          Date: currentDate.toLocaleDateString(),
+        },
       });
     }
   }, []);
@@ -56,6 +56,8 @@ const PetitionApplication = () => {
     setPetition(petitionInitial);
     sigPad.current.clear();
     showAlerts();
+
+    console.log(petition);
   };
 
   return (

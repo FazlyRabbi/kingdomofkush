@@ -21,7 +21,13 @@ export const PetitionProvider = ({ children }) => {
     PostalCode: "",
     Country: "",
     Message: "",
-    DeviceActivity: "",
+    DeviceRecentActivitys: {
+      IpAddress: "",
+      BrowserName: "",
+      OperatingSystemName: "",
+      Locations: "USA",
+      Date: "",
+    },
     // Signature: "",
   };
 
