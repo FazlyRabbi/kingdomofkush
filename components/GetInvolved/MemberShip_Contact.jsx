@@ -6,8 +6,10 @@ import { MembershipContext } from "@/context/MembershipContext";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 // alart and messages
 import useSweetAlert from "../lib/sweetalert2";
-
-const MemberShip_Contact = () => {
+import countryName from "../../public/country.json";
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
+const MemberShip_Contact = ({ setShowMember }) => {
   const sigPad = useRef();
 
   // showing alert
@@ -326,7 +328,15 @@ const MemberShip_Contact = () => {
               </p>
             </div>
             <div>
-              <input
+              <PhoneInput
+                international
+                className=" py-3 rounded-sm  w-[100%] px-2  bg-[#ededed]"
+                defaultCountry="RU"
+                // value={value}
+                // onChange={setValue}
+                onChange={(e) => setMembership({ ...membership, Number: e })}
+              />
+              {/* <input
                 type="number"
                 placeholder="Phone Number"
                 id="tel"
@@ -336,7 +346,7 @@ const MemberShip_Contact = () => {
                 onChange={(e) =>
                   setMembership({ ...membership, Number: e.target.value })
                 }
-              />
+              /> */}
               <p className=" text-sm mt-[1px] text-red invisible">
                 This field is required.
               </p>
@@ -470,10 +480,11 @@ const MemberShip_Contact = () => {
                 className=" bg-[#ededed] rounded-sm focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-[#ededed] text-[#787676e8]"
               >
                 <option selected>Select country</option>
-                <option value="US">Afghanistan</option>
-                <option value="CA">Albania</option>
-                <option value="FR">Algeria</option>
-                <option value="DE">American Samoa</option>
+                {countryName?.map((country, countryIndex) => (
+                  <option key={countryIndex} value={country?.code}>
+                    {country?.name}
+                  </option>
+                ))}
               </select>
               <p className=" text-sm mt-[1px] text-red invisible">
                 This field is required.
@@ -712,10 +723,11 @@ const MemberShip_Contact = () => {
                 }
               >
                 <option selected>Select country</option>
-                <option value="US">Afghanistan</option>
-                <option value="CA">Albania</option>
-                <option value="FR">Algeria</option>
-                <option value="DE">American Samoa</option>
+                {countryName?.map((country, countryIndex) => (
+                  <option key={countryIndex} value={country?.code}>
+                    {country?.name}
+                  </option>
+                ))}
               </select>
               <p className=" text-sm mt-[1px] text-red invisible">
                 This field is required.
@@ -771,17 +783,15 @@ const MemberShip_Contact = () => {
                 backgroundColor="#eeee"
                 ref={sigPad}
                 canvasProps={{
-                  width: 500,
-                  height: 156,
                   className:
-                    " cursor-crosshair   mb-6  rounded-sm bg-[#e6e6e6]",
+                    " cursor-crosshair h-[156px] w-full  mb-6  rounded-sm bg-[#e6e6e6]",
                 }}
               />
               <TfiReload
                 onClick={(e) => {
                   sigPad.current.clear();
                 }}
-                className=" absolute   top-[10px]    left-[29.5rem]  text-[1rem] font-bold cursor-pointer hover:text-black text-[#3a3a3a]"
+                className=" absolute   top-[10px]    right-5  text-[1rem] font-bold cursor-pointer hover:text-black text-[#3a3a3a]"
               />
             </div>
           </div>
@@ -790,7 +800,7 @@ const MemberShip_Contact = () => {
         {/* ///////// */}
         <div className=" flex justify-between mt-6">
           <button
-            disabled
+            onClick={() => setShowMember(false)}
             className=" bg-black shadow-none capitalize text-base hover:shadow-none w-[40%] xl:w-[20%]    font-normal text-white py-3"
           >
             Previous

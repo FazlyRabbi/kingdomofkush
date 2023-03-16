@@ -5,8 +5,8 @@ function KingdomInitiator() {
   return (
     <section className="KingdomInitiator">
       <div className="  transition-all duration-800 grid grid-cols-1 items-center md:grid-cols-2 2xl:grid-cols-3 ">
-        <div className=" py-[4rem]  2xl:pl-[16.5rem] pl-[1rem] md:pl-[2rem] px-[2rem] md:px-[0]  ">
-          <div className="content   pt-[5rem] ">
+        <div className=" lg:py-[4rem] py-[1rem]  2xl:pl-[16.5rem] pl-[1rem] md:pl-[2rem] px-[2rem] md:px-[0]  ">
+          <div className="content lg:pt-[5rem] ">
             <h1 className=" text-[2rem] xl:text-[3rem] mb-[4rem] font-bold  leading-tight">
               The Kingdom is already an initiator
             </h1>

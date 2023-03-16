@@ -4,7 +4,6 @@ import MemberShips from "./MemberShips";
 function Applicatoin() {
   return (
     <>
-      {" "}
       <MemberShips />
     </>
   );

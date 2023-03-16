@@ -2,9 +2,10 @@ import React, { useEffect, useState, useContext } from "react";
 import { Button } from "@material-tailwind/react";
 import { vendorContext } from "@/context/VendorContext";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-
+import countryName from "../../public/country.json";
 // alart and messages
 import useSweetAlert from "../lib/sweetalert2";
+import PhoneInput from "react-phone-number-input";
 
 function vendor_Contact() {
   // showing alert
@@ -238,6 +239,15 @@ function vendor_Contact() {
               >
                 Phone number
               </label>
+              {/* <PhoneInput
+                international
+                className=" py-3 rounded-sm  w-[100%] px-2  bg-[#ededed]"
+                defaultCountry="RU"
+                onChange={() => ""}
+                // onChange={(e) =>
+                //   setVolunteer({ ...volunteer, Phone: e.target.value })
+                // }
+              /> */}
               <input
                 required
                 type="tel"
@@ -370,10 +380,11 @@ function vendor_Contact() {
                 }
               >
                 <option selected>Choose a country</option>
-                <option value="US">United States</option>
-                <option value="CA">Canada</option>
-                <option value="FR">France</option>
-                <option value="DE">Germany</option>
+                {countryName?.map((country, countryIndex) => (
+                  <option key={countryIndex} value={country?.code}>
+                    {country?.name}
+                  </option>
+                ))}
               </select>
 
               <p className="  text-sm mt-[.5rem]">Country</p>
@@ -568,10 +579,11 @@ function vendor_Contact() {
                 }
               >
                 <option selected>Choose a country</option>
-                <option value="US">United States</option>
-                <option value="CA">Canada</option>
-                <option value="FR">France</option>
-                <option value="DE">Germany</option>
+                {countryName?.map((country, countryIndex) => (
+                  <option key={countryIndex} value={country?.code}>
+                    {country?.name}
+                  </option>
+                ))}
               </select>
 
               <p className="  text-sm mt-[.5rem]">Country</p>

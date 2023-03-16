@@ -16,20 +16,10 @@ function Hero() {
           Kush
         </h1>
 
-        <div className=" flex  flex-wrap mt-12 space-x-[6rem]  justify-center items-center">
+        <div className=" flex  flex-wrap mb-5 space-x-[4rem]  justify-center items-center">
           <div className=" relative ">
             <div
-              className=" flex justify-center  hover:scale-110 transition-all duration-300 z-[100] items-center  
-            
-            
-            
-            w-[3rem] h-[3rem]
-
-            md:w-[3.5rem] md:h-[3.5rem]
-            
-            
-            
-            rounded-[100%] hover:border-[1px] border-primary  cursor-pointer"
+              className=" flex justify-center  hover:scale-110 transition-all duration-300 z-[100] items-center  w-[3rem] h-[3rem] md:w-[3.5rem] md:h-[3.5rem] rounded-[100%] hover:border-[1px] border-primary  cursor-pointer"
             >
               <BsPlayFill className="  text-[2rem] z-[10]  " />
               <div className=" absolute  animate-ping h-[2.5rem] w-[2.5rem] rounded-full bg-black"></div>
@@ -39,7 +29,7 @@ function Hero() {
 
           <Link href={`/contact`}>
             <Button
-              className=" bg-black rounded-md  shadow-none   text-[.8rem]  cursor-pointer hover:shadow-none sm:w-[20rem] md:w-[35rem]   uppercase font-bold text-primary
+              className=" bg-black rounded-md  shadow-none   text-[.8rem]  cursor-pointer hover:shadow-none sm:w-[20rem] md:w-[25rem]   uppercase font-bold text-primary
             "
             >
               Get in touch

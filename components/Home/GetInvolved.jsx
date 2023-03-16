@@ -2,7 +2,7 @@ import React from "react";
 
 function GetInvolved() {
   return (
-    <section className="GetInvolved py-[8rem] bg-[#F9F8FA]">
+    <section className="GetInvolved lg:py-[6rem] py-[2rem] bg-[#F9F8FA]">
       <div className="container mx-auto px-[5rem] grid  md:space-x-[2rem] grid-cols-1 md:grid-cols-2  ">
         <div className="left">
           <p className=" text-base">

@@ -1,15 +1,11 @@
 import Head from "next/head";
+import Cursor from "./cursor/Cursor";
 import Footer from "./Footer";
 import Nav from "./Nav";
 
-
 export default function layout({ title, des, content, children, mainContent }) {
-  
-
-
-
   return (
-    <>
+    <Cursor>
       <Head>
         <title>{title}</title>
         <meta name={content} content={des}></meta>
@@ -17,7 +13,7 @@ export default function layout({ title, des, content, children, mainContent }) {
       <Nav />
       {children}
       <Footer />
-    </>
+    </Cursor>
   );
 }
 

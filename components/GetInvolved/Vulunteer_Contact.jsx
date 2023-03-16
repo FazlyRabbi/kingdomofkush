@@ -1,10 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Button } from "@material-tailwind/react";
 import { VolunteerContext } from "@/context/VolunteerContext";
-
+import countryName from "../../public/country.json";
 // alart and messages
 import useSweetAlert from "../lib/sweetalert2";
-
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 function Vulunteer_Contact() {
   // showing alert
   const { showAlert } = useSweetAlert();
@@ -33,8 +34,6 @@ function Vulunteer_Contact() {
 
   return (
     <div className=" container mx-auto py-[2rem] xl:mt-[2rem] xl:px-[4rem] px-[1rem] ">
-
-
       <div>
         <h1
           className=" text-[1.5rem] font-bold
@@ -135,7 +134,16 @@ function Vulunteer_Contact() {
               >
                 Phone number
               </label>
-              <input
+              <PhoneInput
+                international
+                className=" py-3 rounded-sm  w-[100%] px-2  bg-[#ededed]"
+                defaultCountry="RU"
+                onChange={() => ""}
+                // onChange={(e) =>
+                //   setVolunteer({ ...volunteer, Phone: e.target.value })
+                // }
+              />
+              {/* <input
                 required
                 type="tel"
                 id="phoneNumber"
@@ -144,7 +152,7 @@ function Vulunteer_Contact() {
                 onChange={(e) =>
                   setVolunteer({ ...volunteer, Phone: e.target.value })
                 }
-              />
+              /> */}
               <p className=" invisible text-sm mt-[1px] warningMessage text-red">
                 This field is required.
               </p>
@@ -269,10 +277,11 @@ function Vulunteer_Contact() {
                 }
               >
                 <option selected>Choose a country</option>
-                <option value="US">United States</option>
-                <option value="CA">Canada</option>
-                <option value="FR">France</option>
-                <option value="DE">Germany</option>
+                {countryName?.map((country, countryIndex) => (
+                  <option key={countryIndex} value={country?.code}>
+                    {country?.name}
+                  </option>
+                ))}
               </select>
 
               <p className="  text-sm mt-[.5rem]">Country</p>
@@ -338,10 +347,11 @@ function Vulunteer_Contact() {
                 }
               >
                 <option selected>Choose a country</option>
-                <option value="US">United States</option>
-                <option value="CA">Canada</option>
-                <option value="FR">France</option>
-                <option value="DE">Germany</option>
+                {countryName?.map((country, countryIndex) => (
+                  <option key={countryIndex} value={country?.code}>
+                    {country?.name}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -374,7 +384,7 @@ function Vulunteer_Contact() {
                     })
                   }
                 />
-                <p className=" text-sm mt-[1px] invisible warningMessage text-red invisible">
+                <p className=" text-sm mt-[1px] invisible warningMessage text-red">
                   This field is required.
                 </p>
               </div>
@@ -385,11 +395,20 @@ function Vulunteer_Contact() {
                 >
                   Phone
                 </label>
-                <input
+                <PhoneInput
+                  international
+                  className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
+                  defaultCountry="RU"
+                  onChange={() => ""}
+                  // onChange={(e) =>
+                  //   setVolunteer({ ...volunteer, Phone: e.target.value })
+                  // }
+                />
+                {/* <input
                   required
                   type="number"
                   id="e_phone"
-                  className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
+                  
                   value={volunteer.EmergencyPhone}
                   onChange={(e) =>
                     setVolunteer({
@@ -397,14 +416,13 @@ function Vulunteer_Contact() {
                       EmergencyPhone: e.target.value,
                     })
                   }
-                />
+                /> */}
               </div>
             </div>
           </div>
           {/* ///////// */}
           <div className=" grid grid-cols-1 mt-6">
             <Button
-         
               type="submit"
               className=" bg-black rounded-md w-[40%] xl:w-[20%] shadow-none capitalize text-base hover:shadow-none   font-normal text-primary
             "

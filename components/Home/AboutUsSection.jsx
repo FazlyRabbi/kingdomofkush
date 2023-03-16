@@ -23,7 +23,6 @@ function AboutUsSection() {
                 <BsIntersect className=" text-white text-[1.5rem]" />
 
                 <p className=" text-[2rem] font-bold">
-                  {" "}
                   <CountUp
                     start={0}
                     end={25}
@@ -51,8 +50,8 @@ function AboutUsSection() {
               About us
             </h4>
             <h1
-              className=" font-bold  text-[2.2rem]
-            md:text-heading leading-[3.8rem] 2xl:pr-[35%]"
+              className="font-bold  text-[2rem]
+            md:text-[2.5rem] md:leading-[2.4rem] lg:leading-[3.8rem] 2xl:pr-[35%]"
             >
               About creating a safe haven
             </h1>
