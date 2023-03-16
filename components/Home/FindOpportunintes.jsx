@@ -116,7 +116,7 @@ function FindOpportunintes() {
         <div
           className={`${Styles.findBg} 2xl:ml-[12rem] 2xl:col-span-2 h-[25rem] xl:h-[45rem] relative `}
         >
-          <div className=" absolute left-[5rem] -bottom-10 flex  space-x-10">
+          <div className=" absolute left-5 lg:left-[5rem] -bottom-10 flex  space-x-10">
             <div
               className="  xl:w-[17rem] xl:h-[13rem] h-[11rem] w-[10rem]  flex  justify-start    bg-[#000]
              "

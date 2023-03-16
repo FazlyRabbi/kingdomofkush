@@ -51,17 +51,37 @@ export default function Foot() {
             rights reserved
           </p>
 
-          <div className="social__logo flex   space-x-8 justify-between items-center">
-                <FaFacebookF className=" text-[1.2rem] cursor-pointer" />
-
-                <AiOutlineTwitter className=" text-[1.2rem] cursor-pointer" />
-
-                <AiFillLinkedin className=" text-[1.2rem] cursor-pointer" />
-
-                <AiFillYoutube className=" text-[1.2rem] cursor-pointer" />
-
-                <AiOutlineInstagram className=" text-[1.2rem] cursor-pointer" />
-              </div>
+          <div className="social__logo flex  space-x-2 lg:space-x-5 justify-between items-center">
+            <div className="w-[45px] h-[45px] bg-[#4267B2] text-white text-center rounded-full">
+              <Link href={"https://www.facebook.com/royalkingdomofkush"}>
+                <FaFacebookF className=" text-[1.2rem] cursor-pointer mx-auto mt-3" />
+              </Link>
+            </div>
+            <div className="w-[45px] h-[45px] bg-[#1DA1F2] text-white text-center rounded-full">
+              <Link href={"https://twitter.com/eKingdomofKush"}>
+                <AiOutlineTwitter className=" text-[1.2rem] cursor-pointer  mx-auto mt-3" />
+              </Link>
+            </div>
+            <div className="w-[45px] h-[45px] bg-[#0077b5] text-white text-center rounded-full">
+              <Link href={"https://www.linkedin.com/company/kingdomofkush/"}>
+                <AiFillLinkedin className=" text-[1.2rem] cursor-pointer  mx-auto mt-3" />
+              </Link>
+            </div>
+            <div className="w-[45px] h-[45px] bg-[#c4302b] text-white text-center rounded-full">
+              <Link
+                href={
+                  "https://www.youtube.com/channel/UCrl79VUm6Mklxwu9pG5JUAA"
+                }
+              >
+                <AiFillYoutube className=" text-[1.2rem] cursor-pointer  mx-auto mt-3" />
+              </Link>
+            </div>
+            <div className="w-[45px] h-[45px] bg-[#3f729b] text-white text-center rounded-full">
+              <Link href={"https://www.instagram.com/royalkingdomofkush/"}>
+                <AiOutlineInstagram className=" text-[1.2rem] cursor-pointer  mx-auto mt-3" />
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

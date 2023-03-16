@@ -1,11 +1,14 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
 import { browserName, osName, fullBrowserVersion } from "react-device-detect";
-
-import { toPng } from "html-to-image";
+import { TfiReload } from "react-icons/tfi";
+import SignatureCanvas from "react-signature-canvas";
 import { petitionContext } from "@/context/PetitioContext";
-import { API_URL, API_TOKEN } from "@/config/index";
+import { Button } from "@material-tailwind/react";
 // alart and messages
 import useSweetAlert from "../lib/sweetalert2";
+import SharePetition from "./SharePetition";
+
+import countryName from "../../public/country.json";
 
 const PetitionApplication = () => {
   const { petition, setPetition, petitionInitial, sendMailpetitions } =
@@ -16,6 +19,7 @@ const PetitionApplication = () => {
   const formData = typeof FormData !== "undefined" ? new FormData() : null;
   // showing alert
   const { showAlert } = useSweetAlert();
+  const [open, setOpen] = useState(false);
 
   const showAlerts = () => {
     showAlert({
@@ -313,10 +317,12 @@ const PetitionApplication = () => {
                   className=" rounded-sm  border border-softGray focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-[#ededed] text-[#787676e8]"
                 >
                   <option selected>Select country</option>
-                  <option value="US">Afghanistan</option>
-                  <option value="CA">Albania</option>
-                  <option value="FR">Algeria</option>
-                  <option value="DE">American Samoa</option>
+
+                  {countryName?.map((country, countryIndex) => (
+                    <option key={countryIndex} value={country?.code}>
+                      {country?.name}
+                    </option>
+                  ))}
                 </select>
                 <p className=" text-sm mt-[1px] text-red invisible">
                   This field is required.
@@ -378,6 +384,12 @@ const PetitionApplication = () => {
             </div>
 
             {/* ///////// */}
+            <div className=" mt-6">
+              <Button onClick={() => setOpen(true)} variant="gradient">
+                Share
+              </Button>
+            </div>
+            {/* ///////// */}
             <div className=" grid grid-cols-1 mt-6">
               <button
                 type="submit"
@@ -395,6 +407,7 @@ const PetitionApplication = () => {
           </form>
         </div>
       </div>
+      <SharePetition open={open} setOpen={setOpen} />
     </div>
   );
 };

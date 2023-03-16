@@ -15,14 +15,14 @@ function GoverningStructure() {
 
   return (
     <section className="GoverningStructure">
-      <div className=" grid grid-cols-1 md:grid-cols-2 py-10 gap-x-[1.5rem]">
+      <div className="pr-5 grid grid-cols-1 md:grid-cols-2 py-10 gap-x-[1.5rem]">
         <div
           className={`${Styles.aboutBg} py-10 
        h-[25rem] md:h-[40rem]
       `}
         ></div>
 
-        <div className=" py-[4rem] md:py-[1rem]   px-[2rem] xl:px-0">
+        <div className=" py-[2rem] md:py-[1rem]   px-[2rem] xl:px-0">
           <div className="content">
             <p className=" text-base pb-2 2xl:pr-[18rem]">
               The Governing Structure of the Kingdom will be a Constitutional
@@ -42,11 +42,13 @@ function GoverningStructure() {
                   onClick={() => handleOpen(1)}
                   className="text-base border-b-0 [&>span]:ml-0  justify-end flex-row-reverse text-black"
                 >
-                (1) the 6th Region
+                  (1) the 6th Region
                 </AccordionHeader>
 
                 <AccordionBody className="text-base 2xl:pr-[22rem]">
-                of the AU African Diaspora policies as an integral stakeholder that has established the preliminary framework for a cohesive developmental paradigm;
+                  of the AU African Diaspora policies as an integral stakeholder
+                  that has established the preliminary framework for a cohesive
+                  developmental paradigm;
                 </AccordionBody>
               </Accordion>
               <Accordion open={open === 2}>
@@ -58,10 +60,19 @@ function GoverningStructure() {
                 </AccordionHeader>
 
                 <AccordionBody className="text-base 2xl:pr-[22rem]">
-                and resolution that will establish the United Nations (UN) Permanent Forum of Peoples of African Descent to legally address global inequities. Already 193-member body unanimously adopted a resolution that established the UN Permanent Forum of People of African Descent, a 10-member advisory body that works closely with the Geneva-based Human Rights Council.
+                  and resolution that will establish the United Nations (UN)
+                  Permanent Forum of Peoples of African Descent to legally
+                  address global inequities. Already 193-member body unanimously
+                  adopted a resolution that established the UN Permanent Forum
+                  of People of African Descent, a 10-member advisory body that
+                  works closely with the Geneva-based Human Rights Council.
                 </AccordionBody>
               </Accordion>
-              <p className=" text-base pb-2 2xl:pr-[18rem] mt-6">The Kingdom of Kush is committed to put in place the first of its kind, a legally binding instrument of commitment to these UN and AU major initiatives.</p>
+              <p className=" text-base pb-2 2xl:pr-[18rem] mt-6">
+                The Kingdom of Kush is committed to put in place the first of
+                its kind, a legally binding instrument of commitment to these UN
+                and AU major initiatives.
+              </p>
             </div>
           </div>
         </div>

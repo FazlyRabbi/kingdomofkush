@@ -10,14 +10,14 @@ export default async function sendmail(req, res) {
     const transporter = await nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "message.delwar@gmail.com",
-        pass: "ppqvmdlcsxaerxnv",
+        user: "kingdomofkushking1070bc@gmail.com",
+        pass: "hirujhfeupuluiby",
       },
     });
 
     // send mail with defined transport object
     let info = {
-      from: "message.delwar@gmail.com",
+      from: "kingdomofkushking1070bc@gmail.com",
       to: req.body.email,
       subject: req.body.subject, // Subject line
       html: petitionTampEmail(), // html body

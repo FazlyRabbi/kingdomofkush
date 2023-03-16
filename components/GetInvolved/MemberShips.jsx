@@ -1,16 +1,25 @@
-import React from "react";
 import styles from "../../styles/styles.module.css";
 import MemberShip_Contact from "./MemberShip_Contact";
 // imports imgage
 
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import { useState } from "react";
+import No_MemberShip from "./No_MemberShip";
 // connect stripe
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 );
 
 function MemberShips() {
+  const [isMember, setIsMember] = useState("yes");
+  const [showMember, setShowMember] = useState(false);
+  console.log(showMember, isMember);
+
+  const handleShowMember = () => {
+    setShowMember(true);
+  };
+
   return (
     <>
       <section>
@@ -63,15 +72,80 @@ function MemberShips() {
             </div>
             <div className="flex flex-col justify-center items-center">
               <p className="pb-3">Finish</p>
-              <span className="w-5 h-5 rounded-full bg-black absolute -bottom-3"></span>
+              <span
+                className={`w-5 h-5 rounded-full ${
+                  showMember ? "bg-black" : "bg-black/20"
+                } absolute -bottom-3`}
+              ></span>
             </div>
           </div>
           {/* ////// */}
-          <div id="membership-contract">
-            <Elements stripe={stripePromise}>
-              <MemberShip_Contact />
-            </Elements>
-          </div>
+          {showMember && isMember === "yes" && (
+            <div id="membership-contract">
+              <Elements stripe={stripePromise}>
+                <MemberShip_Contact setShowMember={setShowMember} />
+              </Elements>
+            </div>
+          )}
+          {showMember && isMember === "no" && (
+            <div id="membership-contract">
+              <Elements stripe={stripePromise}>
+                <No_MemberShip setShowMember={setShowMember} />
+              </Elements>
+            </div>
+          )}
+
+          {!showMember && (
+            <div className=" lg:mx-[50px]">
+              <fieldset className="p-4">
+                <div>
+                  <legend className="text-sm">You are a new member? *</legend>
+                </div>
+                <div onChange={(e) => setIsMember(e.target.value)}>
+                  <input
+                    className=""
+                    type="radio"
+                    value={"yes"}
+                    name="member"
+                    checked={isMember === "yes"}
+                  />
+                  <label
+                    className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 cursor-pointer rounded-l"
+                    for="male"
+                  >
+                    Yes
+                  </label>
+                  <input
+                    className=""
+                    checked={isMember === "no"}
+                    type="radio"
+                    value={"no"}
+                    name="member"
+                  />
+                  <label
+                    className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 cursor-pointer"
+                    for="female"
+                  >
+                    No
+                  </label>
+                </div>
+              </fieldset>
+              <div className=" flex justify-between mt-6">
+                <button
+                  disabled
+                  className=" bg-black shadow-none capitalize text-base hover:shadow-none w-[40%] xl:w-[20%]    font-normal text-white py-3"
+                >
+                  Previous
+                </button>
+                <button
+                  onClick={() => handleShowMember()}
+                  className=" bg-black   shadow-none capitalize text-base hover:shadow-none w-[40%] xl:w-[20%]    font-normal text-white py-3"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </section>
     </>

@@ -3,10 +3,9 @@ import { Alert } from "@material-tailwind/react";
 import { InvextContext } from "@/context/InvestContext";
 // alart and messages
 import useSweetAlert from "../lib/sweetalert2";
+import PhoneInput from "react-phone-number-input";
 
 function InvestForm() {
-
-
   // showing alert
   const { showAlert } = useSweetAlert();
 
@@ -20,11 +19,6 @@ function InvestForm() {
       console.log(result);
     });
   };
-
-
-
-
-
 
   const { invest, setInvest, InvestInitial, postInvest } =
     useContext(InvextContext);
@@ -69,8 +63,6 @@ function InvestForm() {
     // Loop through all checkboxes and uncheck them
     const checkboxes = document.querySelectorAll("input[type='checkbox']");
     checkboxes.forEach((checkboxes) => (checkboxes.checked = false));
-
-  
   };
 
   return (
@@ -79,12 +71,14 @@ function InvestForm() {
       <div className="container px-[3rem] mx-auto pt-[5rem] ">
         <div className=" shadow-xl min-h-[20rem] p-[3rem] ">
           <form id="myForm" action="submit" onSubmit={handleSubmit}>
+          
+          
             <div className="grid  md:justify-items-start mdjustify-items-center    rounded-md border-l-4 border-[#eaeaea] grid-cols-1  space-y-5  md:space-y-0   md:grid-cols-2 md:space-x-8 p-[1rem]  bg-[#fbfbfb]">
               <div className="w-[100%]">
                 <input
                   required
                   type="text"
-                  className=" w-[100%]  placeholder-black border-l-2 border-red bg-[#eaeaea] text-black px-2 py-2"
+                  className=" w-[100%]  placeholder-black rounded-md bg-[#eaeaea] text-black px-2 py-2"
                   placeholder="First Name"
                   value={invest.FirstName}
                   onChange={(e) =>
@@ -99,7 +93,7 @@ function InvestForm() {
                 <input
                   required
                   type="text"
-                  className=" w-[100%] placeholder-black border-l-2 border-red bg-[#eaeaea] text-black px-2 py-2"
+                  className=" w-[100%] placeholder-black rounded-md bg-[#eaeaea] text-black px-2 py-2"
                   placeholder="Last Name"
                   value={invest.LastName}
                   onChange={(e) =>
@@ -113,11 +107,12 @@ function InvestForm() {
             </div>
 
             <div className="grid  mt-8 md:justify-items-start mdjustify-items-center    rounded-md border-l-4 border-[#eaeaea] grid-cols-1  space-y-5  md:space-y-0   md:grid-cols-2 md:space-x-8 p-[1rem]  bg-[#fbfbfb]">
+             
               <div className="w-[100%]">
                 <input
                   required
                   type="email"
-                  className=" w-[100%]  placeholder-black border-l-2 border-red bg-[#eaeaea] text-black px-2 py-2"
+                  className=" w-[100%]  placeholder-black rounded-md bg-[#eaeaea] text-black px-2 py-2"
                   placeholder="Email"
                   value={invest.Email}
                   onChange={(e) =>
@@ -128,24 +123,30 @@ function InvestForm() {
                   Email is required..
                 </Alert>
               </div>
+              
               <div className="w-[100%]">
-                <input
-                  required
-                  type="number"
-                  className=" w-[100%] placeholder-black border-l-2 border-red bg-[#eaeaea] text-black px-2 py-2"
-                  placeholder="Phone"
-                  value={invest.Phone}
-                  onChange={(e) =>
-                    setInvest({ ...invest, Phone: e.target.value })
-                  }
-                />
-                <Alert className=" bg-[#f9e4e8] invisible text-red text-[12px]  rounded-none py-1 mt-1">
-                  Please input required a valid international phone number.
-                </Alert>
+  
+                <PhoneInput
+                international
+                className=" py-3 rounded-sm   items-start flex  px-2  bg-[#ededed]"
+                defaultCountry="RU"
+                onChange={() => ""}
+                // onChange={(e) =>
+                //   setVolunteer({ ...volunteer, Phone: e.target.value })
+                // }
+              />
+                {/* <p className=" invisible text-sm mt-[1px] warningMessage text-red">
+                  This field is required.
+                </p> */}
               </div>
             </div>
 
-            <div className="mt-8     rounded-md border-l-4 border-[#eaeaea] p-[1rem] bg-[#fbfbfb]">
+
+
+
+
+
+            <div className="mt-8   rounded-md border-l-4 border-[#eaeaea] p-[1rem] bg-[#fbfbfb]">
               <div className="grid gap-2 md:grid-cols-3">
                 <div>
                   <h4 className="text-[18px] font-bold text-[#777771] mb-3">
@@ -215,14 +216,14 @@ function InvestForm() {
                     <input
                       required
                       type="radio"
-                      value="usiness/Corporation"
+                      value="Business/Corporation"
                       name="invest"
                       onChange={(e) =>
                         setInvest({ ...invest, InvestorType: e.target.value })
                       }
                       className="mr-2 w-5 h-5  accent-black"
                     />
-                    <label className="text-[14px]">usiness/Corporation</label>
+                    <label className="text-[14px]">Business/Corporation</label>
                   </div>
                   <Alert className=" bg-[#f9e4e8] invisible text-red text-[12px]  rounded-none py-1 mt-1">
                     This field is required. Please select a value.
@@ -233,6 +234,15 @@ function InvestForm() {
                     Preferred Investment Location *
                   </h4>
 
+                  <div className="flex gap-2 items-center mb-4">
+                    <input
+                      type={"checkbox"}
+                      value="kingdom of kush"
+                      className="mr-2 w-4 h-5  preferredInvest accent-black"
+                      onChange={() => setChecked(!checked)}
+                    />
+                    <label className="text-[14px]">Kingdom of kush</label>
+                  </div>
                   <div className="flex gap-2 items-center mb-4">
                     <input
                       type={"checkbox"}
@@ -334,6 +344,8 @@ function InvestForm() {
                 </div>
               </div>
             </div>
+
+
 
             <button
               className="bg-[#333333] text-[#fff] font-medium text-[14px] px-3 py-2 rounded-sm mt-8"
