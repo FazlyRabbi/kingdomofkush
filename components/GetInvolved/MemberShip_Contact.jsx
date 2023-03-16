@@ -237,7 +237,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
   return (
     <div className="lg:mx-[50px] my-[3rem]">
       <div className="w-full">
-        <h1 className="text-[34px]" onClick={generateRandomNumber}>
+        <h1 className="text-[34px]">
           PERSONAL INFORMATION
         </h1>
       </div>
