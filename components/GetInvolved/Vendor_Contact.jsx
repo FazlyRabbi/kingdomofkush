@@ -7,6 +7,30 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import useSweetAlert from "../lib/sweetalert2";
 
 function vendor_Contact() {
+
+
+  const { vendor, setVendor, vendorInitial, postVendor } =
+  useContext(vendorContext);
+
+  
+  const generateRandomNumber = () => {
+    const min = 10000000;
+    const max = 99999999;
+    const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+    const actualNum = `khusven${randomNumber}`;
+    setVendor({ ...vendor, RegistrationId: actualNum });
+  };
+
+  useEffect(() => {
+    generateRandomNumber();
+  }, []);
+
+
+
+
+
+
+
   // showing alert
   const { showAlert } = useSweetAlert();
   const showAlerts = (email, ammount) => {
@@ -40,8 +64,6 @@ function vendor_Contact() {
   const [cardError, setCardError] = useState(null);
   const [button, setButton] = useState(true);
 
-  const { vendor, setVendor, vendorInitial, postVendor } =
-    useContext(vendorContext);
 
   const stripe = useStripe();
 

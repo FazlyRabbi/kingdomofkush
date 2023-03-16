@@ -1,12 +1,19 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
 import { browserName, osName, fullBrowserVersion } from "react-device-detect";
-import { TfiReload } from "react-icons/tfi";
-import SignatureCanvas from "react-signature-canvas";
+
+import { toPng } from "html-to-image";
 import { petitionContext } from "@/context/PetitioContext";
+import { API_URL, API_TOKEN } from "@/config/index";
 // alart and messages
 import useSweetAlert from "../lib/sweetalert2";
 
 const PetitionApplication = () => {
+  const { petition, setPetition, petitionInitial, sendMailpetitions } =
+    useContext(petitionContext);
+
+  const [signature, setSignature] = useState(null);
+
+  const formData = typeof FormData !== "undefined" ? new FormData() : null;
   // showing alert
   const { showAlert } = useSweetAlert();
 
@@ -23,10 +30,8 @@ const PetitionApplication = () => {
   };
 
   const sigPad = useRef();
-  const currentDate = new Date();
 
-  const { petition, setPetition, postpetitions, petitionInitial } =
-    useContext(petitionContext);
+  const currentDate = new Date();
 
   const [data, setData] = useState();
 
@@ -36,28 +41,78 @@ const PetitionApplication = () => {
       const userString = localStorage.getItem("pititonData");
       const pititonDatas = JSON.parse(userString);
       setData(pititonDatas);
-      setPetition({
-        ...petition,
-        DeviceRecentActivitys: {
-          IpAddress: fullBrowserVersion,
-          BrowserName: browserName,
-          OperatingSystemName: osName,
-          Locations: petition.AddressLine,
-          Date: currentDate.toLocaleDateString(),
-        },
-      });
     }
+    // =========================== Random Number
+    const min = 10000000;
+    const max = 99999999;
+    const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+    const actualNum = `khuspeti${randomNumber}`;
+
+    setPetition({
+      ...petition,
+      RegistrationId: actualNum,
+      DeviceRecentActivitys: {
+        IpAddress: fullBrowserVersion,
+        BrowserName: browserName,
+        OperatingSystemName: osName,
+        Locations: petition.AddressLine,
+        Date: currentDate.toLocaleDateString(),
+      },
+    });
   }, []);
+
+  const handleConvertToImage = () => {
+    toPng(sigPad.current, { quality: 1, backgroundColor: "#fff" })
+      .then((dataUrl) => {
+        const link = document.createElement("a");
+        link.download = "my-image-name.png";
+        link.href = dataUrl;
+        link.click();
+        console.log(dataUrl);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const [file, setFile] = useState(null);
+
+  const handleChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const postpetitions = async () => {
+    try {
+      const res = await fetch(`${API_URL}/api/petitions`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: API_TOKEN,
+        },
+        body: JSON.stringify({
+          data: {
+            ...petition,
+          },
+        }),
+      });
+      const data = await res.json();
+      sendMailpetitions();
+      console.log(data);
+      if (!res.ok) return;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     postpetitions();
+    showAlerts();
     localStorage.removeItem("pititonData");
     setPetition(petitionInitial);
-    sigPad.current.clear();
-    showAlerts();
-
-    console.log(petition);
+    handleConvertToImage();
+    setSignature(null);
   };
 
   return (
@@ -227,6 +282,7 @@ const PetitionApplication = () => {
                 >
                   Zip / Postal Code
                 </label>
+
                 <input
                   type="number"
                   placeholder="E.g 2000"
@@ -297,32 +353,26 @@ const PetitionApplication = () => {
             {/* ///////// */}
             <div className=" grid grid-cols-1 mb-5">
               <label
-                className="after:pl-1 font-bold block after:content-['*'] after:text-red"
-                htmlFor="address_2"
+                className="after:pl-1 mb-2 font-bold block after:content-['*'] after:text-red"
+                htmlFor="signature"
               >
                 Signature
               </label>
               <div className="mb-5">
                 <div className="relative">
-                  <SignatureCanvas
-                    penColor="black"
-                    dotSize={1}
-                    throttle={50}
-                    backgroundColor="#eeee"
+                  <div
+                    className="sig__pad w-[15rem] md:w-[20rem] h-[8rem] bg-softGray"
                     ref={sigPad}
-                    canvasProps={{
-                      width: 500,
-                      height: 156,
-                      className:
-                        " cursor-crosshair     mb-6  rounded-sm bg-[#e6e6e6]",
-                    }}
-                  />
-                  <TfiReload
-                    onClick={(e) => {
-                      sigPad.current.clear();
-                    }}
-                    className=" absolute top-[10px]   left-[29rem] text-[1rem] font-bold cursor-pointer hover:text-black text-[#3a3a3a]"
-                  />
+                  >
+                    <input
+                      id="signature"
+                      type="text"
+                      placeholder="Type your Signature"
+                      className="w-[100%] text-[1.3rem] md:text-[1.8rem] h-[100%]   bg-softGray text-center font-bold"
+                      value={signature}
+                      onChange={(e) => setSignature(e.target.value)}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -331,11 +381,17 @@ const PetitionApplication = () => {
             <div className=" grid grid-cols-1 mt-6">
               <button
                 type="submit"
-                className=" bg-black rounded-sm  shadow-none capitalize text-base hover:shadow-none w-[40%] xl:w-[20%]    font-normal text-primary py-3"
+                className=" bg-black rounded-sm  shadow-none capitalize text-base hover:shadow-none w-[40%] xl:w-[20%]    font-normal text-primary py-3 mb-3"
               >
                 Submit
               </button>
             </div>
+
+            <input
+              type="file"
+              className=" bg-red px-10 py-5"
+              onChange={handleChange}
+            />
           </form>
         </div>
       </div>

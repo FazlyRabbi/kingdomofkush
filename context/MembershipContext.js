@@ -25,7 +25,8 @@ export const MembershipProvider = ({ children }) => {
     BillingCity: "",
     BillingState: "",
     BillingPostalCode: "",
-    BillingCountry: ""
+    BillingCountry: "",
+    RegistrationId: null,
     // Signature: "",
   };
 

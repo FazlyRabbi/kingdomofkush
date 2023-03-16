@@ -6,7 +6,26 @@ import { VolunteerContext } from "@/context/VolunteerContext";
 import useSweetAlert from "../lib/sweetalert2";
 
 function Vulunteer_Contact() {
-  // showing alert
+
+  const { volunteer, setVolunteer, postVolunteers, volunteerInitial } =
+    useContext(VolunteerContext);
+
+
+  const generateRandomNumber = () => {
+    const min = 10000000;
+    const max = 99999999;
+    const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+    const actualNum = `khusvulun${randomNumber}`;
+    setVolunteer({ ...volunteer, RegistrationId: actualNum });
+  };
+
+  useEffect(() => {
+    generateRandomNumber();
+  }, []);
+
+
+
+  //showing alert
   const { showAlert } = useSweetAlert();
 
   const showAlerts = () => {
@@ -21,8 +40,7 @@ function Vulunteer_Contact() {
     });
   };
 
-  const { volunteer, setVolunteer, postVolunteers, volunteerInitial } =
-    useContext(VolunteerContext);
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();

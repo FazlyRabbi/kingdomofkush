@@ -1,11 +1,14 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { petitionContext } from "@/context/PetitioContext";
 
 const Petition_Contact = () => {
+
   const { petition, setPetition, petitionInitial } =
     useContext(petitionContext);
+
+
 
   const router = useRouter();
 

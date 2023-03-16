@@ -14,7 +14,7 @@ const Form = () => {
       confirmButtonText: "ClOSE",
       confirmButtonColor: "green",
     }).then((result) => {
-      console.log(result);
+    
     });
   };
 

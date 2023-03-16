@@ -4,10 +4,28 @@ import SignatureCanvas from "react-signature-canvas";
 import { TfiReload } from "react-icons/tfi";
 import { MembershipContext } from "@/context/MembershipContext";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+
 // alart and messages
 import useSweetAlert from "../lib/sweetalert2";
 
 const MemberShip_Contact = () => {
+  //  Random Number Generator
+  const generateRandomNumber = () => {
+    const min = 10000000;
+    const max = 99999999;
+    const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+    const actualNum = `khusmem${randomNumber}`;
+    setMembership({ ...membership, RegistrationId: actualNum });
+  };
+
+  useEffect(() => {
+    generateRandomNumber();
+  }, []);
+
+
+
+  //  ========
+
   const sigPad = useRef();
 
   // showing alert
@@ -46,6 +64,7 @@ const MemberShip_Contact = () => {
   const [cardError, setCardError] = useState(null);
   const [button, setButton] = useState(false);
 
+
   useEffect(() => {
     if (membership.CardInfo != "") {
       postMembership();
@@ -55,7 +74,6 @@ const MemberShip_Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (elements.getElement("card") != null) {
       if (membership.MemberhipPlan === "month") {
         createMonthlySubscription();
@@ -193,7 +211,6 @@ const MemberShip_Contact = () => {
       setButton(true);
 
       if (confirmError) return alert("Payment unsuccessfull!");
-      console.log(confirmError);
 
       setMembership({
         ...membership,
@@ -236,7 +253,9 @@ const MemberShip_Contact = () => {
   return (
     <div className="lg:mx-[50px] my-[3rem]">
       <div className="w-full">
-        <h1 className="text-[34px]">PERSONAL INFORMATION</h1>
+        <h1 className="text-[34px]" onClick={generateRandomNumber}>
+          PERSONAL INFORMATION
+        </h1>
       </div>
       <form action="submit" onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 mb-5 bg-[#fbfbfb] px-6 py-5 border-l-[6px] rounded-l-2xl border-[#ededed]">
@@ -305,7 +324,6 @@ const MemberShip_Contact = () => {
             </p>
           </div>
         </div>
-
         {/* ///////////// */}
         <div className="bg-[#fbfbfb] px-6 py-5 border-l-[6px] rounded-l-2xl border-[#ededed] mb-5">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 ">

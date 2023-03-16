@@ -7,6 +7,7 @@ import { API_URL, API_TOKEN } from "@/config/index";
 export const petitionContext = createContext();
 
 export const PetitionProvider = ({ children }) => {
+  
   const router = useRouter();
 
   const petitionInitial = {
@@ -21,6 +22,7 @@ export const PetitionProvider = ({ children }) => {
     PostalCode: "",
     Country: "",
     Message: "",
+    RegistrationId: "",
     DeviceRecentActivitys: {
       IpAddress: "",
       BrowserName: "",
@@ -28,7 +30,6 @@ export const PetitionProvider = ({ children }) => {
       Locations: "USA",
       Date: "",
     },
-    // Signature: "",
   };
 
   const [petition, setPetition] = useState(petitionInitial);
@@ -57,37 +58,41 @@ export const PetitionProvider = ({ children }) => {
     }
   };
 
-  const postpetitions = async () => {
-    try {
-      const res = await fetch(`${API_URL}/api/petitions`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: API_TOKEN,
-        },
+  // const postpetitions = async () => {
+  //   try {
+  //     const res = await fetch(`${API_URL}/api/petitions`, {
+  //       method: "POST",
+  //       headers: {
+  //         Accept: "application/json",
+  //         "Content-Type": "application/json",
+  //         Authorization: API_TOKEN,
+  //       },
 
-        body: JSON.stringify({
-          data: {
-            ...petition,
-          },
-        }),
-      });
+  //       body: JSON.stringify({
+  //         data: {
+  //           data: { ...petition },
+           
+  //         },
+  //       }),
+  //     });
 
-      const data = await res.json();
-      console.log(data);
-      sendMailpetitions();
-      if (!res.ok) return;
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     const data = await res.json();
+  //     console.log(data);
+  //     sendMailpetitions();
+  //     if (!res.ok) return;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <petitionContext.Provider
-      value={{ petition, setPetition, postpetitions, petitionInitial }}
+      value={{ petition, setPetition,  petitionInitial,sendMailpetitions }}
     >
       {children}
     </petitionContext.Provider>
   );
 };
+
+
+
