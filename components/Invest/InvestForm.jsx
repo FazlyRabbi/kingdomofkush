@@ -71,6 +71,8 @@ function InvestForm() {
       <div className="container px-[3rem] mx-auto pt-[5rem] ">
         <div className=" shadow-xl min-h-[20rem] p-[3rem] ">
           <form id="myForm" action="submit" onSubmit={handleSubmit}>
+          
+          
             <div className="grid  md:justify-items-start mdjustify-items-center    rounded-md border-l-4 border-[#eaeaea] grid-cols-1  space-y-5  md:space-y-0   md:grid-cols-2 md:space-x-8 p-[1rem]  bg-[#fbfbfb]">
               <div className="w-[100%]">
                 <input
@@ -105,6 +107,7 @@ function InvestForm() {
             </div>
 
             <div className="grid  mt-8 md:justify-items-start mdjustify-items-center    rounded-md border-l-4 border-[#eaeaea] grid-cols-1  space-y-5  md:space-y-0   md:grid-cols-2 md:space-x-8 p-[1rem]  bg-[#fbfbfb]">
+             
               <div className="w-[100%]">
                 <input
                   required
@@ -120,6 +123,7 @@ function InvestForm() {
                   Email is required..
                 </Alert>
               </div>
+              
               <div>
                 <label
                   className="  after:pl-1   font-bold after:content-['*'] after:text-red  block"
@@ -127,56 +131,28 @@ function InvestForm() {
                 >
                   Phone number
                 </label>
+
                 <PhoneInput
-                  international
-                  className=" py-3 rounded-sm  w-[100%] px-2  bg-[#ededed]"
-                  defaultCountry="RU"
-                  onChange={() => ""}
-                  // onChange={(e) =>
-                  //   setVolunteer({ ...volunteer, Phone: e.target.value })
-                  // }
-                />
-                {/* <input
-                required
-                type="tel"
-                id="phoneNumber"
-                className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
-                value={volunteer.Phone}
-                onChange={(e) =>
-                  setVolunteer({ ...volunteer, Phone: e.target.value })
-                }
-              /> */}
+                international
+                className=" py-3 rounded-sm  w-[100%] px-2  bg-[#ededed]"
+                defaultCountry="RU"
+                onChange={() => ""}
+                // onChange={(e) =>
+                //   setVolunteer({ ...volunteer, Phone: e.target.value })
+                // }
+              />
                 <p className=" invisible text-sm mt-[1px] warningMessage text-red">
                   This field is required.
                 </p>
               </div>
-              <div className="w-[100%]">
-                {/* <input
-                  required
-                  type="number"
-                  className=" w-[100%] placeholder-black rounded-md bg-[#eaeaea] text-black px-2 py-2"
-                  placeholder="Phone"
-                  value={invest.Phone}
-                  onChange={(e) =>
-                    setInvest({ ...invest, Phone: e.target.value })
-                  }
-                /> */}
-                <PhoneInput
-                  international
-                  className=" py-3 rounded-sm w-44 px-2  bg-[#ededed]"
-                  defaultCountry="RU"
-                  onChange={(e) => console.log("hello")}
-                  // onChange={(e) =>
-                  //   setVolunteer({ ...volunteer, Phone: e.target.value })
-                  // }
-                />
-                <Alert className=" bg-[#f9e4e8] invisible text-red text-[12px]  rounded-none py-1 mt-1">
-                  Please input required a valid international phone number.
-                </Alert>
-              </div>
             </div>
 
-            <div className="mt-8     rounded-md border-l-4 border-[#eaeaea] p-[1rem] bg-[#fbfbfb]">
+
+
+
+
+
+            <div className="mt-8   rounded-md border-l-4 border-[#eaeaea] p-[1rem] bg-[#fbfbfb]">
               <div className="grid gap-2 md:grid-cols-3">
                 <div>
                   <h4 className="text-[18px] font-bold text-[#777771] mb-3">
@@ -374,6 +350,8 @@ function InvestForm() {
                 </div>
               </div>
             </div>
+
+
 
             <button
               className="bg-[#333333] text-[#fff] font-medium text-[14px] px-3 py-2 rounded-sm mt-8"

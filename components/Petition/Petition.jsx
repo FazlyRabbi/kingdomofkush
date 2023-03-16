@@ -5,11 +5,7 @@ import { HiArrowTrendingUp } from "react-icons/hi2";
 import Petition_Contact from "./Petition_Contact";
 import Flag from "../../img/KushFlag.jpg";
 
-
 const Petition = () => {
-
-
-
   return (
     <section className="lg:w-[1280px] lg:mx-auto">
       <div className="mx-[3rem]">
