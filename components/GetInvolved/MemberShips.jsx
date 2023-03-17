@@ -33,7 +33,7 @@ function MemberShips() {
                 </h1>
 
                 <h1 className="    leading-[1]  hidden xl:block font-bold text-[5rem] font-sans">
-                  Membershi <br /> p <br /> application.
+                  Membership <br /> application.
                 </h1>
                 <p className="font-base mt-12">
                   Feel a new experience in an incredible project

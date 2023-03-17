@@ -136,7 +136,7 @@ function Vulunteer_Contact() {
               </label>
               <PhoneInput
                 international
-                className=" py-3 rounded-sm  w-[100%] px-2  bg-[#ededed]"
+                className=" py-3 rounded-sm  w-[100%] px-2  border-softGray border-[1px]"
                 defaultCountry="RU"
                 onChange={() => ""}
                 // onChange={(e) =>

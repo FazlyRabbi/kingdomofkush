@@ -123,6 +123,31 @@ function InvestForm() {
                   Email is required..
                 </Alert>
               </div>
+
+              <div className="w-[100%] ">
+                {/* <input
+                  required
+                  type="number"
+                  className=" w-[100%] placeholder-black rounded-md bg-[#eaeaea] text-black px-2 py-2"
+                  placeholder="Phone"
+                  value={invest.Phone}
+                  onChange={(e) =>
+                    setInvest({ ...invest, Phone: e.target.value })
+                  }
+                /> */}
+                <PhoneInput
+                  international
+                  className=" py-3 rounded-sm w-[100%]  px-2  bg-[#ededed]"
+                  defaultCountry="RU"
+                  onChange={(e) => console.log("hello")}
+                  // onChange={(e) =>
+                  //   setVolunteer({ ...volunteer, Phone: e.target.value })
+                  // }
+                />
+                <Alert className=" bg-[#f9e4e8] invisible text-red text-[12px]  rounded-none py-1 mt-1">
+                  Please input required a valid international phone number.
+                </Alert>
+              </div>
               
               <div>
                 <label
@@ -195,6 +220,53 @@ function InvestForm() {
                       onChange={() => setChecked(!checked)}
                     />
                     <label className="text-[14px] ">Healthcare</label>
+                  </div>
+                  <div className="flex gap-2 items-center mb-4">
+                    <input
+                      type={"checkbox"}
+                      value={"Education"}
+                      className="mr-2 w-4 h-5 projectCetegory  accent-black"
+                      onChange={() => setChecked(!checked)}
+                    />
+                    <label className="text-[14px] ">Education</label>
+                  </div>
+                  <div className="flex gap-2 items-center mb-4">
+                    <input
+                      type={"checkbox"}
+                      value={"Infrastructure (including roads)"}
+                      className="mr-2 w-4 h-5 projectCetegory  accent-black"
+                      onChange={() => setChecked(!checked)}
+                    />
+                    <label className="text-[14px] ">
+                      Infrastructure (including roads)
+                    </label>
+                  </div>
+                  <div className="flex gap-2 items-center mb-4">
+                    <input
+                      type={"checkbox"}
+                      value={"Power"}
+                      className="mr-2 w-4 h-5 projectCetegory  accent-black"
+                      onChange={() => setChecked(!checked)}
+                    />
+                    <label className="text-[14px] ">Power</label>
+                  </div>
+                  <div className="flex gap-2 items-center mb-4">
+                    <input
+                      type={"checkbox"}
+                      value={"Communication"}
+                      className="mr-2 w-4 h-5 projectCetegory  accent-black"
+                      onChange={() => setChecked(!checked)}
+                    />
+                    <label className="text-[14px] ">Communication</label>
+                  </div>
+                  <div className="flex gap-2 items-center mb-4">
+                    <input
+                      type={"checkbox"}
+                      value={"Tourism"}
+                      className="mr-2 w-4 h-5 projectCetegory  accent-black"
+                      onChange={() => setChecked(!checked)}
+                    />
+                    <label className="text-[14px] ">Tourism</label>
                   </div>
                   <Alert className=" bg-[#f9e4e8] invisible text-red text-[12px]  rounded-none py-1 mt-1">
                     This field is required. Please select a value.
@@ -313,16 +385,37 @@ function InvestForm() {
                   <label className="text-[18px] font-bold text-[#777771]">
                     Preferred Investment Amount (USD) *
                   </label>
+                  <div class="relative">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                      <span className="text-xl">$</span>
+                    </div>
+                    <input
+                      required
+                      type={"number"}
+                      value={invest.InvestmentAmount}
+                      className="bg-[#EDEDED] px-3 py-3 pl-10 p-2.5 w-full text-black "
+                      placeholder="Amount"
+                      onChange={(e) =>
+                        setInvest({
+                          ...invest,
+                          InvestmentAmount: e.target.value,
+                        })
+                      }
+                    />
+                  </div>
+                  {/* <label className="text-[18px] font-bold text-[#777771]">
+                    Preferred Investment Amount (USD) *
+                  </label>
                   <input
                     required
                     type={"number"}
                     value={invest.InvestmentAmount}
-                    className="bg-[#EDEDED] px-3 py-3 text-black"
+                    className="bg-[#EDEDED] px-3 py-3 text-black "
                     placeholder="Amount"
                     onChange={(e) =>
                       setInvest({ ...invest, InvestmentAmount: e.target.value })
                     }
-                  />
+                  /> */}
                   <Alert className=" bg-[#f9e4e8] invisible text-red text-[12px]  rounded-none py-1 mt-1">
                     This field is required. Please select a value.
                   </Alert>
@@ -350,9 +443,6 @@ function InvestForm() {
                 </div>
               </div>
             </div>
-
-
-
             <button
               className="bg-[#333333] text-[#fff] font-medium text-[14px] px-3 py-2 rounded-sm mt-8"
               type="sbumit"

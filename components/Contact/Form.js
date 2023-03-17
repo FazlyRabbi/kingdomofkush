@@ -6,7 +6,7 @@ import useSweetAlert from "../lib/sweetalert2";
 const Form = () => {
   // showing alert
   const { showAlert } = useSweetAlert();
-  
+
   const showAlerts = () => {
     showAlert({
       text: "Thanks for Connecting with us!",
@@ -106,7 +106,7 @@ const Form = () => {
         </div>
         <button
           type="submit"
-          className=" bg-[#eee] mt-2 text-[#fff] border-solid border-2 border-[#ddd] py-2.5 px-3.5 hover:bg-red"
+          className="bg-black mt-5 text-[#cb9833] py-2 pl-3 pr-3 rounded-lg flex items-center gap-2"
         >
           Send
         </button>
