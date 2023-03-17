@@ -49,7 +49,7 @@ const PetitionApplication = () => {
 
   const [data, setData] = useState();
 
-// load init data 
+  // load init data
   useEffect(() => {
     if (typeof window !== "undefined") {
       // Get petition data items from Local Storage
@@ -77,7 +77,7 @@ const PetitionApplication = () => {
     });
   }, []);
 
-// set signature 
+  // set signature
   useEffect(() => {
     handleConvertToImage();
   }, [signature]);
@@ -381,7 +381,7 @@ const PetitionApplication = () => {
               <div className="mb-5">
                 <div className="relative">
                   <div className="sig__pad w-[15rem] md:w-[20rem] h-[8rem] bg-softGray">
-                    <input
+                    {/* <input
                       id="signature"
                       required
                       type="text"
@@ -389,7 +389,26 @@ const PetitionApplication = () => {
                       placeholder="Type your Signature"
                       className="w-[100%] text-[1.3rem] md:text-[1.8rem] h-[100%]   bg-softGray text-center font-bold"
                       onChange={(e) => setSignature(e.target.value)}
-                    />
+                    /> */}
+                    <div className="relative w-[100%] h-full">
+                      <SignatureCanvas
+                        penColor="black"
+                        dotSize={1}
+                        throttle={50}
+                        backgroundColor="#eeee"
+                        ref={sigPad}
+                        canvasProps={{
+                          className:
+                            " cursor-crosshair h-[156px] w-full  mb-6  rounded-sm bg-[#e6e6e6]",
+                        }}
+                      />
+                      <TfiReload
+                        onClick={(e) => {
+                          sigPad.current.clear();
+                        }}
+                        className=" absolute   top-[10px]    right-5  text-[1rem] font-bold cursor-pointer hover:text-black text-[#3a3a3a]"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
