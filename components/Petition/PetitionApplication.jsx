@@ -1,13 +1,20 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
-import { browserName, osName, fullBrowserVersion } from "react-device-detect";
+import {
+  browserName,
+  osName,
+  fullBrowserVersion,
+  isMobile,
+} from "react-device-detect";
+
 import { TfiReload } from "react-icons/tfi";
+import { API_URL, API_TOKEN } from "@/config/index";
 import SignatureCanvas from "react-signature-canvas";
 import { petitionContext } from "@/context/PetitioContext";
 import { Button } from "@material-tailwind/react";
+import { toBlob } from "html-to-image";
 // alart and messages
 import useSweetAlert from "../lib/sweetalert2";
 import SharePetition from "./SharePetition";
-
 import countryName from "../../public/country.json";
 
 const PetitionApplication = () => {
@@ -21,13 +28,16 @@ const PetitionApplication = () => {
   const { showAlert } = useSweetAlert();
   const [open, setOpen] = useState(false);
 
-  const showAlerts = () => {
+  const showAlerts = (icon, message, color) => {
+    console.log(message);
     showAlert({
-      text: "Your Petition Application Successfull!",
-      icon: "success",
+      text:
+        message !== undefined
+          ? message
+          : "Your Petition Application Successfull!",
+      icon: icon,
       confirmButtonText: "ClOSE",
-      confirmButtonColor: "green",
-      header: "hello",
+      confirmButtonColor: color !== undefined ? color : "green",
     }).then((result) => {
       console.log(result);
     });
@@ -39,6 +49,7 @@ const PetitionApplication = () => {
 
   const [data, setData] = useState();
 
+// load init data 
   useEffect(() => {
     if (typeof window !== "undefined") {
       // Get petition data items from Local Storage
@@ -59,30 +70,31 @@ const PetitionApplication = () => {
         IpAddress: fullBrowserVersion,
         BrowserName: browserName,
         OperatingSystemName: osName,
+        DeviceName: isMobile ? "Mobile" : "Desktop",
         Locations: petition.AddressLine,
         Date: currentDate.toLocaleDateString(),
       },
     });
   }, []);
 
-  const handleConvertToImage = () => {
-    toPng(sigPad.current, { quality: 1, backgroundColor: "#fff" })
-      .then((dataUrl) => {
-        const link = document.createElement("a");
-        link.download = "my-image-name.png";
-        link.href = dataUrl;
-        link.click();
-        console.log(dataUrl);
+// set signature 
+  useEffect(() => {
+    handleConvertToImage();
+  }, [signature]);
+
+  const handleConvertToImage = (e) => {
+    toBlob(sigPad.current)
+      .then((data) => {
+        if (!data) return;
+        formData.append(
+          `files.Signature`,
+          data,
+          `${petition.FirstName}_sig.png`
+        );
       })
       .catch((err) => {
         console.log(err);
       });
-  };
-
-  const [file, setFile] = useState(null);
-
-  const handleChange = (e) => {
-    setFile(e.target.files[0]);
   };
 
   const postpetitions = async () => {
@@ -90,20 +102,18 @@ const PetitionApplication = () => {
       const res = await fetch(`${API_URL}/api/petitions`, {
         method: "POST",
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
           Authorization: API_TOKEN,
         },
-        body: JSON.stringify({
-          data: {
-            ...petition,
-          },
-        }),
+        body: formData,
       });
       const data = await res.json();
-      sendMailpetitions();
       console.log(data);
-      if (!res.ok) return;
+      if (!res.ok) {
+        showAlerts("error", data.error.message, "red");
+        return;
+      }
+      sendMailpetitions();
+      showAlerts("success");
     } catch (error) {
       console.log(error);
     }
@@ -111,11 +121,11 @@ const PetitionApplication = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    formData.append("data", JSON.stringify({ ...petition }));
     postpetitions();
-    showAlerts();
     localStorage.removeItem("pititonData");
     setPetition(petitionInitial);
-    handleConvertToImage();
     setSignature(null);
   };
 
@@ -247,6 +257,7 @@ const PetitionApplication = () => {
                 <input
                   type="text"
                   placeholder="E.g sydney"
+                  required
                   id="city"
                   className=" py-3 rounded-sm  border border-softGray  w-[100%] px-2 "
                   value={petition.City}
@@ -267,6 +278,7 @@ const PetitionApplication = () => {
                 </label>
                 <input
                   type="text"
+                  required
                   placeholder="E.g New South Wales"
                   id="state"
                   value={petition.State}
@@ -290,6 +302,7 @@ const PetitionApplication = () => {
                 <input
                   type="number"
                   placeholder="E.g 2000"
+                  required
                   id="zipcode"
                   value={petition.PostalCode}
                   onChange={(e) =>
@@ -310,7 +323,8 @@ const PetitionApplication = () => {
                 </label>
                 <select
                   id="countries"
-                  value={petition.Country}
+                  defaultValue={petition.Country}
+                  required
                   onChange={(e) =>
                     setPetition({ ...petition, Country: e.target.value })
                   }
@@ -366,16 +380,14 @@ const PetitionApplication = () => {
               </label>
               <div className="mb-5">
                 <div className="relative">
-                  <div
-                    className="sig__pad w-[15rem] md:w-[20rem] h-[8rem] bg-softGray"
-                    ref={sigPad}
-                  >
+                  <div className="sig__pad w-[15rem] md:w-[20rem] h-[8rem] bg-softGray">
                     <input
                       id="signature"
+                      required
                       type="text"
+                      ref={sigPad}
                       placeholder="Type your Signature"
                       className="w-[100%] text-[1.3rem] md:text-[1.8rem] h-[100%]   bg-softGray text-center font-bold"
-                      value={signature}
                       onChange={(e) => setSignature(e.target.value)}
                     />
                   </div>
@@ -384,11 +396,11 @@ const PetitionApplication = () => {
             </div>
 
             {/* ///////// */}
-            <div className=" mt-6">
+            {/* <div className=" mt-6">
               <Button onClick={() => setOpen(true)} variant="gradient">
                 Share
               </Button>
-            </div>
+            </div> */}
             {/* ///////// */}
             <div className=" grid grid-cols-1 mt-6">
               <button
@@ -398,16 +410,10 @@ const PetitionApplication = () => {
                 Submit
               </button>
             </div>
-
-            <input
-              type="file"
-              className=" bg-red px-10 py-5"
-              onChange={handleChange}
-            />
           </form>
         </div>
       </div>
-      <SharePetition open={open} setOpen={setOpen} />
+      {/* <SharePetition open={open} setOpen={setOpen} /> */}
     </div>
   );
 };

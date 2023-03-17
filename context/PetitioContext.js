@@ -26,6 +26,7 @@ export const PetitionProvider = ({ children }) => {
     DeviceRecentActivitys: {
       IpAddress: "",
       BrowserName: "",
+      DeviceName:"",
       OperatingSystemName: "",
       Locations: "USA",
       Date: "",

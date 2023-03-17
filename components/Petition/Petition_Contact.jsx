@@ -101,7 +101,7 @@ const Petition_Contact = () => {
         </p>
       </div>
       <div>
-        <label className="block text-gray-500" for="remember">
+        <label className="block text-gray-500" htmlFor="remember">
           <input
             className="mr-6 leading-tight w-5 h-5 rounded-xl"
             type="checkbox"
