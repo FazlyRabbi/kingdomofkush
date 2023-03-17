@@ -55,7 +55,7 @@ function AboutUsSection() {
             >
               About creating a safe haven
             </h1>
-            <p className=" text-[15px] mt-7 pr-[3rem] 2xl:pr-[35%] leading-relaxed ">
+            <p className=" text-[15px] mt-7 pr-[3rem] 2xl:pr-[35%] leading-[1.8rem] ">
               Over the past 22 years, a small renaissance group started
               envisioning together about creating a safe haven, a new society,
               with a common goal to give a path to all who come in good will

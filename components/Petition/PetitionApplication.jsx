@@ -7,14 +7,15 @@ import { Button } from "@material-tailwind/react";
 // alart and messages
 import useSweetAlert from "../lib/sweetalert2";
 import SharePetition from "./SharePetition";
-
+import PhoneInput from "react-phone-number-input";
 import countryName from "../../public/country.json";
+import ThankPetitionSubmit from "./ThankPetitionSubmit";
 
 const PetitionApplication = () => {
   // showing alert
   const { showAlert } = useSweetAlert();
-  const [open, setOpen] = useState(false);
-
+  const [sumitPetitionSuccess, setSumitPetitionSuccess] = useState(false);
+  const [signatureText, setSignatureText] = useState(false);
   const showAlerts = () => {
     showAlert({
       text: "Your Petition Application Successfull!",
@@ -55,11 +56,12 @@ const PetitionApplication = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    postpetitions();
-    localStorage.removeItem("pititonData");
-    setPetition(petitionInitial);
-    sigPad.current.clear();
-    showAlerts();
+    // postpetitions();
+    // localStorage.removeItem("pititonData");
+    // setPetition(petitionInitial);
+    // sigPad.current.clear();
+    // showAlerts();
+    setSumitPetitionSuccess(true);
   };
 
   return (
@@ -118,7 +120,15 @@ const PetitionApplication = () => {
                 >
                   Phone Number
                 </label>
-                <input
+                <PhoneInput
+                  international
+                  className=" py-3 rounded-sm  w-[100%] px-2 border  border-[#ededed]"
+                  defaultCountry="RU"
+                  // value={value}
+                  // onChange={setValue}
+                  onChange={(e) => setPetition({ ...petition, Number: e })}
+                />
+                {/* <input
                   required
                   type="number"
                   id="phoneNumber"
@@ -127,7 +137,7 @@ const PetitionApplication = () => {
                   onChange={(e) =>
                     setPetition({ ...petition, Phone: e.target.value })
                   }
-                />
+                /> */}
                 <p className=" invisible text-sm mt-[1px] text-red">
                   This field is required.
                 </p>
@@ -280,12 +290,12 @@ const PetitionApplication = () => {
                   className="after:pl-1 font-bold block mb-2 after:content-['*'] after:text-red"
                   htmlFor="message"
                 >
-                  Message
+                  Please Type Your Thought About Kingdom of Kush
                 </label>
                 <textarea
                   id="message"
                   name="message"
-                  placeholder="Type your message here"
+                  placeholder="Please Type Your Thought About Kingdom of Kush"
                   rows="5"
                   cols="40"
                   required
@@ -298,8 +308,97 @@ const PetitionApplication = () => {
               </div>
             </div>
 
+            <div className="grid grid-cols-1 mb-5">
+              <div className="after:pl-1 flex  font-bold  w-full mb-4 ">
+                Signature <span className="text-red">*</span>
+                <button
+                  onClick={() => setSignatureText(false)}
+                  className={`ml-4 ${!signatureText && "text-primary"}`}
+                >
+                  Type{" "}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                    />
+                  </svg>
+                </button>
+                <button
+                  onClick={() => setSignatureText(true)}
+                  className={`ml-4 ${signatureText && "text-primary"}`}
+                >
+                  Draw{" "}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zm-7.518-.267A8.25 8.25 0 1120.25 10.5M8.288 14.212A5.25 5.25 0 1117.25 10.5"
+                    />
+                  </svg>
+                </button>
+              </div>
+              {signatureText ? (
+                <div className="relative">
+                  <SignatureCanvas
+                    penColor="black"
+                    dotSize={1}
+                    throttle={50}
+                    backgroundColor="#eeee"
+                    ref={sigPad}
+                    canvasProps={{
+                      height: 156,
+                      className:
+                        " cursor-crosshair   md:w-[500px] w-full  mb-6  rounded-sm bg-[#e6e6e6",
+                    }}
+                  />
+                  <TfiReload
+                    onClick={(e) => {
+                      sigPad.current.clear();
+                    }}
+                    className=" absolute top-[10px]   left-[29rem] text-[1rem] font-bold cursor-pointer hover:text-black text-[#3a3a3a]"
+                  />
+                </div>
+              ) : (
+                <div>
+                  <textarea
+                    type="number"
+                    placeholder="Enter your text"
+                    // id="billing_zipcode"
+                    className=" py-3 rounded-sm w-full lg:w-[30rem]  px-2  bg-[#ededed]"
+                    required
+                    // value={membership.BillingPostalCode}
+                    // onChange={(e) =>
+                    //   setMembership({
+                    //     ...membership,
+                    //     BillingPostalCode: e.target.value,
+                    //   })
+                    // }
+                    name=""
+                    id=""
+                    cols="18"
+                    rows="5"
+                  ></textarea>
+                </div>
+              )}
+            </div>
+
             {/* ///////// */}
-            <div className=" grid grid-cols-1 mb-5">
+            {/* <div className=" grid grid-cols-1 mb-5">
               <label
                 className="after:pl-1 font-bold block after:content-['*'] after:text-red"
                 htmlFor="address_2"
@@ -329,14 +428,8 @@ const PetitionApplication = () => {
                   />
                 </div>
               </div>
-            </div>
+            </div> */}
 
-            {/* ///////// */}
-            <div className=" mt-6">
-              <Button onClick={() => setOpen(true)} variant="gradient">
-                Share
-              </Button>
-            </div>
             {/* ///////// */}
             <div className=" grid grid-cols-1 mt-6">
               <button
@@ -349,7 +442,10 @@ const PetitionApplication = () => {
           </form>
         </div>
       </div>
-      <SharePetition open={open} setOpen={setOpen} />
+      <ThankPetitionSubmit
+        sumitPetitionSuccess={sumitPetitionSuccess}
+        setSumitPetitionSuccess={setSumitPetitionSuccess}
+      />
     </div>
   );
 };

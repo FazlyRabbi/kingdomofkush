@@ -7,7 +7,16 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 import Link from "next/link";
-import { FaFacebookF } from "react-icons/fa";
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  TwitterShareButton,
+  TwitterIcon,
+  LinkedinShareButton,
+  LinkedinIcon,
+  WhatsappShareButton,
+  WhatsappIcon,
+} from "next-share";
 import {
   AiFillLinkedin,
   AiFillYoutube,
@@ -21,50 +30,51 @@ export default function SharePetition({ open, setOpen }) {
   return (
     <Fragment>
       <Dialog open={open} handler={handleOpen}>
-        <DialogHeader>Share </DialogHeader>
+        <DialogHeader>Please Share With Support </DialogHeader>
         <DialogBody divider>
           <div className="flex  px-6 justify-evenly items-center">
-            <div className="w-[45px] h-[45px] bg-[#4267B2] text-white text-center rounded-full">
-              <Link href={"https://www.facebook.com/royalkingdomofkush"}>
-                <FaFacebookF className=" text-[1.2rem] cursor-pointer mx-auto mt-3" />
-              </Link>
-            </div>
-            <div className="w-[45px] h-[45px] bg-[#1DA1F2] text-white text-center rounded-full">
-              <Link href={"https://twitter.com/eKingdomofKush"}>
-                <AiOutlineTwitter className=" text-[1.2rem] cursor-pointer  mx-auto mt-3" />
-              </Link>
-            </div>
-            <div className="w-[45px] h-[45px] bg-[#0077b5] text-white text-center rounded-full">
-              <Link href={"https://www.linkedin.com/company/kingdomofkush/"}>
-                <AiFillLinkedin className=" text-[1.2rem] cursor-pointer  mx-auto mt-3" />
-              </Link>
-            </div>
-            <div className="w-[45px] h-[45px] bg-[#c4302b] text-white text-center rounded-full">
-              <Link
-                href={
-                  "https://www.youtube.com/channel/UCrl79VUm6Mklxwu9pG5JUAA"
-                }
-              >
-                <AiFillYoutube className=" text-[1.2rem] cursor-pointer  mx-auto mt-3" />
-              </Link>
-            </div>
-            <div className="w-[45px] h-[45px] bg-[#3f729b] text-white text-center rounded-full">
-              <Link href={"https://www.instagram.com/royalkingdomofkush/"}>
-                <AiOutlineInstagram className=" text-[1.2rem] cursor-pointer  mx-auto mt-3" />
-              </Link>
-            </div>
+            <FacebookShareButton
+              url={"https://www.facebook.com/next-share"}
+              quote={
+                "next-share is a social share buttons for your next React apps."
+              }
+              hashtag={"#nextshare"}
+            >
+              <FacebookIcon size={32} round />
+            </FacebookShareButton>
+
+            <TwitterShareButton
+              url={"https://twitter.com/?lang=en/next-share"}
+              quote={
+                "next-share is a social share buttons for your next React apps."
+              }
+              hashtag={"#nextshare"}
+            >
+              <TwitterIcon size={32} round />
+            </TwitterShareButton>
+
+            <LinkedinShareButton
+              url={"https://www.linkedin.com/feed/next-share"}
+              quote={
+                "next-share is a social share buttons for your next React apps."
+              }
+              hashtag={"#nextshare"}
+            >
+              <LinkedinIcon size={32} round />
+            </LinkedinShareButton>
+
+            <WhatsappShareButton
+              url={"https://web.whatsapp.com//next-share"}
+              quote={
+                "next-share is a social share buttons for your next React apps."
+              }
+              hashtag={"#nextshare"}
+            >
+              <WhatsappIcon size={32} round />
+            </WhatsappShareButton>
           </div>
         </DialogBody>
-        <DialogFooter>
-          <Button
-            variant="text"
-            color="red"
-            onClick={handleOpen}
-            className="mr-1"
-          >
-            <span>Cancel</span>
-          </Button>
-        </DialogFooter>
+        <DialogFooter></DialogFooter>
       </Dialog>
     </Fragment>
   );

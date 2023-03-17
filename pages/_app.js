@@ -2,7 +2,7 @@ import "../styles/globals.css";
 import "tailwindcss/tailwind.css";
 import "swiper/swiper-bundle.css";
 import { ThemeProvider } from "@material-tailwind/react";
-
+import "react-phone-number-input/style.css";
 // 1. import `NextUIProvider` component
 import { AuthProvider } from "@/context/AuthContext";
 import { VolunteerProvider } from "@/context/VolunteerContext";

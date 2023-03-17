@@ -11,6 +11,7 @@ import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 const MemberShip_Contact = ({ setShowMember }) => {
   const sigPad = useRef();
+  const [signatureText, setSignatureText] = useState(true);
 
   // showing alert
   const { showAlert } = useSweetAlert();
@@ -768,32 +769,92 @@ const MemberShip_Contact = ({ setShowMember }) => {
           <div>
             {/* // Signature field  */}
 
-            <label
-              className="after:pl-1 font-bold block after:content-['*'] mb-4 after:text-red"
-              htmlFor="address_2"
-            >
-              Signature
-            </label>
-
-            <div className="relative w-[100%] h-full">
-              <SignatureCanvas
-                penColor="black"
-                dotSize={1}
-                throttle={50}
-                backgroundColor="#eeee"
-                ref={sigPad}
-                canvasProps={{
-                  className:
-                    " cursor-crosshair h-[156px] w-full  mb-6  rounded-sm bg-[#e6e6e6]",
-                }}
-              />
-              <TfiReload
-                onClick={(e) => {
-                  sigPad.current.clear();
-                }}
-                className=" absolute   top-[10px]    right-5  text-[1rem] font-bold cursor-pointer hover:text-black text-[#3a3a3a]"
-              />
+            <div className="after:pl-1 flex  font-bold  w-full mb-4 ">
+              Signature <span className="text-red">*</span>
+              <button
+                onClick={() => setSignatureText(true)}
+                className={`ml-4 ${signatureText && "text-primary"}`}
+              >
+                Draw{" "}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zm-7.518-.267A8.25 8.25 0 1120.25 10.5M8.288 14.212A5.25 5.25 0 1117.25 10.5"
+                  />
+                </svg>
+              </button>
+              <button
+                onClick={() => setSignatureText(false)}
+                className={`ml-4 ${!signatureText && "text-primary"}`}
+              >
+                Type{" "}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                  />
+                </svg>
+              </button>
             </div>
+
+            {signatureText ? (
+              <div className="relative w-[100%] h-full">
+                <SignatureCanvas
+                  penColor="black"
+                  dotSize={1}
+                  throttle={50}
+                  backgroundColor="#eeee"
+                  ref={sigPad}
+                  canvasProps={{
+                    className:
+                      " cursor-crosshair h-[156px] w-full  mb-6  rounded-sm bg-[#e6e6e6]",
+                  }}
+                />
+                <TfiReload
+                  onClick={(e) => {
+                    sigPad.current.clear();
+                  }}
+                  className=" absolute   top-[10px]    right-5  text-[1rem] font-bold cursor-pointer hover:text-black text-[#3a3a3a]"
+                />
+              </div>
+            ) : (
+              <div>
+                <textarea
+                  type="number"
+                  placeholder="Enter your text"
+                  // id="billing_zipcode"
+                  className=" py-3 rounded-sm  w-[100%] px-2  bg-[#ededed]"
+                  required
+                  // value={membership.BillingPostalCode}
+                  // onChange={(e) =>
+                  //   setMembership({
+                  //     ...membership,
+                  //     BillingPostalCode: e.target.value,
+                  //   })
+                  // }
+                  name=""
+                  id=""
+                  cols="10"
+                  rows="5"
+                ></textarea>
+              </div>
+            )}
           </div>
         </div>
 

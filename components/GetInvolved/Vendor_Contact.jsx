@@ -239,16 +239,16 @@ function vendor_Contact() {
               >
                 Phone number
               </label>
-              {/* <PhoneInput
+              <PhoneInput
                 international
-                className=" py-3 rounded-sm  w-[100%] px-2  bg-[#ededed]"
+                className=" py-3  w-[100%] px-2 border rounded-md border-softGray"
                 defaultCountry="RU"
                 onChange={() => ""}
                 // onChange={(e) =>
                 //   setVolunteer({ ...volunteer, Phone: e.target.value })
                 // }
-              /> */}
-              <input
+              />
+              {/* <input
                 required
                 type="tel"
                 id="phoneNumber"
@@ -257,7 +257,7 @@ function vendor_Contact() {
                 onChange={(e) =>
                   setVendor({ ...vendor, Phone: e.target.value })
                 }
-              />
+              /> */}
               <p className=" invisible text-sm mt-[1px] warningMessage text-red">
                 This field is required.
               </p>
