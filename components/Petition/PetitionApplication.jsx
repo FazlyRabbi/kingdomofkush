@@ -416,22 +416,21 @@ const PetitionApplication = () => {
               {signatureText ? (
                 <div className="relative">
                   <SignatureCanvas
+                    ref={sigPad}
                     penColor="black"
                     dotSize={1}
                     throttle={50}
                     backgroundColor="#eeee"
-                    ref={sigPad}
                     canvasProps={{
-                      height: 156,
                       className:
-                        " cursor-crosshair   md:w-[500px] w-full  mb-6  rounded-sm bg-[#e6e6e6",
+                        " cursor-crosshair h-[156px] w-full  mb-6  rounded-sm bg-[#e6e6e6]",
                     }}
                   />
                   <TfiReload
                     onClick={(e) => {
                       sigPad.current.clear();
                     }}
-                    className=" absolute top-[10px]   left-[29rem] text-[1rem] font-bold cursor-pointer hover:text-black text-[#3a3a3a]"
+                    className=" absolute   top-[10px]    right-5  text-[1rem] font-bold cursor-pointer hover:text-black text-[#3a3a3a]"
                   />
                 </div>
               ) : (
@@ -440,7 +439,7 @@ const PetitionApplication = () => {
                     type="number"
                     placeholder="Enter your text"
                     // id="billing_zipcode"
-                    className=" py-3 rounded-sm w-full lg:w-[30rem]  px-2  bg-[#ededed]"
+                    className=" py-3 rounded-sm w-full px-2  bg-[#ededed]"
                     required
                     // value={membership.BillingPostalCode}
                     // onChange={(e) =>

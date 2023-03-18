@@ -937,11 +937,11 @@ const MemberShip_Contact = ({ setShowMember }) => {
             {signatureText ? (
               <div className="relative w-[100%] h-full">
                 <SignatureCanvas
+                  ref={sigPad}
                   penColor="black"
                   dotSize={1}
                   throttle={50}
                   backgroundColor="#eeee"
-                  ref={sigPad}
                   canvasProps={{
                     className:
                       " cursor-crosshair h-[156px] w-full  mb-6  rounded-sm bg-[#e6e6e6]",
