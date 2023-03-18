@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { CgMenuRightAlt } from "react-icons/cg";
-
 import { IoIosPeople } from "react-icons/io";
 import { MdOutlineStore } from "react-icons/md";
 
@@ -27,8 +26,6 @@ function LeftMenu() {
            transition-all duration-300
     absolute lg:static lg:z-0 z-10 top-0 left-0 
     
-    
-
     w-full  lg:block  mb-2 h-[100vh]  bg-[#F8F9FA]
  
     ${open ? "translate-x-0" : " -translate-x-[100rem]"}
@@ -41,7 +38,7 @@ function LeftMenu() {
             <h5 className=" py-6  text-[1rem] font-bold">Dashboard</h5>
           </div>
 
-          <span className=" mx-auto block bg-gradient-to-r from-transparent   via-[#E0E1E1] to-transparent   h-[1.2px]  w-[90%]"></span>
+          <span className=" mx-auto  bg-gradient-to-r from-transparent   via-[#E0E1E1] to-transparent   h-[1.2px]  w-[90%]"></span>
         </div>
 
         {/* left menu content */}
