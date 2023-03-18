@@ -6,7 +6,7 @@ import { GrUserWorker } from "react-icons/gr";
 import { CiMoneyBill } from "react-icons/ci";
 import { GiTakeMyMoney } from "react-icons/gi";
 import { AiOutlineContacts } from "react-icons/ai";
-import { MdOutlineStore , MdOutlineNoteAlt} from "react-icons/md";
+import { MdOutlineStore, MdOutlineNoteAlt } from "react-icons/md";
 
 import { useRouter } from "next/router";
 
@@ -23,8 +23,6 @@ function LeftMenu() {
         absolute cursor-pointer top-[2rem] right-[2rem] text-[2rem]"
         onClick={() => setOpen(!open)}
       />
-
-
 
       {/* // left manu */}
       <section
@@ -44,7 +42,9 @@ function LeftMenu() {
         {/* left menu header */}
         <div className="leftMenu__header relative">
           <div className="flex justify-center ">
-            <h5 className=" py-6  text-[1rem] font-bold">Dashboard</h5>
+            <Link href={`/dashboard`}>
+              <h5 className=" py-6  text-[1rem] font-bold">Dashboard</h5>
+            </Link>
           </div>
 
           <span className=" mx-auto  bg-gradient-to-r from-transparent   via-[#E0E1E1] to-transparent   h-[1.2px]  w-[90%]"></span>
@@ -53,11 +53,11 @@ function LeftMenu() {
         {/* left menu content */}
         <div className="leftMenu__content  transition-all duration-500 my-4 flex items-center justify-center flex-col">
           <Link
-            href={`/dashboard`}
+            href={`/dashboard/members`}
             className={`
           
            ${
-             router.pathname === "/dashboard"
+             router.pathname === "/dashboard/members"
                ? ` 
            
             rounded-lg
@@ -75,7 +75,7 @@ function LeftMenu() {
               className={`
           
             ${
-              router.pathname === "/dashboard"
+              router.pathname === "/dashboard/members"
                 ? `
             
                 bg-gradient-to-r from-cyan-500 to-blue-500 text-white
@@ -164,7 +164,7 @@ function LeftMenu() {
             >
               <MdOutlineNoteAlt className="  text-[1.3rem]  text-inherit" />
             </div>
-           Petition
+            Petition
           </Link>
           <Link
             href={`/dashboard/volunteers`}
@@ -202,7 +202,7 @@ function LeftMenu() {
             >
               <GrUserWorker className="   text-[1.3rem]  text-inherit" />
             </div>
-           Volunteers
+            Volunteers
           </Link>
           <Link
             href={`/dashboard/invest`}
@@ -240,7 +240,7 @@ function LeftMenu() {
             >
               <CiMoneyBill className="  text-[1.3rem]  text-inherit" />
             </div>
-           invest
+            invest
           </Link>
           <Link
             href={`/dashboard/donation`}
