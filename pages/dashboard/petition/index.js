@@ -170,6 +170,9 @@ function index() {
     </Document>
   );
 
+
+
+
   // to open tailwind modals
   const [open, setOpen] = useState(false);
   const handleOpen = (data) => {
@@ -184,22 +187,31 @@ function index() {
     { label: "LastName", key: "attributes.LastName" },
     { label: "Email", key: "attributes.Email" },
     { label: "Phone", key: "attributes.Phone" },
-    { label: "AddressLine1", key: "attributes.AddressLine1" },
-    { label: "AddressLine2", key: "attributes.AddressLine2" },
+    { label: "AddressLine", key: "attributes.AddressLine1" },
+    { label: "StreetAddress", key: "attributes.StreetAddress" },
     { label: "City", key: "attributes.City" },
     { label: "State", key: "attributes.State" },
     { label: "Skills", key: "attributes.Skills" },
     { label: "PostalCode", key: "attributes.PostalCode" },
     { label: "Country", key: "attributes.Country" },
-    { label: "InterestAreas", key: "attributes.InterestAreas" },
-    { label: "BillingPostal", key: "attributes.BillingPostal" },
-    { label: "BillingCountry", key: "attributes.BillingCountry" },
-    { label: "RegistrationId", key: "attributes.RegistrationId" },
+    { label: "Message", key: "attributes.Message" },
+    { label: "IpAddress", key: "attributes.DeviceRecentActivitys.IpAddress" },
+    {
+      label: "BrowserName",
+      key: "attributes.DeviceRecentActivitys.BrowserName",
+    },
+    {
+      label: "OperatingSystemName",
+      key: "attributes.DeviceRecentActivitys.OperatingSystemName",
+    },
+    { label: "Locations", key: "attributes.Locations" },
+    { label: "Date", key: "attributes.DeviceRecentActivitys.Date" },
+    { label: "DeviceName", key: "attributes.DeviceRecentActivitys.DeviceName" },
   ];
 
   // Fetch data from an external API or database
   useEffect(() => {
-    fetch(`${API_URL}/api/vendors?populate=*`, {
+    fetch(`${API_URL}/api/petitions?populate=*`, {
       method: "GET",
       headers: {
         Authorization: API_TOKEN,
@@ -243,25 +255,27 @@ function index() {
       sortable: true,
     },
     {
-      name: "DateofBirth",
-      selector: (row) => row.attributes.DateofBirth,
-      sortable: true,
-    },
-    {
       name: "Phone",
       selector: (row) => row.attributes.Phone,
       sortable: true,
     },
     {
-      name: "AddressLine1",
-      selector: (row) => row.attributes.AddressLine1,
+      name: "PostalCode",
+      selector: (row) => row.attributes.PostalCode,
       sortable: true,
     },
     {
-      name: "City",
-      selector: (row) => row.attributes.City,
+      name: "Country",
+      selector: (row) => row.attributes.Country,
       sortable: true,
     },
+   
+    {
+      name: "Date",
+      selector: (row) => row.attributes.DeviceRecentActivitys.Date,
+      sortable: true,
+    },
+   
     {
       name: "Action",
       cell: (row) => (
@@ -297,17 +311,16 @@ function index() {
   return (
     <>
       <Head>
-        <title>Vendors</title>
+        <title>Petitons</title>
       </Head>
+     
+     
       <div className="grid  px-10 grid-cols-1 lg:grid-cols-5 gap-5 justify-items-left p-[3rem] ">
         <LeftMenu />
         <div className=" lg:col-span-4  mr-10 mt-14">
           <DataTable
             columns={columns}
             data={filteredMembers}
-            // selectableRowsHighlight
-            // highlightOnHover
-            // selectableRows
             fixedHeader
             title="Vendors"
             subHeader
@@ -406,21 +419,10 @@ function index() {
               </div>
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
-                  First Name
-                </label>
-                <Input
-                  name="FirstName"
-                  className="pt-1"
-                  label={singleData.FirstName && singleData.FirstName}
-                  disabled
-                />
-              </div>
-              <div className="mr-2 lg:mr-0">
-                <label htmlFor="FirstName" className="text-black">
                   LastName
                 </label>
                 <Input
-                  name="FirstName"
+                  name="LastName"
                   className="pt-1"
                   label={singleData.LastName && singleData.LastName}
                   disabled
@@ -438,18 +440,6 @@ function index() {
                   disabled
                 />
               </div>
-
-              <div className="mr-2 lg:mr-0">
-                <label htmlFor="FirstName" className="text-black">
-                  DateofBirth
-                </label>
-                <Input
-                  name="FirstName"
-                  className="pt-1"
-                  label={singleData.DateofBirth && singleData.DateofBirth}
-                  disabled
-                />
-              </div>
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
                   Phone
@@ -463,23 +453,23 @@ function index() {
               </div>
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
-                  AddressLine1
+                  AddressLine
                 </label>
                 <Input
                   name="FirstName"
                   className="pt-1"
-                  label={singleData.AddressLine1 && singleData.AddressLine1}
+                  label={singleData.AddressLine && singleData.AddressLine}
                   disabled
                 />
               </div>
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
-                  AddressLine2
+                  StreetAddress
                 </label>
                 <Input
                   name="FirstName"
                   className="pt-1"
-                  label={singleData.AddressLine2 && singleData.AddressLine2}
+                  label={singleData.StreetAddress && singleData.StreetAddress}
                   disabled
                 />
               </div>
@@ -529,49 +519,83 @@ function index() {
               </div>
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
-                  Skills
+                  Message
                 </label>
                 <Input
                   name="FirstName"
                   className="pt-1"
-                  label={singleData.Skills && singleData.Skills}
+                  label={singleData.Message && singleData.Message}
                   disabled
                 />
               </div>
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
-                  InterestAreas
+                  IpAddress
                 </label>
                 <Input
                   name="FirstName"
                   className="pt-1"
-                  label={singleData.InterestAreas && singleData.InterestAreas}
+                  label={singleData?.DeviceRecentActivitys?.IpAddress}
                   disabled
                 />
               </div>
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
-                  BillingPostal
+                  BrowserName
                 </label>
                 <Input
                   name="FirstName"
                   className="pt-1"
-                  label={singleData.BillingPostal && singleData.BillingPostal}
+                  label={singleData?.DeviceRecentActivitys?.BrowserName}
                   disabled
                 />
               </div>
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
-                  BillingCountry
+                  OS Name 
                 </label>
                 <Input
                   name="FirstName"
                   className="pt-1"
-                  label={singleData.BillingCountry && singleData.BillingCountry}
+                  label={singleData?.DeviceRecentActivitys?.OperatingSystemName}
                   disabled
                 />
               </div>
-            
+              <div className="mr-2 lg:mr-0">
+                <label htmlFor="FirstName" className="text-black">
+                  Locations
+                </label>
+                <Input
+                  name="FirstName"
+                  className="pt-1"
+                  label={singleData?.DeviceRecentActivitys?.Locations}
+                  disabled
+                />
+              </div>
+              <div className="mr-2 lg:mr-0">
+                <label htmlFor="FirstName" className="text-black">
+                  Date
+                </label>
+                <Input
+                  name="FirstName"
+                  className="pt-1"
+                  label={singleData?.DeviceRecentActivitys?.Date}
+                  disabled
+                />
+              </div>
+              <div className="mr-2 lg:mr-0">
+                <label htmlFor="FirstName" className="text-black">
+                  DeviceName
+                </label>
+                <Input
+                  name="FirstName"
+                  className="pt-1"
+                  label={singleData?.DeviceRecentActivitys?.DeviceName}
+                  disabled
+                />
+              </div>
+      
+
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
                   RegistrationId
@@ -579,14 +603,16 @@ function index() {
                 <Input
                   name="FirstName"
                   className="pt-1"
-                  label={singleData.RegistrationId && singleData.RegistrationId}
-                  disabled
+                  label={singleData?.DeviceRecentActivitys?.RegistrationId}
+                 disabled
                 />
               </div>
             </div>
           </DialogBody>
         </Dialog>
       </div>
+
+
     </>
   );
 }

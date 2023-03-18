@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { CgMenuRightAlt } from "react-icons/cg";
 import { IoIosPeople } from "react-icons/io";
-import { MdOutlineStore } from "react-icons/md";
+import { GrUserWorker } from "react-icons/gr";
+import { CiMoneyBill } from "react-icons/ci";
+import { GiTakeMyMoney } from "react-icons/gi";
+import { AiOutlineContacts } from "react-icons/ai";
+import { MdOutlineStore , MdOutlineNoteAlt} from "react-icons/md";
+
 import { useRouter } from "next/router";
 
 function LeftMenu() {
@@ -56,7 +61,7 @@ function LeftMenu() {
                ? ` 
            
             rounded-lg
-
+        
             bg-white shadow-md`
                : ""
            }
@@ -78,7 +83,6 @@ function LeftMenu() {
             `
                 : ``
             }
-          
           
           p-[5px] rounded-lg shadow-md`}
             >
@@ -123,6 +127,196 @@ function LeftMenu() {
               <MdOutlineStore className="  text-[1.3rem]  text-inherit" />
             </div>
             Vendors
+          </Link>
+          <Link
+            href={`/dashboard/petition`}
+            className={`
+          
+           ${
+             router.pathname === "/dashboard/petition"
+               ? ` 
+           
+            rounded-lg
+
+            bg-white shadow-md`
+               : ""
+           }
+           
+           px-4 py-3
+          w-[90%] flex justify-left gap-3 items-center text-base  font-normal
+            
+            text-[#394B6B] capitalize `}
+          >
+            <div
+              className={`
+          
+            ${
+              router.pathname === "/dashboard/petition"
+                ? `
+            
+                bg-gradient-to-r from-cyan-500 to-blue-500 text-white
+            
+            `
+                : ``
+            }
+          
+          p-[5px] rounded-lg shadow-md`}
+            >
+              <MdOutlineNoteAlt className="  text-[1.3rem]  text-inherit" />
+            </div>
+           Petition
+          </Link>
+          <Link
+            href={`/dashboard/volunteers`}
+            className={`
+          
+           ${
+             router.pathname === "/dashboard/volunteers"
+               ? ` 
+           
+            rounded-lg
+
+            bg-white shadow-md`
+               : ""
+           }
+           
+           px-4 py-3
+          w-[90%] flex justify-left gap-3 items-center text-base  font-normal
+            
+            text-[#394B6B] capitalize `}
+          >
+            <div
+              className={`
+          
+            ${
+              router.pathname === "/dashboard/volunteers"
+                ? `
+            
+                bg-gradient-to-r from-cyan-500 to-blue-500 text-white
+            
+            `
+                : ``
+            }
+          
+          p-[5px] rounded-lg shadow-md`}
+            >
+              <GrUserWorker className="   text-[1.3rem]  text-inherit" />
+            </div>
+           Volunteers
+          </Link>
+          <Link
+            href={`/dashboard/invest`}
+            className={`
+          
+           ${
+             router.pathname === "/dashboard/invest"
+               ? ` 
+           
+            rounded-lg
+
+            bg-white shadow-md`
+               : ""
+           }
+           
+           px-4 py-3
+          w-[90%] flex justify-left gap-3 items-center text-base  font-normal
+            
+            text-[#394B6B] capitalize `}
+          >
+            <div
+              className={`
+          
+            ${
+              router.pathname === "/dashboard/invest"
+                ? `
+            
+                bg-gradient-to-r from-cyan-500 to-blue-500 text-white
+            
+            `
+                : ``
+            }
+          
+          p-[5px] rounded-lg shadow-md`}
+            >
+              <CiMoneyBill className="  text-[1.3rem]  text-inherit" />
+            </div>
+           invest
+          </Link>
+          <Link
+            href={`/dashboard/donation`}
+            className={`
+          
+           ${
+             router.pathname === "/dashboard/donation"
+               ? ` 
+           
+            rounded-lg
+
+            bg-white shadow-md`
+               : ""
+           }
+           
+           px-4 py-3
+          w-[90%] flex justify-left gap-3 items-center text-base  font-normal
+            
+            text-[#394B6B] capitalize `}
+          >
+            <div
+              className={`
+          
+            ${
+              router.pathname === "/dashboard/donation"
+                ? `
+            
+                bg-gradient-to-r from-cyan-500 to-blue-500 text-white
+            
+            `
+                : ``
+            }
+          
+          p-[5px] rounded-lg shadow-md`}
+            >
+              <GiTakeMyMoney className="  text-[1.3rem]  text-inherit" />
+            </div>
+            Donation
+          </Link>
+          <Link
+            href={`/dashboard/contacts`}
+            className={`
+          
+           ${
+             router.pathname === "/dashboard/contacts"
+               ? ` 
+           
+            rounded-lg
+
+            bg-white shadow-md`
+               : ""
+           }
+           
+           px-4 py-3
+          w-[90%] flex justify-left gap-3 items-center text-base  font-normal
+            
+            text-[#394B6B] capitalize `}
+          >
+            <div
+              className={`
+          
+            ${
+              router.pathname === "/dashboard/contacts"
+                ? `
+            
+                bg-gradient-to-r from-cyan-500 to-blue-500 text-white
+            
+            `
+                : ``
+            }
+          
+          p-[5px] rounded-lg shadow-md`}
+            >
+              <AiOutlineContacts className="   text-[1.3rem]  text-inherit" />
+            </div>
+            Contacts
           </Link>
         </div>
       </section>

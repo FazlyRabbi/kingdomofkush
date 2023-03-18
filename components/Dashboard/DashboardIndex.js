@@ -268,7 +268,6 @@ function DashboardIndex() {
     },
   ];
 
-  const scoolBarStyle = {};
 
   const customStyles = {
     rows: {

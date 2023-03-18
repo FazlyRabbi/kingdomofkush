@@ -180,21 +180,17 @@ function index() {
   // csv headers
   const headers = [
     { label: "ID", key: "id" },
+    { label: "Title", key: "attributes.Title" },
     { label: "FirstName", key: "attributes.FirstName" },
     { label: "LastName", key: "attributes.LastName" },
+    { label: "FamilyLastName", key: "attributes.FamilyLastName" },
     { label: "Email", key: "attributes.Email" },
-    { label: "Phone", key: "attributes.Phone" },
-    { label: "AddressLine1", key: "attributes.AddressLine1" },
-    { label: "AddressLine2", key: "attributes.AddressLine2" },
-    { label: "City", key: "attributes.City" },
+    { label: "Number", key: "attributes.Number" },
+    { label: "StreetAddress", key: "attributes.StreetAddress" },
     { label: "State", key: "attributes.State" },
-    { label: "Skills", key: "attributes.Skills" },
+    { label: "City", key: "attributes.City" },
     { label: "PostalCode", key: "attributes.PostalCode" },
     { label: "Country", key: "attributes.Country" },
-    { label: "InterestAreas", key: "attributes.InterestAreas" },
-    { label: "BillingPostal", key: "attributes.BillingPostal" },
-    { label: "BillingCountry", key: "attributes.BillingCountry" },
-    { label: "RegistrationId", key: "attributes.RegistrationId" },
   ];
 
   // Fetch data from an external API or database
@@ -215,7 +211,7 @@ function index() {
 
   useEffect(() => {
     const result = members?.filter((member) =>
-      member.attributes.FirstName.toLowerCase().match(search.toLowerCase())
+      member.attributes.Title.toLowerCase().match(search.toLowerCase())
     );
     setFilteredMembers(result);
   }, [search]);
@@ -228,7 +224,12 @@ function index() {
       sortable: true,
     },
     {
-      name: "FirstName",
+      name: "Title",
+      selector: (row) => row.attributes.Title,
+      sortable: true,
+    },
+    {
+      name: "FIRSTNAME",
       selector: (row) => row.attributes.FirstName,
       sortable: true,
     },
@@ -238,30 +239,31 @@ function index() {
       sortable: true,
     },
     {
+      name: "MiddleName",
+      selector: (row) => row.attributes.MiddleName,
+      sortable: true,
+    },
+    {
+      name: "MiddleName",
+      selector: (row) => row.attributes.MiddleName,
+      sortable: true,
+    },
+    {
+      name: "FamilyLastName",
+      selector: (row) => row.attributes.FamilyLastName,
+      sortable: true,
+    },
+    {
       name: "Email",
       selector: (row) => row.attributes.Email,
       sortable: true,
     },
     {
-      name: "DateofBirth",
-      selector: (row) => row.attributes.DateofBirth,
+      name: "Number",
+      selector: (row) => row.attributes.Number,
       sortable: true,
     },
-    {
-      name: "Phone",
-      selector: (row) => row.attributes.Phone,
-      sortable: true,
-    },
-    {
-      name: "AddressLine1",
-      selector: (row) => row.attributes.AddressLine1,
-      sortable: true,
-    },
-    {
-      name: "City",
-      selector: (row) => row.attributes.City,
-      sortable: true,
-    },
+
     {
       name: "Action",
       cell: (row) => (
@@ -395,12 +397,12 @@ function index() {
             >
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
-                  FirstName
+                  Title
                 </label>
                 <Input
                   name="FirstName"
                   className="pt-1"
-                  label={singleData.FirstName && singleData.FirstName}
+                  label={singleData.Title && singleData.Title}
                   disabled
                 />
               </div>
@@ -417,7 +419,7 @@ function index() {
               </div>
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
-                  LastName
+                  Last Name
                 </label>
                 <Input
                   name="FirstName"
@@ -441,12 +443,23 @@ function index() {
 
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
-                  DateofBirth
+                  Middle Name
                 </label>
                 <Input
                   name="FirstName"
                   className="pt-1"
-                  label={singleData.DateofBirth && singleData.DateofBirth}
+                  label={singleData.MiddleName && singleData.MiddleName}
+                  disabled
+                />
+              </div>
+              <div className="mr-2 lg:mr-0">
+                <label htmlFor="FirstName" className="text-black">
+                  Family LastName
+                </label>
+                <Input
+                  name="FirstName"
+                  className="pt-1"
+                  label={singleData.FamilyLastName && singleData.FamilyLastName}
                   disabled
                 />
               </div>
@@ -457,40 +470,29 @@ function index() {
                 <Input
                   name="FirstName"
                   className="pt-1"
-                  label={singleData.Phone && singleData.Phone}
+                  label={singleData.Number && singleData.Number}
                   disabled
                 />
               </div>
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
-                  AddressLine1
+                  Street Address
                 </label>
                 <Input
                   name="FirstName"
                   className="pt-1"
-                  label={singleData.AddressLine1 && singleData.AddressLine1}
+                  label={singleData.StreetAddress && singleData.StreetAddress}
                   disabled
                 />
               </div>
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
-                  AddressLine2
+                  Apartment
                 </label>
                 <Input
                   name="FirstName"
                   className="pt-1"
-                  label={singleData.AddressLine2 && singleData.AddressLine2}
-                  disabled
-                />
-              </div>
-              <div className="mr-2 lg:mr-0">
-                <label htmlFor="FirstName" className="text-black">
-                  City
-                </label>
-                <Input
-                  name="FirstName"
-                  className="pt-1"
-                  label={singleData.City && singleData.City}
+                  label={singleData.Apartment && singleData.Apartment}
                   disabled
                 />
               </div>
@@ -502,6 +504,17 @@ function index() {
                   name="FirstName"
                   className="pt-1"
                   label={singleData.State && singleData.State}
+                  disabled
+                />
+              </div>
+              <div className="mr-2 lg:mr-0">
+                <label htmlFor="FirstName" className="text-black">
+                  City
+                </label>
+                <Input
+                  name="FirstName"
+                  className="pt-1"
+                  label={singleData.City && singleData.City}
                   disabled
                 />
               </div>
@@ -529,34 +542,93 @@ function index() {
               </div>
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
-                  Skills
+                  MemberhipPlan
                 </label>
                 <Input
                   name="FirstName"
                   className="pt-1"
-                  label={singleData.Skills && singleData.Skills}
+                  label={singleData.MemberhipPlan && singleData.MemberhipPlan}
                   disabled
                 />
               </div>
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
-                  InterestAreas
+                  CardInfo
                 </label>
                 <Input
                   name="FirstName"
                   className="pt-1"
-                  label={singleData.InterestAreas && singleData.InterestAreas}
+                  label={singleData.CardInfo && singleData.CardInfo}
                   disabled
                 />
               </div>
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
-                  BillingPostal
+                  BillingName
                 </label>
                 <Input
                   name="FirstName"
                   className="pt-1"
-                  label={singleData.BillingPostal && singleData.BillingPostal}
+                  label={singleData.BillingName && singleData.BillingName}
+                  disabled
+                />
+              </div>
+              <div className="mr-2 lg:mr-0">
+                <label htmlFor="FirstName" className="text-black">
+                  BillingAddress
+                </label>
+                <Input
+                  name="FirstName"
+                  className="pt-1"
+                  label={singleData.BillingAddress && singleData.BillingAddress}
+                  disabled
+                />
+              </div>
+              <div className="mr-2 lg:mr-0">
+                <label htmlFor="FirstName" className="text-black">
+                  BillingApartment
+                </label>
+                <Input
+                  name="FirstName"
+                  className="pt-1"
+                  label={
+                    singleData.BillingApartment && singleData.BillingApartment
+                  }
+                  disabled
+                />
+              </div>
+              <div className="mr-2 lg:mr-0">
+                <label htmlFor="FirstName" className="text-black">
+                  BillingCity
+                </label>
+                <Input
+                  name="FirstName"
+                  className="pt-1"
+                  label={singleData.BillingCity && singleData.BillingCity}
+                  disabled
+                />
+              </div>
+              <div className="mr-2 lg:mr-0">
+                <label htmlFor="FirstName" className="text-black">
+                  BillingState
+                </label>
+                <Input
+                  name="FirstName"
+                  className="pt-1"
+                  label={singleData.BillingState && singleData.BillingState}
+                  disabled
+                />
+              </div>
+              <div className="mr-2 lg:mr-0">
+                <label htmlFor="FirstName" className="text-black">
+                  BillingPostalCode
+                </label>
+                <Input
+                  name="FirstName"
+                  className="pt-1"
+                  label={
+                    singleData.BillingPostalCode && singleData.BillingPostalCode
+                  }
                   disabled
                 />
               </div>
@@ -571,7 +643,6 @@ function index() {
                   disabled
                 />
               </div>
-            
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
                   RegistrationId
