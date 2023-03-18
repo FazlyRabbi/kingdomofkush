@@ -51,7 +51,7 @@ export const PetitionProvider = ({ children }) => {
 
       const data = await res.json();
 
-      router.push(`/`);
+      // router.push(`/donation`);
 
       console.log(data);
     } catch (error) {
@@ -59,36 +59,36 @@ export const PetitionProvider = ({ children }) => {
     }
   };
 
-  // const postpetitions = async () => {
-  //   try {
-  //     const res = await fetch(`${API_URL}/api/petitions`, {
-  //       method: "POST",
-  //       headers: {
-  //         Accept: "application/json",
-  //         "Content-Type": "application/json",
-  //         Authorization: API_TOKEN,
-  //       },
+  const postpetitions = async () => {
+    try {
+      const res = await fetch(`${API_URL}/api/petitions`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: API_TOKEN,
+        },
 
-  //       body: JSON.stringify({
-  //         data: {
-  //           data: { ...petition },
+        body: JSON.stringify({
+          data: {
+            data: { ...petition },
            
-  //         },
-  //       }),
-  //     });
+          },
+        }),
+      });
 
-  //     const data = await res.json();
-  //     console.log(data);
-  //     sendMailpetitions();
-  //     if (!res.ok) return;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+      const data = await res.json();
+      console.log(data);
+      sendMailpetitions();
+      if (!res.ok) return;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <petitionContext.Provider
-      value={{ petition, setPetition,  petitionInitial,sendMailpetitions }}
+      value={{ petition, setPetition,postpetitions,  petitionInitial,sendMailpetitions }}
     >
       {children}
     </petitionContext.Provider>

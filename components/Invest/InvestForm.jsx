@@ -71,8 +71,6 @@ function InvestForm() {
       <div className="container px-[3rem] mx-auto pt-[5rem] ">
         <div className=" shadow-xl min-h-[20rem] p-[3rem] ">
           <form id="myForm" action="submit" onSubmit={handleSubmit}>
-          
-          
             <div className="grid  md:justify-items-start mdjustify-items-center    rounded-md border-l-4 border-[#eaeaea] grid-cols-1  space-y-5  md:space-y-0   md:grid-cols-2 md:space-x-8 p-[1rem]  bg-[#fbfbfb]">
               <div className="w-[100%]">
                 <input
@@ -107,7 +105,6 @@ function InvestForm() {
             </div>
 
             <div className="grid  mt-8 md:justify-items-start mdjustify-items-center    rounded-md border-l-4 border-[#eaeaea] grid-cols-1  space-y-5  md:space-y-0   md:grid-cols-2 md:space-x-8 p-[1rem]  bg-[#fbfbfb]">
-             
               <div className="w-[100%]">
                 <input
                   required
@@ -148,28 +145,7 @@ function InvestForm() {
                   Please input required a valid international phone number.
                 </Alert>
               </div>
-              
-              <div className="w-[100%]">
-  
-                <PhoneInput
-                international
-                className=" py-3 rounded-sm   items-start flex  px-2  bg-[#ededed]"
-                defaultCountry="RU"
-                onChange={() => ""}
-                // onChange={(e) =>
-                //   setVolunteer({ ...volunteer, Phone: e.target.value })
-                // }
-              />
-                {/* <p className=" invisible text-sm mt-[1px] warningMessage text-red">
-                  This field is required.
-                </p> */}
-              </div>
             </div>
-
-
-
-
-
 
             <div className="mt-8   rounded-md border-l-4 border-[#eaeaea] p-[1rem] bg-[#fbfbfb]">
               <div className="grid gap-2 md:grid-cols-3">
