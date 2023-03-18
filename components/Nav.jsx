@@ -26,6 +26,7 @@ import {
   AiFillYoutube,
   AiOutlineInstagram,
 } from "react-icons/ai";
+import countryName from "../public/country.json";
 
 import { IoIosArrowDown } from "react-icons/io";
 
@@ -262,15 +263,16 @@ export default function Nav() {
               <form action="/action_page.php">
                 <select
                   id="countries"
-                  className="bg-gray-50 border border-gray-300 text-gray-900  rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500  text-base"
+                  className="bg-gray-50 border border-gray-300 text-gray-900  rounded-md focus:ring-blue-500 focus:border-blue-500 block w-[15rem] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500  text-base"
                 >
                   <option defaultValue="Choose a Languge">
                     Choose a Languge
                   </option>
-                  <option value="US">United States</option>
-                  <option value="CA">Canada</option>
-                  <option value="FR">France</option>
-                  <option value="DE">Germany</option>
+                  {countryName?.map((country, countryIndex) => (
+                    <option key={countryIndex} value={country?.code}>
+                      {country?.name}
+                    </option>
+                  ))}
                 </select>
               </form>
             </div>
@@ -315,13 +317,14 @@ export default function Nav() {
               <form action="/action_page.php">
                 <select
                   id="countries"
-                  className="bg-gray-50 border border-gray-300 text-gray-900  rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500  text-base"
+                  className="bg-gray-50 border border-gray-300 text-gray-900  rounded-md focus:ring-blue-500 focus:border-blue-500 block w-[15rem] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500  text-base"
                 >
                   <option selected>Choose a Languge</option>
-                  <option value="US">United States</option>
-                  <option value="CA">Canada</option>
-                  <option value="FR">France</option>
-                  <option value="DE">Germany</option>
+                  {countryName?.map((country, countryIndex) => (
+                    <option key={countryIndex} value={country?.code}>
+                      {country?.name}
+                    </option>
+                  ))}
                 </select>
               </form>
             </div>
@@ -338,53 +341,53 @@ export default function Nav() {
           }  transition-all    duration-500  `}
         >
           <div className="menu_wrapper p-6  text-white">
-            <ul className="  capitalize  flex flex-col  space-y-1 mt-6 ml-5">
-              <li className=" font-bold lg:text-[2rem] mb-2 -ml-[1rem] text-[1rem] duration-300">
+            <ul className="  capitalize  flex flex-col  ml-5">
+              <li className=" font-bold lg:text-[2rem]  -ml-[1rem] text-[1rem] duration-300">
                 <RxCross2
                   className=" text-[1.5rem] cursor-pointer"
                   onClick={() => setOpenNav(false)}
                 />
               </li>
-              <li className=" font-bold lg:text-[2rem] text-[2.5rem] text-[#CB9833] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
+              <li className=" font-bold lg:text-[1.8rem] text-[2rem] text-[#CB9833] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
                 <Link href={"/"}> Home</Link>
               </li>
-              <li className=" font-bold lg:text-[2rem] text-[2.5rem] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
+              <li className=" font-bold lg:text-[1.8rem] text-[2rem] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
                 <Link href={"/aboutus"}>About</Link>
               </li>
               <li
-                className={`font-bold lg:text-[2rem] text-[2.5rem]  hover:translate-x-4  hover:opacity-70 transition-all ${Style.child_nav} duration-300 relative text-[#CB9833] flex  items-center  `}
+                className={`font-bold lg:text-[1.8rem] text-[2rem]  hover:translate-x-4  hover:opacity-70 transition-all ${Style.child_nav} duration-300 relative text-[#CB9833] flex  items-center  `}
               >
                 Get <br />
                 Involved{" "}
                 <AiOutlinePlus className=" ml-[1rem] text-white text-[1.2rem]" />
                 <ul className=" ml-[10rem] translate-y-[6rem]   opacity-0 transition-all  delay-[80ms]  text-[1rem] lg:text-[2rem] absolute top-0 lg:left-[6%] left-[10%] text-white">
-                  <li className="hover:translate-x-4   text-[2.5rem] transition-all duration-300">
+                  <li className="hover:translate-1.8-4   text-[2rem] transition-all duration-300">
                     <Link href={"/membership_applicationt"}>Membership</Link>
                   </li>
-                  <li className="hover:translate-x-4  text-[2.5rem] transition-all duration-300">
+                  <li className="hover:translate1.8x-4  text-[2rem] transition-all duration-300">
                     <Link href={"/volunteer"}>Volunteer</Link>
                   </li>
-                  <li className="hover:translate-x-4   text-[2.5rem] transition-all duration-300">
+                  <li className="hover:translate-1.8-4   text-[2rem] transition-all duration-300">
                     <Link href={"/vendor"}>Vendor</Link>
                   </li>
                 </ul>
               </li>
-              <li className=" font-bold lg:text-[2rem] text-[2.5rem] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
+              <li className=" font-bold lg:text-[1.8rem] text-[2rem] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
                 <Link href={"/petition"}>Petition</Link>
               </li>
-              <li className=" font-bold lg:text-[2rem] text-[2.5rem] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
+              <li className=" font-bold lg:text-[1.8rem] text-[2rem] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
                 <Link href={"/project"}>Projects</Link>
               </li>
-              <li className=" font-bold lg:text-[2rem] text-[2.5rem] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
+              <li className=" font-bold lg:text-[1.8rem] text-[2rem] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
                 <Link href={"/invest"}>Invest</Link>
               </li>
-              <li className=" font-bold lg:text-[2rem] text-[2.5rem] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
+              <li className=" font-bold lg:text-[1.8rem] text-[2rem] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
                 <Link href={"/donation"}>Donation</Link>
               </li>
-              <li className=" font-bold lg:text-[2rem] text-[2.5rem] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
+              <li className=" font-bold lg:text-[1.8rem] text-[2rem] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
                 <Link href={"contact"}>Contact</Link>
               </li>
-              <li className=" w-[80%] md:w-[30%] font-bold lg:text-[2rem] text-[2.5rem] transition-all duration-300">
+              <li className=" w-[80%] md:w-[30%] font-bold lg:text-[1.8rem] text-[2rem] transition-all duration-300">
                 <div>
                   <form>
                     <select
@@ -394,10 +397,11 @@ export default function Nav() {
                       <option defaultValue="Choose a Languge">
                         Choose a Languge
                       </option>
-                      <option value="US">United States</option>
-                      <option value="CA">Canada</option>
-                      <option value="FR">France</option>
-                      <option value="DE">Germany</option>
+                      {countryName?.map((country, countryIndex) => (
+                        <option key={countryIndex} value={country?.code}>
+                          {country?.name}
+                        </option>
+                      ))}
                     </select>
                   </form>
                 </div>
@@ -405,7 +409,7 @@ export default function Nav() {
             </ul>
 
             <div className=" ml-6 menu__footer flex  items-center ">
-              <div className=" mt-[5rem] ">
+              <div className="mt-4">
                 <h5
                   className=" font-bold text-base  text-white
                        "
@@ -442,7 +446,7 @@ export default function Nav() {
    transition-all    duration-500  `}
         >
           <div className="menu_wrapper p-6  text-black">
-            <ul className="  capitalize  flex flex-col  space-y-4 mt-6 ml-5">
+            <ul className="  capitalize  flex flex-col  space-y-2 mt-6 ml-5">
               <li
                 className=" font-bold    text-[2.5rem] duration-300"
                 onClick={() => setOpenNav(false)}
@@ -496,7 +500,7 @@ export default function Nav() {
               <li className=" font-bold  text-[1.3rem]   hover:opacity-70 transition-all duration-300">
                 <Link href={"contact"}>Contact</Link>
               </li>
-              <li className=" w-[60%]  font-bold  text-[1.3rem] transition-all duration-300">
+              {/* <li className=" w-[60%]  font-bold  text-[1.3rem] transition-all duration-300">
                 <div>
                   <form>
                     <select
@@ -506,14 +510,15 @@ export default function Nav() {
                       <option defaultValue="Choose a Languge">
                         Choose a Languge
                       </option>
-                      <option value="US">United States</option>
-                      <option value="CA">Canada</option>
-                      <option value="FR">France</option>
-                      <option value="DE">Germany</option>
+                      {countryName?.map((country, countryIndex) => (
+                        <option key={countryIndex} value={country?.code}>
+                          {country?.name}
+                        </option>
+                      ))}
                     </select>
                   </form>
                 </div>
-              </li>
+              </li> */}
             </ul>
 
             <div className=" ml-6 menu__footer flex  justify-start items-center space-x-6">

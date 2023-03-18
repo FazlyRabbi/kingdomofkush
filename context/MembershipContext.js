@@ -32,6 +32,9 @@ export const MembershipProvider = ({ children }) => {
 
   const [membership, setMembership] = useState(membershipInitial);
 
+
+
+
   const postMembership = async () => {
     try {
       const res = await fetch(`${API_URL}/api/memberhip-plans`, {

@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-import bg from "../../img/Oji-String-Beans-Farm.jpg";
-import { AiFillPlayCircle } from "react-icons/ai";
 import Card from "./Card";
-import Link from "next/link";
 
 const categories = [
   {
@@ -68,13 +65,14 @@ const categories = [
 ];
 const Project = ({ data }) => {
   const [projects, setProjects] = useState(data?.projects);
-
+  const [selectedCategory, setSelectedCategory] = useState("All");
   const handleProject = (type) => {
+    setSelectedCategory(type);
     if (type === "all") {
       setProjects(data?.projects);
     } else {
       const filterProject = data?.projects?.filter(
-        (project) => project.name == type
+        (project) => project.name.toLowerCase() == type.toLowerCase()
       );
       setProjects(filterProject);
     }
@@ -86,7 +84,6 @@ const Project = ({ data }) => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-8">
             <ul className="flex flex-wrap justify-center gap-3">
-              <li>Filter by</li>
               <li onClick={() => handleProject("all")}>
                 <a>
                   <span className="text-[#cb9833] font-semibold">All</span>
@@ -95,7 +92,7 @@ const Project = ({ data }) => {
               {categories?.map((category) => (
                 <li
                   onClick={() => handleProject(category?.type)}
-                  className="flex gap-2"
+                  className="flex gap-4"
                   key={category.id}
                 >
                   /
@@ -109,6 +106,11 @@ const Project = ({ data }) => {
             </ul>
           </div>
           <div>
+            <div>
+              <h3 className="text-primary text-xl font-semibold">
+                {selectedCategory}
+              </h3>
+            </div>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 my-3">
               {projects?.map((project, index) => (
                 <Card

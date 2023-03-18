@@ -43,15 +43,17 @@ module.exports = withMT({
       red: "#FF0000",
     },
 
+    plugins: [
+      // ...
+      require('tailwind-scrollbar')({ nocompatible: true }),
+    ],
     screens: {
-
       // Mobile Device
       sm: "556px",
       // => @media (min-width: 640px) { ... }
 
       md: "768px",
       // => @media (min-width: 768px) { ... }
-
 
       // laptop
       lg: "1024px",
