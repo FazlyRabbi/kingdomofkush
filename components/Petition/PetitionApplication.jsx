@@ -10,12 +10,17 @@ import SharePetition from "./SharePetition";
 import PhoneInput from "react-phone-number-input";
 import countryName from "../../public/country.json";
 import ThankPetitionSubmit from "./ThankPetitionSubmit";
+import { Country, State, City } from "country-state-city";
 
 const PetitionApplication = () => {
   // showing alert
   const { showAlert } = useSweetAlert();
   const [sumitPetitionSuccess, setSumitPetitionSuccess] = useState(false);
-  const [signatureText, setSignatureText] = useState(false);
+  const [signatureText, setSignatureText] = useState(true);
+
+  const [states, setStates] = useState("");
+  const [cities, setCities] = useState("");
+  const countryName = Country.getAllCountries();
   const showAlerts = () => {
     showAlert({
       text: "Your Petition Application Successfull!",
@@ -33,6 +38,27 @@ const PetitionApplication = () => {
 
   const { petition, setPetition, postpetitions, petitionInitial } =
     useContext(petitionContext);
+
+  // set states
+  useEffect(() => {
+    const handleStates = () => {
+      const allStates = State.getStatesOfCountry(petition?.Country);
+      setStates(allStates);
+    };
+    // const
+    handleStates();
+  }, [petition?.Country]);
+  // set cities
+  useEffect(() => {
+    const handleCities = () => {
+      const allCities = City.getCitiesOfState(
+        petition?.Country,
+        petition?.State
+      );
+      setCities(allCities);
+    };
+    handleCities();
+  }, [petition?.Country, petition?.State]);
 
   const [data, setData] = useState();
 
@@ -56,11 +82,11 @@ const PetitionApplication = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // postpetitions();
-    // localStorage.removeItem("pititonData");
-    // setPetition(petitionInitial);
-    // sigPad.current.clear();
-    // showAlerts();
+    postpetitions();
+    localStorage.removeItem("pititonData");
+    setPetition(petitionInitial);
+    sigPad.current.clear();
+    showAlerts();
     setSumitPetitionSuccess(true);
   };
 
@@ -195,18 +221,63 @@ const PetitionApplication = () => {
                   className="after:pl-1   font-bold   block"
                   htmlFor="address_1"
                 >
-                  City
+                  Country
                 </label>
-                <input
-                  type="text"
-                  placeholder="E.g sydney"
-                  id="city"
-                  className=" py-3 rounded-sm  border border-softGray  w-[100%] px-2 "
-                  value={petition.City}
+                <select
+                  id="countries"
+                  value={petition.Country}
                   onChange={(e) =>
-                    setPetition({ ...petition, City: e.target.value })
+                    setPetition({ ...petition, Country: e.target.value })
                   }
-                />
+                  className=" rounded-sm  border border-softGray focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-[#ededed] text-[#787676e8]"
+                >
+                  <option selected>Select country</option>
+
+                  {countryName?.map((country, countryIndex) => (
+                    <option key={countryIndex} value={country?.isoCode}>
+                      {country?.name}
+                    </option>
+                  ))}
+                </select>
+                <p className=" text-sm mt-[1px] text-red invisible">
+                  This field is required.
+                </p>
+              </div>
+
+              <div>
+                <label
+                  className="after:pl-1   font-bold   block"
+                  htmlFor="address_1"
+                >
+                  State/Province
+                </label>
+                <select
+                  id="state"
+                  value={petition.State}
+                  onChange={(e) =>
+                    setPetition({ ...petition, State: e.target.value })
+                  }
+                  className=" border  border-softGray text-gray-900 text-sm rounded-md focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option selected>Select State</option>
+                  {states?.length > 0
+                    ? states?.map((state, stateIndex) => (
+                        <option key={stateIndex} value={state?.isoCode}>
+                          {state?.name}
+                        </option>
+                      ))
+                    : ""}
+                </select>
+                {/* <input
+                  type="text"
+                  placeholder="E.g New South Wales"
+                  id="state"
+                  value={petition.State}
+                  onChange={(e) =>
+                    setPetition({ ...petition, State: e.target.value })
+                  }
+                  className=" py-3 rounded-sm  border border-softGray  w-[100%] px-2 "
+                /> */}
                 <p className=" text-sm mt-[1px] text-red invisible">
                   This field is required.
                 </p>
@@ -216,18 +287,35 @@ const PetitionApplication = () => {
                   className="after:pl-1   font-bold   block"
                   htmlFor="address_1"
                 >
-                  State/Province
+                  City
                 </label>
-                <input
-                  type="text"
-                  placeholder="E.g New South Wales"
-                  id="state"
-                  value={petition.State}
+                <select
+                  value={petition.City}
                   onChange={(e) =>
-                    setPetition({ ...petition, State: e.target.value })
+                    setPetition({ ...petition, City: e.target.value })
                   }
+                  id="city"
+                  className=" border  border-softGray text-gray-900 text-sm rounded-md focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option selected>Select City</option>
+                  {cities?.length > 0
+                    ? cities?.map((city, cityIndex) => (
+                        <option key={cityIndex} value={city?.isoCode}>
+                          {city?.name}
+                        </option>
+                      ))
+                    : ""}
+                </select>
+                {/* <input
+                  type="text"
+                  placeholder="E.g sydney"
+                  id="city"
                   className=" py-3 rounded-sm  border border-softGray  w-[100%] px-2 "
-                />
+                  value={petition.City}
+                  onChange={(e) =>
+                    setPetition({ ...petition, City: e.target.value })
+                  }
+                /> */}
                 <p className=" text-sm mt-[1px] text-red invisible">
                   This field is required.
                 </p>
@@ -250,33 +338,6 @@ const PetitionApplication = () => {
                   className=" py-3 rounded-sm  border border-softGray  w-[100%] px-2 "
                 />
                 <p className="text-sm mt-[1px] text-red invisible">
-                  This field is required.
-                </p>
-              </div>
-              <div>
-                <label
-                  className="after:pl-1   font-bold   block"
-                  htmlFor="address_1"
-                >
-                  Country
-                </label>
-                <select
-                  id="countries"
-                  value={petition.Country}
-                  onChange={(e) =>
-                    setPetition({ ...petition, Country: e.target.value })
-                  }
-                  className=" rounded-sm  border border-softGray focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-[#ededed] text-[#787676e8]"
-                >
-                  <option selected>Select country</option>
-
-                  {countryName?.map((country, countryIndex) => (
-                    <option key={countryIndex} value={country?.code}>
-                      {country?.name}
-                    </option>
-                  ))}
-                </select>
-                <p className=" text-sm mt-[1px] text-red invisible">
                   This field is required.
                 </p>
               </div>

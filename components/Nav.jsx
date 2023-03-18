@@ -321,8 +321,8 @@ export default function Nav() {
                 >
                   <option selected>Choose a Languge</option>
                   {countryName?.map((country, countryIndex) => (
-                    <option key={countryIndex} value={country?.code}>
-                      {country?.name}
+                    <option key={countryIndex} value={country?.country_name}>
+                      {country?.country_name}
                     </option>
                   ))}
                 </select>
@@ -398,8 +398,8 @@ export default function Nav() {
                         Choose a Languge
                       </option>
                       {countryName?.map((country, countryIndex) => (
-                        <option key={countryIndex} value={country?.code}>
-                          {country?.name}
+                        <option key={countryIndex} value={country?.country_name}>
+                          {country?.country_name}
                         </option>
                       ))}
                     </select>

@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { contactContext } from "@/context/ContactContext";
 // alart and messages
 import useSweetAlert from "../lib/sweetalert2";
-
+import PhoneInput from "react-phone-number-input";
 const Form = () => {
   // showing alert
   const { showAlert } = useSweetAlert();
@@ -59,7 +59,17 @@ const Form = () => {
             >
               Phone
             </label>
-            <input
+            <PhoneInput
+              required
+              international
+              className=" py-3  w-[100%] px-2 border rounded-md border-softGray"
+              defaultCountry="RU"
+              onChange={() => ""}
+              // onChange={(e) =>
+              //   setVolunteer({ ...volunteer, Phone: e.target.value })
+              // }
+            />
+            {/* <input
               className="shadow border-[#ccc] border rounded w-full py-4 px-3 text-gray-700"
               id="phone"
               type="text"
@@ -69,7 +79,7 @@ const Form = () => {
                 setContact({ ...contact, Phone: e.target.value })
               }
               required
-            />
+            /> */}
           </div>
           <div>
             <label
