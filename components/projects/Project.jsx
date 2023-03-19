@@ -80,7 +80,7 @@ const Project = ({ data }) => {
 
   return (
     <>
-      <section>
+      <section className="dark:bg-[#161519]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8">
             <ul className="flex flex-wrap justify-center gap-3">
@@ -111,7 +111,7 @@ const Project = ({ data }) => {
                 {selectedCategory}
               </h3>
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 my-3">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 py-3">
               {projects?.map((project, index) => (
                 <Card
                   key={index}

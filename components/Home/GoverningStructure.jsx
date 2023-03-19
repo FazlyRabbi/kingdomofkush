@@ -15,7 +15,7 @@ function GoverningStructure() {
 
   return (
     <section className="GoverningStructure">
-      <div className="pr-5 grid grid-cols-1 md:grid-cols-2 py-10 gap-x-[1.5rem]">
+      <div className="pr-5 grid dark:bg-[#161519] grid-cols-1 md:grid-cols-2 py-10 gap-x-[1.5rem]">
         <div
           className={`${Styles.aboutBg} py-10 
        h-[25rem] md:h-[40rem]
@@ -24,7 +24,7 @@ function GoverningStructure() {
 
         <div className=" py-[2rem] md:py-[1rem]   px-[2rem] xl:px-0">
           <div className="content">
-            <p className=" text-base pb-2 2xl:pr-[18rem]">
+            <p className=" text-base pb-2 2xl:pr-[18rem] dark:text-[#ffffffbf]">
               The Governing Structure of the Kingdom will be a Constitutional
               Monarchy, with a Monarch elected based on merits. The first
               monarch will be Queen Mother Dr. Delois Blakely, a well known and
@@ -40,12 +40,12 @@ function GoverningStructure() {
               <Accordion open={open === 1}>
                 <AccordionHeader
                   onClick={() => handleOpen(1)}
-                  className="text-base border-b-0 [&>span]:ml-0  justify-end flex-row-reverse text-black"
+                  className="text-base border-b-0 dark:text-white [&>span]:ml-0  justify-end flex-row-reverse text-black"
                 >
                   (1) the 6th Region
                 </AccordionHeader>
 
-                <AccordionBody className="text-base 2xl:pr-[22rem]">
+                <AccordionBody className="text-base 2xl:pr-[22rem] dark:text-[#ffffffbf]">
                   of the AU African Diaspora policies as an integral stakeholder
                   that has established the preliminary framework for a cohesive
                   developmental paradigm;
@@ -54,12 +54,12 @@ function GoverningStructure() {
               <Accordion open={open === 2}>
                 <AccordionHeader
                   onClick={() => handleOpen(2)}
-                  className="text-base border-b-0 [&>span]:ml-0  justify-end flex-row-reverse pb-2 text-black"
+                  className="text-base dark:text-white border-b-0 [&>span]:ml-0  justify-end flex-row-reverse pb-2 text-black"
                 >
                   (2) Development of the new platform
                 </AccordionHeader>
 
-                <AccordionBody className="text-base 2xl:pr-[22rem]">
+                <AccordionBody className="text-base 2xl:pr-[22rem] dark:text-[#ffffffbf]">
                   and resolution that will establish the United Nations (UN)
                   Permanent Forum of Peoples of African Descent to legally
                   address global inequities. Already 193-member body unanimously
@@ -68,7 +68,7 @@ function GoverningStructure() {
                   works closely with the Geneva-based Human Rights Council.
                 </AccordionBody>
               </Accordion>
-              <p className=" text-base pb-2 2xl:pr-[18rem] mt-6">
+              <p className=" text-base pb-2 2xl:pr-[18rem] mt-6 dark:text-[#ffffffbf]">
                 The Kingdom of Kush is committed to put in place the first of
                 its kind, a legally binding instrument of commitment to these UN
                 and AU major initiatives.

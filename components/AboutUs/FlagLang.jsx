@@ -8,7 +8,7 @@ import { BsIntersect } from "react-icons/bs";
 function FlagLang() {
   return (
     <section>
-      <div className=" grid grid-cols-1 md:grid-cols-2   justify-items-center lg:justify-items-start  items-center ">
+      <div className=" grid grid-cols-1 md:grid-cols-2  dark:bg-[#161519] justify-items-center lg:justify-items-start  items-center ">
         <div className={` ${styles.flagLangfoBg}  min-h-[25rem] relative  `}>
           <div
             className="  h-[11rem] w-[17rem] md:w-[12rem] lg:h-[14rem] lg:w-[14rem]  flex  justify-start  
@@ -43,8 +43,10 @@ function FlagLang() {
 
         <div className=" py-[4rem]  px-4 2xl:pl-[8rem] md:pl-[4rem] md:pr-8">
           <div className="content mb-[1.5rem] mt-4">
-            <h4 className=" text-base  uppercase">About us</h4>
-            <h4 className="   font-bold capitalize text-[2rem]">
+            <h4 className="dark:text-[#ffffffbf] text-base  uppercase">
+              About us
+            </h4>
+            <h4 className=" dark:text-white  font-bold capitalize text-[2rem]">
               Flag & Languages
             </h4>
           </div>

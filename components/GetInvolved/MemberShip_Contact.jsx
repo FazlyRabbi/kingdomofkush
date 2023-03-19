@@ -287,10 +287,10 @@ const MemberShip_Contact = ({ setShowMember }) => {
   return (
     <div className="lg:mx-[50px] my-[3rem]">
       <div className="w-full">
-        <h1 className="text-[34px]">PERSONAL INFORMATION</h1>
+        <h1 className="text-[34px] dark:text-white">PERSONAL INFORMATION</h1>
       </div>
       <form action="submit" onSubmit={handleSubmit}>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 mb-5 bg-[#fbfbfb] px-6 py-5 border-l-[6px] rounded-l-2xl border-[#ededed]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 dark:bg-[#878688] gap-x-8 mb-5 bg-[#fbfbfb] px-6 py-5 border-l-[6px] rounded-l-2xl border-[#ededed]">
           <div>
             <input
               type="text"
@@ -358,7 +358,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
         </div>
 
         {/* ///////////// */}
-        <div className="bg-[#fbfbfb] px-6 py-5 border-l-[6px] rounded-l-2xl border-[#ededed] mb-5">
+        <div className="bg-[#fbfbfb] dark:bg-[#878688] px-6 py-5 border-l-[6px] rounded-l-2xl border-[#ededed] mb-5">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 ">
             <div>
               <input
@@ -579,7 +579,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
           </div>
         </div>
         {/* Selected plan */}
-        <div className="bg-[#fbfbfb] px-6 py-5 border-l-[6px] rounded-l-2xl border-[#ededed] mb-5">
+        <div className="bg-[#fbfbfb] dark:bg-[#878688] px-6 py-5 border-l-[6px] rounded-l-2xl border-[#ededed] mb-5">
           <div className="grid grid-cols-1 gap-x-8">
             <div className="">
               <legend className="text-[#777771] pb-1">Membership plan</legend>
@@ -643,8 +643,8 @@ const MemberShip_Contact = ({ setShowMember }) => {
           </p>
         </div>
         {/* /////Billing Information////// */}
-        <p className="py-2">Billing address</p>
-        <div className="bg-[#fbfbfb] px-6 py-5 border-l-[6px] rounded-l-2xl border-[#ededed] mb-5">
+        <p className="py-2  dark:text-[#ffffffbf]">Billing address</p>
+        <div className="bg-[#fbfbfb] dark:bg-[#878688] px-6 py-5 border-l-[6px] rounded-l-2xl border-[#ededed] mb-5">
           <div className="grid grid-cols-1 gap-x-8 ">
             <div>
               <label
@@ -873,7 +873,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
         {/* ///////// */}
         <div className="lg:grid flex flex-col-reverse lg:grid-cols-2 mt-6">
           <div>
-            <div className="border border-[#d3d3d3] bg-[#f9f9f9] shadow flex w-[300px] h-[100px] justify-center items-center ">
+            <div className="border border-[#d3d3d3] dark:bg-[#878688] bg-[#f9f9f9] shadow flex w-[300px] h-[100px] justify-center items-center ">
               <label className="w-full px-4 flex ">
                 <input type="checkbox" className="w-5 h-5 mr-2" /> I'm not a
                 robot

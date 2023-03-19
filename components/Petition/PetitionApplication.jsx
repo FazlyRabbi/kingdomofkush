@@ -91,13 +91,10 @@ const PetitionApplication = () => {
   };
 
   return (
-    <div>
+    <div className="dark:bg-[#161519] dark:text-[#ffffffbf]">
       <div className=" container mx-auto py-[2rem] xl:mt-[2rem] xl:px-[4rem] px-[1rem] ">
         <div>
-          <h1
-            className=" text-[1.5rem] font-bold
-        mb-4"
-          >
+          <h1 className=" text-[1.5rem] font-bold mb-4 dark:text-white">
             Add your name to show your support for the campaign for action!
           </h1>
           <form action="submit" onSubmit={handleSubmit}>

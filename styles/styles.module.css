@@ -87,6 +87,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: left;
+  background-position: center;
 }
 
 .GetBg {
@@ -96,6 +97,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: left;
+  background-position: center;
 }
 
 .ContactBg {
@@ -132,4 +134,3 @@
 input:invalid + .warningMessage {
   visibility: visible;
 }
-

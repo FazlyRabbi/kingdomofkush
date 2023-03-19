@@ -1,7 +1,8 @@
 import Head from "next/head";
-import Cursor from "./cursor/Cursor";
+import Cursor from "./shared/Cursor";
 import Footer from "./Footer";
 import Nav from "./Nav";
+import ThemeSwitcher from "./shared/ThemeSwitcher";
 
 export default function layout({ title, des, content, children, mainContent }) {
   return (
@@ -11,6 +12,7 @@ export default function layout({ title, des, content, children, mainContent }) {
         <meta name={content} content={des}></meta>
       </Head>
       <Nav />
+      <ThemeSwitcher />
       {children}
       <Footer />
     </Cursor>

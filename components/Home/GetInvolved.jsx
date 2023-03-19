@@ -2,16 +2,16 @@ import React from "react";
 
 function GetInvolved() {
   return (
-    <section className="GetInvolved lg:py-[6rem] py-[2rem] bg-[#F9F8FA]">
-      <div className="container mx-auto px-[5rem] grid  md:space-x-[2rem] grid-cols-1 md:grid-cols-2  ">
+    <section className="GetInvolved lg:py-[6rem] py-[2rem] bg-[#F9F8FA] dark:bg-[#1E1C22]">
+      <div className="container mx-auto px-[1rem] lg:px-[5rem] grid  md:space-x-[2rem] grid-cols-1 md:grid-cols-2  ">
         <div className="left">
-          <p className=" text-base">
+          <p className="dark:text-[#ffffffbf] text-base">
             100 TONS OF VARIOUS AGRICULTURAL PRODUCTS
           </p>
-          <h1 className=" font-bold text-[2rem] lg:text-[3rem]">
+          <h1 className=" font-bold dark:text-white text-[2rem] lg:text-[3rem]">
             Get Involved:
           </h1>
-          <p className="text-base mt-6 2xl:pr-[14rem] pr-[1rem]">
+          <p className="text-base dark:text-[#ffffffbf] mt-6 2xl:pr-[14rem] pr-[1rem]">
             Contribution and support shows up in many forms and the future
             Kingdom is searching for new team members across volunteer
             organizations, business groups, service providers, strategic
@@ -19,7 +19,7 @@ function GetInvolved() {
             society as well as its government.{" "}
           </p>
         </div>
-        <div className="right">
+        <div className="right dark:text-[#ffffffbf]">
           <p className=" text-base mt-8 md:mt-0">
             We look forward to helping you explore how your talents and{" "}
             <b className="font-bold">
@@ -27,7 +27,7 @@ function GetInvolved() {
               of Africa.
             </b>{" "}
           </p>
-          <div className=" grid grid-cols-2  lg:grid-cols-3">
+          <div className=" grid grid-cols-2 px-6 sm:px-0 md:grid-cols-3">
             <div className="llistMenu_wrapper mt-[4rem] pl-[1rem]">
               {" "}
               <ul>
