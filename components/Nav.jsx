@@ -420,21 +420,31 @@ export default function Nav() {
                 >
                   Get In Touch
                 </h5>
-                <p className=" text-[#4a4653] w-[50%] text-base">
+                <p className=" text-white w-[50%] text-base">
                   One World Trade Center Floor 85, New York, NY 10007
                   info@kingdomofkush.org
                 </p>
               </div>
               <div className="social__logo flex  mt-4  -ml-[15rem]  space-x-8 justify-between items-center">
-                <FaFacebookF className=" text-[1.2rem] cursor-pointer" />
-
-                <AiOutlineTwitter className=" text-[1.2rem] cursor-pointer" />
-
-                <AiFillLinkedin className=" text-[1.2rem] cursor-pointer" />
-
-                <AiFillYoutube className=" text-[1.2rem] cursor-pointer" />
-
-                <AiOutlineInstagram className=" text-[1.2rem] cursor-pointer" />
+                <Link href={"https://www.facebook.com/royalkingdomofkush"}>
+                  <FaFacebookF className=" text-[1.2rem] cursor-pointer" />
+                </Link>
+                <Link href={"https://twitter.com/eKingdomofKush"}>
+                  <AiOutlineTwitter className=" text-[1.2rem] cursor-pointer" />
+                </Link>
+                <Link href={"https://www.linkedin.com/company/kingdomofkush/"}>
+                  <AiFillLinkedin className=" text-[1.2rem] cursor-pointer" />
+                </Link>
+                <Link
+                  href={
+                    "https://www.youtube.com/channel/UCrl79VUm6Mklxwu9pG5JUAA"
+                  }
+                >
+                  <AiFillYoutube className=" text-[1.2rem] cursor-pointer" />
+                </Link>
+                <Link href={"https://www.instagram.com/royalkingdomofkush/"}>
+                  <AiOutlineInstagram className=" text-[1.2rem] cursor-pointer" />
+                </Link>
               </div>
             </div>
           </div>

@@ -247,7 +247,7 @@ const DonationHero = () => {
                   <CountUp
                     start={0}
                     end={20}
-                    duration={2.75}
+                    duration={5}
                     separator=","
                     decimal=","
                   />
@@ -264,7 +264,7 @@ const DonationHero = () => {
                   <CountUp
                     start={0}
                     end={3000}
-                    duration={2.75}
+                    duration={5}
                     separator=","
                     decimal=","
                   />

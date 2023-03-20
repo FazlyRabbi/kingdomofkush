@@ -342,7 +342,7 @@ const PetitionApplication = () => {
             {/* ///////// */}
 
             {/* ///////// */}
-            <div className=" grid grid-cols-1 mb-5">
+            {/* <div className=" grid grid-cols-1 mb-5">
               <div className="mb-5">
                 <label
                   className="after:pl-1 font-bold block mb-2 after:content-['*'] after:text-red"
@@ -364,7 +364,7 @@ const PetitionApplication = () => {
                   className="border p-2 border-softGray w-[100%] rounded-sm  "
                 ></textarea>
               </div>
-            </div>
+            </div> */}
 
             <div className="grid grid-cols-1 mb-5">
               <div className="after:pl-1 flex  font-bold  w-full mb-4 ">
