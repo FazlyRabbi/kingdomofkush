@@ -12,10 +12,10 @@ SwiperCore.use([Navigation, Autoplay]);
 function FutureGoverningNext() {
   return (
     <section className="FutureGoverningNext">
-      <div className="px-8 lg:py-[6rem] py-[2rem] grid   items-center grid-cols-1 md:grid-cols-2 ">
-        <div className=" py-[2rem] md:py-[1rem] 2xl:pl-[9rem]  px-[2rem] xl:px-0">
+      <div className="sm:px-8 dark:bg-[#161519] dark:text-[#ffffffbf] lg:pl-16 lg:py-[6rem] py-[2rem] grid   items-center grid-cols-1 md:grid-cols-2 ">
+        <div className=" py-[2rem] md:py-[1rem] 2xl:pl-[9rem] order-2 sm:order-1 px-[2rem] xl:px-0">
           <div className="content">
-            <p className=" text-base pb-2 xl:pr-[12rem]  ">
+            <p className=" text-base pb-2 xl:pr-[8rem]  ">
               The Governing Structure of the Kingdom will be a Constitutional
               Monarchy, with a Monarch elected based on merits. The first
               monarch will be Queen Mother Dr. Delois Blakely, a well known and
@@ -29,7 +29,7 @@ function FutureGoverningNext() {
           </div>
         </div>
 
-        <div className="">
+        <div className="order-1 sm:order-2">
           <Swiper
             navigation
             autoplay={{ delay: 3000 }}

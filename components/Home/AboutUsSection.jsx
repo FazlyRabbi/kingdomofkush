@@ -6,16 +6,12 @@ import CountUp from "react-countup";
 function AboutUsSection() {
   return (
     <section className="AboutUsSection">
-      <div className=" grid grid-cols-1 md:grid-cols-2 gap-x-[3rem]">
+      <div className=" grid grid-cols-1 lg:pr-12 md:grid-cols-2 gap-x-[3rem] dark:bg-[#161519] ">
         <div
-          className={`${Styles.aboutBg} py-10 
-        
-         h-[25rem] md:h-[45rem]
-        
-        relative`}
+          className={`${Styles.aboutBg} sm:py-10 h-[23rem] md:h-[45rem] relative`}
         >
           <div
-            className="  h-[11rem] w-[17rem]  flex  justify-start   bottom-0 right-0 absolute  bg-[#000]
+            className="  h-[11rem] w-[14rem] lg:w-[17rem]  flex  justify-start   bottom-0 right-0 absolute  bg-[#000]
              "
           >
             <div className="text-primary flex flex-col pl-[2rem] justify-center  ">
@@ -41,21 +37,18 @@ function AboutUsSection() {
           </div>
         </div>
 
-        <div className=" py-[4rem]  pl-[1rem] xl:pl-[5rem]  ">
+        <div className=" lg:py-[4rem] py-[1rem] pl-[1rem] xl:pl-[5rem]  ">
           <div className="content">
-            <h4
-              className=" uppercase text-ba 
-                     "
-            >
+            <h4 className=" uppercase text-base dark:text-[#ffffffbf] ">
               About us
             </h4>
             <h1
               className="font-bold  text-[2rem]
-            md:text-[2.5rem] md:leading-[2.4rem] lg:leading-[3.8rem] 2xl:pr-[35%]"
+            md:text-[2.5rem] md:leading-[2.4rem] dark:text-white lg:leading-[3.8rem] 2xl:pr-[35%]"
             >
               About creating a safe haven
             </h1>
-            <p className=" text-[15px] mt-7 pr-[3rem] 2xl:pr-[35%] leading-[1.8rem] ">
+            <p className=" text-[15px] mt-7 pr-[3rem] 2xl:pr-[35%] leading-[1.8rem] dark:text-[#ffffffbf]">
               Over the past 22 years, a small renaissance group started
               envisioning together about creating a safe haven, a new society,
               with a common goal to give a path to all who come in good will

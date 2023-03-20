@@ -6,12 +6,18 @@ import { MembershipContext } from "@/context/MembershipContext";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 // alart and messages
 import useSweetAlert from "../lib/sweetalert2";
-import countryName from "../../public/country.json";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
+import { Country, State, City } from "country-state-city";
 const MemberShip_Contact = ({ setShowMember }) => {
   const sigPad = useRef();
   const [signatureText, setSignatureText] = useState(true);
+  const [states, setStates] = useState("");
+  const [cities, setCities] = useState("");
+  const [billingStates, setBillingStates] = useState("");
+  const [billingCities, setBillingCities] = useState("");
+  const countryName = Country.getAllCountries();
+  const billingCountryName = Country.getAllCountries();
 
   // showing alert
   const { showAlert } = useSweetAlert();
@@ -48,6 +54,48 @@ const MemberShip_Contact = ({ setShowMember }) => {
 
   const [cardError, setCardError] = useState(null);
   const [button, setButton] = useState(false);
+  console.log(membership?.State);
+
+  // set states
+  useEffect(() => {
+    const handleStates = () => {
+      const allStates = State.getStatesOfCountry(membership?.Country);
+      setStates(allStates);
+    };
+    // const
+    handleStates();
+  }, [membership?.Country]);
+  // set cities
+  useEffect(() => {
+    const handleCities = () => {
+      const allCities = City.getCitiesOfState(
+        membership?.Country,
+        membership?.State
+      );
+      setCities(allCities);
+    };
+    handleCities();
+  }, [membership?.Country, membership?.State]);
+  // billing states
+  useEffect(() => {
+    const handleStates = () => {
+      const allStates = State.getStatesOfCountry(membership?.BillingCountry);
+      setBillingStates(allStates);
+    };
+    // const
+    handleStates();
+  }, [membership?.BillingCountry]);
+  // billing cities
+  useEffect(() => {
+    const handleCities = () => {
+      const allCities = City.getCitiesOfState(
+        membership?.BillingCountry,
+        membership?.BillingState
+      );
+      setBillingCities(allCities);
+    };
+    handleCities();
+  }, [membership?.BillingCountry, membership?.BillingState]);
 
   useEffect(() => {
     if (membership.CardInfo != "") {
@@ -239,10 +287,10 @@ const MemberShip_Contact = ({ setShowMember }) => {
   return (
     <div className="lg:mx-[50px] my-[3rem]">
       <div className="w-full">
-        <h1 className="text-[34px]">PERSONAL INFORMATION</h1>
+        <h1 className="text-[34px] dark:text-white">PERSONAL INFORMATION</h1>
       </div>
       <form action="submit" onSubmit={handleSubmit}>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 mb-5 bg-[#fbfbfb] px-6 py-5 border-l-[6px] rounded-l-2xl border-[#ededed]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 dark:bg-[#878688] gap-x-8 mb-5 bg-[#fbfbfb] px-6 py-5 border-l-[6px] rounded-l-2xl border-[#ededed]">
           <div>
             <input
               type="text"
@@ -310,7 +358,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
         </div>
 
         {/* ///////////// */}
-        <div className="bg-[#fbfbfb] px-6 py-5 border-l-[6px] rounded-l-2xl border-[#ededed] mb-5">
+        <div className="bg-[#fbfbfb] dark:bg-[#878688] px-6 py-5 border-l-[6px] rounded-l-2xl border-[#ededed] mb-5">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 ">
             <div>
               <input
@@ -401,24 +449,70 @@ const MemberShip_Contact = ({ setShowMember }) => {
               </p>
             </div>
           </div>
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 ">
             <div>
               <label
                 className="after:pl-1   font-bold   block"
                 htmlFor="address_1"
               >
-                City
+                Country
               </label>
-              <input
+              <select
+                value={membership.Country}
+                onChange={(e) =>
+                  setMembership({ ...membership, Country: e.target.value })
+                }
+                id="countries"
+                className=" bg-[#ededed] rounded-sm focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-[#ededed] text-[#787676e8]"
+              >
+                <option selected>Select country</option>
+                {countryName?.map((country, countryIndex) => (
+                  <option key={countryIndex} value={country?.isoCode}>
+                    {country?.name}
+                  </option>
+                ))}
+              </select>
+              <p className=" text-sm mt-[1px] text-red invisible">
+                This field is required.
+              </p>
+            </div>
+
+            <div>
+              <label
+                className="after:pl-1   font-bold   block"
+                htmlFor="address_1"
+              >
+                State/Province
+              </label>
+              <select
+                value={membership.State}
+                onChange={(e) =>
+                  setMembership({ ...membership, State: e.target.value })
+                }
+                id="state"
+                className=" bg-[#ededed] rounded-sm focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-[#ededed] text-[#787676e8]"
+              >
+                <option selected>Select State</option>
+                {states?.length > 0
+                  ? states?.map((state, stateIndex) => (
+                      <option key={stateIndex} value={state?.isoCode}>
+                        {state?.name}
+                      </option>
+                    ))
+                  : ""}
+              </select>
+
+              {/* <input
                 type="text"
-                placeholder="E.g sydney"
+                placeholder="E.g New South Wales"
                 id="city"
                 className=" py-3 rounded-sm  w-[100%] px-2  bg-[#ededed]"
-                value={membership.City}
+                value={membership.State}
                 onChange={(e) =>
-                  setMembership({ ...membership, City: e.target.value })
+                  setMembership({ ...membership, State: e.target.value })
                 }
-              />
+              /> */}
               <p className=" text-sm mt-[1px] text-red invisible">
                 This field is required.
               </p>
@@ -428,18 +522,35 @@ const MemberShip_Contact = ({ setShowMember }) => {
                 className="after:pl-1   font-bold   block"
                 htmlFor="address_1"
               >
-                State/Province
+                City
               </label>
-              <input
+              <select
+                value={membership.City}
+                onChange={(e) =>
+                  setMembership({ ...membership, City: e.target.value })
+                }
+                id="city"
+                className=" bg-[#ededed] rounded-sm focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-[#ededed] text-[#787676e8]"
+              >
+                <option selected>Select City</option>
+                {cities?.length > 0
+                  ? cities?.map((city, cityIndex) => (
+                      <option key={cityIndex} value={city?.isoCode}>
+                        {city?.name}
+                      </option>
+                    ))
+                  : ""}
+              </select>
+              {/* <input
                 type="text"
-                placeholder="E.g New South Wales"
+                placeholder="E.g sydney"
                 id="city"
                 className=" py-3 rounded-sm  w-[100%] px-2  bg-[#ededed]"
-                value={membership.State}
+                value={membership.City}
                 onChange={(e) =>
-                  setMembership({ ...membership, State: e.target.value })
+                  setMembership({ ...membership, City: e.target.value })
                 }
-              />
+              /> */}
               <p className=" text-sm mt-[1px] text-red invisible">
                 This field is required.
               </p>
@@ -465,36 +576,10 @@ const MemberShip_Contact = ({ setShowMember }) => {
                 This field is required.
               </p>
             </div>
-            <div>
-              <label
-                className="after:pl-1   font-bold   block"
-                htmlFor="address_1"
-              >
-                Country
-              </label>
-              <select
-                value={membership.Country}
-                onChange={(e) =>
-                  setMembership({ ...membership, Country: e.target.value })
-                }
-                id="countries"
-                className=" bg-[#ededed] rounded-sm focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-[#ededed] text-[#787676e8]"
-              >
-                <option selected>Select country</option>
-                {countryName?.map((country, countryIndex) => (
-                  <option key={countryIndex} value={country?.code}>
-                    {country?.name}
-                  </option>
-                ))}
-              </select>
-              <p className=" text-sm mt-[1px] text-red invisible">
-                This field is required.
-              </p>
-            </div>
           </div>
         </div>
         {/* Selected plan */}
-        <div className="bg-[#fbfbfb] px-6 py-5 border-l-[6px] rounded-l-2xl border-[#ededed] mb-5">
+        <div className="bg-[#fbfbfb] dark:bg-[#878688] px-6 py-5 border-l-[6px] rounded-l-2xl border-[#ededed] mb-5">
           <div className="grid grid-cols-1 gap-x-8">
             <div className="">
               <legend className="text-[#777771] pb-1">Membership plan</legend>
@@ -558,8 +643,8 @@ const MemberShip_Contact = ({ setShowMember }) => {
           </p>
         </div>
         {/* /////Billing Information////// */}
-        <p className="py-2">Billing address</p>
-        <div className="bg-[#fbfbfb] px-6 py-5 border-l-[6px] rounded-l-2xl border-[#ededed] mb-5">
+        <p className="py-2  dark:text-[#ffffffbf]">Billing address</p>
+        <div className="bg-[#fbfbfb] dark:bg-[#878688] px-6 py-5 border-l-[6px] rounded-l-2xl border-[#ededed] mb-5">
           <div className="grid grid-cols-1 gap-x-8 ">
             <div>
               <label
@@ -637,24 +722,32 @@ const MemberShip_Contact = ({ setShowMember }) => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 ">
             <div>
               <label
-                className="  after:pl-1 text-[#777771]  block"
-                htmlFor="billing_city"
+                className="after:pl-1 text-[#777771] font-bold block"
+                htmlFor="billing_select_country"
               >
-                City
+                Country
               </label>
-              <input
-                type="text"
-                placeholder="E.g Sydney"
-                id="billing_city"
-                className="py-3 rounded-sm  w-[100%] px-2  bg-[#ededed]"
+              <select
+                id="countries"
+                className=" bg-[#ededed] rounded-sm focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-[#ededed] text-[#787676e8]"
+                value={membership.BillingCountry}
                 required
-                value={membership.BillingCity}
                 onChange={(e) =>
-                  setMembership({ ...membership, BillingCity: e.target.value })
+                  setMembership({
+                    ...membership,
+                    BillingCountry: e.target.value,
+                  })
                 }
-              />
+              >
+                <option selected>Select country</option>
+                {billingCountryName?.map((country, countryIndex) => (
+                  <option key={countryIndex} value={country?.isoCode}>
+                    {country?.name}
+                  </option>
+                ))}
+              </select>
               <p className=" text-sm mt-[1px] text-red invisible">
-                This field is required.Please enter the city.
+                This field is required.
               </p>
             </div>
             <div>
@@ -664,7 +757,25 @@ const MemberShip_Contact = ({ setShowMember }) => {
               >
                 State/Province
               </label>
-              <input
+              <select
+                required
+                value={membership.BillingState}
+                onChange={(e) =>
+                  setMembership({ ...membership, BillingState: e.target.value })
+                }
+                id="billing_state"
+                className=" bg-[#ededed] rounded-sm focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-[#ededed] text-[#787676e8]"
+              >
+                <option selected>Select State</option>
+                {billingStates?.length > 0
+                  ? billingStates?.map((state, stateIndex) => (
+                      <option key={stateIndex} value={state?.isoCode}>
+                        {state?.name}
+                      </option>
+                    ))
+                  : ""}
+              </select>
+              {/* <input
                 type="text"
                 placeholder="E.g New South Wales"
                 id="billing_state"
@@ -674,7 +785,46 @@ const MemberShip_Contact = ({ setShowMember }) => {
                 onChange={(e) =>
                   setMembership({ ...membership, BillingState: e.target.value })
                 }
-              />
+              /> */}
+              <p className=" text-sm mt-[1px] text-red invisible">
+                This field is required.Please enter the city.
+              </p>
+            </div>
+            <div>
+              <label
+                className="  after:pl-1 text-[#777771]  block"
+                htmlFor="billing_city"
+              >
+                City
+              </label>
+              <select
+                id="billing_city"
+                value={membership.BillingCity}
+                onChange={(e) =>
+                  setMembership({ ...membership, BillingCity: e.target.value })
+                }
+                className=" bg-[#ededed] rounded-sm focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-[#ededed] text-[#787676e8]"
+              >
+                <option selected>Select City</option>
+                {billingCities?.length > 0
+                  ? billingCities?.map((city, cityIndex) => (
+                      <option key={cityIndex} value={city?.isoCode}>
+                        {city?.name}
+                      </option>
+                    ))
+                  : ""}
+              </select>
+              {/* <input
+                type="text"
+                placeholder="E.g Sydney"
+                id="billing_city"
+                className="py-3 rounded-sm  w-[100%] px-2  bg-[#ededed]"
+                required
+                value={membership.BillingCity}
+                onChange={(e) =>
+                  setMembership({ ...membership, BillingCity: e.target.value })
+                }
+              /> */}
               <p className=" text-sm mt-[1px] text-red invisible">
                 This field is required.Please enter the city.
               </p>
@@ -704,36 +854,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
                 This field is required.Please enter the city.
               </p>
             </div>
-            <div>
-              <label
-                className="after:pl-1 text-[#777771] font-bold block"
-                htmlFor="billing_select_country"
-              >
-                Country
-              </label>
-              <select
-                id="countries"
-                className=" bg-[#ededed] rounded-sm focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-[#ededed] text-[#787676e8]"
-                value={membership.BillingCountry}
-                required
-                onChange={(e) =>
-                  setMembership({
-                    ...membership,
-                    BillingCountry: e.target.value,
-                  })
-                }
-              >
-                <option selected>Select country</option>
-                {countryName?.map((country, countryIndex) => (
-                  <option key={countryIndex} value={country?.code}>
-                    {country?.name}
-                  </option>
-                ))}
-              </select>
-              <p className=" text-sm mt-[1px] text-red invisible">
-                This field is required.
-              </p>
-            </div>
+
             <label className="w-full">
               <input type="checkbox" required className="mr-2" /> Yes, I agree
               with the{" "}
@@ -752,7 +873,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
         {/* ///////// */}
         <div className="lg:grid flex flex-col-reverse lg:grid-cols-2 mt-6">
           <div>
-            <div className="border border-[#d3d3d3] bg-[#f9f9f9] shadow flex w-[300px] h-[100px] justify-center items-center ">
+            <div className="border border-[#d3d3d3] dark:bg-[#878688] bg-[#f9f9f9] shadow flex w-[300px] h-[100px] justify-center items-center ">
               <label className="w-full px-4 flex ">
                 <input type="checkbox" className="w-5 h-5 mr-2" /> I'm not a
                 robot
@@ -816,11 +937,11 @@ const MemberShip_Contact = ({ setShowMember }) => {
             {signatureText ? (
               <div className="relative w-[100%] h-full">
                 <SignatureCanvas
+                  ref={sigPad}
                   penColor="black"
                   dotSize={1}
                   throttle={50}
                   backgroundColor="#eeee"
-                  ref={sigPad}
                   canvasProps={{
                     className:
                       " cursor-crosshair h-[156px] w-full  mb-6  rounded-sm bg-[#e6e6e6]",

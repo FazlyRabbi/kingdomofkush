@@ -25,7 +25,7 @@ function FutureGoverning() {
 
   return (
     <section className="FutureGoverning">
-      <div className="px-5 lg:py-[6rem] py-[2rem] grid items-end  justify-items-center grid-cols-1 md:grid-cols-2  ">
+      <div className="lg:px-5 lg:py-[6rem] dark:bg-[#161519] py-[2rem] grid items-end  justify-items-center grid-cols-1 md:grid-cols-2  ">
         <div className="xl:mr-[25%] 2xl:mr-[18%]">
           <Swiper
             navigation
@@ -48,15 +48,15 @@ function FutureGoverning() {
           </Swiper>
         </div>
 
-        <div className=" py-[4rem] md:py-[1rem]   px-[2rem] xl:px-0">
+        <div className=" sm:py-[4rem] md:py-[1rem]   px-[2rem] xl:px-0">
           <div className="content">
-            <p className=" text-base pb-2">
+            <p className="dark:text-[#ffffffbf] text-base pb-2">
               JUST A DREAM, NOW PART OF THE AWAKENING OF OVER SEVEN MILLION
               PEOPLE
             </p>
 
             <h4
-              className="font-bold  text-[2rem]
+              className="font-bold  text-[2rem] dark:text-white
               md:text-[2.5rem] md:leading-[2.4rem] lg:leading-[3.8rem] 2xl:pr-[25%]"
             >
               Future Governing Structures & Citizenship
@@ -65,12 +65,12 @@ function FutureGoverning() {
               <Accordion open={open === 1}>
                 <AccordionHeader
                   onClick={() => handleOpen(1)}
-                  className="text-base border-b-0 [&>span]:ml-0  justify-end flex-row-reverse"
+                  className="text-base border-b-0 dark:text-white [&>span]:ml-0  justify-end flex-row-reverse"
                 >
                   What appeared initially just as
                 </AccordionHeader>
 
-                <AccordionBody className="text-base 2xl:pr-[30%]">
+                <AccordionBody className="text-base dark:text-[#ffffffbf] 2xl:pr-[30%]">
                   a dream is now part of an awakening for over seven million
                   people who have already applied for citizenship and have
                   galvanized international luminaries from every continent in
@@ -81,12 +81,12 @@ function FutureGoverning() {
               <Accordion open={open === 2}>
                 <AccordionHeader
                   onClick={() => handleOpen(2)}
-                  className="text-base border-b-0 [&>span]:ml-0  justify-end flex-row-reverse pb-2"
+                  className="text-base text-left dark:text-white border-b-0 [&>span]:ml-0  justify-end flex-row-reverse pb-2"
                 >
                   The Kingdom will introduce the establishment
                 </AccordionHeader>
 
-                <AccordionBody className="text-base 2xl:pr-[30%]">
+                <AccordionBody className="text-base 2xl:pr-[30%] dark:text-[#ffffffbf]">
                   of the Ministry of Peaceful Coexistence and intends to create
                   a better way of life that is free from various humanitarian
                   abuses such as inquisition, holocaust, slavery, or what

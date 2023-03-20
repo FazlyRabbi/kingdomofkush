@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 //import next hoc
 import Image from "next/image";
 import Link from "next/link";
+import { Country, State, City } from "country-state-city";
 // import react icons
 import { CgMenuLeftAlt } from "react-icons/cg";
 // imports image
@@ -26,7 +27,6 @@ import {
   AiFillYoutube,
   AiOutlineInstagram,
 } from "react-icons/ai";
-import countryName from "../public/country.json";
 
 import { IoIosArrowDown } from "react-icons/io";
 
@@ -35,6 +35,8 @@ export default function Nav() {
   const [scroll, setScroll] = useState(false);
   const [toogle, setToggle] = useState(false);
   const [clientWidth, setClientWidth] = useState(null);
+
+  const countryName = Country.getAllCountries();
 
   const route = useRouter();
 
@@ -61,7 +63,7 @@ export default function Nav() {
           (!scroll && route.pathname === "/") ||
           (!scroll && route.pathname === "/contact")
             ? "text-white"
-            : "text-black"
+            : "text-black  dark:text-[#ffffffbf]"
         }  p-1 font-normal`}
       >
         <Link href="/" className="flex items-center">
@@ -76,8 +78,8 @@ export default function Nav() {
         className={`${
           (!scroll && route.pathname === "/") ||
           (!scroll && route.pathname === "/contact")
-            ? "text-white"
-            : "text-black"
+            ? "text-white "
+            : "text-black  dark:text-[#ffffffbf]"
         }  p-1 font-normal`}
       >
         <Link href={"/aboutus"} className="flex items-center">
@@ -92,7 +94,7 @@ export default function Nav() {
           (!scroll && route.pathname === "/") ||
           (!scroll && route.pathname === "/contact")
             ? "text-white"
-            : "text-black"
+            : "text-black  dark:text-[#ffffffbf]"
         }  p-1 font-normal`}
       >
         <Menu>
@@ -104,7 +106,7 @@ export default function Nav() {
                 (!scroll && route.pathname === "/") ||
                 (!scroll && route.pathname === "/contact")
                   ? "text-white"
-                  : "text-black"
+                  : "text-black  dark:text-[#ffffffbf]"
               }
              
               capitalize  px-0 font-normal hover:shadow-none shadow-none text-[1rem] bg-transparent flex  items-center`}
@@ -115,7 +117,7 @@ export default function Nav() {
                   (!scroll && route.pathname === "/") ||
                   (!scroll && route.pathname === "/contact")
                     ? "text-white"
-                    : "text-black"
+                    : "text-black  dark:text-[#ffffffbf]"
                 }`}
               />
             </Button>
@@ -151,7 +153,7 @@ export default function Nav() {
           (!scroll && route.pathname === "/") ||
           (!scroll && route.pathname === "/contact")
             ? "text-white"
-            : "text-black"
+            : "text-black  dark:text-[#ffffffbf]"
         }  p-1 font-normal`}
       >
         <Link href={`/petition`} className="flex items-center">
@@ -166,7 +168,7 @@ export default function Nav() {
           (!scroll && route.pathname === "/") ||
           (!scroll && route.pathname === "/contact")
             ? "text-white"
-            : "text-black"
+            : "text-black  dark:text-[#ffffffbf]"
         }  p-1 font-normal`}
       >
         <Link href={`/project`} className="flex items-center">
@@ -181,7 +183,7 @@ export default function Nav() {
           (!scroll && route.pathname === "/") ||
           (!scroll && route.pathname === "/contact")
             ? "text-white"
-            : "text-black"
+            : "text-black  dark:text-[#ffffffbf]"
         }  p-1 font-normal`}
       >
         <Link href={`/invest`} className="flex items-center">
@@ -196,7 +198,7 @@ export default function Nav() {
           (!scroll && route.pathname === "/") ||
           (!scroll && route.pathname === "/contact")
             ? "text-white"
-            : "text-black"
+            : "text-black  dark:text-[#ffffffbf]"
         }  p-1 font-normal`}
       >
         <Link href={`/donation`} className="flex items-center">
@@ -211,7 +213,7 @@ export default function Nav() {
           (!scroll && route.pathname === "/") ||
           (!scroll && route.pathname === "/contact")
             ? "text-white"
-            : "text-black"
+            : "text-black  dark:text-[#ffffffbf]"
         }  p-1 font-normal`}
       >
         <Link href={`/contact`} className="flex items-center">
@@ -226,8 +228,10 @@ export default function Nav() {
       {route.pathname === "/" || route.pathname === "/contact" ? (
         <div
           className={`${
-            scroll ? "bg-white  fixed" : "bg-[#00000050] absolute top-0 left-0"
-          } w-[100%]    transition-all duration-400  z-[99] `}
+            scroll
+              ? "bg-white dark:bg-[#161519]  dark:text-[#ffffffbf] fixed"
+              : "bg-[#00000050] absolute top-0 left-0"
+          } w-[100%] pr-5   transition-all duration-400  z-[99] `}
         >
           <div
             className={`container  ${
@@ -247,7 +251,7 @@ export default function Nav() {
                       (!scroll && route.pathname === "/") ||
                       (!scroll && route.pathname === "/contact")
                         ? "text-white"
-                        : "text-black"
+                        : "text-black dark:text-white"
                     }`}
                   />
                 </span>
@@ -263,13 +267,13 @@ export default function Nav() {
               <form action="/action_page.php">
                 <select
                   id="countries"
-                  className="bg-gray-50 border border-gray-300 text-gray-900  rounded-md focus:ring-blue-500 focus:border-blue-500 block w-[15rem] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500  text-base"
+                  className="bg-gray-50 border border-gray-300 text-gray-900  rounded-md focus:ring-blue-500 focus:border-blue-500 block w-[10rem] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500  text-base"
                 >
                   <option defaultValue="Choose a Languge">
                     Choose a Languge
                   </option>
                   {countryName?.map((country, countryIndex) => (
-                    <option key={countryIndex} value={country?.code}>
+                    <option key={countryIndex} value={country?.isoCode}>
                       {country?.name}
                     </option>
                   ))}
@@ -282,7 +286,7 @@ export default function Nav() {
         <div
           className={`${
             scroll ? " fixed  " : "static  "
-          } w-[100%]  bg-white  top-0 left-0  transition-all duration-400  z-[99] `}
+          } w-[100%] pr-5 bg-white dark:bg-[#161519] top-0 left-0  transition-all duration-400  z-[99] `}
         >
           <div
             className={`
@@ -300,7 +304,7 @@ export default function Nav() {
                   <CgMenuLeftAlt
                     className={` border-solid hover:border-[1px] border-primary text-[3.2rem] cursor-pointer bg-[#8484842c] rounded-full p-2 transition-all ${
                       scroll || route.pathname != "/"
-                        ? "text-black"
+                        ? "text-black dark:text-white"
                         : "text-white"
                     }`}
                   />
@@ -317,11 +321,11 @@ export default function Nav() {
               <form action="/action_page.php">
                 <select
                   id="countries"
-                  className="bg-gray-50 border border-gray-300 text-gray-900  rounded-md focus:ring-blue-500 focus:border-blue-500 block w-[15rem] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500  text-base"
+                  className="bg-gray-50 border border-gray-300 text-gray-900  rounded-md focus:ring-blue-500 focus:border-blue-500 block w-[15rem] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500  text-base"
                 >
                   <option selected>Choose a Languge</option>
                   {countryName?.map((country, countryIndex) => (
-                    <option key={countryIndex} value={country?.code}>
+                    <option key={countryIndex} value={country?.isoCode}>
                       {country?.name}
                     </option>
                   ))}
@@ -351,7 +355,7 @@ export default function Nav() {
               <li className=" font-bold lg:text-[1.8rem] text-[2rem] text-[#CB9833] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
                 <Link href={"/"}> Home</Link>
               </li>
-              <li className=" font-bold lg:text-[1.8rem] text-[2rem] hover:translate-x-4  hover:opacity-70 transition-all duration-300">
+              <li className=" font-bold lg:text-[1.8rem] text-[2rem] hover:translate-x-4  hover:opacity-70 transition-all  duration-300">
                 <Link href={"/aboutus"}>About</Link>
               </li>
               <li
@@ -398,7 +402,7 @@ export default function Nav() {
                         Choose a Languge
                       </option>
                       {countryName?.map((country, countryIndex) => (
-                        <option key={countryIndex} value={country?.code}>
+                        <option key={countryIndex} value={country?.isoCode}>
                           {country?.name}
                         </option>
                       ))}
@@ -416,21 +420,31 @@ export default function Nav() {
                 >
                   Get In Touch
                 </h5>
-                <p className=" text-[#4a4653] w-[50%] text-base">
+                <p className=" text-white w-[50%] text-base">
                   One World Trade Center Floor 85, New York, NY 10007
                   info@kingdomofkush.org
                 </p>
               </div>
               <div className="social__logo flex  mt-4  -ml-[15rem]  space-x-8 justify-between items-center">
-                <FaFacebookF className=" text-[1.2rem] cursor-pointer" />
-
-                <AiOutlineTwitter className=" text-[1.2rem] cursor-pointer" />
-
-                <AiFillLinkedin className=" text-[1.2rem] cursor-pointer" />
-
-                <AiFillYoutube className=" text-[1.2rem] cursor-pointer" />
-
-                <AiOutlineInstagram className=" text-[1.2rem] cursor-pointer" />
+                <Link href={"https://www.facebook.com/royalkingdomofkush"}>
+                  <FaFacebookF className=" text-[1.2rem] cursor-pointer" />
+                </Link>
+                <Link href={"https://twitter.com/eKingdomofKush"}>
+                  <AiOutlineTwitter className=" text-[1.2rem] cursor-pointer" />
+                </Link>
+                <Link href={"https://www.linkedin.com/company/kingdomofkush/"}>
+                  <AiFillLinkedin className=" text-[1.2rem] cursor-pointer" />
+                </Link>
+                <Link
+                  href={
+                    "https://www.youtube.com/channel/UCrl79VUm6Mklxwu9pG5JUAA"
+                  }
+                >
+                  <AiFillYoutube className=" text-[1.2rem] cursor-pointer" />
+                </Link>
+                <Link href={"https://www.instagram.com/royalkingdomofkush/"}>
+                  <AiOutlineInstagram className=" text-[1.2rem] cursor-pointer" />
+                </Link>
               </div>
             </div>
           </div>
@@ -511,8 +525,8 @@ export default function Nav() {
                         Choose a Languge
                       </option>
                       {countryName?.map((country, countryIndex) => (
-                        <option key={countryIndex} value={country?.code}>
-                          {country?.name}
+                        <option key={countryIndex} value={country?.country_id}>
+                          {country?.country_name}
                         </option>
                       ))}
                     </select>

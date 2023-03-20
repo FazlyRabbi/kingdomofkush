@@ -2,14 +2,21 @@ import React, { useEffect, useState, useContext } from "react";
 import { Button } from "@material-tailwind/react";
 import { vendorContext } from "@/context/VendorContext";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import countryName from "../../public/country.json";
 // alart and messages
 import useSweetAlert from "../lib/sweetalert2";
 import PhoneInput from "react-phone-number-input";
-
+import { Country, State, City } from "country-state-city";
 function vendor_Contact() {
   // showing alert
   const { showAlert } = useSweetAlert();
+  const [states, setStates] = useState("");
+  const [cities, setCities] = useState("");
+  const [billingStates, setBillingStates] = useState("");
+  const [billingCities, setBillingCities] = useState("");
+  const countryName = Country.getAllCountries();
+  const billingCountryName = Country.getAllCountries();
+
+  // email alert
   const showAlerts = (email, ammount) => {
     showAlert({
       title: `Payment Informations!`,
@@ -43,6 +50,45 @@ function vendor_Contact() {
 
   const { vendor, setVendor, vendorInitial, postVendor } =
     useContext(vendorContext);
+
+  // set states
+  useEffect(() => {
+    const handleStates = () => {
+      const allStates = State.getStatesOfCountry(vendor?.Country);
+      setStates(allStates);
+    };
+    // const
+    handleStates();
+  }, [vendor?.Country]);
+  // set cities
+  useEffect(() => {
+    const handleCities = () => {
+      const allCities = City.getCitiesOfState(vendor?.Country, vendor?.State);
+      setCities(allCities);
+    };
+    handleCities();
+  }, [vendor?.Country, vendor?.State]);
+  // billing states
+  useEffect(() => {
+    const handleStates = () => {
+      const allStates = State.getStatesOfCountry(vendor?.BillingCountry);
+      setBillingStates(allStates);
+      console.log(vendor?.BillingCountry);
+    };
+    // const
+    handleStates();
+  }, [vendor?.BillingCountry]);
+  // billing cities
+  useEffect(() => {
+    const handleCities = () => {
+      const allCities = City.getCitiesOfState(
+        vendor?.BillingCountry,
+        vendor?.BillingState
+      );
+      setBillingCities(allCities);
+    };
+    handleCities();
+  }, [vendor?.BillingCountry, vendor?.BillingState]);
 
   const stripe = useStripe();
 
@@ -313,15 +359,26 @@ function vendor_Contact() {
               >
                 Address
               </label>
-              <input
-                type="text"
-                className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
-                value={vendor.City}
-                onChange={(e) => setVendor({ ...vendor, City: e.target.value })}
-              />
 
-              <p className="  text-sm mt-[.5rem]">City</p>
+              <select
+                id="countries"
+                className=" border  border-softGray text-gray-900 text-sm rounded-md focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                value={vendor.Country}
+                onChange={(e) =>
+                  setVendor({ ...vendor, Country: e.target.value })
+                }
+              >
+                <option selected>Choose a country</option>
+                {countryName?.map((country, countryIndex) => (
+                  <option key={countryIndex} value={country?.isoCode}>
+                    {country?.name}
+                  </option>
+                ))}
+              </select>
+
+              <p className="  text-sm mt-[.5rem]">Country</p>
             </div>
+
             <div>
               <label
                 className=" invisible  font-bold block"
@@ -329,7 +386,24 @@ function vendor_Contact() {
               >
                 Address
               </label>
-              <input
+              <select
+                value={vendor.State}
+                onChange={(e) =>
+                  setVendor({ ...vendor, State: e.target.value })
+                }
+                id="address_2"
+                className=" border  border-softGray text-gray-900 text-sm rounded-md focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option selected>Select State</option>
+                {states?.length > 0
+                  ? states?.map((state, stateIndex) => (
+                      <option key={stateIndex} value={state?.isoCode}>
+                        {state?.name}
+                      </option>
+                    ))
+                  : ""}
+              </select>
+              {/* <input
                 type="text"
                 id="address_2"
                 className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
@@ -337,13 +411,44 @@ function vendor_Contact() {
                 onChange={(e) =>
                   setVendor({ ...vendor, State: e.target.value })
                 }
-              />
+              /> */}
 
               <p className="  text-sm mt-[.5rem]">State / Province / Region</p>
             </div>
           </div>
           {/* ///////// */}
           <div className=" grid grid-cols-2 gap-x-8">
+            <div>
+              <label
+                className=" invisible  font-bold block"
+                htmlFor="address_2"
+              >
+                Address
+              </label>
+              <select
+                value={vendor.City}
+                onChange={(e) => setVendor({ ...vendor, City: e.target.value })}
+                id="city"
+                className=" border  border-softGray text-gray-900 text-sm rounded-md focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option selected>Select City</option>
+                {cities?.length > 0
+                  ? cities?.map((city, cityIndex) => (
+                      <option key={cityIndex} value={city?.isoCode}>
+                        {city?.name}
+                      </option>
+                    ))
+                  : ""}
+              </select>
+              {/* <input
+                type="text"
+                className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
+                value={vendor.City}
+                onChange={(e) => setVendor({ ...vendor, City: e.target.value })}
+              /> */}
+
+              <p className="  text-sm mt-[.5rem]">City</p>
+            </div>
             <div>
               <label
                 className=" invisible  font-bold block"
@@ -362,32 +467,6 @@ function vendor_Contact() {
               />
 
               <p className="  text-sm mt-[.5rem]">Postal Code</p>
-            </div>
-            <div>
-              <label
-                className=" invisible  font-bold block"
-                htmlFor="address_2"
-              >
-                Address
-              </label>
-
-              <select
-                id="countries"
-                className=" border  border-softGray text-gray-900 text-sm rounded-md focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                value={vendor.Country}
-                onChange={(e) =>
-                  setVendor({ ...vendor, Country: e.target.value })
-                }
-              >
-                <option selected>Choose a country</option>
-                {countryName?.map((country, countryIndex) => (
-                  <option key={countryIndex} value={country?.code}>
-                    {country?.name}
-                  </option>
-                ))}
-              </select>
-
-              <p className="  text-sm mt-[.5rem]">Country</p>
             </div>
           </div>
           {/* ///////// */}
@@ -529,19 +608,45 @@ function vendor_Contact() {
           {/* ///////// */}
           <div className=" grid grid-cols-2 gap-x-8">
             <div>
-              <input
-                type="text"
-                className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
-                value={vendor.BillingCity}
+              <select
+                id="countries"
+                className=" border  border-softGray text-gray-900 text-sm rounded-md focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                value={vendor.BillingCountry}
                 onChange={(e) =>
-                  setVendor({ ...vendor, BillingCity: e.target.value })
+                  setVendor({ ...vendor, BillingCountry: e.target.value })
                 }
-              />
+              >
+                <option selected>Choose a country</option>
+                {billingCountryName?.map((country, countryIndex) => (
+                  <option key={countryIndex} value={country?.isoCode}>
+                    {country?.name}
+                  </option>
+                ))}
+              </select>
 
-              <p className="  text-sm mt-[.5rem]">City</p>
+              <p className="  text-sm mt-[.5rem]">Country</p>
             </div>
+
             <div>
-              <input
+              <select
+                required
+                value={vendor.BillingState}
+                onChange={(e) =>
+                  setVendor({ ...vendor, BillingState: e.target.value })
+                }
+                id="billing_state"
+                className=" border  border-softGray text-gray-900 text-sm rounded-md focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option selected>Select State</option>
+                {billingStates?.length > 0
+                  ? billingStates?.map((state, stateIndex) => (
+                      <option key={stateIndex} value={state?.isoCode}>
+                        {state?.name}
+                      </option>
+                    ))
+                  : ""}
+              </select>
+              {/* <input
                 type="text"
                 id="address_2"
                 className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
@@ -549,13 +654,42 @@ function vendor_Contact() {
                 onChange={(e) =>
                   setVendor({ ...vendor, BillingState: e.target.value })
                 }
-              />
+              /> */}
 
               <p className="  text-sm mt-[.5rem]">State / Province / Region</p>
             </div>
           </div>
           {/* ///////// */}
           <div className=" grid grid-cols-2 gap-x-8">
+            <div>
+              <select
+                id="billing_city"
+                value={vendor.BillingCity}
+                onChange={(e) =>
+                  setVendor({ ...vendor, BillingCity: e.target.value })
+                }
+                className=" border  border-softGray text-gray-900 text-sm rounded-md focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option selected>Select City</option>
+                {billingCities?.length > 0
+                  ? billingCities?.map((city, cityIndex) => (
+                      <option key={cityIndex} value={city?.isoCode}>
+                        {city?.name}
+                      </option>
+                    ))
+                  : ""}
+              </select>
+              {/* <input
+                type="text"
+                className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
+                value={vendor.BillingCity}
+                onChange={(e) =>
+                  setVendor({ ...vendor, BillingCity: e.target.value })
+                }
+              /> */}
+
+              <p className="  text-sm mt-[.5rem]">City</p>
+            </div>
             <div>
               <input
                 type="number"
@@ -568,25 +702,6 @@ function vendor_Contact() {
               />
 
               <p className="  text-sm mt-[.5rem]">Postal Code</p>
-            </div>
-            <div>
-              <select
-                id="countries"
-                className=" border  border-softGray text-gray-900 text-sm rounded-md focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                value={vendor.BillingCountry}
-                onChange={(e) =>
-                  setVendor({ ...vendor, BillingCountry: e.target.value })
-                }
-              >
-                <option selected>Choose a country</option>
-                {countryName?.map((country, countryIndex) => (
-                  <option key={countryIndex} value={country?.code}>
-                    {country?.name}
-                  </option>
-                ))}
-              </select>
-
-              <p className="  text-sm mt-[.5rem]">Country</p>
             </div>
           </div>
           {/* ///////// */}

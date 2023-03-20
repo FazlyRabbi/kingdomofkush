@@ -2,8 +2,10 @@ import React, { useState, useContext } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { petitionContext } from "@/context/PetitioContext";
-
+import { Country, State, City } from "country-state-city";
 const Petition_Contact = () => {
+  const countryName = Country.getAllCountries();
+
   const { petition, setPetition, petitionInitial } =
     useContext(petitionContext);
 
@@ -80,10 +82,24 @@ const Petition_Contact = () => {
         </p>
       </div>
       <div>
-        <label className="  font-bold  after:pl-1 block" htmlFor="address">
-          Address
+        <label className="  font-bold  after:pl-1 block" htmlFor="country">
+          Country
         </label>
-        <input
+        <select
+          onChange={(e) => {
+            setPetition({ ...petition, AddressLine: e.target.value });
+          }}
+          id="countries"
+          className="bg-gray-50 border border-gray-300 text-gray-900  rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500  text-base"
+        >
+          <option defaultValue="Choose a Languge">Choose a Country</option>
+          {countryName?.map((country, countryIndex) => (
+            <option key={countryIndex} value={country?.isoCode}>
+              {country?.name}
+            </option>
+          ))}
+        </select>
+        {/* <input
           type="text"
           id="address"
           className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[2px]"
@@ -92,7 +108,7 @@ const Petition_Contact = () => {
           onChange={(e) => {
             setPetition({ ...petition, AddressLine: e.target.value });
           }}
-        />
+        /> */}
         <p className=" text-sm mt-[1px] text-red invisible">
           This field is required.
         </p>
