@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { API_URL, API_TOKEN } from "@/config/index";
 import { CgProfile } from "react-icons/cg";
 import Image from "next/image";
 import { HiArrowTrendingUp } from "react-icons/hi2";
@@ -7,6 +8,68 @@ import Flag from "../../img/KushFlag.jpg";
 import { Country, State, City } from "country-state-city";
 
 const Petition = () => {
+  const [recentUser, setRecntUser] = useState([]);
+  const [calculateTimes, setCalculateTimes] = useState("");
+  const [userTime, setUserTime] = useState(null);
+
+  const calculateTime = () => {
+    const userTime = recentUser.map((data) => {
+      const userTime = {};
+
+      // create date
+      const cretedDate = new Date(data?.str);
+      const currentTime = new Date();
+
+      const timeDifferenceInSeconds = Math.floor(
+        (currentTime - cretedDate) / 1000
+      );
+      const timeDifferenceInMinutes = Math.floor(
+        (currentTime - cretedDate) / 60000
+      );
+      const timeDifferenceInHours = Math.floor(timeDifferenceInMinutes / 60);
+      const timeDifferenceInDays = Math.floor(timeDifferenceInHours / 24);
+
+      userTime.sec = timeDifferenceInSeconds;
+      userTime.min = timeDifferenceInMinutes;
+      userTime.hours = timeDifferenceInHours;
+      userTime.day = timeDifferenceInDays;
+
+      return userTime;
+    });
+
+    setUserTime(userTime);
+  };
+
+  useEffect(() => {
+    calculateTime();
+  }, [recentUser]);
+
+  const laodRecentUser = () => {
+    fetch(`${API_URL}/api/petitions?sort=createdAt:desc`, {
+      headers: {
+        Authorization: API_TOKEN,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const spliceData = data?.data.splice(0, 2);
+
+        const dateString = spliceData.map((data) => {
+          const time = {};
+
+          time.str = data.attributes.createdAt;
+
+          return time;
+        });
+
+        setRecntUser(dateString);
+      });
+  };
+
+  useEffect(() => {
+    laodRecentUser();
+  }, []);
+
   const countryName = Country.getAllCountries();
 
   return (
@@ -57,19 +120,76 @@ const Petition = () => {
                 <div className="flex gap-4 mr-4">
                   <CgProfile className="h-8 w-8 rounded-full bg-gray text-white" />
                   <div>
-                    <h1>
-                      <span className="font-bold">Cepren Kywhnp</span> signed 13
-                      hours ago
-                    </h1>
+                    {userTime && userTime[0]?.sec < 60 ? (
+                      <h1>
+                        <span className="font-bold">Cepren Kywhnp </span>
+                        signed {userTime[0]?.sec} sec ago
+                      </h1>
+                    ) : (
+                      ""
+                    )}
+                    {userTime && userTime[0]?.min < 60 && userTime[0]?.min >= 1  ? (
+                      <h1>
+                        <span className="font-bold">Cepren Kywhnp </span>
+                        signed {userTime[0]?.min} min ago
+                      </h1>
+                    ) : (
+                      ""
+                    )}
+                    {userTime && userTime[0]?.hours < 24  && userTime[0]?.hours >= 1 ? (
+                      <h1>
+                        <span className="font-bold">Cepren Kywhnp </span>
+                        signed {userTime[0]?.hours} hours ago
+                      </h1>
+                    ) : (
+                      ""
+                    )}
+                    {userTime && userTime[0]?.day > 1 ? (
+                      <h1>
+                        <span className="font-bold">Cepren Kywhnp </span>
+                        signed {userTime[0]?.day} days ago
+                      </h1>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
+
                 <div className="flex gap-4 mr-4">
                   <CgProfile className="h-8 w-8 rounded-full bg-gray text-white" />
                   <div>
-                    <h1>
-                      <span className="font-bold">Jamal Tabidi</span> signed 2
-                      days ago
-                    </h1>
+                    {userTime && userTime[1]?.sec < 60  ? (
+                      <h1>
+                        <span className="font-bold">Jamal Uddin </span>
+                        signed {userTime[1]?.sec} sec ago
+                      </h1>
+                    ) : (
+                      ""
+                    )}
+                    {userTime && userTime[1]?.min < 60  && userTime[0]?.min >= 1 ? (
+                      <h1>
+                        <span className="font-bold">Jamal Uddin </span>
+                        signed {userTime[1]?.min} min ago
+                      </h1>
+                    ) : (
+                      ""
+                    )}
+                    {userTime && userTime[1]?.hours < 24  && userTime[0]?.hours >= 1 ? (
+                      <h1>
+                        <span className="font-bold">Jamal Uddin </span>
+                        signed {userTime[1]?.hours} hours ago
+                      </h1>
+                    ) : (
+                      ""
+                    )}
+                    {userTime && userTime[1]?.day > 1 ? (
+                      <h1>
+                        <span className="font-bold">Jamal Uddin </span>
+                        signed {userTime[1]?.day} days ago
+                      </h1>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
               </div>

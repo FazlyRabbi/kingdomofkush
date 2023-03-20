@@ -7,8 +7,10 @@ import { API_URL, API_TOKEN } from "@/config/index";
 export const petitionContext = createContext();
 
 export const PetitionProvider = ({ children }) => {
-  
   const router = useRouter();
+
+
+
 
   const petitionInitial = {
     FirstName: "",
@@ -26,7 +28,7 @@ export const PetitionProvider = ({ children }) => {
     DeviceRecentActivitys: {
       IpAddress: "",
       BrowserName: "",
-      DeviceName:"",
+      DeviceName: "",
       OperatingSystemName: "",
       Locations: "USA",
       Date: "",
@@ -72,7 +74,6 @@ export const PetitionProvider = ({ children }) => {
         body: JSON.stringify({
           data: {
             data: { ...petition },
-           
           },
         }),
       });
@@ -88,12 +89,15 @@ export const PetitionProvider = ({ children }) => {
 
   return (
     <petitionContext.Provider
-      value={{ petition, setPetition,postpetitions,  petitionInitial,sendMailpetitions }}
+      value={{
+        petition,
+        setPetition,
+        postpetitions,
+        petitionInitial,
+        sendMailpetitions,
+      }}
     >
       {children}
     </petitionContext.Provider>
   );
 };
-
-
-
