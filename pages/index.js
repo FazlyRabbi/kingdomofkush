@@ -2,11 +2,7 @@ import Layout from "@/components/Layout";
 import HomePage from "@/components/Home/HomePage";
 import Image from "next/image";
 
-
-import { Button } from "@material-tailwind/react";
-
 export default function index() {
-
 
   return (
     <Layout title={`Kingdom`}>

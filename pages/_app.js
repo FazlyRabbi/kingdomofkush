@@ -13,6 +13,7 @@ import { VendorProvider } from "@/context/VendorContext";
 import { InvestProvider } from "@/context/InvestContext";
 import { PetitionProvider } from "@/context/PetitioContext";
 
+
 export default function MyApp({ Component, pageProps }) {
   // if (pageProps.protected && !user) {
   //   return (
@@ -30,7 +31,9 @@ export default function MyApp({ Component, pageProps }) {
                 <InvestProvider>
                   <DonationProvider>
                     <ContactProvider>
-                      <Component {...pageProps} />
+          
+                        <Component {...pageProps} />
+                    
                     </ContactProvider>
                   </DonationProvider>
                 </InvestProvider>
