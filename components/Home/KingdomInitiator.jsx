@@ -1,16 +1,17 @@
+import Image from "next/image";
 import React from "react";
 import Styles from "../../styles/styles.module.css";
-
+import findBd from "../../img/aboutus/oh__img158-1-scaled.jpg.jpg";
 function KingdomInitiator() {
   return (
     <section className="KingdomInitiator">
-      <div className="  transition-all duration-800 grid grid-cols-1 items-center md:grid-cols-2 2xl:grid-cols-3 ">
-        <div className=" lg:py-[4rem] py-[1rem]  2xl:pl-[16.5rem] pl-[1rem] md:pl-[2rem] px-[2rem] md:px-[0]  ">
+      <div className="flex px-5 dark:bg-[#161519] sm:px-0 flex-col md:flex-row md:gap-[2rem] lg:gap-[6rem]">
+        <div className="w-full sm:w-2/5 md:pl-[1rem] lg:pl-[5rem]">
           <div className="content lg:pt-[5rem] ">
-            <h1 className=" text-[2rem] xl:text-[3rem] mb-[4rem] font-bold  leading-tight">
+            <h1 className=" text-[2rem] xl:text-[3rem] mb-[4rem] dark:text-white font-bold  leading-tight">
               The Kingdom is already an initiator
             </h1>
-            <p>
+            <p className="dark:text-[#ffffffbf]">
               developer and a supporter of growing agricultural and natural
               resource development projects that span over 25 countries. This
               blooming Kingdom has already obtained a legal right to{" "}
@@ -27,9 +28,14 @@ function KingdomInitiator() {
           </div>
         </div>
 
-        <div
-          className={`${Styles.findBg} 2xl:ml-[12rem] 2xl:col-span-2 h-[25rem] xl:h-[45rem] `}
-        ></div>
+        <div className={` w-[100%] sm:w-3/5 mt-5 sm:mt-0`}>
+          <Image
+            width={0}
+            height={0}
+            className="md:h-[45rem] object-cover"
+            src={findBd}
+          />
+        </div>
       </div>
     </section>
   );

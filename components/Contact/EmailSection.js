@@ -5,10 +5,8 @@ import { Breadcrumbs } from "@material-tailwind/react";
 
 function EmailSection() {
   return (
-    <section className="EmailSection p-4 py-6  ">
+    <section className="EmailSection p-4 py-6  dark:bg-[#161519]">
       <div className=" container mx-auto border-b-[1px] border-[#ccc]  ">
-       
-       
         <div className="bradecamp">
           <Breadcrumbs className=" bg-transparent">
             <Link href={`/`} className=" text-primary font-bold">
@@ -16,20 +14,14 @@ function EmailSection() {
             </Link>
             <Link
               href={`#`}
-              className=" cursor-text  text-black hover:text-black"
+              className=" cursor-text dark:text-[#ffffffbf]  text-black hover:text-black"
             >
               Contact
             </Link>
           </Breadcrumbs>
         </div>
 
-        <div
-          className="grid  pt-[5rem] pb-[2rem] px-[1rem]  justify-items-start xl:gap-x-[20rem] 
-                gap-x-[5rem] 
-                
-                gap-y-[3rem]
-                grid-cols-1 md:grid-cols-2"
-        >
+        <div className="grid  pt-[5rem] pb-[2rem] px-[1rem]  justify-items-start xl:gap-x-[20rem] dark:text-[#ffffffbf] gap-x-[5rem] gap-y-[3rem] grid-cols-1 md:grid-cols-2">
           <div>
             <h1>Email</h1>
             <p className="font-bold">info@kingdomofkush.org</p>

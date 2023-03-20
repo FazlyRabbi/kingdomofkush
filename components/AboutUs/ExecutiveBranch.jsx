@@ -2,14 +2,14 @@ import React from "react";
 
 const ExecutiveBranch = () => {
   return (
-    <section className="" style={{ background: "rgba(241, 64, 5, 0.07)" }}>
+    <section className="bg-[#f1400512] dark:bg-[#161519]">
       <div className="mx-auto py-20 px-[2rem] container max-w-[75rem] 2xl:max-w-[85rem]">
         <div className="flex md:flex-row flex-col justify-between mb-9">
           <div>
-            <div className="uppercase text-[rgba(25,31,35,0.8)] font-medium">
+            <div className="uppercase text-[rgba(25,31,35,0.8)] dark:text-[#ffffffbf] font-medium">
               STATE ORGANIZATIONS
             </div>
-            <h2 className="text-[2.8rem] text-[#191f23] font-bold">
+            <h2 className="text-[2.8rem] dark:text-white text-[#191f23] font-bold">
               Executive Branch
             </h2>
           </div>

@@ -66,17 +66,16 @@ function InvestForm() {
   };
 
   return (
-    <div className="InvestForm  py-10">
-      {" "}
+    <div className="InvestForm dark:bg-[#161519] py-10">
       <div className="container px-[3rem] mx-auto pt-[5rem] ">
         <div className=" shadow-xl min-h-[20rem] p-[3rem] ">
           <form id="myForm" action="submit" onSubmit={handleSubmit}>
-            <div className="grid  md:justify-items-start mdjustify-items-center    rounded-md border-l-4 border-[#eaeaea] grid-cols-1  space-y-5  md:space-y-0   md:grid-cols-2 md:space-x-8 p-[1rem]  bg-[#fbfbfb]">
+            <div className="grid  md:justify-items-start mdjustify-items-center    rounded-md border-l-4 border-[#eaeaea] grid-cols-1  space-y-5  md:space-y-0   md:grid-cols-2 md:space-x-8 p-[1rem] dark:bg-[#878688]  bg-[#fbfbfb]">
               <div className="w-[100%]">
                 <input
                   required
                   type="text"
-                  className=" w-[100%]  placeholder-black rounded-md bg-[#eaeaea] text-black px-2 py-2"
+                  className=" w-[95%]  placeholder-black rounded-md bg-[#eaeaea] text-black px-2 py-2"
                   placeholder="First Name"
                   value={invest.FirstName}
                   onChange={(e) =>
@@ -87,7 +86,7 @@ function InvestForm() {
                   Name is required..
                 </Alert>
               </div>
-              <div className="w-[100%]">
+              <div className="w-[95%]">
                 <input
                   required
                   type="text"
@@ -104,8 +103,8 @@ function InvestForm() {
               </div>
             </div>
 
-            <div className="grid  mt-8 md:justify-items-start mdjustify-items-center    rounded-md border-l-4 border-[#eaeaea] grid-cols-1  space-y-5  md:space-y-0   md:grid-cols-2 md:space-x-8 p-[1rem]  bg-[#fbfbfb]">
-              <div className="w-[100%]">
+            <div className="grid  dark:bg-[#878688]  mt-8 md:justify-items-start mdjustify-items-center    rounded-md border-l-4 border-[#eaeaea] grid-cols-1  space-y-5  md:space-y-0   md:grid-cols-2 md:space-x-8 p-[1rem]  bg-[#fbfbfb]">
+              <div className="w-[95%]">
                 <input
                   required
                   type="email"
@@ -121,7 +120,7 @@ function InvestForm() {
                 </Alert>
               </div>
 
-              <div className="w-[100%] ">
+              <div className="w-[95%] ">
                 {/* <input
                   required
                   type="number"
@@ -147,7 +146,7 @@ function InvestForm() {
               </div>
             </div>
 
-            <div className="mt-8   rounded-md border-l-4 border-[#eaeaea] p-[1rem] bg-[#fbfbfb]">
+            <div className="mt-8  dark:bg-[#878688]  rounded-md border-l-4 border-[#eaeaea] p-[1rem] bg-[#fbfbfb]">
               <div className="grid gap-2 md:grid-cols-3">
                 <div>
                   <h4 className="text-[18px] font-bold text-[#777771] mb-3">

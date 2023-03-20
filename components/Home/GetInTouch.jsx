@@ -15,7 +15,7 @@ function GetInTouch() {
       >
         <div className="overlay absolute w-[100%] h-[100%] bg-[#00000030] "></div>
 
-        <div className="container grid grid-cols-1   z-20 px-[5rem] md:grid-cols-2  justify-items-stretch space-y-5">
+        <div className="container grid grid-cols-1   z-20 px-[1rem] sm:px-[5rem] md:grid-cols-2  justify-items-stretch space-y-5">
           <div>
             <p className="text-base text-white font-bold">WORK INQUIRIES</p>
             <h1 className=" text-[2rem] leading-tight xl:text-[3rem]  text-white font-bold">
@@ -31,7 +31,7 @@ function GetInTouch() {
             </Button>
           </div>
 
-          <div className=" flex  justify-end">
+          <div className=" flex justify-start sm:justify-end">
             <div>
               <div className="mb-[4rem]">
                 <p className="text-white font-bold mb-6">Kingdom of Kush</p>

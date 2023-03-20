@@ -13,7 +13,7 @@ SwiperCore.use([Navigation, Autoplay]);
 function VariousInfrastructure() {
   return (
     <section className="VariousInfrastructure">
-      <div className=" lg:py-[6rem] py-[2rem] grid pr-5 lg:pr-12  items-center justify-items-end grid-cols-1 md:grid-cols-2 xl:gap-x-[3rem]">
+      <div className=" lg:py-[6rem] dark:bg-[#161519] py-[2rem] grid pr-5 lg:pr-12  items-center justify-items-end grid-cols-1 md:grid-cols-2 xl:gap-x-[3rem]">
         <Swiper
           navigation
           autoplay={{ delay: 3000 }}
@@ -38,12 +38,12 @@ function VariousInfrastructure() {
           <div className="content">
             <h4
               className="font-bold  text-[2rem] 
-            md:text-[2.5rem] md:leading-[2.4rem] lg:leading-[3.8rem] 2xl:pr-[20rem] mb-10 lg:px-[2rem] md:py-0 lg:py-[4rem] py-[1rem]"
+            md:text-[2.5rem] md:leading-[2.4rem] dark:text-white lg:leading-[3.5rem] 2xl:pr-[20rem] mb-10 lg:px-[2rem] md:py-0 lg:py-[4rem] py-[1rem]"
             >
               Various infrastructure related projects are also on the way, such
               as:
             </h4>
-            <p className=" text-base pb-2 px-2  2xl:pr-[20rem]">
+            <p className=" text-base pb-2 px-2 dark:text-[#ffffffbf] 2xl:pr-[20rem]">
               housing, schools, airport, hospitals, communication, roads as well
               as water related projects.
               <b className="font-bold">

@@ -12,6 +12,7 @@ import { MembershipProvider } from "@/context/MembershipContext";
 import { VendorProvider } from "@/context/VendorContext";
 import { InvestProvider } from "@/context/InvestContext";
 import { PetitionProvider } from "@/context/PetitioContext";
+import { ModeProvider } from "@/context/ModeContext";
 
 
 export default function MyApp({ Component, pageProps }) {
@@ -22,26 +23,28 @@ export default function MyApp({ Component, pageProps }) {
   // }
 
   return (
-    <ThemeProvider>
-      <AuthProvider>
-        <MembershipProvider>
-          <VolunteerProvider>
-            <PetitionProvider>
-              <VendorProvider>
-                <InvestProvider>
-                  <DonationProvider>
-                    <ContactProvider>
-          
-                        <Component {...pageProps} />
-                    
-                    </ContactProvider>
-                  </DonationProvider>
-                </InvestProvider>
-              </VendorProvider>
-            </PetitionProvider>
-          </VolunteerProvider>
-        </MembershipProvider>
-      </AuthProvider>
-    </ThemeProvider>
+    <div id="theme" className="">
+      <ModeProvider>
+        <ThemeProvider>
+          <AuthProvider>
+            <MembershipProvider>
+              <VolunteerProvider>
+                <PetitionProvider>
+                  <VendorProvider>
+                    <InvestProvider>
+                      <DonationProvider>
+                        <ContactProvider>
+                          <Component {...pageProps} />
+                        </ContactProvider>
+                      </DonationProvider>
+                    </InvestProvider>
+                  </VendorProvider>
+                </PetitionProvider>
+              </VolunteerProvider>
+            </MembershipProvider>
+          </AuthProvider>
+        </ThemeProvider>
+      </ModeProvider>
+    </div>
   );
 }

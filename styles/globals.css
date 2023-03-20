@@ -2,25 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
-/* input[type="file"] {
+input[type="file"] {
   display: none;
 } */
-
 
 html {
   scroll-behavior: smooth;
 }
 
-
-
-.kursor  {
+.kursor {
   z-index: 9999999;
   pointer-events: none;
 }
-
-
 
 *,
 *::after,
@@ -29,7 +22,6 @@ html {
   margin: 0;
   padding: 0;
 }
-
 
 :active,
 :hover,
@@ -56,7 +48,6 @@ li {
 .swiper {
   width: inherit;
   height: inherit;
-  
 }
 
 .swiper-slide {
@@ -77,16 +68,13 @@ li {
   object-fit: cover;
 }
 
-
-
 /* swiper-custom.css */
 .swiper-button-prev,
 .swiper-button-next {
   color: #000 !important; /* change color of the icons */
-  font-size: 24px; 
- /* change size of the icons */
+  font-size: 24px;
+  /* change size of the icons */
 }
-
 
 .swiper-button-prev::before,
 .swiper-button-next::before {
@@ -95,10 +83,15 @@ li {
 
 .swiper-button-prev::after {
   content: "\2190" !important; /* add a left arrow icon */
-
 }
 
 .swiper-button-next::after {
   content: "\2192" !important;
- /* add a right arrow icon */
+  /* add a right arrow icon */
+}
+
+/* toggle swithcer */
+input:checked ~ .dot {
+  transform: translateX(100%);
+  background-color: #48bb78;
 }

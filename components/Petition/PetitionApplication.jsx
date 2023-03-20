@@ -86,18 +86,15 @@ const PetitionApplication = () => {
     localStorage.removeItem("pititonData");
     setPetition(petitionInitial);
     sigPad.current.clear();
-    // showAlerts();
+    showAlerts();
     setSumitPetitionSuccess(true);
   };
 
   return (
-    <div>
+    <div className="dark:bg-[#161519] dark:text-[#ffffffbf]">
       <div className=" container mx-auto py-[2rem] xl:mt-[2rem] xl:px-[4rem] px-[1rem] ">
         <div>
-          <h1
-            className=" text-[1.5rem] font-bold
-        mb-4"
-          >
+          <h1 className=" text-[1.5rem] font-bold mb-4 dark:text-white">
             Add your name to show your support for the campaign for action!
           </h1>
           <form action="submit" onSubmit={handleSubmit}>
@@ -345,7 +342,7 @@ const PetitionApplication = () => {
             {/* ///////// */}
 
             {/* ///////// */}
-            <div className=" grid grid-cols-1 mb-5">
+            {/* <div className=" grid grid-cols-1 mb-5">
               <div className="mb-5">
                 <label
                   className="after:pl-1 font-bold block mb-2 after:content-['*'] after:text-red"
@@ -367,7 +364,7 @@ const PetitionApplication = () => {
                   className="border p-2 border-softGray w-[100%] rounded-sm  "
                 ></textarea>
               </div>
-            </div>
+            </div> */}
 
             <div className="grid grid-cols-1 mb-5">
               <div className="after:pl-1 flex  font-bold  w-full mb-4 ">

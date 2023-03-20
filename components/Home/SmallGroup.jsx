@@ -4,9 +4,9 @@ import Styles from "../../styles/styles.module.css";
 function SmallGroup() {
   return (
     <section className="SmallGroup">
-      <div className="  grid grid-cols-1 md:grid-cols-2 ">
-        <div className=" py-[4rem] 2xl:pl-[15%] pl-[1rem] md:pl-[2rem] px-[2rem] md:px-[0]  ">
-          <div className="content  xl:pr-[6rem] pt-[5rem] ">
+      <div className="dark:bg-[#161519] dark:text-[#ffffffbf] grid grid-cols-1 md:grid-cols-2 ">
+        <div className="py-[1rem] sm:py-[4rem] order-2 sm:order-1 2xl:pl-[15%] pl-[1rem] md:pl-[2rem] px-[2rem] md:px-[0]  ">
+          <div className="content  xl:pr-[6rem] lg:pt-[5rem] ">
             <p className=" text-[15px] mt-7  leading-relaxed  ">
               WHAT STARTED AS A SMALL GROUP OF ENTHUSIASTS FROM ALL WALKS OF
               LIFE HAS OVER THE PAST TWO DECADES TRANSFORMED INTO A MASSIVE
@@ -36,7 +36,7 @@ function SmallGroup() {
         </div>
 
         <div
-          className={`${Styles.smallGroupBg} py-10  min-h-[25rem] md:min-h-[45rem] `}
+          className={`${Styles.smallGroupBg} py-10 order-1 sm:order-2 min-h-[25rem] md:min-h-[45rem] `}
         ></div>
       </div>
     </section>

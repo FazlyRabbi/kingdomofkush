@@ -9,7 +9,12 @@ const Card = ({ id, country, name, image }) => {
       <div className="projectCard group w-full h-[15rem] overflow-hidden relative border-1 border-red rounded-md">
         <div
           className="project-img w-full h-full transition-all bg-center bg-cover bg-no-repeat"
-          style={{ background: `url(${image})`, backgroundSize: "100% 100%" }}
+          style={{
+            background: `url(${image})`,
+            backgroundSize: "100% 100%",
+            backgroundPosition: "center center",
+            objectFit: "cover",
+          }}
         ></div>
         <div className="absolute w-full top-[5px]">
           <div className="grid grid-cols-1 p-3">

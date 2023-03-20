@@ -18,45 +18,36 @@ function FindOpportunintes() {
   };
 
   return (
-    <section className="FindOpportunintes mb-10">
-      <div className="  transition-all duration-800 grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3   items-start">
-        <div className="  2xl:pl-[16.5rem] pl-[1rem] md:pl-[2rem] px-[2rem] md:px-[0]  ">
+    <section className="FindOpportunintes">
+      <div className=" flex flex-col dark:bg-[#161519] sm:flex-row px-5 justify-between items-center lg:pl-16 lg:gap-[6rem]">
+        <div className=" w-full sm:w-2/5">
           <div className="content   pt-[5rem] ">
             <div className=" relative flex  mb-6 space-x-4 items-center ">
               <div
-                className=" flex justify-center  hover:scale-110 transition-all duration-300 z-[20] items-center  
-            
-            
-            
-            w-[3rem] h-[3rem]
-
-            md:w-[3.5rem] md:h-[3.5rem]
-            
-            
-            
+                className=" flex justify-center  hover:scale-110 transition-all duration-300 z-[20] items-center  w-[3rem] h-[3rem] md:w-[3.5rem] md:h-[3.5rem]
             rounded-[100%] hover:border-[1px] border-primary  cursor-pointer"
               >
                 <BsPlayFill className="  text-[2rem] z-[10] text-white  " />
-                <div className=" absolute  animate-ping h-[2rem] w-[2rem] rounded-full bg-black"></div>
+                <div className=" absolute  animate-ping h-[2rem] w-[2rem] rounded-full bg-black dark:bg-[#ffffffbf]"></div>
 
                 <div className=" absolute h-[3rem] w-[3rem]  rounded-full bg-black"></div>
               </div>
 
-              <p className=" font-bold">Play Video</p>
+              <p className="dark:text-[#ffffffbf] font-bold">Play Video</p>
             </div>
 
-            <h1 className=" text-[2rem] xl:text-[3rem] mb-8 font-bold  leading-tight">
+            <h1 className=" text-[2rem] dark:text-white xl:text-[3rem] mb-6 font-bold  leading-tight">
               Find The Opportunities And a Better Future in Africa.
             </h1>
             <Accordion open={open === 1}>
               <AccordionHeader
                 onClick={() => handleOpen(1)}
-                className="text-base text-left border-b-0 [&>span]:ml-0  justify-end flex-row-reverse text-black"
+                className="text-base text-left dark:text-white border-b-0 [&>span]:ml-0  justify-end flex-row-reverse text-black"
               >
                 There will be no need for African people
               </AccordionHeader>
 
-              <AccordionBody className="text-base ">
+              <AccordionBody className="text-base dark:text-[#ffffffbf]">
                 to leave the continent searching for a better future. The
                 continent has more than sufficient resources to explore and
                 develop, thus creating endless opportunities for a better life
@@ -76,13 +67,13 @@ function FindOpportunintes() {
             <Accordion open={open === 2}>
               <AccordionHeader
                 onClick={() => handleOpen(2)}
-                className="text-base border-b-0 [&>span]:ml-0    justify-end flex-row-reverse pb-2 text-black text-left"
+                className="text-base border-b-0 [&>span]:ml-0  dark:text-white  justify-end flex-row-reverse pb-2 text-black text-left"
               >
                 Africa does not need aid or to borrow money that others
                 generated
               </AccordionHeader>
 
-              <AccordionBody className="text-base ">
+              <AccordionBody className="text-base dark:text-[#ffffffbf]">
                 by taking resources from Africa. Africa and its people have
                 everything needed to lead and support the world. Let’s make this
                 happen together now! Join the movement of this growing Kingdom
@@ -96,12 +87,12 @@ function FindOpportunintes() {
             <Accordion open={open === 3}>
               <AccordionHeader
                 onClick={() => handleOpen(3)}
-                className="text-base border-b-0 [&>span]:ml-0  justify-end flex-row-reverse pb-2 text-black text-left"
+                className="text-base border-b-0 [&>span]:ml-0  dark:text-white justify-end flex-row-reverse pb-2 text-black text-left"
               >
                 Our diverse multi-generational community culture celebrates
               </AccordionHeader>
 
-              <AccordionBody className="text-base ">
+              <AccordionBody className="text-base dark:text-[#ffffffbf]">
                 a lifelong learning approach to sustainable living with access
                 to trade skills training, internships, and mentorship programs
                 to support career opportunities. Building a viable and
@@ -114,11 +105,11 @@ function FindOpportunintes() {
         </div>
 
         <div
-          className={`${Styles.findBg} 2xl:ml-[12rem] 2xl:col-span-2 h-[25rem] xl:h-[45rem] relative `}
+          className={`${Styles.findBg} w-full sm:w-3/5  h-[25rem] md:h-[55rem] xl:h-[45rem] relative `}
         >
-          <div className=" absolute left-5 lg:left-[5rem] -bottom-10 flex  space-x-10">
+          <div className=" absolute left-5 lg:left-[5rem] -bottom-10 flex  sm:space-x-10">
             <div
-              className="  xl:w-[17rem] xl:h-[13rem] h-[11rem] w-[10rem]  flex  justify-start    bg-[#000]
+              className="  xl:w-[17rem] xl:h-[13rem] h-[11rem] sm:w-[10rem] w-full  flex  justify-start    bg-[#000]
              "
             >
               <div className="text-primary flex flex-col pl-[2rem] justify-center  ">
@@ -145,7 +136,7 @@ function FindOpportunintes() {
               </div>
             </div>
             <div
-              className="  xl:w-[17rem] xl:h-[13rem] h-[11rem] w-[10rem]  flex  justify-start    bg-[#1D2226]
+              className="  xl:w-[17rem] xl:h-[13rem] h-[11rem] sm:w-[10rem] w-full  flex  justify-start    bg-[#1D2226]
              "
             >
               <div className="text-primary flex flex-col pl-[2rem] justify-center  ">

@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Button } from "@material-tailwind/react";
 import { VolunteerContext } from "@/context/VolunteerContext";
-import countryName from "../../public/country.json";
+import { Country, State, City } from "country-state-city";
 // alart and messages
 import useSweetAlert from "../lib/sweetalert2";
 import PhoneInput from "react-phone-number-input";
@@ -29,6 +29,12 @@ function Vulunteer_Contact() {
   //showing alert
   const { showAlert } = useSweetAlert();
 
+  // state
+  const [states, setStates] = useState("");
+  const [cities, setCities] = useState("");
+
+  const countryName = Country.getAllCountries();
+
   const showAlerts = () => {
     showAlert({
       text: " Vulunteer Application is Successfull!",
@@ -42,6 +48,27 @@ function Vulunteer_Contact() {
   };
 
   
+
+  // set states
+  useEffect(() => {
+    const handleStates = () => {
+      const allStates = State.getStatesOfCountry(volunteer?.Country);
+      setStates(allStates);
+    };
+    // const
+    handleStates();
+  }, [volunteer?.Country]);
+  // set cities
+  useEffect(() => {
+    const handleCities = () => {
+      const allCities = City.getCitiesOfState(
+        volunteer?.Country,
+        volunteer?.State
+      );
+      setCities(allCities);
+    };
+    handleCities();
+  }, [volunteer?.Country, volunteer?.State]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -226,17 +253,26 @@ function Vulunteer_Contact() {
               >
                 Address
               </label>
-              <input
-                type="text"
-                className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
-                value={volunteer.City}
-                onChange={(e) =>
-                  setVolunteer({ ...volunteer, City: e.target.value })
-                }
-              />
 
-              <p className="  text-sm mt-[.5rem]">City</p>
+              <select
+                id="countries"
+                className=" border  border-softGray text-gray-900 text-sm rounded-md focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                value={volunteer.Country}
+                onChange={(e) =>
+                  setVolunteer({ ...volunteer, Country: e.target.value })
+                }
+              >
+                <option selected>Choose a country</option>
+                {countryName?.map((country, countryIndex) => (
+                  <option key={countryIndex} value={country?.isoCode}>
+                    {country?.name}
+                  </option>
+                ))}
+              </select>
+
+              <p className="  text-sm mt-[.5rem]">Country</p>
             </div>
+
             <div>
               <label
                 className=" invisible  font-bold block"
@@ -244,7 +280,24 @@ function Vulunteer_Contact() {
               >
                 Address
               </label>
-              <input
+              <select
+                id="address_2"
+                value={volunteer.State}
+                onChange={(e) =>
+                  setVolunteer({ ...volunteer, State: e.target.value })
+                }
+                className=" border  border-softGray text-gray-900 text-sm rounded-md focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option selected>Select State</option>
+                {states?.length > 0
+                  ? states?.map((state, stateIndex) => (
+                      <option key={stateIndex} value={state?.isoCode}>
+                        {state?.name}
+                      </option>
+                    ))
+                  : ""}
+              </select>
+              {/* <input
                 type="text"
                 id="address_2"
                 className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
@@ -252,13 +305,49 @@ function Vulunteer_Contact() {
                 onChange={(e) =>
                   setVolunteer({ ...volunteer, State: e.target.value })
                 }
-              />
+              /> */}
 
               <p className="  text-sm mt-[.5rem]">State / Province / Region</p>
             </div>
           </div>
           {/* ///////// */}
           <div className=" grid grid-cols-2 gap-x-8">
+            <div>
+              <label
+                className=" invisible  font-bold block"
+                htmlFor="address_2"
+              >
+                Address
+              </label>
+
+              <select
+                value={volunteer.City}
+                onChange={(e) =>
+                  setVolunteer({ ...volunteer, City: e.target.value })
+                }
+                id="city"
+                className=" border  border-softGray text-gray-900 text-sm rounded-md focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option selected>Select City</option>
+                {cities?.length > 0
+                  ? cities?.map((city, cityIndex) => (
+                      <option key={cityIndex} value={city?.isoCode}>
+                        {city?.name}
+                      </option>
+                    ))
+                  : ""}
+              </select>
+              {/* <input
+                type="text"
+                className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
+                value={volunteer.City}
+                onChange={(e) =>
+                  setVolunteer({ ...volunteer, City: e.target.value })
+                }
+              /> */}
+
+              <p className="  text-sm mt-[.5rem]">City</p>
+            </div>
             <div>
               <label
                 className=" invisible  font-bold block"
@@ -277,32 +366,6 @@ function Vulunteer_Contact() {
               />
 
               <p className="  text-sm mt-[.5rem]">Postal Code</p>
-            </div>
-            <div>
-              <label
-                className=" invisible  font-bold block"
-                htmlFor="address_2"
-              >
-                Address
-              </label>
-
-              <select
-                id="countries"
-                className=" border  border-softGray text-gray-900 text-sm rounded-md focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                value={volunteer.Country}
-                onChange={(e) =>
-                  setVolunteer({ ...volunteer, Country: e.target.value })
-                }
-              >
-                <option selected>Choose a country</option>
-                {countryName?.map((country, countryIndex) => (
-                  <option key={countryIndex} value={country?.code}>
-                    {country?.name}
-                  </option>
-                ))}
-              </select>
-
-              <p className="  text-sm mt-[.5rem]">Country</p>
             </div>
           </div>
           {/* ///////// */}
@@ -365,11 +428,18 @@ function Vulunteer_Contact() {
                 }
               >
                 <option selected>Choose a country</option>
-                {countryName?.map((country, countryIndex) => (
-                  <option key={countryIndex} value={country?.code}>
-                    {country?.name}
-                  </option>
-                ))}
+                <option value="Angola">Angola</option>
+                <option value="Benin">Benin</option>
+                <option value="Burkina Faso">Burkina Faso</option>
+                <option value="DRC">DRC</option>
+                <option value="Guinea">Guinea</option>
+                <option value="Indonesia">Indonesia</option>
+                <option value="Ivory Coast">Ivory Coast</option>
+                <option value="Mali">Mali</option>
+                <option value="Nigeria">Nigeria </option>
+                <option value="Sudan">Sudan</option>
+                <option value="Zimbabwe">Zimbabwe</option>
+                <option value="New York">New York</option>
               </select>
             </div>
           </div>
