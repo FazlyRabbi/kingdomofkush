@@ -5,7 +5,7 @@ import Image from "next/image";
 import { HiArrowTrendingUp } from "react-icons/hi2";
 import Petition_Contact from "./Petition_Contact";
 import Flag from "../../img/KushFlag.jpg";
-import { Country, State, City } from "country-state-city";
+import { Country } from "country-state-city";
 
 const Petition = () => {
   const [recentUser, setRecntUser] = useState([]);
@@ -41,7 +41,7 @@ const Petition = () => {
 
   // calculate time
   const calculateTime = () => {
-    const userTime = recentUser.map((data) => {
+    const userTime = recentUser?.map((data) => {
       const userTime = {};
 
       // create date
@@ -72,6 +72,8 @@ const Petition = () => {
   useEffect(() => {
     calculateTime();
   }, [recentUser]);
+
+
 
   const countryName = Country.getAllCountries();
 
@@ -177,7 +179,7 @@ const Petition = () => {
                     )}
                     {userTime &&
                     userTime[1]?.min < 60 &&
-                    userTime[1]?.min >= 1 ? (
+                    userTime[0]?.min >= 1 ? (
                       <h1>
                         <span className="font-bold">{userTime[1]?.name} </span>
                         signed {userTime[1]?.min} min ago
@@ -187,7 +189,7 @@ const Petition = () => {
                     )}
                     {userTime &&
                     userTime[1]?.hours < 24 &&
-                    userTime[1]?.hours >= 1 ? (
+                    userTime[0]?.hours >= 1 ? (
                       <h1>
                         <span className="font-bold">{userTime[1]?.name} </span>
                         signed {userTime[1]?.hours} hours ago

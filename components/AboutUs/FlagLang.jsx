@@ -5,6 +5,7 @@ import CountUp from "react-countup";
 // imports imgage
 import contactInfo from "../../img/aboutus/about-3-e1676065375680-768x465.webp";
 import { BsIntersect } from "react-icons/bs";
+
 function FlagLang() {
   return (
     <section>
@@ -25,7 +26,7 @@ function FlagLang() {
                   <CountUp
                     start={0}
                     end={2060}
-                    duration={2.75}
+                    duration={5}
                     separator=","
                     decimals={0}
                   />

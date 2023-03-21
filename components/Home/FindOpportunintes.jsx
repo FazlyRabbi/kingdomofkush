@@ -117,12 +117,12 @@ function FindOpportunintes() {
                   <BsIntersect className=" text-white text-[1.5rem]" />
 
                   <p className=" text-[2rem] font-bold">
-                    {" "}
+                 
                     <CountUp
                       start={0}
                       end={30}
                       suffix="+"
-                      duration={3}
+                      duration={5}
                       delay={2}
                     />
                   </p>
@@ -149,7 +149,7 @@ function FindOpportunintes() {
                       start={0}
                       end={25}
                       suffix="+"
-                      duration={3}
+                      duration={5}
                       delay={2}
                     />
                   </p>

@@ -23,8 +23,8 @@ function AboutUsSection() {
                     start={0}
                     end={25}
                     suffix="+"
-                    duration={3}
-                    delay={2}
+                    duration={5}
+                    delay={1}
                   />
                 </p>
               </div>

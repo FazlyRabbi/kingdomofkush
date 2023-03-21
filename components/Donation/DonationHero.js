@@ -237,7 +237,7 @@ const DonationHero = () => {
           className="donation-left w-full lg:col-span-1 lg:pt-0 pt-52 flex items-end justify-end"
           style={styling}
         >
-          <div className="bg-black p-5 text-white w-full ml-auto flex items-center justify-between">
+          <div className="bg-black p-5 text-white w-full lg:w-[35rem] ml-auto flex items-center justify-between">
             <div>
               <div className="flex items-center gap-2 p-3">
                 <CgPathCrop size={42} />
