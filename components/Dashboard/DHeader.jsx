@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
+import Link from "next/link";
 import { CgMenuRightAlt, CgProfile } from "react-icons/cg";
 import { AuthContext } from "@/context/AuthContext";
 
 function DHeader() {
-  const { signOut } = useContext(AuthContext);
+  const { signOut, setOpen, open } = useContext(AuthContext);
 
   return (
     <div
@@ -21,7 +22,9 @@ shadow-md w-[100%] lg:w-[75%] px-8 md:pr-[4rem] "
       </div>
 
       <div className=" flex justify-center  items-center space-x-8">
-        <p className=" cursor-pointer">HomePage</p>
+        <p className=" cursor-pointer">
+          <Link href={`/`}>HomePage</Link>
+        </p>
         <p className=" cursor-pointer" onClick={() => signOut()}>
           LogOut
         </p>
@@ -34,6 +37,7 @@ shadow-md w-[100%] lg:w-[75%] px-8 md:pr-[4rem] "
           md:hidden
          animate-pulse
          cursor-pointer text-[1.5rem]"
+          onClick={() => setOpen(!open)}
         />
       </div>
     </div>

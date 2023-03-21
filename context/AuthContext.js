@@ -9,6 +9,7 @@ export const AuthProvider = ({ children }) => {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     checkUserLoggedId();
@@ -76,7 +77,17 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ signup, error, user, singin, setUser, setError, signOut }}
+      value={{
+        signup,
+        error,
+        user,
+        singin,
+        setUser,
+        setError,
+        signOut,
+        setOpen,
+        open,
+      }}
     >
       {children}
     </AuthContext.Provider>

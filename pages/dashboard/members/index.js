@@ -5,6 +5,7 @@ import { API_URL, API_TOKEN } from "@/config/index";
 import DataTable from "react-data-table-component";
 import { CSVLink } from "react-csv";
 import { TiDeleteOutline } from "react-icons/ti";
+import DHeader from "@/components/Dashboard/DHeader";
 
 // import tailwind modal
 import {
@@ -177,14 +178,25 @@ function DashboardIndex() {
     { label: "Title", key: "attributes.Title" },
     { label: "FirstName", key: "attributes.FirstName" },
     { label: "LastName", key: "attributes.LastName" },
+    { label: "MiddleName", key: "attributes.MiddleName" },
     { label: "FamilyLastName", key: "attributes.FamilyLastName" },
     { label: "Email", key: "attributes.Email" },
     { label: "Number", key: "attributes.Number" },
     { label: "StreetAddress", key: "attributes.StreetAddress" },
+    { label: "Apartment", key: "attributes.Apartment" },
     { label: "State", key: "attributes.State" },
     { label: "City", key: "attributes.City" },
     { label: "PostalCode", key: "attributes.PostalCode" },
     { label: "Country", key: "attributes.Country" },
+    { label: "MemberhipPlan", key: "attributes.MemberhipPlan" },
+    { label: "CardInfo", key: "attributes.CardInfo" },
+    { label: "BillingName", key: "attributes.BillingName" },
+    { label: "BillingAddress", key: "attributes.BillingAddress" },
+    { label: "BillingApartment", key: "attributes.BillingApartment" },
+    { label: "BillingCity", key: "attributes.BillingCity" },
+    { label: "BillingState", key: "attributes.BillingState" },
+    { label: "BillingPostalCode", key: "attributes.BillingPostalCode" },
+    { label: "BillingCountry", key: "attributes.BillingCountry" },
   ];
 
   useEffect(() => {
@@ -292,10 +304,11 @@ function DashboardIndex() {
   return (
     <>
       <Head>
-        <title>Vendors</title>
+        <title>Members</title>
       </Head>
       <div className="grid  px-10 grid-cols-1 lg:grid-cols-5 gap-5 justify-items-left p-[3rem] ">
         <LeftMenu />
+        <DHeader />
 
         <div className=" lg:col-span-4  mr-10 mt-14">
           <DataTable
@@ -337,16 +350,42 @@ function DashboardIndex() {
             subHeaderAlign="center"
             pagination
             actions={
-              <CSVLink
-                data={members}
-                headers={headers}
-                filename={"Members-data.csv"}
-              >
+              <div className="flex justify-between mb-4 items-center space-x-2">
+                <CSVLink
+                  data={members}
+                  headers={headers}
+                  filename={"Members-data.csv"}
+                >
+                  <Chip
+                    value="Download"
+                    className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
+                  />
+                </CSVLink>
+
+                <CSVLink
+                  data={members}
+                  headers={headers}
+                  filename={"Members-data.csv"}
+                >
+                  <Chip
+                    color="amber"
+                    value=" Download CSV"
+                    className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
+                  />
+                </CSVLink>
+
                 <Chip
-                  value=" Download CSV"
+                  color="indigo"
+                  value="Pdf"
                   className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
                 />
-              </CSVLink>
+
+                <Chip
+                  color="purple"
+                  value="Share"
+                  className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
+                />
+              </div>
             }
           />
         </div>

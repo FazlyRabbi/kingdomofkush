@@ -1,30 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Link from "next/link";
-import { CgMenuRightAlt } from "react-icons/cg";
 import { IoIosPeople } from "react-icons/io";
 import { GrUserWorker } from "react-icons/gr";
 import { CiMoneyBill } from "react-icons/ci";
 import { GiTakeMyMoney } from "react-icons/gi";
+import { SiOpenproject } from "react-icons/si";
+import { FiMessageSquare } from "react-icons/fi";
 import { AiOutlineContacts } from "react-icons/ai";
+import { BsMicrosoftTeams, BsMotherboard } from "react-icons/bs";
 import { MdOutlineStore, MdOutlineNoteAlt } from "react-icons/md";
-
+import { AuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/router";
 
 function LeftMenu() {
   const router = useRouter();
 
-  const [open, setOpen] = useState(false);
+  const { open } = useContext(AuthContext);
 
   return (
     <>
-      <CgMenuRightAlt
-        className=" lg:hidden
-         animate-pulse
-        absolute cursor-pointer top-[2rem] right-[2rem] text-[2rem]"
-        onClick={() => setOpen(!open)}
-      />
-
-      {/* // left manu */}
       <section
         className={`leftMenu shadow-xl rounded-lg 
     
@@ -352,7 +346,7 @@ function LeftMenu() {
           
           p-[5px] rounded-lg shadow-md`}
             >
-              <AiOutlineContacts className="   text-[1.3rem]  text-inherit" />
+              <SiOpenproject className="   text-[1.3rem]  text-inherit" />
             </div>
             Projects
           </Link>
@@ -390,7 +384,7 @@ function LeftMenu() {
           
           p-[5px] rounded-lg shadow-md`}
             >
-              <AiOutlineContacts className="   text-[1.3rem]  text-inherit" />
+              <FiMessageSquare className="   text-[1.3rem]  text-inherit" />
             </div>
             About
           </Link>
@@ -428,7 +422,7 @@ function LeftMenu() {
           
           p-[5px] rounded-lg shadow-md`}
             >
-              <AiOutlineContacts className="   text-[1.3rem]  text-inherit" />
+              <BsMicrosoftTeams className="   text-[1.3rem]  text-inherit" />
             </div>
             Teams
           </Link>
@@ -466,7 +460,7 @@ function LeftMenu() {
           
           p-[5px] rounded-lg shadow-md`}
             >
-              <AiOutlineContacts className="   text-[1.3rem]  text-inherit" />
+              <BsMotherboard className="   text-[1.3rem]  text-inherit" />
             </div>
             Others
           </Link>
