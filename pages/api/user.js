@@ -10,7 +10,7 @@ export default async (req, res) => {
       return;
     }
 
-    const strapiRes = await fetch(`https://demo-production-edcf.up.railway.app/api/users/me`, {
+    const strapiRes = await fetch(`http://localhost:1337/api/users/me`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
