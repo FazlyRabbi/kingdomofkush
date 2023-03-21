@@ -7,6 +7,30 @@ import useSweetAlert from "../lib/sweetalert2";
 import PhoneInput from "react-phone-number-input";
 import { Country, State, City } from "country-state-city";
 function vendor_Contact() {
+
+
+  const { vendor, setVendor, vendorInitial, postVendor } =
+  useContext(vendorContext);
+
+  
+  const generateRandomNumber = () => {
+    const min = 10000000;
+    const max = 99999999;
+    const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+    const actualNum = `khusven${randomNumber}`;
+    setVendor({ ...vendor, RegistrationId: actualNum });
+  };
+
+  useEffect(() => {
+    generateRandomNumber();
+  }, []);
+
+
+
+
+
+
+
   // showing alert
   const { showAlert } = useSweetAlert();
   const [states, setStates] = useState("");
@@ -48,8 +72,6 @@ function vendor_Contact() {
   const [cardError, setCardError] = useState(null);
   const [button, setButton] = useState(true);
 
-  const { vendor, setVendor, vendorInitial, postVendor } =
-    useContext(vendorContext);
 
   // set states
   useEffect(() => {

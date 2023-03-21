@@ -9,6 +9,9 @@ export const petitionContext = createContext();
 export const PetitionProvider = ({ children }) => {
   const router = useRouter();
 
+
+
+
   const petitionInitial = {
     FirstName: "",
     LastName: "",
@@ -21,8 +24,15 @@ export const PetitionProvider = ({ children }) => {
     PostalCode: "",
     Country: "",
     Message: "",
-    DeviceActivity: "",
-    // Signature: "",
+    RegistrationId: "",
+    DeviceRecentActivitys: {
+      IpAddress: "",
+      BrowserName: "",
+      DeviceName: "",
+      OperatingSystemName: "",
+      Locations: "USA",
+      Date: "",
+    },
   };
 
   const [petition, setPetition] = useState(petitionInitial);
@@ -43,7 +53,7 @@ export const PetitionProvider = ({ children }) => {
 
       const data = await res.json();
 
-      router.push(`/`);
+      // router.push(`/donation`);
 
       console.log(data);
     } catch (error) {
@@ -86,7 +96,7 @@ export const PetitionProvider = ({ children }) => {
 
         body: JSON.stringify({
           data: {
-            ...petition,
+            data: { ...petition },
           },
         }),
       });
@@ -102,7 +112,13 @@ export const PetitionProvider = ({ children }) => {
 
   return (
     <petitionContext.Provider
-      value={{ petition, setPetition, postpetitions, petitionInitial }}
+      value={{
+        petition,
+        setPetition,
+        postpetitions,
+        petitionInitial,
+        sendMailpetitions,
+      }}
     >
       {children}
     </petitionContext.Provider>

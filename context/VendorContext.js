@@ -27,6 +27,7 @@ export const VendorProvider = ({ children }) => {
     BillingState: "",
     BillingPostal: "",
     BillingCountry: "",
+    RegistrationId: null,
   };
 
   const [vendor, setVendor] = useState(vendorInitial);
@@ -55,7 +56,9 @@ export const VendorProvider = ({ children }) => {
   };
 
   return (
-    <vendorContext.Provider value={{ vendor, setVendor, vendorInitial, postVendor }}>
+    <vendorContext.Provider
+      value={{ vendor, setVendor, vendorInitial, postVendor }}
+    >
       {children}
     </vendorContext.Provider>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { petitionContext } from "@/context/PetitioContext";
@@ -8,6 +8,8 @@ const Petition_Contact = () => {
 
   const { petition, setPetition, petitionInitial } =
     useContext(petitionContext);
+
+
 
   const router = useRouter();
 
@@ -129,7 +131,7 @@ const Petition_Contact = () => {
         </p>
       </div>
       <div>
-        <label className="block text-gray-500" for="remember">
+        <label className="block text-gray-500" htmlFor="remember">
           <input
             className="mr-6 leading-tight w-5 h-5 rounded-xl"
             type="checkbox"

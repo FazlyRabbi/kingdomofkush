@@ -6,35 +6,34 @@ import { destroyCookie } from "nookies";
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
-  const [amount, setAmount] = useState(null);
-  const [date, setDate] = useState(null);
 
   // useEffect(() => {
-
   //   checkUserLoggedId();
   // }, []);
 
-  // onst signup = async ({ username, email, password }) => {
-  //   const res = await fetch(`${NEXT_URL}/api/signup`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       username,
-  //       email,
-  //       password,
-  //     }),
-  //   });
+  const signup = async (userData) => {
+    const res = await fetch(
+      `https://kingdomofkush-backend.onrender.com/api/auth/local/register`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          username: userData.name,
+          email: userData.email,
+          password: userData.password,
+        }),
+      }
+    );
 
-  //   const data = await res.json();
+    const data = await res.json();
 
-  //   if (data.user) {
-  //     setUser(data);
-  //   } else {
-  //     setError(data);
-  //   }
-  // };
+    console.log(data);
+
+    if (data.user) {
+      setUser(data);
+    } else {
+      setError(data);
+    }
+  };
 
   // const singin = async ({ email: identifier, password }) => {
   //   const res = await fetch(`${NEXT_URL}/api/signin`, {
@@ -73,5 +72,7 @@ export const AuthProvider = ({ children }) => {
   //   }
   //
 
-  return <AuthContext.Provider value={{}}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ signup }}>{children}</AuthContext.Provider>
+  );
 };

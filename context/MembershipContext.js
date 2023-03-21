@@ -25,11 +25,15 @@ export const MembershipProvider = ({ children }) => {
     BillingCity: "",
     BillingState: "",
     BillingPostalCode: "",
-    BillingCountry: ""
+    BillingCountry: "",
+    RegistrationId: null,
     // Signature: "",
   };
 
   const [membership, setMembership] = useState(membershipInitial);
+
+
+
 
   const postMembership = async () => {
     try {

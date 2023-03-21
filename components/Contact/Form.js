@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { contactContext } from "@/context/ContactContext";
 // alart and messages
 import useSweetAlert from "../lib/sweetalert2";
@@ -13,9 +13,7 @@ const Form = () => {
       icon: "success",
       confirmButtonText: "ClOSE",
       confirmButtonColor: "green",
-    }).then((result) => {
-      console.log(result);
-    });
+    }).then((result) => {});
   };
 
   const { contact, setContact, pstContact, contactInitial } =
