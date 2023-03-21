@@ -82,6 +82,21 @@ const Petition_Contact = () => {
         </p>
       </div>
       <div>
+        <label className="  font-bold  after:pl-1 block">IP location</label>
+        <input
+          disabled
+          type="text"
+          className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[2px]"
+          // value={petition.Email}
+          // onChange={(e) => {
+          //   setPetition({ ...petition, Email: e.target.value });
+          // }}
+        />
+        <p className=" text-sm mt-[1px] text-red invisible">
+          This field is required.
+        </p>
+      </div>
+      <div>
         <label className="  font-bold  after:pl-1 block" htmlFor="country">
           Country
         </label>

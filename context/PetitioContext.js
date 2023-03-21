@@ -50,6 +50,29 @@ export const PetitionProvider = ({ children }) => {
       console.log(error);
     }
   };
+  const getIpAddress = async () => {
+    try {
+      const res = await fetch(`https://api.ipify.org/?format=json`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          email: petition.Email,
+          subject: "Petition Application",
+        }),
+      });
+
+      const data = await res.json();
+
+      router.push(`/`);
+
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const postpetitions = async () => {
     try {

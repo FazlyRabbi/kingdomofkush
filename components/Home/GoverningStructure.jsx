@@ -5,6 +5,7 @@ import {
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
+import { BsPlayFill } from "react-icons/bs";
 
 function GoverningStructure() {
   const [open, setOpen] = useState(1);
@@ -17,10 +18,23 @@ function GoverningStructure() {
     <section className="GoverningStructure">
       <div className="pr-5 grid dark:bg-[#161519] grid-cols-1 md:grid-cols-2 py-10 gap-x-[1.5rem]">
         <div
-          className={`${Styles.aboutBg} py-10 
+          className={`${Styles.aboutBg} py-10  relative
        h-[25rem] md:h-[40rem]
       `}
-        ></div>
+        >
+          <div className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <a
+              href="https://www.youtube.com/embed/_eO9RyErOMM"
+              target={"_blank"}
+            >
+              <div className=" flex justify-center  hover:scale-110 transition-all duration-300 z-[100] items-center  w-[3rem] h-[3rem] md:w-[3.5rem] md:h-[3.5rem] rounded-[100%] hover:border-[1px] border-primary  cursor-pointer">
+                <BsPlayFill className="  text-[2rem] z-[10]  " />
+                <div className=" absolute  animate-ping h-[2.5rem] w-[2.5rem] rounded-full bg-black"></div>
+                <div className=" absolute   h-[100%] w-[100%] rounded-full bg-white"></div>
+              </div>
+            </a>
+          </div>
+        </div>
 
         <div className=" py-[2rem] md:py-[1rem]   px-[2rem] xl:px-0">
           <div className="content">

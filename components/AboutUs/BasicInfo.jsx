@@ -4,7 +4,7 @@ import styles from "../../styles/styles.module.css";
 // imports imgage
 import contactInfo from "../../img/aboutus/about-1-copy-768x593.jpg";
 import { BsIntersect } from "react-icons/bs";
-
+import CountUp from "react-countup";
 export default function BasicInfo() {
   return (
     <section>
@@ -21,7 +21,9 @@ export default function BasicInfo() {
               <div className=" flex items-center  space-x-3">
                 <BsIntersect className=" text-white text-[1.5rem]" />
 
-                <p className=" text-[2rem] font-bold">2060+</p>
+                <p className=" text-[2rem] font-bold">
+                  <CountUp start={0} end={2060} duration={5} delay={2} />+
+                </p>
               </div>
 
               <p className=" text-base text-primary font-bold">
@@ -34,7 +36,9 @@ export default function BasicInfo() {
 
         <div className="py-[1rem] sm:py-[4rem]  px-4 2xl:pl-[8rem] md:pl-[4rem] md:pr-8">
           <div className="content mb-[1.5rem] mt-4">
-            <h4 className="dark:text-[#ffffffbf] text-base  uppercase">About us</h4>
+            <h4 className="dark:text-[#ffffffbf] text-base  uppercase">
+              About us
+            </h4>
             <h4 className=" dark:text-white  font-bold capitalize text-[2rem]">
               Basic Information
             </h4>

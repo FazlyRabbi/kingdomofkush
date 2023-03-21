@@ -4,11 +4,9 @@ import Image from "next/image";
 import { HiArrowTrendingUp } from "react-icons/hi2";
 import Petition_Contact from "./Petition_Contact";
 import Flag from "../../img/KushFlag.jpg";
-import { Country, State, City } from "country-state-city";
+
 
 const Petition = () => {
-  const countryName = Country.getAllCountries();
-
   return (
     <div className="dark:bg-[#161519] dark:text-[#ffffffbf]">
       <section className="lg:w-[1280px] lg:mx-auto">
