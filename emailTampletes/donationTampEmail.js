@@ -1,8 +1,5 @@
-
- 
- function donationTampEmail() {
-   return (
-    `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+function donationTampEmail( ammount, frequency) {
+  return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" style="font-family:arial, 'helvetica neue', helvetica, sans-serif">
      <head>
       <meta charset="UTF-8">
@@ -142,7 +139,13 @@
         <w:anchorlock></w:anchorlock>
         <center style='color:#ffffff; font-family:Sora, Arial, sans-serif; font-size:18px; font-weight:400; line-height:18px;  mso-text-raise:1px'>Invest $486600</center>
       </v:roundrect></a>
-    <![endif]--><!--[if !mso]><!-- --><span class="msohide es-button-border" style="border-style:solid;border-color:#2CB543;background:#CB9833;border-width:0px;display:inline-block;border-radius:0px;width:auto;mso-hide:all"><a href="https://kingdomofkush.org/" class="es-button es-button-2" target="_blank" style="mso-style-priority:100 !important;text-decoration:none;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;color:#FFFFFF;font-size:18px;display:inline-block;background:#CB9833;border-radius:0px;font-family:Sora, Arial, sans-serif;font-weight:normal;font-style:normal;line-height:22px;width:auto;text-align:center;padding:15px 20px 20px;border-color:#CB9833">Your $100 Monthly Donation</a></span><!--<![endif]--></td>
+    <![endif]--><!--[if !mso]><!-- --><span class="msohide es-button-border" style="border-style:solid;border-color:#2CB543;background:#CB9833;border-width:0px;display:inline-block;border-radius:0px;width:auto;mso-hide:all"><a href="https://kingdomofkush.org/" class="es-button es-button-2" target="_blank" style="mso-style-priority:100 !important;text-decoration:none;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;color:#FFFFFF;font-size:18px;display:inline-block;background:#CB9833;border-radius:0px;font-family:Sora, Arial, sans-serif;font-weight:normal;font-style:normal;line-height:22px;width:auto;text-align:center;padding:15px 20px 20px;border-color:#CB9833">
+
+    Your  ${frequency !== "month"?  `$${ammount}` : `$${ammount} Monthly`}  Donation
+ 
+    
+    
+    </a></span><!--<![endif]--></td>
                          </tr>
                        </table></td>
                      </tr>
@@ -256,8 +259,7 @@
        </table>
       </div>
      </body>
-    </html>`
-   )
- }
- 
- export default donationTampEmail
+    </html>`;
+}
+
+export default donationTampEmail;

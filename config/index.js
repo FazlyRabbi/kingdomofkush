@@ -1,9 +1,9 @@
 export const API_URL =
-  process.env.API_URL || "https://kingdomofkush-backend.onrender.com";
+  process.env.API_URL || "http://localhost:1337";
 
 export const API_TOKEN =
   process.env.API_TOKEN ||
-  `Bearer f76dddfbf6f95744a3ca945eaf8f0835f0878fdf6811ab8788d1d822bec7fcb47fa19a13d013b5e66322c47d4d52f531a613fe026911c2a3e757dd4abec05fcd37f47865ba38ee1bb1df8471ac8ecde69ef03e4b46006248682c393e21b24555fda23253e9e5e9223b6cf3ae462e5119ffbbf5d68d31659d7ef950242f8399e2`;
+  `Bearer 4481aa6034b1c63ee3b9af046e5e87a85f77fb1e7e91882bee48254b0526ab8b4541974eeed3b217ffbf062ac5cae324661e508abbef2cb3f5539511d286168085aed72b51cf5efc2b32c5a25de117be4cad72de106e00eae8c7772e993c7a2c1ec42328d8943a18f9dfe1b16f18b0c0ab88660f43658bb2091ba3ad9a5d94f8`;
 
 export const NEXT_URL =
   process.env.NEXTJS_PUBLIC_FRONTEND_URL || `http://localhost:3000`;

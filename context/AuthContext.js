@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
 
   const signup = async (userData) => {
     const res = await fetch(
-      `https://kingdomofkush-backend.onrender.com/api/auth/local/register`,
+      `http://localhost:1337/api/auth/local/register`,
       {
         method: "POST",
         body: JSON.stringify({

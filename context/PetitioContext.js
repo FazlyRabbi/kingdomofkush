@@ -9,9 +9,6 @@ export const petitionContext = createContext();
 export const PetitionProvider = ({ children }) => {
   const router = useRouter();
 
-
-
-
   const petitionInitial = {
     FirstName: "",
     LastName: "",
