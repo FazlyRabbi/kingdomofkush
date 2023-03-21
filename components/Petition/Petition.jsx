@@ -9,7 +9,7 @@ import { Country } from "country-state-city";
 
 const Petition = () => {
   const [recentUser, setRecntUser] = useState([]);
-  const [calculateTimes, setCalculateTimes] = useState("");
+  // const [calculateTimes, setCalculateTimes] = useState("");
   const [userTime, setUserTime] = useState(null);
 
   const laodRecentUser = () => {

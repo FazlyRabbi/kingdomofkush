@@ -5,6 +5,7 @@ import DHeader from "@/components/Dashboard/DHeader";
 import LeftMenu from "@/components/Dashboard/LeftMenu";
 import { API_URL, API_TOKEN } from "@/config/index";
 import DataTable from "react-data-table-component";
+
 import { CSVLink } from "react-csv";
 import { TiDeleteOutline } from "react-icons/ti";
 // import tailwind modal
@@ -13,7 +14,10 @@ import {
   DialogHeader,
   DialogBody,
   Input,
+  Button,
   Chip,
+  Card,
+  CardBody,
 } from "@material-tailwind/react";
 
 // imports react pdf
@@ -196,7 +200,7 @@ function index() {
 
   // Fetch data from an external API or database
   useEffect(() => {
-    fetch(`${API_URL}/api/vendors?populate=*`, {
+    fetch(`${API_URL}/api/projects?populate=*`, {
       method: "GET",
       headers: {
         Authorization: API_TOKEN,
@@ -302,88 +306,149 @@ function index() {
       <Head>
         <title>Project</title>
       </Head>
-      <div className="grid  px-10 grid-cols-1 lg:grid-cols-5 gap-5 justify-items-left p-[3rem] ">
+      <div className="grid  px-10 grid-cols-1 lg:grid-cols-5 gap-6 justify-items-left p-[3rem] ">
         <LeftMenu />
         <DHeader />
 
-        <div className=" lg:col-span-4  mr-10 mt-14">
-          <DataTable
-            columns={columns}
-            data={filteredMembers}
-            // selectableRowsHighlight
-            // highlightOnHover
-            // selectableRows
-            fixedHeader
-            title="Project"
-            subHeader
-            subHeaderComponent={
-              <div className="relative mb-6  shadow-sm">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                  <svg
-                    aria-hidden="true"
-                    className="w-5 h-5 text-[#6B7280] dark:text-gray-400"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                      clipRule="evenodd"
+        <div className=" grid grid-cols-1 mt-[6rem] 2xl:grid-cols-3 gap-y-2 gap-2 lg:col-span-4 gap-x-5">
+          <div className="project__form mt-[2rem] 2xl:order-1  order-2">
+            <Card className="w-full 2xl:w-96">
+              <h4 className=" text-center font-bold  uppercase">
+                Project Form
+              </h4>
+
+              <form>
+                <CardBody className="text-center gap-6  grid grid-cols-1">
+                  <Input label="Title" />
+
+                  <Input label="Country" />
+
+                  <div>
+                    <p className=" text-left font-bold mb-3">Image</p>
+                    <input
+                      name="image"
+                      type="file"
+                      accept="image/*"
+                      placeholder="Image"
+                      className="flex justify-start"
                     />
-                  </svg>
+                  </div>
+
+                  <div>
+                    <p for="my-textarea" className="text-left font-bold mb-3">
+                      ProjectDescription
+                    </p>
+                    <textarea
+                      id="my-textarea"
+                      name="message"
+                      rows="3"
+                      cols="20"
+                      className="w-full border p-2 border-softGray rounded-md"
+                    ></textarea>
+                  </div>
+
+                  <div>
+                    <p for="my-textarea" className="text-left font-bold mb-3">
+                      KushInvolment
+                    </p>
+                    <textarea
+                      id="my-textarea"
+                      name="message"
+                      rows="3"
+                      cols="20"
+                      className="w-full border p-2 border-softGray rounded-md"
+                    ></textarea>
+                  </div>
+
+                  <Input label="Bradcamp" />
+
+                  <Button type="submit" size="md">
+                    Add project
+                  </Button>
+                </CardBody>
+              </form>
+            </Card>
+          </div>
+
+          <div className=" mr-10  2xl:col-span-2  2xl:order-2">
+            <DataTable
+              columns={columns}
+              data={filteredMembers}
+              // selectableRowsHighlight
+              // highlightOnHover
+              // selectableRows
+              fixedHeader
+              title="Project Table"
+              subHeader
+              subHeaderComponent={
+                <div className="relative mb-6 mt-4  shadow-sm">
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg
+                      aria-hidden="true"
+                      className="w-5 h-5 text-[#6B7280] dark:text-gray-400"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  <input
+                    type="text"
+                    id="simple-search"
+                    className="   bg-[#F9FAFB] border  border-softGray text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Search"
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
                 </div>
-                <input
-                  type="text"
-                  id="simple-search"
-                  className="  bg-[#F9FAFB] border  border-softGray text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Search"
-                  onChange={(e) => setSearch(e.target.value)}
-                />
-              </div>
-            }
-            customStyles={customStyles}
-            subHeaderAlign="center"
-            pagination
-            actions={
-              <div className="flex justify-between mb-4 items-center space-x-2">
-                <CSVLink
-                  data={members}
-                  headers={headers}
-                  filename={"Invest-data.csv"}
-                >
+              }
+              customStyles={customStyles}
+              subHeaderAlign="center"
+              pagination
+              actions={
+                <div className="flex justify-between mb-4 items-center space-x-2">
+                  <CSVLink
+                    data={members}
+                    headers={headers}
+                    filename={"Invest-data.csv"}
+                  >
+                    <Chip
+                      value="Download"
+                      className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
+                    />
+                  </CSVLink>
+
+                  <CSVLink
+                    data={members}
+                    headers={headers}
+                    filename={"Volunteers-data.csv"}
+                  >
+                    <Chip
+                      color="amber"
+                      value=" Download CSV"
+                      className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
+                    />
+                  </CSVLink>
+
                   <Chip
-                    value="Download"
+                    color="indigo"
+                    value="Pdf"
                     className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
                   />
-                </CSVLink>
 
-                <CSVLink
-                  data={members}
-                  headers={headers}
-                  filename={"Volunteers-data.csv"}
-                >
                   <Chip
-                    color="amber"
-                    value=" Download CSV"
+                    color="purple"
+                    value="Share"
                     className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
                   />
-                </CSVLink>
-
-                <Chip
-                  color="indigo"
-                  value="Pdf"
-                  className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
-                />
-
-                <Chip
-                  color="purple"
-                  value="Share"
-                  className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
-                />
-              </div>
-            }
-          />
+                </div>
+              }
+            />
+          </div>
         </div>
 
         {/* // tailwind modal  */}

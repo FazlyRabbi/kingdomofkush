@@ -7,12 +7,12 @@ export default async (req, res) => {
       const { username, email, password } = JSON.parse(req.body);
 
       const strapiRes = await fetch(
-        `http://localhost:1337/api/auth/local/register`,
+        `https://kingdomofkush-backend.onrender.com/api/auth/local/register`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer 4481aa6034b1c63ee3b9af046e5e87a85f77fb1e7e91882bee48254b0526ab8b4541974eeed3b217ffbf062ac5cae324661e508abbef2cb3f5539511d286168085aed72b51cf5efc2b32c5a25de117be4cad72de106e00eae8c7772e993c7a2c1ec42328d8943a18f9dfe1b16f18b0c0ab88660f43658bb2091ba3ad9a5d94f8`,
+            Authorization: `Bearer 82227ab7fd890d681d54a70f3c7e2468a99720b7587573af4d1a3e461715804746af891037c9cd18e0d6d37bd4d730681c23ca9d71ed326ebc09e04b5cb9ef2327d1a2a87c35f7155542214da6a00686e91fae5b5169630dfa21970f263805b06f409a34c440c3f04cd6a86dda9a697cc588157a945048f33f5eae6e09bb4e09`,
           },
           body: JSON.stringify({
             username: username,
