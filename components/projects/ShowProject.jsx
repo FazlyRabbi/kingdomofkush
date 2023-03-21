@@ -5,35 +5,69 @@ const ShowProject = () => {
   return (
     <div className="dark:bg-[#161519] dark:text-[#ffffffbf]">
       <div className="py-8">
-        <div className="container mx-auto p-3">
-          <div className="grid grid-cols-1 md:grid-cols-4 mb-10">
-            <div>
-              <span className="text-[#cb9833]">Indonesia</span>
+        <div className="container mx-auto p-3 ">
+          <div className="flex-col flex mb-8 sm:mb-0 sm:flex-row items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2  mb-4">
               <div>
-                <h1 className="font-semibold text-[44px] dark:text-white leading-[55px]">
-                  Oji String Beans Farm
-                </h1>
+                <span className="text-[#cb9833]">Indonesia</span>
+                <div>
+                  <h1 className="font-semibold text-[44px] dark:text-white leading-[55px]">
+                    Oji String Beans Farm
+                  </h1>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div className="flex items-center w-[15rem] sm:w-auto">
+                <label
+                  className="  font-bold  after:pl-1 block"
+                  htmlFor="Category"
+                >
+                  Category
+                </label>
+                <select
+                  // onChange={(e) => {
+                  //   setPetition({ ...petition, AddressLine: e.target.value });
+                  // }}
+                  id="countries"
+                  className="bg-gray-50 border border-gray-300 text-gray-900  rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500  text-base"
+                >
+                  <option>Agriculture</option>
+                  <option>Farming</option>
+                  <option>Fishing</option>
+                </select>
               </div>
             </div>
           </div>
           <div className="mb-8">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut nemo
-            ipsam porro ad aliquid, asperiores dignissimos cumque error minima
-            rem tenetur consequuntur maxime quasi corporis veniam et accusamus
-            facilis, quae doloribus quaerat sint dolor ab. Nihil voluptas
-            consequuntur repellendus vel facilis qui, ipsa eos, dolorum
-            blanditiis, maiores dolore officia delectus molestiae repudiandae
-            laudantium a ex velit libero animi atque alias accusantium porro
-            iure! Perferendis quia quae, repellat neque ex, libero illo tempore,
-            quibusdam aliquid reprehenderit sed? Consequuntur cum ea ex,
-            doloribus consectetur ut esse magnam quos eos sit, nulla ab sequi
-            error. Inventore quibusdam aspernatur voluptatibus blanditiis
-            sapiente iure quo, cum dolorum ad quisquam autem sit? Eveniet,
-            quidem. Aspernatur, accusantium! Alias dignissimos veniam autem
-            ullam deserunt earum. Voluptatum qui libero id suscipit minima ipsa
-            et recusandae sed porro laborum quas iure at, expedita deleniti, eum
-            cumque. Aliquid sunt impedit, facere odio cumque sit ex officiis
-            dolorum animi ab aut accusamus!
+            <h3 className="text-2xl font-semibold text-black dark:text-white">
+              Project Description:
+            </h3>
+            <p>
+              The Project occupies _ Hectares/acres of land, of which __produces
+              __ of _. The Harvest is ____ per year, totaling in ___
+              Kilo/Tonns/bushles per harvest. The land is purchased /
+              leased/etc. The implementation of this project resulted in _____
+              for the region /country /etc
+            </p>
+          </div>
+          <div className="mb-8">
+            <h3 className="text-2xl font-semibold text-black dark:text-white">
+              Kush Involvement:
+            </h3>
+            <p>
+              KOK is involved as a partner/solitare invest/ humanitarian aid and
+              provided ___ in monetary /equiqments/human resource /technology
+              investement (one time/ ongoing/_ times per quater/year/etc)
+              totaling to __ USD . KOK plans to ___within the next ____ (Any
+              blockchain related monetization can be described here as well)
+            </p>
+          </div>
+          <div className="mb-8">
+            <h3 className="text-2xl font-semibold text-black dark:text-white">
+              <span className="text-base">Next Steps</span> Machinery /Equipment
+              /Suppier /Technology
+            </h3>
           </div>
           <div>
             <img src={bg.src} />

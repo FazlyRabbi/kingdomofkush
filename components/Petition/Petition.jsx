@@ -5,7 +5,7 @@ import Image from "next/image";
 import { HiArrowTrendingUp } from "react-icons/hi2";
 import Petition_Contact from "./Petition_Contact";
 import Flag from "../../img/KushFlag.jpg";
-
+import { Country } from "country-state-city";
 
 const Petition = () => {
   const [recentUser, setRecntUser] = useState([]);
@@ -13,7 +13,7 @@ const Petition = () => {
   const [userTime, setUserTime] = useState(null);
 
   const calculateTime = () => {
-    const userTime = recentUser.map((data) => {
+    const userTime = recentUser?.map((data) => {
       const userTime = {};
 
       // create date
@@ -52,9 +52,9 @@ const Petition = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        const spliceData = data?.data.splice(0, 2);
+        const spliceData = data?.data?.splice(0, 2);
 
-        const dateString = spliceData.map((data) => {
+        const dateString = spliceData?.map((data) => {
           const time = {};
 
           time.str = data.attributes.createdAt;
@@ -128,7 +128,9 @@ const Petition = () => {
                     ) : (
                       ""
                     )}
-                    {userTime && userTime[0]?.min < 60 && userTime[0]?.min >= 1  ? (
+                    {userTime &&
+                    userTime[0]?.min < 60 &&
+                    userTime[0]?.min >= 1 ? (
                       <h1>
                         <span className="font-bold">Cepren Kywhnp </span>
                         signed {userTime[0]?.min} min ago
@@ -136,7 +138,9 @@ const Petition = () => {
                     ) : (
                       ""
                     )}
-                    {userTime && userTime[0]?.hours < 24  && userTime[0]?.hours >= 1 ? (
+                    {userTime &&
+                    userTime[0]?.hours < 24 &&
+                    userTime[0]?.hours >= 1 ? (
                       <h1>
                         <span className="font-bold">Cepren Kywhnp </span>
                         signed {userTime[0]?.hours} hours ago
@@ -158,7 +162,7 @@ const Petition = () => {
                 <div className="flex gap-4 mr-4">
                   <CgProfile className="h-8 w-8 rounded-full bg-gray text-white" />
                   <div>
-                    {userTime && userTime[1]?.sec < 60  ? (
+                    {userTime && userTime[1]?.sec < 60 ? (
                       <h1>
                         <span className="font-bold">Jamal Uddin </span>
                         signed {userTime[1]?.sec} sec ago
@@ -166,7 +170,9 @@ const Petition = () => {
                     ) : (
                       ""
                     )}
-                    {userTime && userTime[1]?.min < 60  && userTime[0]?.min >= 1 ? (
+                    {userTime &&
+                    userTime[1]?.min < 60 &&
+                    userTime[0]?.min >= 1 ? (
                       <h1>
                         <span className="font-bold">Jamal Uddin </span>
                         signed {userTime[1]?.min} min ago
@@ -174,7 +180,9 @@ const Petition = () => {
                     ) : (
                       ""
                     )}
-                    {userTime && userTime[1]?.hours < 24  && userTime[0]?.hours >= 1 ? (
+                    {userTime &&
+                    userTime[1]?.hours < 24 &&
+                    userTime[0]?.hours >= 1 ? (
                       <h1>
                         <span className="font-bold">Jamal Uddin </span>
                         signed {userTime[1]?.hours} hours ago

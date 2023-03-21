@@ -9,9 +9,6 @@ export const petitionContext = createContext();
 export const PetitionProvider = ({ children }) => {
   const router = useRouter();
 
-
-
-
   const petitionInitial = {
     FirstName: "",
     LastName: "",
@@ -54,29 +51,6 @@ export const PetitionProvider = ({ children }) => {
       const data = await res.json();
 
       // router.push(`/donation`);
-
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const getIpAddress = async () => {
-    try {
-      const res = await fetch(`https://api.ipify.org/?format=json`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-
-        body: JSON.stringify({
-          email: petition.Email,
-          subject: "Petition Application",
-        }),
-      });
-
-      const data = await res.json();
-
-      router.push(`/`);
 
       console.log(data);
     } catch (error) {

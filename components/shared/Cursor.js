@@ -39,11 +39,11 @@ const Cursor = ({ scaling, children }) => {
     <div>
       <motion.div
         animate={{
-          x: largecircle.x - 32,
-          y: largecircle.y - 32,
+          x: largecircle.x - 20,
+          y: largecircle.y - 20,
           transition: { type: "spring", mass: 3 },
         }}
-        className="w-[35px] h-[35px] rounded-full bg-primary fixed z-[9999] pointer-events-none transition-all duration-150"
+        className="w-[35px] h-[35px] rounded-full border border-primary fixed z-[9999] pointer-events-none transition-all duration-150"
         style={{ scale: scaling ? 0.1 : 1 }}
       ></motion.div>
       <motion.div
@@ -52,7 +52,7 @@ const Cursor = ({ scaling, children }) => {
           y: smallcircle.y - 8,
           transition: { type: "spring", mass: 2 },
         }}
-        className="w-[10px] h-[10px] rounded-full z-[99999] bg-blue-500 fixed pointer-events-none transition-all duration-150"
+        className="w-[10px] h-[10px] rounded-full z-[99999] bg-primary fixed pointer-events-none transition-all duration-150"
       ></motion.div>
       {children}
     </div>
