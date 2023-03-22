@@ -21,6 +21,8 @@ const PetitionApplication = () => {
   const [states, setStates] = useState("");
   const [cities, setCities] = useState("");
   const countryName = Country.getAllCountries();
+
+ 
   const showAlerts = () => {
     showAlert({
       text: "Your Petition Application Successfull!",
@@ -61,6 +63,7 @@ const PetitionApplication = () => {
   }, [petition?.Country, petition?.State]);
 
   const [data, setData] = useState();
+  console.log(data, "data");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
