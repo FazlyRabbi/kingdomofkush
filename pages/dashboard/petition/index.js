@@ -6,6 +6,8 @@ import { API_URL, API_TOKEN } from "@/config/index";
 import DataTable from "react-data-table-component";
 import { CSVLink } from "react-csv";
 import { TiDeleteOutline } from "react-icons/ti";
+import DHeader from "@/components/Dashboard/DHeader";
+
 // import tailwind modal
 import {
   Dialog,
@@ -170,9 +172,6 @@ function index() {
     </Document>
   );
 
-
-
-
   // to open tailwind modals
   const [open, setOpen] = useState(false);
   const handleOpen = (data) => {
@@ -269,13 +268,7 @@ function index() {
       selector: (row) => row.attributes.Country,
       sortable: true,
     },
-   
-    {
-      name: "Date",
-      selector: (row) => row.attributes.DeviceRecentActivitys.Date,
-      sortable: true,
-    },
-   
+
     {
       name: "Action",
       cell: (row) => (
@@ -313,16 +306,15 @@ function index() {
       <Head>
         <title>Petitons</title>
       </Head>
-     
-     
       <div className="grid  px-10 grid-cols-1 lg:grid-cols-5 gap-5 justify-items-left p-[3rem] ">
         <LeftMenu />
+        <DHeader />
         <div className=" lg:col-span-4  mr-10 mt-14">
           <DataTable
             columns={columns}
             data={filteredMembers}
             fixedHeader
-            title="Vendors"
+            title="Petitons"
             subHeader
             subHeaderComponent={
               <div className="relative mb-6  shadow-sm">
@@ -354,16 +346,42 @@ function index() {
             subHeaderAlign="center"
             pagination
             actions={
+              <div className="flex justify-between mb-4 items-center space-x-2">
+              <CSVLink
+                data={members}
+                headers={headers}
+                filename={"Petetion-data.csv"}
+              >
+                <Chip
+                  value="Download"
+                  className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
+                />
+              </CSVLink>
+
               <CSVLink
                 data={members}
                 headers={headers}
                 filename={"Members-data.csv"}
               >
                 <Chip
+                  color="amber"
                   value=" Download CSV"
                   className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
                 />
               </CSVLink>
+
+              <Chip
+                color="indigo"
+                value="Pdf"
+                className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
+              />
+
+              <Chip
+                color="purple"
+                value="Share"
+                className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
+              />
+            </div>
             }
           />
         </div>
@@ -552,7 +570,7 @@ function index() {
               </div>
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
-                  OS Name 
+                  OS Name
                 </label>
                 <Input
                   name="FirstName"
@@ -594,7 +612,6 @@ function index() {
                   disabled
                 />
               </div>
-      
 
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
@@ -604,15 +621,13 @@ function index() {
                   name="FirstName"
                   className="pt-1"
                   label={singleData?.DeviceRecentActivitys?.RegistrationId}
-                 disabled
+                  disabled
                 />
               </div>
             </div>
           </DialogBody>
         </Dialog>
       </div>
-
-
     </>
   );
 }

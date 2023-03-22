@@ -15,7 +15,7 @@ const DonationHero = () => {
 
   const showAlerts = (email, name, ammount) => {
     showAlert({
-      title: `title`,
+      title: `Thank you for your support Donation`,
       html: `  <div>
        <div style="display:flex; justify-content: space-between; padding:2 3rem;   ">
        <h5>Pyament type</h5>
@@ -31,11 +31,9 @@ const DonationHero = () => {
        </div>
 
     </div>`,
-
       icon: "success",
-      confirmButtonText: "ClOSE",
+      confirmButtonText: "Close",
       confirmButtonColor: "green",
-      header: "hello",
     }).then((result) => {
       console.log(result);
     });

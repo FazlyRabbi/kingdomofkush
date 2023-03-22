@@ -15,12 +15,11 @@ import { PetitionProvider } from "@/context/PetitioContext";
 import { ModeProvider } from "@/context/ModeContext";
 
 
+
 export default function MyApp({ Component, pageProps }) {
-  // if (pageProps.protected && !user) {
-  //   return (
-  //     <Layout>Loading...</Layout>
-  //   )
-  // }
+
+  
+
 
   return (
     <div id="theme" className="">

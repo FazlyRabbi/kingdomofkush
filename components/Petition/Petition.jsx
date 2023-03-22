@@ -9,9 +9,37 @@ import { Country } from "country-state-city";
 
 const Petition = () => {
   const [recentUser, setRecntUser] = useState([]);
-  const [calculateTimes, setCalculateTimes] = useState("");
+  // const [calculateTimes, setCalculateTimes] = useState("");
   const [userTime, setUserTime] = useState(null);
 
+  const laodRecentUser = () => {
+    fetch(`${API_URL}/api/petitions?sort=createdAt:desc`, {
+      headers: {
+        Authorization: API_TOKEN,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const spliceData = data?.data.splice(0, 2);
+
+        const dateString = spliceData.map((data) => {
+          const time = {};
+
+          time.str = data.attributes.createdAt;
+          time.name = data.attributes.FirstName;
+
+          return time;
+        });
+
+        setRecntUser(dateString);
+      });
+  };
+
+  useEffect(() => {
+    laodRecentUser();
+  }, []);
+
+  // calculate time
   const calculateTime = () => {
     const userTime = recentUser?.map((data) => {
       const userTime = {};
@@ -33,6 +61,7 @@ const Petition = () => {
       userTime.min = timeDifferenceInMinutes;
       userTime.hours = timeDifferenceInHours;
       userTime.day = timeDifferenceInDays;
+      userTime.name = data.name;
 
       return userTime;
     });
@@ -44,31 +73,7 @@ const Petition = () => {
     calculateTime();
   }, [recentUser]);
 
-  const laodRecentUser = () => {
-    fetch(`${API_URL}/api/petitions?sort=createdAt:desc`, {
-      headers: {
-        Authorization: API_TOKEN,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        const spliceData = data?.data?.splice(0, 2);
 
-        const dateString = spliceData?.map((data) => {
-          const time = {};
-
-          time.str = data.attributes.createdAt;
-
-          return time;
-        });
-
-        setRecntUser(dateString);
-      });
-  };
-
-  useEffect(() => {
-    laodRecentUser();
-  }, []);
 
   const countryName = Country.getAllCountries();
 
@@ -122,8 +127,8 @@ const Petition = () => {
                   <div>
                     {userTime && userTime[0]?.sec < 60 ? (
                       <h1>
-                        <span className="font-bold">Cepren Kywhnp </span>
-                        signed {userTime[0]?.sec} sec ago
+                        <span className="font-bold"> {userTime[0]?.name} </span>
+                        signed just now
                       </h1>
                     ) : (
                       ""
@@ -132,7 +137,7 @@ const Petition = () => {
                     userTime[0]?.min < 60 &&
                     userTime[0]?.min >= 1 ? (
                       <h1>
-                        <span className="font-bold">Cepren Kywhnp </span>
+                        <span className="font-bold">{userTime[0]?.name} </span>
                         signed {userTime[0]?.min} min ago
                       </h1>
                     ) : (
@@ -142,7 +147,7 @@ const Petition = () => {
                     userTime[0]?.hours < 24 &&
                     userTime[0]?.hours >= 1 ? (
                       <h1>
-                        <span className="font-bold">Cepren Kywhnp </span>
+                        <span className="font-bold">{userTime[0]?.name} </span>
                         signed {userTime[0]?.hours} hours ago
                       </h1>
                     ) : (
@@ -150,7 +155,7 @@ const Petition = () => {
                     )}
                     {userTime && userTime[0]?.day > 1 ? (
                       <h1>
-                        <span className="font-bold">Cepren Kywhnp </span>
+                        <span className="font-bold">{userTime[0]?.name} </span>
                         signed {userTime[0]?.day} days ago
                       </h1>
                     ) : (
@@ -158,14 +163,16 @@ const Petition = () => {
                     )}
                   </div>
                 </div>
+              </div>
 
+              <div className="flex flex-col gap-3">
                 <div className="flex gap-4 mr-4">
                   <CgProfile className="h-8 w-8 rounded-full bg-gray text-white" />
                   <div>
                     {userTime && userTime[1]?.sec < 60 ? (
                       <h1>
-                        <span className="font-bold">Jamal Uddin </span>
-                        signed {userTime[1]?.sec} sec ago
+                        <span className="font-bold">{userTime[1]?.name} </span>
+                        signed just now
                       </h1>
                     ) : (
                       ""
@@ -174,7 +181,7 @@ const Petition = () => {
                     userTime[1]?.min < 60 &&
                     userTime[0]?.min >= 1 ? (
                       <h1>
-                        <span className="font-bold">Jamal Uddin </span>
+                        <span className="font-bold">{userTime[1]?.name} </span>
                         signed {userTime[1]?.min} min ago
                       </h1>
                     ) : (
@@ -184,7 +191,7 @@ const Petition = () => {
                     userTime[1]?.hours < 24 &&
                     userTime[0]?.hours >= 1 ? (
                       <h1>
-                        <span className="font-bold">Jamal Uddin </span>
+                        <span className="font-bold">{userTime[1]?.name} </span>
                         signed {userTime[1]?.hours} hours ago
                       </h1>
                     ) : (
@@ -192,7 +199,7 @@ const Petition = () => {
                     )}
                     {userTime && userTime[1]?.day > 1 ? (
                       <h1>
-                        <span className="font-bold">Jamal Uddin </span>
+                        <span className="font-bold">{userTime[1]?.name} </span>
                         signed {userTime[1]?.day} days ago
                       </h1>
                     ) : (

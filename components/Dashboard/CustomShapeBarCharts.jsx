@@ -75,7 +75,7 @@ const TriangleBar = (props) => {
 
 export default function CustomShapeBarCharts() {
   return (
-    <ResponsiveContainer width="100%" height="60%">
+    <ResponsiveContainer width="100%" height="60%" >
       <BarChart
         width={500}
         height={400}
@@ -86,6 +86,8 @@ export default function CustomShapeBarCharts() {
           left: 20,
           bottom: 5,
         }}
+
+        backgroundColor="#000"
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />

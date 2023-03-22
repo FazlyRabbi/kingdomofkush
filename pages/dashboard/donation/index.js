@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
+import DHeader from "@/components/Dashboard/DHeader";
 // import leftmenu
 import LeftMenu from "@/components/Dashboard/LeftMenu";
 import { API_URL, API_TOKEN } from "@/config/index";
@@ -299,10 +300,12 @@ function index() {
   return (
     <>
       <Head>
-        <title>Vendors</title>
+        <title>Donation</title>
       </Head>
       <div className="grid  px-10 grid-cols-1 lg:grid-cols-5 gap-5 justify-items-left p-[3rem] ">
         <LeftMenu />
+        <DHeader />
+
         <div className=" lg:col-span-4  mr-10 mt-14">
           <DataTable
             columns={columns}
@@ -311,7 +314,7 @@ function index() {
             // highlightOnHover
             // selectableRows
             fixedHeader
-            title="Vendors"
+            title="Donation"
             subHeader
             subHeaderComponent={
               <div className="relative mb-6  shadow-sm">
@@ -343,16 +346,42 @@ function index() {
             subHeaderAlign="center"
             pagination
             actions={
-              <CSVLink
-                data={members}
-                headers={headers}
-                filename={"Members-data.csv"}
-              >
+              <div className="flex justify-between mb-4 items-center space-x-2">
+                <CSVLink
+                  data={members}
+                  headers={headers}
+                  filename={"Donation-data.csv"}
+                >
+                  <Chip
+                    value="Download"
+                    className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
+                  />
+                </CSVLink>
+
+                <CSVLink
+                  data={members}
+                  headers={headers}
+                  filename={"Volunteers-data.csv"}
+                >
+                  <Chip
+                    color="amber"
+                    value=" Download CSV"
+                    className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
+                  />
+                </CSVLink>
+
                 <Chip
-                  value=" Download CSV"
+                  color="indigo"
+                  value="Pdf"
                   className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
                 />
-              </CSVLink>
+
+                <Chip
+                  color="purple"
+                  value="Share"
+                  className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
+                />
+              </div>
             }
           />
         </div>

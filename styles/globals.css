@@ -2,9 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-input[type="file"] {
-  display: none;
-} 
+
 
 html {
   scroll-behavior: smooth;

@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
- import donationTampEmail from "emailTampletes/donationTampEmail";
+import donationTampEmail from "emailTampletes/donationTampEmail";
 
 export default async function sendmail(req, res) {
   try {
@@ -11,7 +11,7 @@ export default async function sendmail(req, res) {
       service: "gmail",
       auth: {
         user: "kingdomofkushking1070bc@gmail.com",
-        pass: "hirujhfeupuluiby",
+        pass: "fxherzvqmodddhrc",
       },
     });
 
@@ -20,7 +20,7 @@ export default async function sendmail(req, res) {
       from: "kingdomofkushking1070bc@gmail.com",
       to: req.body.email,
       subject: req.body.subject, // Subject line
-      html: donationTampEmail(), // html body
+      html: donationTampEmail(req.body.ammount, req.body.frequency), // html body
     };
 
     transporter.sendMail(info, (error, info) => {

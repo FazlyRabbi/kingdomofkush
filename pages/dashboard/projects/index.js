@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
+import DHeader from "@/components/Dashboard/DHeader";
 // import leftmenu
 import LeftMenu from "@/components/Dashboard/LeftMenu";
 import { API_URL, API_TOKEN } from "@/config/index";
 import DataTable from "react-data-table-component";
+
 import { CSVLink } from "react-csv";
 import { TiDeleteOutline } from "react-icons/ti";
-import DHeader from "@/components/Dashboard/DHeader";
 // import tailwind modal
 import {
   Dialog,
   DialogHeader,
   DialogBody,
   Input,
+  Button,
   Chip,
+  Card,
+  CardBody,
 } from "@material-tailwind/react";
 
 // imports react pdf
@@ -181,33 +185,22 @@ function index() {
   // csv headers
   const headers = [
     { label: "ID", key: "id" },
+    { label: "Title", key: "attributes.Title" },
     { label: "FirstName", key: "attributes.FirstName" },
     { label: "LastName", key: "attributes.LastName" },
+    { label: "FamilyLastName", key: "attributes.FamilyLastName" },
     { label: "Email", key: "attributes.Email" },
-    { label: "DateofBirth", key: "attributes.DateofBirth" },
-    { label: "Phone", key: "attributes.Phone" },
-    { label: "AddressLine1", key: "attributes.AddressLine1" },
-    { label: "AddressLine2", key: "attributes.AddressLine2" },
-    { label: "City", key: "attributes.City" },
+    { label: "Number", key: "attributes.Number" },
+    { label: "StreetAddress", key: "attributes.StreetAddress" },
     { label: "State", key: "attributes.State" },
+    { label: "City", key: "attributes.City" },
     { label: "PostalCode", key: "attributes.PostalCode" },
     { label: "Country", key: "attributes.Country" },
-    { label: "Skills", key: "attributes.Skills" },
-    { label: "InterestAreas", key: "attributes.InterestAreas" },
-    { label: "CardInfo", key: "attributes.CardInfo" },
-    { label: "BillingFirstName", key: "attributes.BillingFirstName" },
-    { label: "BillingLastName", key: "attributes.BillingLastName" },
-    { label: "BillingAdressline1", key: "attributes.BillingAdressline1" },
-    { label: "BillingAdressline2", key: "attributes.BillingAdressline2" },
-    { label: "BillingCity", key: "attributes.BillingCity" },
-    { label: "BillingState", key: "attributes.BillingState" },
-    { label: "BillingPostal", key: "attributes.BillingPostal" },
-    { label: "BillingCountry", key: "attributes.BillingCountry" },
   ];
 
   // Fetch data from an external API or database
   useEffect(() => {
-    fetch(`${API_URL}/api/vendors?populate=*`, {
+    fetch(`${API_URL}/api/projects?populate=*`, {
       method: "GET",
       headers: {
         Authorization: API_TOKEN,
@@ -223,7 +216,7 @@ function index() {
 
   useEffect(() => {
     const result = members?.filter((member) =>
-      member.attributes.FirstName.toLowerCase().match(search.toLowerCase())
+      member.attributes.Title.toLowerCase().match(search.toLowerCase())
     );
     setFilteredMembers(result);
   }, [search]);
@@ -236,7 +229,12 @@ function index() {
       sortable: true,
     },
     {
-      name: "FirstName",
+      name: "Title",
+      selector: (row) => row.attributes.Title,
+      sortable: true,
+    },
+    {
+      name: "FIRSTNAME",
       selector: (row) => row.attributes.FirstName,
       sortable: true,
     },
@@ -246,26 +244,30 @@ function index() {
       sortable: true,
     },
     {
+      name: "MiddleName",
+      selector: (row) => row.attributes.MiddleName,
+      sortable: true,
+    },
+    {
+      name: "MiddleName",
+      selector: (row) => row.attributes.MiddleName,
+      sortable: true,
+    },
+    {
+      name: "FamilyLastName",
+      selector: (row) => row.attributes.FamilyLastName,
+      sortable: true,
+    },
+    {
       name: "Email",
       selector: (row) => row.attributes.Email,
       sortable: true,
     },
     {
-      name: "DateofBirth",
-      selector: (row) => row.attributes.DateofBirth,
+      name: "Number",
+      selector: (row) => row.attributes.Number,
       sortable: true,
     },
-    {
-      name: "Phone",
-      selector: (row) => row.attributes.Phone,
-      sortable: true,
-    },
-    {
-      name: "AddressLine1",
-      selector: (row) => row.attributes.AddressLine1,
-      sortable: true,
-    },
-
 
     {
       name: "Action",
@@ -302,89 +304,151 @@ function index() {
   return (
     <>
       <Head>
-        <title>Vendors</title>
+        <title>Project</title>
       </Head>
-      <div className="grid  px-10 grid-cols-1 lg:grid-cols-5 gap-5 justify-items-left p-[3rem] ">
+      <div className="grid  px-10 grid-cols-1 lg:grid-cols-5 gap-6 justify-items-left p-[3rem] ">
         <LeftMenu />
         <DHeader />
-        <div className=" lg:col-span-4  mr-10 mt-14">
-          <DataTable
-            columns={columns}
-            data={filteredMembers}
-            // selectableRowsHighlight
-            // highlightOnHover
-            // selectableRows
-            fixedHeader
-            title="Vendors"
-            subHeader
-            subHeaderComponent={
-              <div className="relative mb-6  shadow-sm">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                  <svg
-                    aria-hidden="true"
-                    className="w-5 h-5 text-[#6B7280] dark:text-gray-400"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                      clipRule="evenodd"
+
+        <div className=" grid grid-cols-1 mt-[6rem] 2xl:grid-cols-3 gap-y-2 gap-2 lg:col-span-4 gap-x-5">
+          <div className="project__form mt-[2rem] 2xl:order-1  order-2">
+            <Card className="w-full 2xl:w-96">
+              <h4 className=" text-center font-bold  uppercase">
+                Project Form
+              </h4>
+
+              <form>
+                <CardBody className="text-center gap-6  grid grid-cols-1">
+                  <Input label="Title" />
+
+                  <Input label="Country" />
+
+                  <div>
+                    <p className=" text-left font-bold mb-3">Image</p>
+                    <input
+                      name="image"
+                      type="file"
+                      accept="image/*"
+                      placeholder="Image"
+                      className="flex justify-start"
                     />
-                  </svg>
+                  </div>
+
+                  <div>
+                    <p for="my-textarea" className="text-left font-bold mb-3">
+                      ProjectDescription
+                    </p>
+                    <textarea
+                      id="my-textarea"
+                      name="message"
+                      rows="3"
+                      cols="20"
+                      className="w-full border p-2 border-softGray rounded-md"
+                    ></textarea>
+                  </div>
+
+                  <div>
+                    <p for="my-textarea" className="text-left font-bold mb-3">
+                      KushInvolment
+                    </p>
+                    <textarea
+                      id="my-textarea"
+                      name="message"
+                      rows="3"
+                      cols="20"
+                      className="w-full border p-2 border-softGray rounded-md"
+                    ></textarea>
+                  </div>
+
+                  <Input label="Bradcamp" />
+
+                  <Button type="submit" size="md">
+                    Add project
+                  </Button>
+                </CardBody>
+              </form>
+            </Card>
+          </div>
+
+          <div className=" mr-10  2xl:col-span-2  2xl:order-2">
+            <DataTable
+              columns={columns}
+              data={filteredMembers}
+              // selectableRowsHighlight
+              // highlightOnHover
+              // selectableRows
+              fixedHeader
+              title="Project Table"
+              subHeader
+              subHeaderComponent={
+                <div className="relative mb-6 mt-4  shadow-sm">
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg
+                      aria-hidden="true"
+                      className="w-5 h-5 text-[#6B7280] dark:text-gray-400"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  <input
+                    type="text"
+                    id="simple-search"
+                    className="   bg-[#F9FAFB] border  border-softGray text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Search"
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
                 </div>
-                <input
-                  type="text"
-                  id="simple-search"
-                  className="  bg-[#F9FAFB] border  border-softGray text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Search"
-                  onChange={(e) => setSearch(e.target.value)}
-                />
-              </div>
-            }
-            customStyles={customStyles}
-            subHeaderAlign="center"
-            pagination
-            actions={
-              <div className="flex justify-between mb-4 items-center space-x-2">
-                <CSVLink
-                  data={members}
-                  headers={headers}
-                  filename={"vendors-data.csv"}
-                >
+              }
+              customStyles={customStyles}
+              subHeaderAlign="center"
+              pagination
+              actions={
+                <div className="flex justify-between mb-4 items-center space-x-2">
+                  <CSVLink
+                    data={members}
+                    headers={headers}
+                    filename={"Invest-data.csv"}
+                  >
+                    <Chip
+                      value="Download"
+                      className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
+                    />
+                  </CSVLink>
+
+                  <CSVLink
+                    data={members}
+                    headers={headers}
+                    filename={"Volunteers-data.csv"}
+                  >
+                    <Chip
+                      color="amber"
+                      value=" Download CSV"
+                      className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
+                    />
+                  </CSVLink>
+
                   <Chip
-                    value=" Download CSV"
+                    color="indigo"
+                    value="Pdf"
                     className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
                   />
-                </CSVLink>
 
-                <CSVLink
-                  data={members}
-                  headers={headers}
-                  filename={"Members-data.csv"}
-                >
                   <Chip
-                    color="amber"
-                    value=" Download CSV"
+                    color="purple"
+                    value="Share"
                     className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
                   />
-                </CSVLink>
-
-                <Chip
-                  color="indigo"
-                  value="Pdf"
-                  className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
-                />
-
-                <Chip
-                  color="purple"
-                  value="Share"
-                  className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
-                />
-              </div>
-            }
-          />
+                </div>
+              }
+            />
+          </div>
         </div>
 
         {/* // tailwind modal  */}
@@ -415,6 +479,7 @@ function index() {
               onClick={handleOpen}
             />
           </DialogHeader>
+
           <DialogBody>
             <div
               className="grid grid-cols-1 max-h-[80vh]   
@@ -426,12 +491,12 @@ function index() {
             >
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
-                  FirstName
+                  Title
                 </label>
                 <Input
                   name="FirstName"
                   className="pt-1"
-                  label={singleData.FirstName && singleData.FirstName}
+                  label={singleData.Title && singleData.Title}
                   disabled
                 />
               </div>
@@ -448,7 +513,7 @@ function index() {
               </div>
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
-                  LastName
+                  Last Name
                 </label>
                 <Input
                   name="FirstName"
@@ -472,12 +537,23 @@ function index() {
 
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
-                  DateofBirth
+                  Middle Name
                 </label>
                 <Input
                   name="FirstName"
                   className="pt-1"
-                  label={singleData.DateofBirth && singleData.DateofBirth}
+                  label={singleData.MiddleName && singleData.MiddleName}
+                  disabled
+                />
+              </div>
+              <div className="mr-2 lg:mr-0">
+                <label htmlFor="FirstName" className="text-black">
+                  Family LastName
+                </label>
+                <Input
+                  name="FirstName"
+                  className="pt-1"
+                  label={singleData.FamilyLastName && singleData.FamilyLastName}
                   disabled
                 />
               </div>
@@ -488,40 +564,29 @@ function index() {
                 <Input
                   name="FirstName"
                   className="pt-1"
-                  label={singleData.Phone && singleData.Phone}
+                  label={singleData.Number && singleData.Number}
                   disabled
                 />
               </div>
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
-                  AddressLine1
+                  Street Address
                 </label>
                 <Input
                   name="FirstName"
                   className="pt-1"
-                  label={singleData.AddressLine1 && singleData.AddressLine1}
+                  label={singleData.StreetAddress && singleData.StreetAddress}
                   disabled
                 />
               </div>
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
-                  AddressLine2
+                  Apartment
                 </label>
                 <Input
                   name="FirstName"
                   className="pt-1"
-                  label={singleData.AddressLine2 && singleData.AddressLine2}
-                  disabled
-                />
-              </div>
-              <div className="mr-2 lg:mr-0">
-                <label htmlFor="FirstName" className="text-black">
-                  City
-                </label>
-                <Input
-                  name="FirstName"
-                  className="pt-1"
-                  label={singleData.City && singleData.City}
+                  label={singleData.Apartment && singleData.Apartment}
                   disabled
                 />
               </div>
@@ -533,6 +598,17 @@ function index() {
                   name="FirstName"
                   className="pt-1"
                   label={singleData.State && singleData.State}
+                  disabled
+                />
+              </div>
+              <div className="mr-2 lg:mr-0">
+                <label htmlFor="FirstName" className="text-black">
+                  City
+                </label>
+                <Input
+                  name="FirstName"
+                  className="pt-1"
+                  label={singleData.City && singleData.City}
                   disabled
                 />
               </div>
@@ -560,34 +636,93 @@ function index() {
               </div>
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
-                  Skills
+                  MemberhipPlan
                 </label>
                 <Input
                   name="FirstName"
                   className="pt-1"
-                  label={singleData.Skills && singleData.Skills}
+                  label={singleData.MemberhipPlan && singleData.MemberhipPlan}
                   disabled
                 />
               </div>
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
-                  InterestAreas
+                  CardInfo
                 </label>
                 <Input
                   name="FirstName"
                   className="pt-1"
-                  label={singleData.InterestAreas && singleData.InterestAreas}
+                  label={singleData.CardInfo && singleData.CardInfo}
                   disabled
                 />
               </div>
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
-                  BillingPostal
+                  BillingName
                 </label>
                 <Input
                   name="FirstName"
                   className="pt-1"
-                  label={singleData.BillingPostal && singleData.BillingPostal}
+                  label={singleData.BillingName && singleData.BillingName}
+                  disabled
+                />
+              </div>
+              <div className="mr-2 lg:mr-0">
+                <label htmlFor="FirstName" className="text-black">
+                  BillingAddress
+                </label>
+                <Input
+                  name="FirstName"
+                  className="pt-1"
+                  label={singleData.BillingAddress && singleData.BillingAddress}
+                  disabled
+                />
+              </div>
+              <div className="mr-2 lg:mr-0">
+                <label htmlFor="FirstName" className="text-black">
+                  BillingApartment
+                </label>
+                <Input
+                  name="FirstName"
+                  className="pt-1"
+                  label={
+                    singleData.BillingApartment && singleData.BillingApartment
+                  }
+                  disabled
+                />
+              </div>
+              <div className="mr-2 lg:mr-0">
+                <label htmlFor="FirstName" className="text-black">
+                  BillingCity
+                </label>
+                <Input
+                  name="FirstName"
+                  className="pt-1"
+                  label={singleData.BillingCity && singleData.BillingCity}
+                  disabled
+                />
+              </div>
+              <div className="mr-2 lg:mr-0">
+                <label htmlFor="FirstName" className="text-black">
+                  BillingState
+                </label>
+                <Input
+                  name="FirstName"
+                  className="pt-1"
+                  label={singleData.BillingState && singleData.BillingState}
+                  disabled
+                />
+              </div>
+              <div className="mr-2 lg:mr-0">
+                <label htmlFor="FirstName" className="text-black">
+                  BillingPostalCode
+                </label>
+                <Input
+                  name="FirstName"
+                  className="pt-1"
+                  label={
+                    singleData.BillingPostalCode && singleData.BillingPostalCode
+                  }
                   disabled
                 />
               </div>
@@ -602,7 +737,6 @@ function index() {
                   disabled
                 />
               </div>
-
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
                   RegistrationId

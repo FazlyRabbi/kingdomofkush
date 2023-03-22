@@ -1,30 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Link from "next/link";
-import { CgMenuRightAlt } from "react-icons/cg";
 import { IoIosPeople } from "react-icons/io";
 import { GrUserWorker } from "react-icons/gr";
 import { CiMoneyBill } from "react-icons/ci";
 import { GiTakeMyMoney } from "react-icons/gi";
+import { SiOpenproject } from "react-icons/si";
+import { FiMessageSquare } from "react-icons/fi";
 import { AiOutlineContacts } from "react-icons/ai";
+import { BsMicrosoftTeams, BsMotherboard } from "react-icons/bs";
 import { MdOutlineStore, MdOutlineNoteAlt } from "react-icons/md";
-
+import { AuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/router";
 
 function LeftMenu() {
   const router = useRouter();
 
-  const [open, setOpen] = useState(false);
+  const { open } = useContext(AuthContext);
 
   return (
     <>
-      <CgMenuRightAlt
-        className=" lg:hidden
-         animate-pulse
-        absolute cursor-pointer top-[2rem] right-[2rem] text-[2rem]"
-        onClick={() => setOpen(!open)}
-      />
-
-      {/* // left manu */}
       <section
         className={`leftMenu shadow-xl rounded-lg 
     
@@ -317,6 +311,158 @@ function LeftMenu() {
               <AiOutlineContacts className="   text-[1.3rem]  text-inherit" />
             </div>
             Contacts
+          </Link>
+          <Link
+            href={`/dashboard/projects`}
+            className={`
+          
+           ${
+             router.pathname === "/dashboard/projects"
+               ? ` 
+           
+            rounded-lg
+
+            bg-white shadow-md`
+               : ""
+           }
+           
+           px-4 py-3
+          w-[90%] flex justify-left gap-3 items-center text-base  font-normal
+            
+            text-[#394B6B] capitalize `}
+          >
+            <div
+              className={`
+          
+            ${
+              router.pathname === "/dashboard/projects"
+                ? `
+            
+                bg-gradient-to-r from-cyan-500 to-blue-500 text-white
+            
+            `
+                : ``
+            }
+          
+          p-[5px] rounded-lg shadow-md`}
+            >
+              <SiOpenproject className="   text-[1.3rem]  text-inherit" />
+            </div>
+            Projects
+          </Link>
+          <Link
+            href={`/dashboard/about`}
+            className={`
+          
+           ${
+             router.pathname === "/dashboard/about"
+               ? ` 
+           
+            rounded-lg
+
+            bg-white shadow-md`
+               : ""
+           }
+           
+           px-4 py-3
+          w-[90%] flex justify-left gap-3 items-center text-base  font-normal
+            
+            text-[#394B6B] capitalize `}
+          >
+            <div
+              className={`
+          
+            ${
+              router.pathname === "/dashboard/about"
+                ? `
+            
+                bg-gradient-to-r from-cyan-500 to-blue-500 text-white
+            
+            `
+                : ``
+            }
+          
+          p-[5px] rounded-lg shadow-md`}
+            >
+              <FiMessageSquare className="   text-[1.3rem]  text-inherit" />
+            </div>
+            About
+          </Link>
+          <Link
+            href={`/dashboard/teams`}
+            className={`
+          
+           ${
+             router.pathname === "/dashboard/teams"
+               ? ` 
+           
+            rounded-lg
+
+            bg-white shadow-md`
+               : ""
+           }
+           
+           px-4 py-3
+          w-[90%] flex justify-left gap-3 items-center text-base  font-normal
+            
+            text-[#394B6B] capitalize `}
+          >
+            <div
+              className={`
+          
+            ${
+              router.pathname === "/dashboard/teams"
+                ? `
+            
+                bg-gradient-to-r from-cyan-500 to-blue-500 text-white
+            
+            `
+                : ``
+            }
+          
+          p-[5px] rounded-lg shadow-md`}
+            >
+              <BsMicrosoftTeams className="   text-[1.3rem]  text-inherit" />
+            </div>
+            Teams
+          </Link>
+          <Link
+            href={`/dashboard/others`}
+            className={`
+          
+           ${
+             router.pathname === "/dashboard/others"
+               ? ` 
+           
+            rounded-lg
+
+            bg-white shadow-md`
+               : ""
+           }
+           
+           px-4 py-3
+          w-[90%] flex justify-left gap-3 items-center text-base  font-normal
+            
+            text-[#394B6B] capitalize `}
+          >
+            <div
+              className={`
+          
+            ${
+              router.pathname === "/dashboard/others"
+                ? `
+            
+                bg-gradient-to-r from-cyan-500 to-blue-500 text-white
+            
+            `
+                : ``
+            }
+          
+          p-[5px] rounded-lg shadow-md`}
+            >
+              <BsMotherboard className="   text-[1.3rem]  text-inherit" />
+            </div>
+            Others
           </Link>
         </div>
       </section>
