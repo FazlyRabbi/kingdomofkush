@@ -7,7 +7,7 @@ export default async (req, res) => {
       const { username, email, password } = JSON.parse(req.body);
 
       const strapiRes = await fetch(
-        `  http://localhost:1337/api/auth/local/register`,
+        `  https://kingdomofkush-backend.onrender.com/api/auth/local/register`,
         {
           method: "POST",
           headers: {

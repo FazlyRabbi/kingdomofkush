@@ -29,7 +29,7 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch(`http://localhost:1337/api/projects?populate=*`);
+  const res = await fetch(`https://kingdomofkush-backend.onrender.com/api/projects?populate=*`);
 
   const path = await res.json();
   console.log(path);
