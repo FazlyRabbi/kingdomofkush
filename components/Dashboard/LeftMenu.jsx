@@ -1,5 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { IoIosPeople } from "react-icons/io";
 import { GrUserWorker } from "react-icons/gr";
 import { CiMoneyBill } from "react-icons/ci";
@@ -11,6 +12,7 @@ import { BsMicrosoftTeams, BsMotherboard } from "react-icons/bs";
 import { MdOutlineStore, MdOutlineNoteAlt } from "react-icons/md";
 import { AuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/router";
+import logo from "../../img/logo.png";
 
 function LeftMenu() {
   const router = useRouter();
@@ -35,7 +37,8 @@ function LeftMenu() {
       >
         {/* left menu header */}
         <div className="leftMenu__header relative">
-          <div className="flex justify-center ">
+          <div className="flex justify-center space-x-6 ">
+            <Image src={logo} height={10} width={50} alt="logo" />
             <Link href={`/dashboard`}>
               <h5 className=" py-6  text-[1rem] font-bold">Dashboard</h5>
             </Link>

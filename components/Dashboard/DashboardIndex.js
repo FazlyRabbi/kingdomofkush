@@ -1,6 +1,6 @@
 import React from "react";
 import LeftMenu from "./LeftMenu";
-
+import Head from "next/head";
 import DHeader from "./DHeader";
 import AreaCharts from "./AreaCharts";
 import CustomShapeBarCharts from "./CustomShapeBarCharts";
@@ -10,6 +10,9 @@ import PieChartWithCustomizedLabels from "./PieChartWithCustomizedLabels";
 function DashboardIndex() {
   return (
     <>
+      <Head>
+        <title>Dashboard</title>
+      </Head>
       <div className="lg:grid  bg-[#F7F7F7]   pl-10 lg:grid-cols-5  justify-items-left p-[3rem] ">
         <LeftMenu />
         <DHeader />

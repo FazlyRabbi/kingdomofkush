@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { projectContext } from "@/context/ProjectContext";
 import Head from "next/head";
 import DHeader from "@/components/Dashboard/DHeader";
+import slugify from "slugify";
+import useSweetAlert from "@/components/lib/sweetalert2";
 // import leftmenu
 import LeftMenu from "@/components/Dashboard/LeftMenu";
 import { API_URL, API_TOKEN } from "@/config/index";
@@ -55,8 +58,14 @@ const styles = StyleSheet.create({
 });
 
 function index() {
+  const { projectForm, setProjectForm, projectIninitalForm } =
+    useContext(projectContext);
+
+  const [thubmnail, setThubmnail] = useState(null);
+
+
   // loead init members
-  const [members, setMembers] = useState([]);
+  const [projects, setProjects] = useState([]);
   // leoad search
   const [search, setSearch] = useState("");
   // set filtered members
@@ -208,15 +217,15 @@ function index() {
     })
       .then((res) => res.json())
       .then((data) => {
-        setMembers(data?.data);
+        setProjects(data?.data);
         setFilteredMembers(data?.data);
       })
       .catch((err) => console.error(err));
   }, []);
 
   useEffect(() => {
-    const result = members?.filter((member) =>
-      member.attributes.Title.toLowerCase().match(search.toLowerCase())
+    const result = projects?.filter((project) =>
+      project.attributes.Title.toLowerCase().match(search.toLowerCase())
     );
     setFilteredMembers(result);
   }, [search]);
@@ -233,50 +242,27 @@ function index() {
       selector: (row) => row.attributes.Title,
       sortable: true,
     },
-    {
-      name: "FIRSTNAME",
-      selector: (row) => row.attributes.FirstName,
-      sortable: true,
-    },
-    {
-      name: "LastName",
-      selector: (row) => row.attributes.LastName,
-      sortable: true,
-    },
-    {
-      name: "MiddleName",
-      selector: (row) => row.attributes.MiddleName,
-      sortable: true,
-    },
-    {
-      name: "MiddleName",
-      selector: (row) => row.attributes.MiddleName,
-      sortable: true,
-    },
-    {
-      name: "FamilyLastName",
-      selector: (row) => row.attributes.FamilyLastName,
-      sortable: true,
-    },
-    {
-      name: "Email",
-      selector: (row) => row.attributes.Email,
-      sortable: true,
-    },
-    {
-      name: "Number",
-      selector: (row) => row.attributes.Number,
-      sortable: true,
-    },
 
     {
       name: "Action",
       cell: (row) => (
-        <Chip
-          value="View"
-          className=" cursor-pointer  lowercase "
-          onClick={() => handleOpen(row.attributes)}
-        />
+        <div className=" grid my-2 justify-between items-center xl:grid-cols-3 grid-cols-1 gap-2">
+          <Chip
+            value="View"
+            className=" cursor-pointer  lowercase "
+            onClick={() => handleOpen(row.attributes)}
+          />
+          <Chip
+            color="green"
+            value="Active"
+            className=" cursor-pointer  lowercase "
+          />
+          <Chip
+            color="pink"
+            value="In-Active"
+            className=" cursor-pointer  lowercase "
+          />
+        </div>
       ),
     },
   ];
@@ -301,6 +287,64 @@ function index() {
     },
   };
 
+  // add products related task
+
+  const genrerateSlug = (string) => {
+    const slug = slugify(string, {
+      lower: true, // Convert to lowercase
+      remove: /[*+~.()'"!:@]/g, // Remove special characters
+    });
+    setProjectForm({ ...projectForm, Slug: slug });
+  };
+
+  useEffect(() => {
+    genrerateSlug(projectForm.Title);
+  }, [projectForm?.Title]);
+
+  const formData = typeof window !== "undefined" ? new FormData() : "";
+
+  const { showAlert } = useSweetAlert();
+
+  const showAlerts = () => {
+    showAlert({
+      title: `Project Added Successfully`,
+      icon: "success",
+      confirmButtonText: "Close",
+      confirmButtonColor: "green",
+    }).then((result) => {
+      console.log(result);
+    });
+  };
+
+  const addProjects = async () => {
+    try {
+      const res = await fetch(`${API_URL}/api/projects`, {
+        method: "POST",
+        headers: {
+          Authorization: API_TOKEN,
+        },
+
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (!res.ok) return;
+      showAlerts();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    genrerateSlug(projectForm.Title);
+    formData.append(`files.Thubmnail`, thubmnail, thubmnail.name);
+    formData.append("data", JSON.stringify(projectForm));
+    addProjects();
+    setThubmnail(null);
+    setProjectForm(projectIninitalForm);
+  };
+
   return (
     <>
       <Head>
@@ -313,54 +357,123 @@ function index() {
         <div className=" grid grid-cols-1 mt-[6rem] 2xl:grid-cols-3 gap-y-2 gap-2 lg:col-span-4 gap-x-5">
           <div className="project__form mt-[2rem] 2xl:order-1  order-2">
             <Card className="w-full 2xl:w-96">
-              <h4 className=" text-center font-bold  uppercase">
-                Project Form
+              <h4 className=" text-center font-bold  text-[1.5rem] uppercase">
+                Add a project
               </h4>
 
-              <form>
+              <form onSubmit={handleSubmit}>
                 <CardBody className="text-center gap-6  grid grid-cols-1">
-                  <Input label="Title" />
+                  <Input
+                    required
+                    label="Title"
+                    value={projectForm.Title}
+                    onChange={(e) =>
+                      setProjectForm({ ...projectForm, Title: e.target.value })
+                    }
+                  />
 
-                  <Input label="Country" />
+                  <Input
+                    required
+                    label="Country"
+                    value={projectForm.Country}
+                    onChange={(e) =>
+                      setProjectForm({
+                        ...projectForm,
+                        Country: e.target.value,
+                      })
+                    }
+                  />
 
                   <div>
-                    <p className=" text-left font-bold mb-3">Image</p>
+                    <p className=" text-left font-bold mb-3">Thubmnail</p>
                     <input
+                      required
                       name="image"
                       type="file"
                       accept="image/*"
                       placeholder="Image"
                       className="flex justify-start"
+                      onChange={(e) => setThubmnail(e.target.files[0])}
                     />
                   </div>
 
                   <div>
-                    <p for="my-textarea" className="text-left font-bold mb-3">
+                    <p
+                      htmlFor="my-textarea"
+                      className="text-left font-bold mb-3"
+                    >
                       ProjectDescription
                     </p>
                     <textarea
                       id="my-textarea"
-                      name="message"
+                      required
+                      value={projectForm.ProjectDescription}
+                      onChange={(e) =>
+                        setProjectForm({
+                          ...projectForm,
+                          ProjectDescription: e.target.value,
+                        })
+                      }
                       rows="3"
                       cols="20"
                       className="w-full border p-2 border-softGray rounded-md"
                     ></textarea>
                   </div>
-
                   <div>
                     <p for="my-textarea" className="text-left font-bold mb-3">
                       KushInvolment
                     </p>
                     <textarea
+                      required
                       id="my-textarea"
                       name="message"
                       rows="3"
                       cols="20"
                       className="w-full border p-2 border-softGray rounded-md"
+                      value={projectForm.KushInvolment}
+                      onChange={(e) =>
+                        setProjectForm({
+                          ...projectForm,
+                          KushInvolment: e.target.value,
+                        })
+                      }
                     ></textarea>
                   </div>
 
-                  <Input label="Bradcamp" />
+                  <Input
+                    required
+                    label="ProjectCategorie"
+                    value={projectForm.ProjectCategorie}
+                    onChange={(e) =>
+                      setProjectForm({
+                        ...projectForm,
+                        ProjectCategorie: e.target.value,
+                      })
+                    }
+                  />
+
+                  <Input
+                    required
+                    label="Bradcamp"
+                    value={projectForm.Bradcamp}
+                    onChange={(e) =>
+                      setProjectForm({
+                        ...projectForm,
+                        Bradcamp: e.target.value,
+                      })
+                    }
+                  />
+                  <Input
+                    required
+                    label="Slug"
+                    value={projectForm.Slug}
+                    onChange={(e) =>
+                      setProjectForm({
+                        ...projectForm,
+                        Slug: e.target.value,
+                      })
+                    }
+                  />
 
                   <Button type="submit" size="md">
                     Add project
@@ -412,7 +525,7 @@ function index() {
               actions={
                 <div className="flex justify-between mb-4 items-center space-x-2">
                   <CSVLink
-                    data={members}
+                    data={projects}
                     headers={headers}
                     filename={"Invest-data.csv"}
                   >
@@ -423,7 +536,7 @@ function index() {
                   </CSVLink>
 
                   <CSVLink
-                    data={members}
+                    data={projects}
                     headers={headers}
                     filename={"Volunteers-data.csv"}
                   >

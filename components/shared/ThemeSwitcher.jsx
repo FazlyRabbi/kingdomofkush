@@ -4,12 +4,18 @@ const ThemeSwitcher = () => {
   const { isDarkMode, toggleMode } = useContext(ModeContext);
 
   useEffect(() => {
+
     const theme = document.getElementById("theme");
-    if (isDarkMode) {
-      theme.setAttribute("class", "dark");
-    } else {
-      theme.setAttribute("class", "light");
-    }
+
+
+     console.log(theme);
+
+    // if (isDarkMode) {
+    //   theme.setAttribute("class", "dark");
+    // } else {
+    //   theme.setAttribute("class", "light");
+    // }
+
   }, [isDarkMode]);
   return (
     <>

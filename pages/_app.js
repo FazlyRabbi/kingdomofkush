@@ -13,19 +13,14 @@ import { VendorProvider } from "@/context/VendorContext";
 import { InvestProvider } from "@/context/InvestContext";
 import { PetitionProvider } from "@/context/PetitioContext";
 import { ModeProvider } from "@/context/ModeContext";
-
-
+import { ProjectProvider } from "@/context/ProjectContext";
 
 export default function MyApp({ Component, pageProps }) {
-
-  
-
-
   return (
-    <div id="theme" className="">
-      <ModeProvider>
-        <ThemeProvider>
-          <AuthProvider>
+    <ModeProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <ProjectProvider>
             <MembershipProvider>
               <VolunteerProvider>
                 <PetitionProvider>
@@ -41,9 +36,9 @@ export default function MyApp({ Component, pageProps }) {
                 </PetitionProvider>
               </VolunteerProvider>
             </MembershipProvider>
-          </AuthProvider>
-        </ThemeProvider>
-      </ModeProvider>
-    </div>
+          </ProjectProvider>
+        </AuthProvider>
+      </ThemeProvider>
+    </ModeProvider>
   );
 }

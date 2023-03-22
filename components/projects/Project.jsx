@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { projectContext } from "@/context/ProjectContext";
+
 import Card from "./Card";
 
 const categories = [
@@ -63,18 +65,29 @@ const categories = [
     type: "zimbawe",
   },
 ];
-const Project = ({ data }) => {
-  const [projects, setProjects] = useState(data?.projects);
+
+const Project = () => {
+  const { projectData, setProjectData } = useContext(projectContext);
+
+  const [filter, setFilter] = useState(null);
+
+  const [click, setClick] = useState(false);
+
   const [selectedCategory, setSelectedCategory] = useState("All");
+
   const handleProject = (type) => {
     setSelectedCategory(type);
+
     if (type === "all") {
-      setProjects(data?.projects);
+      setClick(false);
+      setProjectData(projectData);
     } else {
-      const filterProject = data?.projects?.filter(
-        (project) => project.name.toLowerCase() == type.toLowerCase()
+      setClick(true);
+      const filterProject = projectData?.data?.filter(
+        (project) =>
+          project.attributes.Country.toLowerCase() == type.toLowerCase()
       );
-      setProjects(filterProject);
+      setFilter(filterProject);
     }
   };
 
@@ -112,15 +125,13 @@ const Project = ({ data }) => {
               </h3>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 py-3">
-              {projects?.map((project, index) => (
-                <Card
-                  key={index}
-                  id={project.id}
-                  name={project.name}
-                  country={project.country}
-                  image={project.image}
-                />
-              ))}
+              {projectData !== null && !click
+                ? projectData?.data.map((project, index) => (
+                    <Card key={index} data={project} />
+                  ))
+                : filter?.map((project, index) => (
+                    <Card key={index} data={project} />
+                  ))}
             </div>
           </div>
         </div>

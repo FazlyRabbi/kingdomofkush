@@ -1,18 +1,23 @@
 import React from "react";
-import bg from "../../img/Oji-String-Beans-Farm.jpg";
 import PhoneInput from "react-phone-number-input";
-const ShowProject = () => {
+import { API_URL } from "@/config/index";
+
+const ShowProject = ({ data }) => {
+
   return (
+ 
     <div className="dark:bg-[#161519] dark:text-[#ffffffbf]">
       <div className="py-8">
         <div className="container mx-auto p-3 ">
           <div className="flex-col flex mb-8 sm:mb-0 sm:flex-row items-center">
             <div className="grid grid-cols-1 md:grid-cols-2  mb-4">
               <div>
-                <span className="text-[#cb9833]">Indonesia</span>
+                <span className="text-[#cb9833]">
+                  {data?.attributes.Country}
+                </span>
                 <div>
                   <h1 className="font-semibold text-[44px] dark:text-white leading-[55px]">
-                    Oji String Beans Farm
+                    {data?.attributes.Title}
                   </h1>
                 </div>
               </div>
@@ -23,8 +28,10 @@ const ShowProject = () => {
                   className="  font-bold  after:pl-1 block"
                   htmlFor="Category"
                 >
-                  Category
+                  Project
                 </label>
+
+                {/* <p>{data?.attributes.ProjectCategorie}</p> */}
                 <select
                   // onChange={(e) => {
                   //   setPetition({ ...petition, AddressLine: e.target.value });
@@ -43,34 +50,23 @@ const ShowProject = () => {
             <h3 className="text-2xl font-semibold text-black dark:text-white">
               Project Description:
             </h3>
-            <p>
-              The Project occupies _ Hectares/acres of land, of which __produces
-              __ of _. The Harvest is ____ per year, totaling in ___
-              Kilo/Tonns/bushles per harvest. The land is purchased /
-              leased/etc. The implementation of this project resulted in _____
-              for the region /country /etc
-            </p>
+            <p>{data?.attributes.ProjectDescription}</p>
           </div>
           <div className="mb-8">
             <h3 className="text-2xl font-semibold text-black dark:text-white">
               Kush Involvement:
             </h3>
-            <p>
-              KOK is involved as a partner/solitare invest/ humanitarian aid and
-              provided ___ in monetary /equiqments/human resource /technology
-              investement (one time/ ongoing/_ times per quater/year/etc)
-              totaling to __ USD . KOK plans to ___within the next ____ (Any
-              blockchain related monetization can be described here as well)
-            </p>
+            <p>{data?.attributes.KushInvolment}</p>
           </div>
           <div className="mb-8">
             <h3 className="text-2xl font-semibold text-black dark:text-white">
-              <span className="text-base">Next Steps</span> Machinery /Equipment
-              /Suppier /Technology
+              {data?.attributes.Bradcamp}
             </h3>
           </div>
           <div>
-            <img src={bg.src} />
+            <img
+              src={`${API_URL}${data?.attributes.Thubmnail.data.attributes.url}`}
+            />
           </div>
         </div>
         <div style={{ backgroundColor: "rgba(150, 144, 162, 0.06)" }}>

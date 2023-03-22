@@ -34,6 +34,7 @@
     "react-phone-number-input": "^3.2.19",
     "react-signature-canvas": "^1.0.6",
     "recharts": "^2.5.0",
+    "slugify": "^1.6.5",
     "stripe": "^11.13.0",
     "sweetalert2": "^11.7.3",
     "swiper": "^8.4.7"
