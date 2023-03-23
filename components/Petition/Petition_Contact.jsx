@@ -2,11 +2,9 @@ import React, { useState, useContext, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { petitionContext } from "@/context/PetitioContext";
-import { Country, State, City } from "country-state-city";
 const Petition_Contact = () => {
-  const countryName = Country.getAllCountries();
   const [ip, setIp] = useState("");
-
+  const [countryData, setCountryData] = useState("");
   const { petition, setPetition, petitionInitial } =
     useContext(petitionContext);
 
@@ -18,9 +16,9 @@ const Petition_Contact = () => {
       FirstName: petition.FirstName,
       LastName: petition.LastName,
       Email: petition.Email,
-      Country: petition.Country,
+      Country: countryData?.country_name,
     };
-    console.log(pititonData.Country);
+    console.log(pititonData);
     localStorage.setItem("pititonData", JSON.stringify(pititonData));
     router.push("/petition_application");
   };
@@ -34,19 +32,34 @@ const Petition_Contact = () => {
           "Content-Type": "application/json",
         },
       });
-
       const data = await res.json();
-      if (petition.Country) {
-        setIp(data.ip);
-      }
+      setIp(data.ip);
     } catch (error) {
       console.log(error);
     }
   };
-  console.log("petition.Country", petition.Country);
+
   useEffect(() => {
     getIpAddress();
-  }, [petition.Country]);
+  }, []);
+  // get visitor ip address
+  const getCountry = async () => {
+    try {
+      const res = await fetch(`https://ipapi.co/${ip}/json/`, {
+        method: "GET",
+      });
+
+      const data = await res.json();
+      setCountryData(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    if (ip) {
+      getCountry();
+    }
+  }, [ip]);
 
   return (
     <form action="submit" onSubmit={handleSubmit}>
@@ -109,38 +122,19 @@ const Petition_Contact = () => {
       </div>
 
       <div>
-        <label className="  font-bold  after:pl-1 block" htmlFor="country">
-          Country
-        </label>
-        <select
-          onChange={(e) => {
-            setPetition({ ...petition, Country: e.target.value });
-          }}
-          id="countries"
-          className="bg-gray-50 border border-gray-300 text-gray-900  rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500  text-base"
-        >
-          <option defaultValue="Choose a Languge">Choose a Country</option>
-          {countryName?.map((country, countryIndex) => (
-            <option key={countryIndex} value={country?.isoCode}>
-              {country?.name}
-            </option>
-          ))}
-        </select>
-        {/* <input
+        <label className="  font-bold  after:pl-1 block">Country</label>
+        <input
+          disabled
           type="text"
-          id="address"
+          value={countryData?.country_name}
           className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[2px]"
-          required
-          value={petition.AddressLine}
-          onChange={(e) => {
-            setPetition({ ...petition, AddressLine: e.target.value });
-          }}
-        /> */}
+          // value={petition.Email}
+        />
         <p className=" text-sm mt-[1px] text-red invisible">
           This field is required.
         </p>
       </div>
-      {ip ? (
+      {/* {ip ? (
         <div>
           <label className="  font-bold  after:pl-1 block">IP location</label>
           <input
@@ -159,7 +153,7 @@ const Petition_Contact = () => {
         </div>
       ) : (
         ""
-      )}
+      )} */}
       <div>
         <label className="block text-gray-500" htmlFor="remember">
           <input

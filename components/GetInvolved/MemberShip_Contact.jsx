@@ -8,6 +8,7 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import useSweetAlert from "../lib/sweetalert2";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
+import ReCAPTCHA from "react-google-recaptcha";
 import { Country, State, City } from "country-state-city";
 const MemberShip_Contact = ({ setShowMember }) => {
   const sigPad = useRef();
@@ -16,6 +17,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
   const [cities, setCities] = useState("");
   const [billingStates, setBillingStates] = useState("");
   const [billingCities, setBillingCities] = useState("");
+  const [token, setToken] = useState();
   const countryName = Country.getAllCountries();
   const billingCountryName = Country.getAllCountries();
 
@@ -873,6 +875,10 @@ const MemberShip_Contact = ({ setShowMember }) => {
         {/* ///////// */}
         <div className="lg:grid flex flex-col-reverse lg:grid-cols-2 mt-6">
           <div>
+            <ReCAPTCHA
+              sitekey="6LeEsh8lAAAAAH9hNk3ao0VVxJDsxALlbyIU_spT"
+              onChange={() => console.log(value)}
+            />
             <div className="border border-[#d3d3d3] dark:bg-[#878688] bg-[#f9f9f9] shadow flex w-[300px] h-[100px] justify-center items-center ">
               <label className="w-full px-4 flex ">
                 <input type="checkbox" className="w-5 h-5 mr-2" /> I'm not a

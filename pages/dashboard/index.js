@@ -5,7 +5,7 @@ import useProtectedRoute from "@/components/Hooks/useProtectedRoute";
 import Head from "next/head";
 
 function dashboard() {
-  useProtectedRoute();
+  // useProtectedRoute();
 
   return (
     <>

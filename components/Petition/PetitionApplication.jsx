@@ -20,7 +20,9 @@ const PetitionApplication = () => {
 
   const [states, setStates] = useState("");
   const [cities, setCities] = useState("");
+  const [data, setData] = useState();
   const countryName = Country.getAllCountries();
+
   const showAlerts = () => {
     showAlert({
       text: "Your Petition Application Successfull!",
@@ -42,12 +44,16 @@ const PetitionApplication = () => {
   // set states
   useEffect(() => {
     const handleStates = () => {
-      const allStates = State.getStatesOfCountry(petition?.Country);
+      const countryCode = countryName.find(
+        (country) => country.name.toLowerCase() === data?.Country.toLowerCase()
+      );
+      console.log(countryCode);
+      const allStates = State.getStatesOfCountry(countryCode?.isoCode);
       setStates(allStates);
     };
     // const
     handleStates();
-  }, [petition?.Country]);
+  }, [data?.Country]);
   // set cities
   useEffect(() => {
     const handleCities = () => {
@@ -59,8 +65,6 @@ const PetitionApplication = () => {
     };
     handleCities();
   }, [petition?.Country, petition?.State]);
-
-  const [data, setData] = useState();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -220,27 +224,20 @@ const PetitionApplication = () => {
                 >
                   Country
                 </label>
-                <select
-                  id="countries"
-                  value={petition.Country}
+                <input
+                  disabled
+                  type="text"
+                  id="country"
+                  value={data?.Country}
                   onChange={(e) =>
                     setPetition({ ...petition, Country: e.target.value })
                   }
-                  className=" rounded-sm  border border-softGray focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-[#ededed] text-[#787676e8]"
-                >
-                  <option selected>Select country</option>
-
-                  {countryName?.map((country, countryIndex) => (
-                    <option key={countryIndex} value={country?.isoCode}>
-                      {country?.name}
-                    </option>
-                  ))}
-                </select>
-                <p className=" text-sm mt-[1px] text-red invisible">
+                  className=" py-3 rounded-sm  border border-softGray  w-[100%] px-2 "
+                />
+                <p className="text-sm mt-[1px] text-red invisible">
                   This field is required.
                 </p>
               </div>
-
               <div>
                 <label
                   className="after:pl-1   font-bold   block"
