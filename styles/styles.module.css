@@ -66,6 +66,14 @@
   background-repeat: no-repeat;
   background-attachment: left;
 }
+.vendorBg {
+  width: 100%;
+  height: 100%;
+  background-image: url("../img/vendorimage.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: left;
+}
 
 .aboutBg {
   background-image: url("../img/home.aboutUs.jpg");

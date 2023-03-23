@@ -996,7 +996,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
           <button
             disabled={button}
             type="submit"
-            className=" bg-black   shadow-none capitalize text-base hover:shadow-none w-[40%] xl:w-[20%]    font-normal text-white py-3"
+            className=" bg-black relative z-[99999]  shadow-none capitalize text-base hover:shadow-none w-[40%] xl:w-[20%]    font-normal text-white py-3"
           >
             Submit application
           </button>
