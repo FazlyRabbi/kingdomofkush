@@ -6,7 +6,7 @@ import CountUp from "react-countup";
 function AboutUsSection() {
   return (
     <section className="AboutUsSection">
-      <div className=" grid grid-cols-1 lg:pr-12 md:grid-cols-2 gap-x-[3rem] dark:bg-[#161519] ">
+      <div className=" grid grid-cols-1 lg:pr-12 md:grid-cols-2 dark:bg-[#161519] ">
         <div
           className={`${Styles.aboutBg} sm:py-10 h-[23rem] md:h-[45rem] relative`}
         >
@@ -37,7 +37,7 @@ function AboutUsSection() {
           </div>
         </div>
 
-        <div className=" lg:py-[4rem] py-[1rem] pl-[1rem] xl:pl-[5rem]  ">
+        <div className=" lg:py-[4rem] py-[1rem] pl-[1rem] xl:pl-[7rem]  ">
           <div className="content">
             <h4 className=" uppercase text-base dark:text-[#ffffffbf] ">
               About us
