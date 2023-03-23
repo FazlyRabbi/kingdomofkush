@@ -10,6 +10,8 @@ import CountUp from "react-countup";
 import useSweetAlert from "../lib/sweetalert2";
 
 const DonationHero = () => {
+  const [isFetching, setIsFetching] = useState(false);
+
   // showing alert
   const { showAlert } = useSweetAlert();
 
@@ -68,6 +70,7 @@ const DonationHero = () => {
     try {
       if (elements.getElement("card") === null) return;
 
+      setIsFetching(true)
       const { error } = await stripe.createPaymentMethod({
         type: "card",
         card: elements.getElement("card"),
@@ -99,6 +102,7 @@ const DonationHero = () => {
             card: elements.getElement("card"),
           },
         });
+
       setButton(false);
 
       if (confirmError) return alert("Payment unsuccessfull!");
@@ -107,7 +111,9 @@ const DonationHero = () => {
         ...donation,
         CardInfo: `Amount: $${paymentIntent.amount}  \n ClientSecret: ${paymentIntent.client_secret}`,
       });
+
       setButton(true);
+
       elements.getElement(CardElement).clear();
 
       // send mail
@@ -122,6 +128,7 @@ const DonationHero = () => {
           message: `Thank you so much for your generous gift! It's donors like you that make our work possible. Your contribution is enabling us to accomplish Kingdom of Kush as well as helping us make progress toward`,
         }),
       });
+
       setDonation(donationInitial);
       showAlerts(
         donation.Email,
@@ -129,6 +136,8 @@ const DonationHero = () => {
         paymentIntent.amount,
         paymentIntent.client_secret
       );
+
+      setIsFetching(false);
     } catch (err) {
       console.error(err);
       alert("Payment Faild!" + err.message);
@@ -215,7 +224,6 @@ const DonationHero = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setSelectedAmount(0);
-
     if (elements.getElement("card") != null) {
       if (packages === 1) {
         createMonthlySubscription();
@@ -374,6 +382,7 @@ const DonationHero = () => {
                     type="email"
                     className="rounded py-3 px-4 border block w-full border-softBlack focus:bg-softGray focus:border-link focus:border-2"
                     value={donation.Email}
+                    disabled={isFetching}
                     onChange={(e) =>
                       setDonation({ ...donation, Email: e.target.value })
                     }
@@ -393,6 +402,7 @@ const DonationHero = () => {
                     id="name"
                     className="rounded py-3 px-4 border block w-full border-softBlack focus:bg-softGray focus:border-link focus:border-2"
                     value={donation.Name}
+                    disabled={isFetching}
                     onChange={(e) =>
                       setDonation({ ...donation, Name: e.target.value })
                     }
@@ -420,9 +430,9 @@ const DonationHero = () => {
                   className={`px-6 py-3 mt-4 font-bold bg-softBlack text-sm text-primary rounded  ${
                     button ? "" : "cursor-not-allowed"
                   } `}
-                  disabled={button ? false : true}
+                  disabled={isFetching}
                 >
-                  Donate
+                  {isFetching ? "Loading..." : "Donate"}
                 </button>
               </form>
             </div>

@@ -11,6 +11,8 @@ import "react-phone-number-input/style.css";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Country, State, City } from "country-state-city";
 const MemberShip_Contact = ({ setShowMember }) => {
+  const [isFetching, setIsFetching] = useState(false);
+
   const sigPad = useRef();
   const [signatureText, setSignatureText] = useState(true);
   const [states, setStates] = useState("");
@@ -128,7 +130,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
   const createYearlySubscription = async () => {
     try {
       if (elements.getElement("card") === null) return;
-
+      setIsFetching(true);
       const { paymentMethod, error } = await stripe.createPaymentMethod({
         type: "card",
         card: elements.getElement("card"),
@@ -199,6 +201,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
       elements.getElement(CardElement).clear();
       // show alart
       setMembership(membershipInitial);
+      setIsFetching(false);
     } catch (err) {
       console.error(err);
       alert("Payment Faild!" + err.message);
@@ -295,6 +298,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
         <div className="grid grid-cols-1 lg:grid-cols-2 dark:bg-[#878688] gap-x-8 mb-5 bg-[#fbfbfb] px-6 py-5 border-l-[6px] rounded-l-2xl border-[#ededed]">
           <div>
             <input
+              disabled={isFetching}
               type="text"
               placeholder="Prof."
               id="name"
@@ -311,6 +315,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
           </div>
           <div>
             <input
+              disabled={isFetching}
               type="text"
               placeholder="First (Given) Name"
               id="fname"
@@ -327,6 +332,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
           </div>
           <div>
             <input
+              disabled={isFetching}
               type="text"
               placeholder="Middle Name"
               id="mname"
@@ -343,6 +349,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
           </div>
           <div>
             <input
+              disabled={isFetching}
               type="text"
               placeholder="Family Name (Last Name"
               id="fname"
@@ -364,6 +371,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 ">
             <div>
               <input
+                disabled={isFetching}
                 type="email"
                 placeholder="E.g. john@doe.com"
                 id="email"
@@ -388,6 +396,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
                 onChange={(e) => setMembership({ ...membership, Number: e })}
               />
               {/* <input
+                disabled={isFetching}
                 type="number"
                 placeholder="Phone Number"
                 id="tel"
@@ -412,6 +421,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
                 Street Address
               </label>
               <input
+                disabled={isFetching}
                 type="text"
                 placeholder="E.g 42 Wallaby Way"
                 id="address_1"
@@ -437,6 +447,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
                 Apartment, suite, etc
               </label>
               <input
+                disabled={isFetching}
                 type="text"
                 placeholder="Apertment"
                 id="fname"
@@ -465,6 +476,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
                 onChange={(e) =>
                   setMembership({ ...membership, Country: e.target.value })
                 }
+                disabled={isFetching}
                 id="countries"
                 className=" bg-[#ededed] rounded-sm focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-[#ededed] text-[#787676e8]"
               >
@@ -492,6 +504,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
                 onChange={(e) =>
                   setMembership({ ...membership, State: e.target.value })
                 }
+                disabled={isFetching}
                 id="state"
                 className=" bg-[#ededed] rounded-sm focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-[#ededed] text-[#787676e8]"
               >
@@ -506,6 +519,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
               </select>
 
               {/* <input
+                disabled={isFetching}
                 type="text"
                 placeholder="E.g New South Wales"
                 id="city"
@@ -531,6 +545,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
                 onChange={(e) =>
                   setMembership({ ...membership, City: e.target.value })
                 }
+                disabled={isFetching}
                 id="city"
                 className=" bg-[#ededed] rounded-sm focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-[#ededed] text-[#787676e8]"
               >
@@ -544,6 +559,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
                   : ""}
               </select>
               {/* <input
+                disabled={isFetching}
                 type="text"
                 placeholder="E.g sydney"
                 id="city"
@@ -565,6 +581,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
                 Zip / Postal Code
               </label>
               <input
+                disabled={isFetching}
                 type="number"
                 placeholder="E.g 2000"
                 id="zipcode"
@@ -656,6 +673,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
                 Name
               </label>
               <input
+                disabled={isFetching}
                 type="text"
                 placeholder="E.g. John Doe"
                 id="billing_name"
@@ -678,6 +696,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
                 Street Address
               </label>
               <input
+                disabled={isFetching}
                 type="text"
                 placeholder="E.g. 42 Wallaby Way"
                 id="billing_address_1"
@@ -703,6 +722,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
                 Apartment, suite, etc
               </label>
               <input
+                disabled={isFetching}
                 type="text"
                 placeholder=""
                 id="billing_address_2"
@@ -730,6 +750,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
                 Country
               </label>
               <select
+                disabled={isFetching}
                 id="countries"
                 className=" bg-[#ededed] rounded-sm focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-[#ededed] text-[#787676e8]"
                 value={membership.BillingCountry}
@@ -765,6 +786,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
                 onChange={(e) =>
                   setMembership({ ...membership, BillingState: e.target.value })
                 }
+                disabled={isFetching}
                 id="billing_state"
                 className=" bg-[#ededed] rounded-sm focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-[#ededed] text-[#787676e8]"
               >
@@ -778,6 +800,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
                   : ""}
               </select>
               {/* <input
+                disabled={isFetching}
                 type="text"
                 placeholder="E.g New South Wales"
                 id="billing_state"
@@ -817,6 +840,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
                   : ""}
               </select>
               {/* <input
+                disabled={isFetching}
                 type="text"
                 placeholder="E.g Sydney"
                 id="billing_city"
@@ -839,6 +863,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
                 ZIP / Postal Code
               </label>
               <input
+                disabled={isFetching}
                 type="number"
                 placeholder="E.g 2000"
                 id="billing_zipcode"
@@ -963,6 +988,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
             ) : (
               <div>
                 <textarea
+                  disabled={isFetching}
                   type="number"
                   placeholder="Enter your text"
                   // id="billing_zipcode"
@@ -994,11 +1020,11 @@ const MemberShip_Contact = ({ setShowMember }) => {
             Previous
           </button>
           <button
-            disabled={button}
+         
             type="submit"
-            className=" bg-black   shadow-none capitalize text-base hover:shadow-none w-[40%] xl:w-[20%]    font-normal text-white py-3"
+            className=" bg-black cursor-pointer   shadow-none capitalize text-base hover:shadow-none w-[40%] xl:w-[20%]    font-normal text-white py-3"
           >
-            Submit application
+            {isFetching ? "Loading..." : "Submit application"}
           </button>
         </div>
       </form>
