@@ -25,6 +25,7 @@ import {
   View,
   StyleSheet,
 } from "@react-pdf/renderer";
+import useProtectedRoute from "@/components/Hooks/useProtectedRoute";
 
 // style sheet for
 const styles = StyleSheet.create({
@@ -51,6 +52,8 @@ const styles = StyleSheet.create({
 });
 
 function index() {
+
+  useProtectedRoute();
   // loead init members
   const [members, setMembers] = useState([]);
   // leoad search

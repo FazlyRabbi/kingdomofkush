@@ -16,8 +16,12 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const signup = async (userData) => {
-    const res = await fetch(`/api/signup`, {
+    const res = await fetch(`${API_URL}/api/auth/local/register`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: API_TOKEN,
+      },
 
       body: JSON.stringify({
         username: userData.name,
@@ -27,6 +31,7 @@ export const AuthProvider = ({ children }) => {
     });
 
     const data = await res.json();
+
     if (data.user) {
       setUser(data);
       return;
@@ -40,6 +45,7 @@ export const AuthProvider = ({ children }) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: API_TOKEN,
       },
 
       body: JSON.stringify({

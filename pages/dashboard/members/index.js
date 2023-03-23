@@ -25,6 +25,7 @@ import {
   View,
   StyleSheet,
 } from "@react-pdf/renderer";
+import useProtectedRoute from "@/components/Hooks/useProtectedRoute";
 
 const styles = StyleSheet.create({
   doc: {
@@ -50,6 +51,8 @@ const styles = StyleSheet.create({
 });
 
 function DashboardIndex() {
+
+  useProtectedRoute();
   const [members, setMembers] = useState([]);
   const [search, setSearch] = useState("");
   const [filteredMembers, setFilteredMembers] = useState([]);

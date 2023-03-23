@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 
 export default function signup() {
   const initial = {
-    name: "",
+    username: "",
     email: "",
     password: "",
     confirmPass: "",

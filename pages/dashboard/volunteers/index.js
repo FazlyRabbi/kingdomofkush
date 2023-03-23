@@ -25,6 +25,7 @@ import {
   View,
   StyleSheet,
 } from "@react-pdf/renderer";
+import useProtectedRoute from "@/components/Hooks/useProtectedRoute";
 
 // style sheet for
 const styles = StyleSheet.create({
@@ -51,6 +52,8 @@ const styles = StyleSheet.create({
 });
 
 function index() {
+  useProtectedRoute();
+
   // loead init members
   const [members, setMembers] = useState([]);
   // leoad search
@@ -346,41 +349,41 @@ function index() {
             pagination
             actions={
               <div className="flex justify-between mb-4 items-center space-x-2">
-              <CSVLink
-                data={members}
-                headers={headers}
-                filename={"Members-data.csv"}
-              >
+                <CSVLink
+                  data={members}
+                  headers={headers}
+                  filename={"Members-data.csv"}
+                >
+                  <Chip
+                    value="Download"
+                    className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
+                  />
+                </CSVLink>
+
+                <CSVLink
+                  data={members}
+                  headers={headers}
+                  filename={"Volunteers-data.csv"}
+                >
+                  <Chip
+                    color="amber"
+                    value=" Download CSV"
+                    className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
+                  />
+                </CSVLink>
+
                 <Chip
-                  value="Download"
+                  color="indigo"
+                  value="Pdf"
                   className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
                 />
-              </CSVLink>
 
-              <CSVLink
-                data={members}
-                headers={headers}
-                filename={"Volunteers-data.csv"}
-              >
                 <Chip
-                  color="amber"
-                  value=" Download CSV"
+                  color="purple"
+                  value="Share"
                   className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
                 />
-              </CSVLink>
-
-              <Chip
-                color="indigo"
-                value="Pdf"
-                className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
-              />
-
-              <Chip
-                color="purple"
-                value="Share"
-                className=" cursor-pointer   capitalize shadow-md active:shadow-sm text-base  "
-              />
-            </div>
+              </div>
             }
           />
         </div>

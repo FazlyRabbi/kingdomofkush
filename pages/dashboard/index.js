@@ -6,7 +6,7 @@ import Head from "next/head";
 
 function dashboard() {
   
-  // useProtectedRoute();
+  useProtectedRoute();
 
   return (
     <>

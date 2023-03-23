@@ -10,10 +10,10 @@ export default async (req, res) => {
       return;
     }
 
-    const strapiRes = await fetch(`  https://kingdomofkush-backend.onrender.com/api/users/me`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    const strapiRes = await fetch(`https://kingdomofkush-backend.onrender.com/api/users/me`, {
+      // headers: {
+      //   Authorization: `Bearer ${token}`,
+      // },
     });
 
     const user = await strapiRes.json();
