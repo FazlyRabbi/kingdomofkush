@@ -5,7 +5,6 @@ import { InvextContext } from "@/context/InvestContext";
 import useSweetAlert from "../lib/sweetalert2";
 import PhoneInput from "react-phone-number-input";
 
-
 function InvestForm() {
   // showing alert
   const { showAlert } = useSweetAlert();
@@ -300,7 +299,7 @@ function InvestForm() {
                     />
                     <label className="text-[14px]">Benin</label>
                   </div>
-                  
+
                   <div className="flex gap-2 items-center mb-4">
                     <input
                       type={"checkbox"}
@@ -310,7 +309,7 @@ function InvestForm() {
                     />
                     <label className="text-[14px]">Burkina Faso</label>
                   </div>
-                  
+
                   <div className="flex gap-2 items-center mb-4">
                     <input
                       type={"checkbox"}
@@ -320,7 +319,7 @@ function InvestForm() {
                     />
                     <label className="text-[14px]">DRC</label>
                   </div>
-                  
+
                   <div className="flex gap-2 items-center mb-4">
                     <input
                       type={"checkbox"}
@@ -330,8 +329,7 @@ function InvestForm() {
                     />
                     <label className="text-[14px]">Guinea</label>
                   </div>
-                  
-                  
+
                   <div className="flex gap-2 items-center mb-4">
                     <input
                       type={"checkbox"}
@@ -341,7 +339,7 @@ function InvestForm() {
                     />
                     <label className="text-[14px]">Indonesia</label>
                   </div>
-                  
+
                   <div className="flex gap-2 items-center mb-4">
                     <input
                       type={"checkbox"}
@@ -351,7 +349,7 @@ function InvestForm() {
                     />
                     <label className="text-[14px]">Ivory Coast</label>
                   </div>
-                  
+
                   <div className="flex gap-2 items-center mb-4">
                     <input
                       type={"checkbox"}
@@ -361,7 +359,7 @@ function InvestForm() {
                     />
                     <label className="text-[14px]">Mali</label>
                   </div>
-                  
+
                   <div className="flex gap-2 items-center mb-4">
                     <input
                       type={"checkbox"}
@@ -371,7 +369,7 @@ function InvestForm() {
                     />
                     <label className="text-[14px]">Nigeria</label>
                   </div>
-                  
+
                   <div className="flex gap-2 items-center mb-4">
                     <input
                       type={"checkbox"}
@@ -381,7 +379,7 @@ function InvestForm() {
                     />
                     <label className="text-[14px]">Sudan</label>
                   </div>
-                  
+
                   <div className="flex gap-2 items-center mb-4">
                     <input
                       type={"checkbox"}
@@ -391,7 +389,7 @@ function InvestForm() {
                     />
                     <label className="text-[14px]">Togo</label>
                   </div>
-                  
+
                   <div className="flex gap-2 items-center mb-4">
                     <input
                       type={"checkbox"}
@@ -401,9 +399,7 @@ function InvestForm() {
                     />
                     <label className="text-[14px]">Zimbabwe</label>
                   </div>
-                  
-                  
-                  
+
                   <Alert className=" bg-[#f9e4e8] invisible text-red text-[12px]  rounded-none py-1 mt-1">
                     This field is required. Please select a value.
                   </Alert>
@@ -463,8 +459,11 @@ function InvestForm() {
                       })
                     }
                   >
+                    <option selected>Preferred Investment Start Time</option>
+                    <option>Immediate</option>
                     <option>1 week</option>
-                    <option>2 week</option>
+                    <option>3 week</option>
+                    <option>4 week</option>
                   </select>
                   <Alert className=" bg-[#f9e4e8] invisible text-red text-[12px]  rounded-none py-1 mt-1">
                     This field is required. Please select a value.
