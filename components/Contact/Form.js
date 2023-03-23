@@ -63,7 +63,7 @@ const Form = () => {
               <PhoneInput
                 required
                 international
-                className=" py-3  w-[100%] px-2 border rounded-md border-softGray"
+                className=" py-4  w-[100%] px-2 border rounded-md border-softGray"
                 defaultCountry="RU"
                 onChange={() => ""}
                 // onChange={(e) =>

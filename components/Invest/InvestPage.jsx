@@ -28,8 +28,8 @@ function InvestPage() {
           </div>
         </div>
 
-        <div className=" py-[4rem]  px-4 2xl:pl-[8rem] md:pl-[4rem] md:pr-8">
-          <div className="content mb-[1.5rem] mt-4">
+        <div className=" sm:py-[4rem]  px-4 2xl:pl-[8rem] md:pl-[4rem] md:pr-8">
+          <div className="content mb-[1.5rem] mt-12">
             <h1 className="leading-[3rem] xl:pr-[10rem] dark:text-white font-bold  text-[3.5rem] ">
               Invest into Project
             </h1>

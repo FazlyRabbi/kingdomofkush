@@ -66,8 +66,8 @@ function InvestForm() {
   };
 
   return (
-    <div className="InvestForm dark:bg-[#161519] py-10">
-      <div className="container px-[3rem] mx-auto pt-[5rem] ">
+    <div className="InvestForm dark:bg-[#161519] sm:py-10">
+      <div className="container px-[3rem] mx-auto sm:pt-[5rem] ">
         <div className=" shadow-xl min-h-[20rem] p-[3rem] ">
           <form id="myForm" action="submit" onSubmit={handleSubmit}>
             <div className="grid  md:justify-items-start mdjustify-items-center    rounded-md border-l-4 border-[#eaeaea] grid-cols-1  space-y-5  md:space-y-0   md:grid-cols-2 md:space-x-8 p-[1rem] dark:bg-[#878688]  bg-[#fbfbfb]">
