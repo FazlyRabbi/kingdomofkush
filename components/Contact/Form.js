@@ -3,6 +3,8 @@ import { contactContext } from "@/context/ContactContext";
 // alart and messages
 import useSweetAlert from "../lib/sweetalert2";
 import PhoneInput from "react-phone-number-input";
+import ReCAPTCHA from "react-google-recaptcha";
+import Image from "next/image";
 const Form = () => {
   // showing alert
   const { showAlert } = useSweetAlert();
@@ -117,6 +119,25 @@ const Form = () => {
                 setContact({ ...contact, Message: e.target.value })
               }
             ></textarea>
+          </div>
+          <div>
+            <ReCAPTCHA
+              sitekey="6LeEsh8lAAAAAH9hNk3ao0VVxJDsxALlbyIU_spT"
+              onChange={() => console.log(value)}
+            />
+            <div className="border border-[#d3d3d3] dark:bg-[#878688] bg-[#f9f9f9] shadow flex w-[300px] h-[100px] justify-center items-center ">
+              <label className="w-full px-4 flex ">
+                <input type="checkbox" className="w-5 h-5 mr-2" /> I'm not a
+                robot
+              </label>
+              <Image
+                className="my-4"
+                src="https://i.ibb.co/Xk6skZp/icons8-captcha-58.png"
+                alt="Picture of the recapcha"
+                width={60}
+                height={60}
+              />
+            </div>
           </div>
           <button
             type="submit"
