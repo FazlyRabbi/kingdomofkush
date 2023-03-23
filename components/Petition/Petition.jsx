@@ -20,7 +20,7 @@ const Petition = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        const spliceData = data?.data.splice(0, 2);
+        const spliceData = data?.data?.splice(0, 2);
 
         const dateString = spliceData.map((data) => {
           const time = {};

@@ -285,15 +285,6 @@ function InvestForm() {
                   <div className="flex gap-2 items-center mb-4">
                     <input
                       type={"checkbox"}
-                      value="kingdom of kush"
-                      className="mr-2 w-4 h-5  preferredInvest accent-black"
-                      onChange={() => setChecked(!checked)}
-                    />
-                    <label className="text-[14px]">Kingdom of kush</label>
-                  </div>
-                  <div className="flex gap-2 items-center mb-4">
-                    <input
-                      type={"checkbox"}
                       value="Angola"
                       className="mr-2 w-4 h-5  preferredInvest accent-black"
                       onChange={() => setChecked(!checked)}
@@ -309,6 +300,7 @@ function InvestForm() {
                     />
                     <label className="text-[14px]">Benin</label>
                   </div>
+                  
                   <div className="flex gap-2 items-center mb-4">
                     <input
                       type={"checkbox"}
@@ -318,6 +310,7 @@ function InvestForm() {
                     />
                     <label className="text-[14px]">Burkina Faso</label>
                   </div>
+                  
                   <div className="flex gap-2 items-center mb-4">
                     <input
                       type={"checkbox"}
@@ -327,6 +320,7 @@ function InvestForm() {
                     />
                     <label className="text-[14px]">DRC</label>
                   </div>
+                  
                   <div className="flex gap-2 items-center mb-4">
                     <input
                       type={"checkbox"}
@@ -336,6 +330,8 @@ function InvestForm() {
                     />
                     <label className="text-[14px]">Guinea</label>
                   </div>
+                  
+                  
                   <div className="flex gap-2 items-center mb-4">
                     <input
                       type={"checkbox"}
@@ -345,6 +341,69 @@ function InvestForm() {
                     />
                     <label className="text-[14px]">Indonesia</label>
                   </div>
+                  
+                  <div className="flex gap-2 items-center mb-4">
+                    <input
+                      type={"checkbox"}
+                      value="Ivory Coast"
+                      className="mr-2 w-4 h-5  preferredInvest accent-black"
+                      onChange={() => setChecked(!checked)}
+                    />
+                    <label className="text-[14px]">Ivory Coast</label>
+                  </div>
+                  
+                  <div className="flex gap-2 items-center mb-4">
+                    <input
+                      type={"checkbox"}
+                      value="Mali"
+                      className="mr-2 w-4 h-5  preferredInvest accent-black"
+                      onChange={() => setChecked(!checked)}
+                    />
+                    <label className="text-[14px]">Mali</label>
+                  </div>
+                  
+                  <div className="flex gap-2 items-center mb-4">
+                    <input
+                      type={"checkbox"}
+                      value="Nigeria"
+                      className="mr-2 w-4 h-5  preferredInvest accent-black"
+                      onChange={() => setChecked(!checked)}
+                    />
+                    <label className="text-[14px]">Nigeria</label>
+                  </div>
+                  
+                  <div className="flex gap-2 items-center mb-4">
+                    <input
+                      type={"checkbox"}
+                      value="Sudan"
+                      className="mr-2 w-4 h-5  preferredInvest accent-black"
+                      onChange={() => setChecked(!checked)}
+                    />
+                    <label className="text-[14px]">Sudan</label>
+                  </div>
+                  
+                  <div className="flex gap-2 items-center mb-4">
+                    <input
+                      type={"checkbox"}
+                      value="Togo"
+                      className="mr-2 w-4 h-5  preferredInvest accent-black"
+                      onChange={() => setChecked(!checked)}
+                    />
+                    <label className="text-[14px]">Togo</label>
+                  </div>
+                  
+                  <div className="flex gap-2 items-center mb-4">
+                    <input
+                      type={"checkbox"}
+                      value="Zimbabwe"
+                      className="mr-2 w-4 h-5  preferredInvest accent-black"
+                      onChange={() => setChecked(!checked)}
+                    />
+                    <label className="text-[14px]">Zimbabwe</label>
+                  </div>
+                  
+                  
+                  
                   <Alert className=" bg-[#f9e4e8] invisible text-red text-[12px]  rounded-none py-1 mt-1">
                     This field is required. Please select a value.
                   </Alert>
