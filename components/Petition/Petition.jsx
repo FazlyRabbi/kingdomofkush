@@ -22,7 +22,7 @@ const Petition = () => {
       .then((data) => {
         const spliceData = data?.data?.splice(0, 2);
 
-        const dateString = spliceData.map((data) => {
+        const dateString = spliceData?.map((data) => {
           const time = {};
 
           time.str = data.attributes.createdAt;
@@ -72,8 +72,6 @@ const Petition = () => {
   useEffect(() => {
     calculateTime();
   }, [recentUser]);
-
-
 
   const countryName = Country.getAllCountries();
 

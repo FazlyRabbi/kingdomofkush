@@ -19,7 +19,7 @@ const ThemeSwitcher = () => {
   }, [isDarkMode]);
   return (
     <>
-      <div className="fixed hidden lg:block top-[40%] left-[3 %] z-[99999]">
+      <div className="fixed hidden lg:block top-[35%] left-[3%] z-[99999]">
         <div className="flex flex-col gap-5 relative">
           <button
             onClick={() => toggleMode(true)}

@@ -23,15 +23,17 @@ function FindOpportunintes() {
         <div className=" w-full sm:w-2/5">
           <div className="content   pt-[5rem] ">
             <div className=" relative flex  mb-6 space-x-4 items-center ">
-              <div
-                className=" flex justify-center  hover:scale-110 transition-all duration-300 z-[20] items-center  w-[3rem] h-[3rem] md:w-[3.5rem] md:h-[3.5rem]
+              <a href="https://www.youtube.com/embed/_eO9RyErOMM">
+                <div
+                  className=" flex justify-center  hover:scale-110 transition-all duration-300 z-[20] items-center  w-[3rem] h-[3rem] md:w-[3.5rem] md:h-[3.5rem]
             rounded-[100%] hover:border-[1px] border-primary  cursor-pointer"
-              >
-                <BsPlayFill className="  text-[2rem] z-[10] text-white  " />
-                <div className=" absolute  animate-ping h-[2rem] w-[2rem] rounded-full bg-black dark:bg-[#ffffffbf]"></div>
+                >
+                  <BsPlayFill className="  text-[2rem] z-[10] text-white  " />
+                  <div className=" absolute  animate-ping h-[2rem] w-[2rem] rounded-full bg-black dark:bg-[#ffffffbf]"></div>
 
-                <div className=" absolute h-[3rem] w-[3rem]  rounded-full bg-black"></div>
-              </div>
+                  <div className=" absolute h-[3rem] w-[3rem]  rounded-full bg-black"></div>
+                </div>
+              </a>
 
               <p className="dark:text-[#ffffffbf] font-bold">Play Video</p>
             </div>
@@ -117,7 +119,6 @@ function FindOpportunintes() {
                   <BsIntersect className=" text-white text-[1.5rem]" />
 
                   <p className=" text-[2rem] font-bold">
-                 
                     <CountUp
                       start={0}
                       end={30}

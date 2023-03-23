@@ -7,10 +7,8 @@ import useSweetAlert from "../lib/sweetalert2";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 function Vulunteer_Contact() {
-
   const { volunteer, setVolunteer, postVolunteers, volunteerInitial } =
     useContext(VolunteerContext);
-
 
   const generateRandomNumber = () => {
     const min = 10000000;
@@ -23,8 +21,6 @@ function Vulunteer_Contact() {
   useEffect(() => {
     generateRandomNumber();
   }, []);
-
-
 
   //showing alert
   const { showAlert } = useSweetAlert();
@@ -39,15 +35,13 @@ function Vulunteer_Contact() {
     showAlert({
       text: " Vulunteer Application is Successfull!",
       icon: "success",
-      confirmButtonText: "ClOSE",
+      confirmButtonText: "CLOSE",
       confirmButtonColor: "green",
       header: "hello",
     }).then((result) => {
       console.log(result);
     });
   };
-
-  
 
   // set states
   useEffect(() => {

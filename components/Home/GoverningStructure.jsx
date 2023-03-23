@@ -19,7 +19,7 @@ function GoverningStructure() {
       <div className="pr-5 grid dark:bg-[#161519] grid-cols-1 md:grid-cols-2 py-10 gap-x-[1.5rem]">
         <div
           className={`${Styles.aboutBg} py-10  relative
-       h-[25rem] md:h-[40rem]
+       h-[25rem] md:h-[30rem]
       `}
         >
           <div className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
