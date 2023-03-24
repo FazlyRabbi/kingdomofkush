@@ -16,6 +16,7 @@ function vendor_Contact() {
   const { vendor, setVendor, vendorInitial, postVendor } =
     useContext(vendorContext);
 
+
   const generateRandomNumber = () => {
     const min = 10000000;
     const max = 99999999;

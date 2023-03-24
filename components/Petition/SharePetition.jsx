@@ -17,28 +17,29 @@ import {
   WhatsappShareButton,
   WhatsappIcon,
 } from "next-share";
-import {
-  AiFillLinkedin,
-  AiFillYoutube,
-  AiOutlineInstagram,
-  AiOutlineTwitter,
-} from "react-icons/ai";
+import Head from "next/head";
 
 export default function SharePetition({ open, setOpen }) {
   const handleOpen = () => setOpen(!open);
+  const shareUrl = "https://kingdomofkush.org/petition";
+  const title = "My awesome website";
+  const quote = "Check out this awesome website!";
+  const hashtags = ["webdev", "reactjs"];
 
   return (
     <Fragment>
+      <Head>
+        <meta property="og:title" content={title} key="title" />
+        <meta property="og:url" content={shareUrl} key="url" />
+      </Head>
       <Dialog open={open} handler={handleOpen}>
         <DialogHeader>Please Share With Support </DialogHeader>
         <DialogBody divider>
           <div className="flex  px-6 justify-evenly items-center">
             <FacebookShareButton
-              url={"https://www.facebook.com/next-share"}
-              quote={
-                "next-share is a social share buttons for your next React apps."
-              }
-              hashtag={"#nextshare"}
+              url={shareUrl}
+              quote={quote}
+              hashtag={hashtags}
             >
               <FacebookIcon size={32} round />
             </FacebookShareButton>

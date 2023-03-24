@@ -950,6 +950,8 @@ const MemberShip_Contact = ({ setShowMember }) => {
             </div>
 
             <label className="w-full">
+              <span className="text-sm">Consent</span>
+              <br />
               <input type="checkbox" required className="mr-2" /> Yes, I agree
               with the{" "}
               <span className="text-[#cb9833] cursor-pointer">
