@@ -1,20 +1,14 @@
 import React, { useState, useContext, useEffect } from "react";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { petitionContext } from "@/context/PetitioContext";
 
-
 const Petition_Contact = () => {
-
   const [ip, setIp] = useState("");
 
   const [countryData, setCountryData] = useState("");
-  const { petition, setPetition } =
-
-  useContext(petitionContext);
+  const { petition, setPetition } = useContext(petitionContext);
 
   const router = useRouter();
-
 
   // get visitor ip address
   const getIpAddress = async () => {
@@ -45,7 +39,7 @@ const Petition_Contact = () => {
 
       const data = await res.json();
       setCountryData(data);
-      setPetition({...petition, Country:data?.country_name})
+      setPetition({ ...petition, Country: data?.country_name });
     } catch (error) {
       console.log(error);
     }
@@ -56,8 +50,6 @@ const Petition_Contact = () => {
     }
   }, [ip]);
 
-
-  
   const handleSubmit = (e) => {
     e.preventDefault();
     const pititonData = {
@@ -69,8 +61,6 @@ const Petition_Contact = () => {
     localStorage.setItem("pititonData", JSON.stringify(pititonData));
     router.push("/petition_application");
   };
-
-
 
   return (
     <form action="submit" onSubmit={handleSubmit}>
