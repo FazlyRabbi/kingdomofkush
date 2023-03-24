@@ -1,7 +1,6 @@
 import React from "react";
 import DashboardIndex from "@/components/Dashboard/DashboardIndex";
 import useProtectedRoute from "@/components/Hooks/useProtectedRoute";
-
 import Head from "next/head";
 
 function dashboard() {

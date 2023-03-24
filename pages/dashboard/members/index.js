@@ -594,7 +594,8 @@ function DashboardIndex() {
                 <Input
                   name="FirstName"
                   className="pt-1"
-                  label={singleData.CardInfo && singleData.CardInfo}
+                  value={singleData?.CardInfo && singleData?.CardInfo}
+                
                   disabled
                 />
               </div>

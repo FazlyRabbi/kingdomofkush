@@ -5,7 +5,6 @@ import { API_URL, API_TOKEN } from "@/config/index";
 export const projectContext = createContext();
 
 export const ProjectProvider = ({ children }) => {
-  
   const projectIninitalForm = {
     Title: "",
     Slug: "",

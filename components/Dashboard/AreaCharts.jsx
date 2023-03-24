@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   AreaChart,
   Area,
@@ -8,7 +9,6 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-
 
 const data = [
   {
@@ -55,11 +55,14 @@ const data = [
   },
 ];
 
-
 function AreaCharts() {
   return (
     <>
-      <ResponsiveContainer width="100%" height="50%">
+      <ResponsiveContainer
+        width="100%"
+        height="50%"
+        className={"  rounded-md "}
+      >
         <AreaChart
           width={500}
           height={400}

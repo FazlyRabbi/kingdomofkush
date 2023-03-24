@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import { API_URL, API_TOKEN } from "@/config/index";
 
 export const vendorContext = createContext();
@@ -37,7 +37,6 @@ export const VendorProvider = ({ children }) => {
       const res = await fetch(`${API_URL}/api/vendors`, {
         method: "POST",
         headers: {
-          Accept: "application/json",
           "Content-Type": "application/json",
           Authorization: API_TOKEN,
         },
@@ -49,7 +48,6 @@ export const VendorProvider = ({ children }) => {
         }),
       });
       const data = await res.json();
-      console.log(data);
     } catch (error) {
       console.log(error);
     }

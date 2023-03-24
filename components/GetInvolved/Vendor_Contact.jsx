@@ -13,9 +13,10 @@ import billingCountryNam from "../../public/country.json";
 import billingCityNam from "../../public/city.json";
 
 function vendor_Contact() {
+  const [isFetching, setIsFetching] = useState(false);
+
   const { vendor, setVendor, vendorInitial, postVendor } =
     useContext(vendorContext);
-
 
   const generateRandomNumber = () => {
     const min = 10000000;
@@ -59,14 +60,10 @@ function vendor_Contact() {
       icon: "success",
       confirmButtonText: "ClOSE",
       confirmButtonColor: "green",
-      header: "hello",
     }).then((result) => {
       console.log(result);
     });
   };
-
-  const [cardError, setCardError] = useState(null);
-  const [button, setButton] = useState(true);
 
   // set states
   useEffect(() => {
@@ -122,6 +119,7 @@ function vendor_Contact() {
     // const
     handleStates();
   }, [vendor?.BillingCountry]);
+
   // billing states
   // useEffect(() => {
   //   const handleStates = () => {
@@ -162,7 +160,6 @@ function vendor_Contact() {
 
   useEffect(() => {
     if (vendor.CardInfo != "") {
-      console.log(vendor);
       postVendor();
       return;
     }
@@ -179,11 +176,9 @@ function vendor_Contact() {
       });
 
       if (error) {
-        setCardError(error);
         return;
       }
-
-      setCardError(null);
+      setIsFetching(true);
 
       const res = await fetch(`/api/chargepayment`, {
         method: "POST",
@@ -206,13 +201,12 @@ function vendor_Contact() {
           },
         });
 
-      setButton(false);
       if (confirmError) return alert("Payment unsuccessfull!");
       setVendor({
         ...vendor,
         CardInfo: `Amount: $${paymentIntent.amount}  \n ClientSecret: ${paymentIntent.client_secret}`,
       });
-      setButton(true);
+
       elements.getElement(CardElement).clear();
       showAlerts(vendor.Email, paymentIntent.amount);
 
@@ -231,6 +225,7 @@ function vendor_Contact() {
         }),
       });
       setVendor(vendorInitial);
+      setIsFetching(false);
     } catch (err) {
       console.error(err);
       alert("Payment Faild!" + err.message);
@@ -266,6 +261,7 @@ function vendor_Contact() {
                 Name
               </label>
               <input
+                disabled={isFetching}
                 type="text"
                 id="name"
                 className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
@@ -285,6 +281,7 @@ function vendor_Contact() {
                 Name
               </label>
               <input
+                disabled={isFetching}
                 required
                 type="text"
                 className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
@@ -307,6 +304,7 @@ function vendor_Contact() {
                 Email
               </label>
               <input
+                disabled={isFetching}
                 required
                 type="email"
                 id="email"
@@ -330,6 +328,7 @@ function vendor_Contact() {
                 Date of birth
               </label>
               <input
+                disabled={isFetching}
                 required
                 type="date"
                 id="dateOfBirth"
@@ -354,21 +353,9 @@ function vendor_Contact() {
                 international
                 className=" py-3  w-[100%] px-2 border rounded-md border-softGray"
                 defaultCountry="RU"
-                onChange={() => ""}
-                // onChange={(e) =>
-                //   setVolunteer({ ...volunteer, Phone: e.target.value })
-                // }
+                onChange={(e) => setVendor({ ...vendor, Phone: e })}
               />
-              {/* <input
-                required
-                type="tel"
-                id="phoneNumber"
-                className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
-                value={vendor.Phone}
-                onChange={(e) =>
-                  setVendor({ ...vendor, Phone: e.target.value })
-                }
-              /> */}
+
               <p className=" invisible text-sm mt-[1px] warningMessage text-red">
                 This field is required.
               </p>
@@ -381,6 +368,7 @@ function vendor_Contact() {
                 Address
               </label>
               <input
+                disabled={isFetching}
                 type="text"
                 id="address_1"
                 className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
@@ -403,6 +391,7 @@ function vendor_Contact() {
                 Address
               </label>
               <input
+                disabled={isFetching}
                 type="text"
                 id="address_2"
                 className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
@@ -426,6 +415,7 @@ function vendor_Contact() {
               </label>
 
               <select
+                required
                 id="countries"
                 className=" border  border-softGray text-gray-900 text-sm rounded-md focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 value={vendor.Country}
@@ -452,6 +442,7 @@ function vendor_Contact() {
                 Address
               </label>
               <select
+                required
                 value={vendor.State}
                 onChange={(e) =>
                   setVendor({ ...vendor, State: e.target.value })
@@ -468,15 +459,6 @@ function vendor_Contact() {
                     ))
                   : ""}
               </select>
-              {/* <input
-                type="text"
-                id="address_2"
-                className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
-                value={vendor.State}
-                onChange={(e) =>
-                  setVendor({ ...vendor, State: e.target.value })
-                }
-              /> */}
 
               <p className="  text-sm mt-[.5rem]">State / Province / Region</p>
             </div>
@@ -522,6 +504,7 @@ function vendor_Contact() {
                 Address
               </label>
               <input
+                required
                 type="number"
                 id="postalCode"
                 className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
@@ -541,6 +524,7 @@ function vendor_Contact() {
                 Skills
               </label>
               <textarea
+                required
                 name="skills"
                 id="skills"
                 cols="30"
@@ -563,6 +547,7 @@ function vendor_Contact() {
                 Areas of Interest
               </label>
               <textarea
+                required
                 name="skills"
                 id="areas"
                 cols="30"
@@ -609,6 +594,7 @@ function vendor_Contact() {
                 Billing Address
               </label>
               <input
+                required
                 type="text"
                 id="name"
                 className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
@@ -616,7 +602,6 @@ function vendor_Contact() {
                 onChange={(e) =>
                   setVendor({ ...vendor, BillingFirstName: e.target.value })
                 }
-                required
               />
               <p className=" text-sm mt-2 my-2">First</p>
               {/* <p className=" text-sm mt-[1px] warningMessage text-red  ">
@@ -711,15 +696,6 @@ function vendor_Contact() {
                     ))
                   : ""}
               </select>
-              {/* <input
-                type="text"
-                id="address_2"
-                className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
-                value={vendor.BillingState}
-                onChange={(e) =>
-                  setVendor({ ...vendor, BillingState: e.target.value })
-                }
-              /> */}
 
               <p className="  text-sm mt-[.5rem]">State / Province / Region</p>
             </div>
@@ -744,14 +720,6 @@ function vendor_Contact() {
                     ))
                   : ""}
               </select>
-              {/* <input
-                type="text"
-                className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
-                value={vendor.BillingCity}
-                onChange={(e) =>
-                  setVendor({ ...vendor, BillingCity: e.target.value })
-                }
-              /> */}
 
               <p className="  text-sm mt-[.5rem]">City</p>
             </div>
@@ -778,7 +746,7 @@ function vendor_Contact() {
               className=" bg-black rounded-md w-[40%] xl:w-[20%] shadow-none capitalize text-base hover:shadow-none   font-normal text-primary
             "
             >
-              Submit
+              {isFetching ? `Loading...` : "Submit"}
             </Button>
           </div>
         </form>

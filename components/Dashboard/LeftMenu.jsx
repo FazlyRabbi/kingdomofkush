@@ -26,7 +26,7 @@ function LeftMenu() {
     
     max-w-[15rem]
            transition-all duration-300
-    absolute lg:static lg:z-0 z-10 top-0 left-0 
+    absolute lg:static lg:z-0 z-30 top-0 left-0 
     
      
     w-full   mb-2 h-[100vh]  bg-[#F8F9FA]
@@ -37,14 +37,14 @@ function LeftMenu() {
       >
         {/* left menu header */}
         <div className="leftMenu__header relative">
-          <div className="flex justify-center space-x-6 ">
+          <div className="flex flex-col justify-center items-center py-4 ">
             <Image src={logo} height={10} width={50} alt="logo" />
             <Link href={`/dashboard`}>
-              <h5 className=" py-6  text-[1rem] font-bold">Dashboard</h5>
+              <h5 className=" py-2  text-[1rem] font-bold">Dashboard</h5>
             </Link>
           </div>
 
-          <span className=" mx-auto  bg-gradient-to-r from-transparent   via-[#E0E1E1] to-transparent   h-[1.2px]  w-[90%]"></span>
+          {/* <span className=" mx-auto  bg-gradient-to-r from-transparent   via-[#d59620] to-transparent   h-[1.2px]  w-[90%]"></span> */}
         </div>
 
         {/* left menu content */}

@@ -59,9 +59,7 @@ const styles = StyleSheet.create({
 });
 
 function index() {
-
   useProtectedRoute();
-
 
   const { projectForm, setProjectForm, projectIninitalForm } =
     useContext(projectContext);
@@ -199,16 +197,16 @@ function index() {
   const headers = [
     { label: "ID", key: "id" },
     { label: "Title", key: "attributes.Title" },
-    { label: "FirstName", key: "attributes.FirstName" },
-    { label: "LastName", key: "attributes.LastName" },
-    { label: "FamilyLastName", key: "attributes.FamilyLastName" },
-    { label: "Email", key: "attributes.Email" },
-    { label: "Number", key: "attributes.Number" },
-    { label: "StreetAddress", key: "attributes.StreetAddress" },
-    { label: "State", key: "attributes.State" },
-    { label: "City", key: "attributes.City" },
-    { label: "PostalCode", key: "attributes.PostalCode" },
     { label: "Country", key: "attributes.Country" },
+    { label: "Slug", key: "attributes.Slug" },
+    { label: "ProjectDescription", key: "attributes.ProjectDescription" },
+    { label: "KushInvolment", key: "attributes.KushInvolment" },
+    { label: "RegistrationId", key: "attributes.RegistrationId" },
+    { label: "ProjectCategorie", key: "attributes.ProjectCategorie" },
+    { label: "Bradcamp", key: "attributes.Bradcamp" },
+    { label: "Name", key: "attributes.Replay.Name" },
+    { label: "Email", key: "attributes.Replay.Email" },
+    { label: "Phone", key: "attributes.Replay.Phone" },
   ];
 
   // Fetch data from an external API or database
@@ -320,8 +318,11 @@ function index() {
     });
   };
 
+  const [isFatching, setIsFatching] = useState(false);
+
   const addProjects = async () => {
     try {
+      setIsFatching(true);
       const res = await fetch(`${API_URL}/api/projects`, {
         method: "POST",
         headers: {
@@ -334,6 +335,7 @@ function index() {
       const data = await res.json();
       if (!res.ok) return;
       showAlerts();
+      setIsFatching(false);
     } catch (error) {
       console.log(error);
     }
@@ -370,6 +372,7 @@ function index() {
                   <Input
                     required
                     label="Title"
+                    disabled={isFatching}
                     value={projectForm.Title}
                     onChange={(e) =>
                       setProjectForm({ ...projectForm, Title: e.target.value })
@@ -379,6 +382,7 @@ function index() {
                   <Input
                     required
                     label="Country"
+                    disabled={isFatching}
                     value={projectForm.Country}
                     onChange={(e) =>
                       setProjectForm({
@@ -392,6 +396,7 @@ function index() {
                     <p className=" text-left font-bold mb-3">Thubmnail</p>
                     <input
                       required
+                      disabled={isFatching}
                       name="image"
                       type="file"
                       accept="image/*"
@@ -411,6 +416,7 @@ function index() {
                     <textarea
                       id="my-textarea"
                       required
+                      disabled={isFatching}
                       value={projectForm.ProjectDescription}
                       onChange={(e) =>
                         setProjectForm({
@@ -430,6 +436,7 @@ function index() {
                     <textarea
                       required
                       id="my-textarea"
+                      disabled={isFatching}
                       name="message"
                       rows="3"
                       cols="20"
@@ -446,6 +453,7 @@ function index() {
 
                   <Input
                     required
+                    disabled={isFatching}
                     label="ProjectCategorie"
                     value={projectForm.ProjectCategorie}
                     onChange={(e) =>
@@ -458,6 +466,7 @@ function index() {
 
                   <Input
                     required
+                    disabled={isFatching}
                     label="Bradcamp"
                     value={projectForm.Bradcamp}
                     onChange={(e) =>
@@ -469,6 +478,7 @@ function index() {
                   />
                   <Input
                     required
+                    disabled={isFatching}
                     label="Slug"
                     value={projectForm.Slug}
                     onChange={(e) =>
@@ -479,8 +489,12 @@ function index() {
                     }
                   />
 
-                  <Button type="submit" size="md">
-                    Add project
+                  <Button type="submit" size="md" disabled={isFatching}>
+                    {isFatching ? (
+                      <span className=" animate-ping">loading..</span>
+                    ) : (
+                      `   Add project`
+                    )}
                   </Button>
                 </CardBody>
               </form>
@@ -617,129 +631,7 @@ function index() {
                   disabled
                 />
               </div>
-              <div className="mr-2 lg:mr-0">
-                <label htmlFor="FirstName" className="text-black">
-                  First Name
-                </label>
-                <Input
-                  name="FirstName"
-                  className="pt-1"
-                  label={singleData.FirstName && singleData.FirstName}
-                  disabled
-                />
-              </div>
-              <div className="mr-2 lg:mr-0">
-                <label htmlFor="FirstName" className="text-black">
-                  Last Name
-                </label>
-                <Input
-                  name="FirstName"
-                  className="pt-1"
-                  label={singleData.LastName && singleData.LastName}
-                  disabled
-                />
-              </div>
-
-              <div className="mr-2 lg:mr-0">
-                <label htmlFor="FirstName" className="text-black">
-                  Email
-                </label>
-                <Input
-                  name="FirstName"
-                  className="pt-1"
-                  label={singleData.Email && singleData.Email}
-                  disabled
-                />
-              </div>
-
-              <div className="mr-2 lg:mr-0">
-                <label htmlFor="FirstName" className="text-black">
-                  Middle Name
-                </label>
-                <Input
-                  name="FirstName"
-                  className="pt-1"
-                  label={singleData.MiddleName && singleData.MiddleName}
-                  disabled
-                />
-              </div>
-              <div className="mr-2 lg:mr-0">
-                <label htmlFor="FirstName" className="text-black">
-                  Family LastName
-                </label>
-                <Input
-                  name="FirstName"
-                  className="pt-1"
-                  label={singleData.FamilyLastName && singleData.FamilyLastName}
-                  disabled
-                />
-              </div>
-              <div className="mr-2 lg:mr-0">
-                <label htmlFor="FirstName" className="text-black">
-                  Phone
-                </label>
-                <Input
-                  name="FirstName"
-                  className="pt-1"
-                  label={singleData.Number && singleData.Number}
-                  disabled
-                />
-              </div>
-              <div className="mr-2 lg:mr-0">
-                <label htmlFor="FirstName" className="text-black">
-                  Street Address
-                </label>
-                <Input
-                  name="FirstName"
-                  className="pt-1"
-                  label={singleData.StreetAddress && singleData.StreetAddress}
-                  disabled
-                />
-              </div>
-              <div className="mr-2 lg:mr-0">
-                <label htmlFor="FirstName" className="text-black">
-                  Apartment
-                </label>
-                <Input
-                  name="FirstName"
-                  className="pt-1"
-                  label={singleData.Apartment && singleData.Apartment}
-                  disabled
-                />
-              </div>
-              <div className="mr-2 lg:mr-0">
-                <label htmlFor="FirstName" className="text-black">
-                  State
-                </label>
-                <Input
-                  name="FirstName"
-                  className="pt-1"
-                  label={singleData.State && singleData.State}
-                  disabled
-                />
-              </div>
-              <div className="mr-2 lg:mr-0">
-                <label htmlFor="FirstName" className="text-black">
-                  City
-                </label>
-                <Input
-                  name="FirstName"
-                  className="pt-1"
-                  label={singleData.City && singleData.City}
-                  disabled
-                />
-              </div>
-              <div className="mr-2 lg:mr-0">
-                <label htmlFor="FirstName" className="text-black">
-                  PostalCode
-                </label>
-                <Input
-                  name="FirstName"
-                  className="pt-1"
-                  label={singleData.PostalCode && singleData.PostalCode}
-                  disabled
-                />
-              </div>
+      
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
                   Country
@@ -751,120 +643,57 @@ function index() {
                   disabled
                 />
               </div>
+
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
-                  MemberhipPlan
+                  Country
                 </label>
                 <Input
                   name="FirstName"
                   className="pt-1"
-                  label={singleData.MemberhipPlan && singleData.MemberhipPlan}
+                  label={singleData.KushInvolment && singleData.KushInvolment}
                   disabled
                 />
               </div>
+
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
-                  CardInfo
+                KushInvolment
                 </label>
                 <Input
                   name="FirstName"
                   className="pt-1"
-                  label={singleData.CardInfo && singleData.CardInfo}
+                  label={singleData.KushInvolment && singleData.KushInvolment}
                   disabled
                 />
               </div>
+
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
-                  BillingName
+                ProjectCategorie
                 </label>
                 <Input
                   name="FirstName"
                   className="pt-1"
-                  label={singleData.BillingName && singleData.BillingName}
+                  label={singleData.ProjectCategorie && singleData.ProjectCategorie}
                   disabled
                 />
               </div>
+
               <div className="mr-2 lg:mr-0">
                 <label htmlFor="FirstName" className="text-black">
-                  BillingAddress
+                ProjectDescription
                 </label>
                 <Input
                   name="FirstName"
                   className="pt-1"
-                  label={singleData.BillingAddress && singleData.BillingAddress}
+                  label={singleData.ProjectDescription && singleData.ProjectDescription}
                   disabled
                 />
               </div>
-              <div className="mr-2 lg:mr-0">
-                <label htmlFor="FirstName" className="text-black">
-                  BillingApartment
-                </label>
-                <Input
-                  name="FirstName"
-                  className="pt-1"
-                  label={
-                    singleData.BillingApartment && singleData.BillingApartment
-                  }
-                  disabled
-                />
-              </div>
-              <div className="mr-2 lg:mr-0">
-                <label htmlFor="FirstName" className="text-black">
-                  BillingCity
-                </label>
-                <Input
-                  name="FirstName"
-                  className="pt-1"
-                  label={singleData.BillingCity && singleData.BillingCity}
-                  disabled
-                />
-              </div>
-              <div className="mr-2 lg:mr-0">
-                <label htmlFor="FirstName" className="text-black">
-                  BillingState
-                </label>
-                <Input
-                  name="FirstName"
-                  className="pt-1"
-                  label={singleData.BillingState && singleData.BillingState}
-                  disabled
-                />
-              </div>
-              <div className="mr-2 lg:mr-0">
-                <label htmlFor="FirstName" className="text-black">
-                  BillingPostalCode
-                </label>
-                <Input
-                  name="FirstName"
-                  className="pt-1"
-                  label={
-                    singleData.BillingPostalCode && singleData.BillingPostalCode
-                  }
-                  disabled
-                />
-              </div>
-              <div className="mr-2 lg:mr-0">
-                <label htmlFor="FirstName" className="text-black">
-                  BillingCountry
-                </label>
-                <Input
-                  name="FirstName"
-                  className="pt-1"
-                  label={singleData.BillingCountry && singleData.BillingCountry}
-                  disabled
-                />
-              </div>
-              <div className="mr-2 lg:mr-0">
-                <label htmlFor="FirstName" className="text-black">
-                  RegistrationId
-                </label>
-                <Input
-                  name="FirstName"
-                  className="pt-1"
-                  label={singleData.RegistrationId && singleData.RegistrationId}
-                  disabled
-                />
-              </div>
+
+            
+            
             </div>
           </DialogBody>
         </Dialog>
