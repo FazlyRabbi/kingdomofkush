@@ -1,4 +1,5 @@
 import { API_URL } from "@/config/index";
+
 const { parseCookies } = require("nookies");
 
 export default async (req, res) => {
@@ -10,10 +11,10 @@ export default async (req, res) => {
       return;
     }
 
-    const strapiRes = await fetch(`https://kingdomofkush-backend.onrender.com/api/users/me`, {
-      // headers: {
-      //   Authorization: `Bearer ${token}`,
-      // },
+    const strapiRes = await fetch(`${API_URL}/api/users/me`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
 
     const user = await strapiRes.json();

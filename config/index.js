@@ -7,5 +7,9 @@ export const API_TOKEN =
 
 export const NEXT_URL = process.env.NEXTJS_PUBLIC_FRONTEND_URL;
 
+export const RECHAP_SITE_KEY =
+  process.env.RECHAP_SITE_KEY || `6LdcNSglAAAAACk4ZR6ijx4BUGnRsJ5vA555JovP`;
 
-export const RECHAP_SITE_KEY = process.env.RECHAP_SITE_KEY || `6LdcNSglAAAAACk4ZR6ijx4BUGnRsJ5vA555JovP`
+export const EMAIL_USER =
+  process.env.EMAIL_USER || "kingdomofkushking1070bc@gmail.com";
+export const EMAIL_PASS = process.env.EMAIL_PASS || "fxherzvqmodddhrc";

@@ -34,7 +34,7 @@ const DonationHero = () => {
 
     </div>`,
       icon: "success",
-      confirmButtonText: "Close",
+      confirmButtonText: "CLOSE",
       confirmButtonColor: "green",
     }).then((result) => {
       console.log(result);
@@ -173,13 +173,11 @@ const DonationHero = () => {
       });
 
       if (!res.ok) return alert("Payment unsuccessfull!");
-     
+
       const data = await res.json();
 
-
       const { paymentIntent, error: confirmError } =
-      await stripe.confirmCardPayment(data.clientSecret);
-
+        await stripe.confirmCardPayment(data.clientSecret);
 
       setDonation({
         ...donation,
@@ -188,10 +186,8 @@ const DonationHero = () => {
         }`,
       });
 
-
-
       if (confirmError) return alert("Payment unsuccessfull!");
-    
+
       elements.getElement(CardElement).clear();
 
       // send mail

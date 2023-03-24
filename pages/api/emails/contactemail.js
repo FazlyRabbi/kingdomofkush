@@ -1,23 +1,22 @@
 const nodemailer = require("nodemailer");
-
 import contactTampEmail from "emailTampletes/contactTampEmail";
+import { EMAIL_USER, EMAIL_PASS } from "../../../config/index";
 
 export default async function sendmail(req, res) {
   try {
     if (req.method != "POST") return res.status(400);
-
     // create transporter
     const transporter = await nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "kingdomofkushking1070bc@gmail.com",
-        pass: "hirujhfeupuluiby",
+        user: EMAIL_USER,
+        pass: EMAIL_PASS,
       },
     });
 
     // send mail with defined transport object
     let info = {
-      from: "kingdomofkushking1070bc@gmail.com",
+      from: EMAIL_USER,
       to: req.body.email,
       subject: req.body.subject, // Subject line
       html: contactTampEmail(), // html body

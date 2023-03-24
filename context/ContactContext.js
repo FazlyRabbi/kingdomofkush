@@ -40,7 +40,6 @@ export const ContactProvider = ({ children }) => {
       const res = await fetch(`${API_URL}/api/contacts`, {
         method: "POST",
         headers: {
-          Accept: "application/json",
           "Content-Type": "application/json",
           Authorization: API_TOKEN,
         },
@@ -51,7 +50,7 @@ export const ContactProvider = ({ children }) => {
           },
         }),
       });
-      // const data = await res.json();
+      const data = await res.json();
       sendMailContact();
     } catch (error) {
       console.log(error);

@@ -6,10 +6,7 @@ import useSweetAlert from "../lib/sweetalert2";
 import PhoneInput from "react-phone-number-input";
 import ReCAPTCHA from "react-google-recaptcha";
 
-
-
 const Form = () => {
-  
   const [captaToken, setCaptaToken] = useState(null);
 
   // showing alert
@@ -29,9 +26,18 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setContact(contactInitial);
-    pstContact();
-    showAlerts();
+    if (captaToken !== null) {
+      setContact(contactInitial);
+      pstContact();
+      showAlerts();
+    } else {
+      showAlert({
+        title: "Complete I'am Not a Robot",
+        icon: "warning",
+        confirmButtonText: "ClOSE",
+        confirmButtonColor: "red",
+      }).then((result) => {});
+    }
   };
 
   return (
@@ -73,22 +79,9 @@ const Form = () => {
                 international
                 className=" py-4  w-[100%] px-2 border rounded-md border-softGray"
                 defaultCountry="RU"
-                onChange={() => ""}
-                // onChange={(e) =>
-                //   setVolunteer({ ...volunteer, Phone: e.target.value })
-                // }
+                value={contact.Phone}
+                onChange={(e) => setContact({ ...contact, Phone: e })}
               />
-              {/* <input
-              className="shadow border-[#ccc] border rounded w-full py-4 px-3 text-gray-700"
-              id="phone"
-              type="text"
-              placeholder="Your Actual Phone Number"
-              value={contact.Phone}
-              onChange={(e) =>
-                setContact({ ...contact, Phone: e.target.value })
-              }
-              required
-            /> */}
             </div>
             <div>
               <label
@@ -121,6 +114,7 @@ const Form = () => {
               className="resize border border-[#ccc] rounded-md w-full h-48 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline "
               placeholder="Enter your message"
               value={contact.Message}
+              required
               onChange={(e) =>
                 setContact({ ...contact, Message: e.target.value })
               }
