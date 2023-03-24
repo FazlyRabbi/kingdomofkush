@@ -3,6 +3,8 @@ import { contactContext } from "@/context/ContactContext";
 // alart and messages
 import useSweetAlert from "../lib/sweetalert2";
 import PhoneInput from "react-phone-number-input";
+import ReCAPTCHA from "react-google-recaptcha";
+import Image from "next/image";
 const Form = () => {
   // showing alert
   const { showAlert } = useSweetAlert();
@@ -117,6 +119,12 @@ const Form = () => {
                 setContact({ ...contact, Message: e.target.value })
               }
             ></textarea>
+          </div>
+          <div>
+            <ReCAPTCHA
+              sitekey="6LeEsh8lAAAAAH9hNk3ao0VVxJDsxALlbyIU_spT"
+              onChange={() => console.log(value)}
+            />
           </div>
           <button
             type="submit"

@@ -15,7 +15,7 @@ function Vendor() {
   return (
     <section className="dark:bg-[#161519]  dark:text-[#ffffffbf]">
       <div className=" grid grid-cols-1 md:grid-cols-2   justify-items-center lg:justify-items-start  items-center ">
-        <div className={` ${styles.vulunteerBg}  min-h-[36rem]    `}></div>
+        <div className={` ${styles.vendorBg}  min-h-[36rem]    `}></div>
 
         <div className=" py-[4rem]  px-4 2xl:pl-[8rem] md:pl-[4rem] md:pr-8">
           <div className="content mb-[1.5rem] mt-4">

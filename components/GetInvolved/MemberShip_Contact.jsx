@@ -1,25 +1,28 @@
-import Image from "next/image";
 import React, { useRef, useContext, useState, useEffect } from "react";
-import SignatureCanvas from "react-signature-canvas";
-import { TfiReload } from "react-icons/tfi";
+// import SignatureCanvas from "react-signature-canvas";
+// import { TfiReload } from "react-icons/tfi";
+import { toBlob } from "html-to-image";
+
 import { MembershipContext } from "@/context/MembershipContext";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { RECHAP_SITE_KEY } from "@/config/index";
+import ReCAPTCHA from "react-google-recaptcha";
+import { API_URL, API_TOKEN } from "@/config/index";
 // alart and messages
 import useSweetAlert from "../lib/sweetalert2";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
-import ReCAPTCHA from "react-google-recaptcha";
 import { Country, State, City } from "country-state-city";
-const MemberShip_Contact = ({ setShowMember }) => {
-  const [isFetching, setIsFetching] = useState(false);
 
-  const sigPad = useRef();
-  const [signatureText, setSignatureText] = useState(true);
+const MemberShip_Contact = ({ setShowMember }) => {
+  // state to desable buttons when api is calling
+  const [isFetching, setIsFetching] = useState(false);
+  const [captaToken, setCaptaToken] = useState(null);
+  // const sigPad = useRef();
   const [states, setStates] = useState("");
   const [cities, setCities] = useState("");
   const [billingStates, setBillingStates] = useState("");
   const [billingCities, setBillingCities] = useState("");
-  const [token, setToken] = useState();
   const countryName = Country.getAllCountries();
   const billingCountryName = Country.getAllCountries();
 
@@ -28,7 +31,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
 
   const showAlerts = (email, ammount) => {
     showAlert({
-      title: `title`,
+      title: `Payment`,
       html: `  <div>
        <div style="display:flex; justify-content: space-between; padding:2 3rem;   ">
        <h5>Pyament type</h5>
@@ -45,20 +48,17 @@ const MemberShip_Contact = ({ setShowMember }) => {
 
     </div>`,
       icon: "success",
-      confirmButtonText: "ClOSE",
+      confirmButtonText: "Close",
       confirmButtonColor: "green",
-      header: "hello",
     }).then((result) => {
       console.log(result);
     });
   };
 
-  const { membership, setMembership, postMembership, membershipInitial } =
+  const { membership, setMembership, membershipInitial } =
     useContext(MembershipContext);
 
   const [cardError, setCardError] = useState(null);
-  const [button, setButton] = useState(false);
-  console.log(membership?.State);
 
   // set states
   useEffect(() => {
@@ -69,6 +69,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
     // const
     handleStates();
   }, [membership?.Country]);
+
   // set cities
   useEffect(() => {
     const handleCities = () => {
@@ -80,6 +81,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
     };
     handleCities();
   }, [membership?.Country, membership?.State]);
+
   // billing states
   useEffect(() => {
     const handleStates = () => {
@@ -89,6 +91,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
     // const
     handleStates();
   }, [membership?.BillingCountry]);
+
   // billing cities
   useEffect(() => {
     const handleCities = () => {
@@ -101,25 +104,71 @@ const MemberShip_Contact = ({ setShowMember }) => {
     handleCities();
   }, [membership?.BillingCountry, membership?.BillingState]);
 
+  const testSig = useRef();
+
+  const [blob, setBlob] = useState(null);
+
+  const [textSig, setTextSig] = useState("");
+
+  const formData = typeof window !== "undefined" ? new FormData() : "";
+
+  const postMembership = async () => {
+    try {
+      const res = await fetch(`${API_URL}/api/memberhip-plans`, {
+        method: "POST",
+        headers: {
+          Authorization: API_TOKEN,
+        },
+
+        body: formData,
+      });
+      const data = await res.json();
+      console.log(data);
+      setTextSig("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (membership.CardInfo != "") {
+      formData.append(`files.Signature`, blob, `${membership.FirstName}.png`);
+      formData.append("data", JSON.stringify(membership));
       postMembership();
       return;
     }
   }, [membership.CardInfo]);
 
+  const convertSigToBlob = () => {
+    toBlob(testSig.current)
+      .then((blob) => {
+        setBlob(blob);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // handle submit
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (elements.getElement("card") != null) {
+    if (elements.getElement("card") !== null && captaToken !== null) {
       if (membership.MemberhipPlan === "month") {
         createMonthlySubscription();
+
         return;
       } else if (membership.MemberhipPlan === "year") {
         createYearlySubscription();
         return;
       }
       return;
+    } else {
+      showAlert({
+        title: `Complete I'm not a robot`,
+        icon: "warning",
+        confirmButtonText: "Close",
+        confirmButtonColor: "red",
+      });
     }
   };
 
@@ -129,21 +178,15 @@ const MemberShip_Contact = ({ setShowMember }) => {
 
   const createYearlySubscription = async () => {
     try {
+      convertSigToBlob();
       if (elements.getElement("card") === null) return;
-      setIsFetching(true);
       const { paymentMethod, error } = await stripe.createPaymentMethod({
         type: "card",
         card: elements.getElement("card"),
       });
 
-      if (error) {
-        setCardError(error);
-        return;
-      }
-
-      const url = sigPad.current.toDataURL();
-      setMembership({ ...membership, Signature: url });
-
+      if (error) setCardError(error);
+      setIsFetching(true);
       setCardError(null);
 
       const res = await fetch(`/api/yearlysubscription`, {
@@ -166,8 +209,6 @@ const MemberShip_Contact = ({ setShowMember }) => {
       const { paymentIntent, error: confirmError } =
         await stripe.confirmCardPayment(data.clientSecret);
 
-      setButton(true);
-
       if (confirmError) return alert("Payment unsuccessfull!");
 
       setMembership({
@@ -176,6 +217,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
           paymentIntent.client_secret
         }`,
       });
+
       showAlerts(membership.Email, paymentIntent.amount);
       // send mail
       const sendmail = await fetch(`/api/emails/membershipemail`, {
@@ -192,11 +234,6 @@ const MemberShip_Contact = ({ setShowMember }) => {
       });
 
       if (!sendmail.ok) return;
-
-      // adtive button
-      setButton(false);
-      // clear singpad
-      sigPad.current.clear();
       // clear card
       elements.getElement(CardElement).clear();
       // show alart
@@ -211,18 +248,15 @@ const MemberShip_Contact = ({ setShowMember }) => {
   const createMonthlySubscription = async () => {
     try {
       if (elements.getElement("card") === null) return;
-
+      convertSigToBlob();
       const { paymentMethod, error } = await stripe.createPaymentMethod({
         type: "card",
         card: elements.getElement("card"),
       });
 
-      if (error) {
-        setCardError(error);
-        return;
-      }
+      if (error) return;
 
-      const url = sigPad.current.toDataURL();
+      setIsFetching(true);
       // setMembership({ ...membership, Signature: url });
 
       setCardError(null);
@@ -246,11 +280,8 @@ const MemberShip_Contact = ({ setShowMember }) => {
       const { paymentIntent, error: confirmError } =
         await stripe.confirmCardPayment(data.clientSecret);
 
-      setButton(true);
-
       if (confirmError) return alert("Payment unsuccessfull!");
-      console.log(confirmError);
-
+      convertSigToBlob();
       setMembership({
         ...membership,
         CardInfo: `Amount: $${paymentIntent.amount / 100}  \n ClientSecret: ${
@@ -274,15 +305,11 @@ const MemberShip_Contact = ({ setShowMember }) => {
       });
 
       if (!sendmail.ok) return;
-
-      // adtive button
-      setButton(false);
-      // clear singpad
-      sigPad.current.clear();
       // clear card
       elements.getElement(CardElement).clear();
       // show alart
       setMembership(membershipInitial);
+      setIsFetching(false);
     } catch (err) {
       console.error(err);
       alert("Payment Faild!" + err.message);
@@ -388,25 +415,13 @@ const MemberShip_Contact = ({ setShowMember }) => {
             </div>
             <div>
               <PhoneInput
+                required
                 international
                 className=" py-3 rounded-sm  w-[100%] px-2  bg-[#ededed]"
                 defaultCountry="RU"
-                // value={value}
-                // onChange={setValue}
                 onChange={(e) => setMembership({ ...membership, Number: e })}
               />
-              {/* <input
-                disabled={isFetching}
-                type="number"
-                placeholder="Phone Number"
-                id="tel"
-                className=" py-3 rounded-sm  w-[100%] px-2  bg-[#ededed]"
-                required
-                value={membership.Number}
-                onChange={(e) =>
-                  setMembership({ ...membership, Number: e.target.value })
-                }
-              /> */}
+
               <p className=" text-sm mt-[1px] text-red invisible">
                 This field is required.
               </p>
@@ -901,29 +916,17 @@ const MemberShip_Contact = ({ setShowMember }) => {
         <div className="lg:grid flex flex-col-reverse lg:grid-cols-2 mt-6">
           <div>
             <ReCAPTCHA
-              sitekey="6LeEsh8lAAAAAH9hNk3ao0VVxJDsxALlbyIU_spT"
-              onChange={() => console.log(value)}
+              onChange={(e) => setCaptaToken(e)}
+              sitekey={`${RECHAP_SITE_KEY}`}
             />
-            <div className="border border-[#d3d3d3] dark:bg-[#878688] bg-[#f9f9f9] shadow flex w-[300px] h-[100px] justify-center items-center ">
-              <label className="w-full px-4 flex ">
-                <input type="checkbox" className="w-5 h-5 mr-2" /> I'm not a
-                robot
-              </label>
-              <Image
-                className="my-4"
-                src="https://i.ibb.co/Xk6skZp/icons8-captcha-58.png"
-                alt="Picture of the recapcha"
-                width={60}
-                height={60}
-              />
-            </div>
+            ,
           </div>
           <div>
             {/* // Signature field  */}
 
             <div className="after:pl-1 flex  font-bold  w-full mb-4 ">
               Signature <span className="text-red">*</span>
-              <button
+              {/* <button
                 onClick={() => setSignatureText(true)}
                 className={`ml-4 ${signatureText && "text-primary"}`}
               >
@@ -942,8 +945,8 @@ const MemberShip_Contact = ({ setShowMember }) => {
                     d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zm-7.518-.267A8.25 8.25 0 1120.25 10.5M8.288 14.212A5.25 5.25 0 1117.25 10.5"
                   />
                 </svg>
-              </button>
-              <button
+              </button> */}
+              {/* <button
                 onClick={() => setSignatureText(false)}
                 className={`ml-4 ${!signatureText && "text-primary"}`}
               >
@@ -962,10 +965,10 @@ const MemberShip_Contact = ({ setShowMember }) => {
                     d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
                   />
                 </svg>
-              </button>
+              </button> */}
             </div>
 
-            {signatureText ? (
+            {/* {signatureText ? (
               <div className="relative w-[100%] h-full">
                 <SignatureCanvas
                   ref={sigPad}
@@ -980,7 +983,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
                 />
                 <TfiReload
                   onClick={(e) => {
-                    sigPad.current.clear();
+                    
                   }}
                   className=" absolute   top-[10px]    right-5  text-[1rem] font-bold cursor-pointer hover:text-black text-[#3a3a3a]"
                 />
@@ -1007,7 +1010,21 @@ const MemberShip_Contact = ({ setShowMember }) => {
                   rows="5"
                 ></textarea>
               </div>
-            )}
+            )} */}
+
+            <div>
+              <input
+                disabled={isFetching}
+                type="text"
+                value={textSig}
+                onChange={(e) => setTextSig(e.target.value)}
+                ref={testSig}
+                placeholder="Enter Your Signature"
+                className=" font-bold  text-center h-[8rem]
+               py-3 rounded-sm  w-[80%] text-[1.8rem] px-2  bg-[#ededed]"
+                required
+              ></input>
+            </div>
           </div>
         </div>
 
@@ -1020,9 +1037,8 @@ const MemberShip_Contact = ({ setShowMember }) => {
             Previous
           </button>
           <button
-         
             type="submit"
-            className=" bg-black cursor-pointer   shadow-none capitalize text-base hover:shadow-none w-[40%] xl:w-[20%]    font-normal text-white py-3"
+            className=" bg-black relative z-[99999]  shadow-none capitalize text-base hover:shadow-none w-[40%] xl:w-[20%]    font-normal text-white py-3"
           >
             {isFetching ? "Loading..." : "Submit application"}
           </button>

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { API_URL } from "../config";
 import { useRouter } from "next/router";
 
 function admin() {
@@ -6,7 +7,7 @@ function admin() {
 
   useEffect(() => {
     if (route.pathname === "/admin") {
-      route.push("https://kingdombackend-production.up.railway.app/admin");
+      route.push(`${API_URL}/admin`);
     }
   }, []);
 

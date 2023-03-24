@@ -47,7 +47,6 @@ const PetitionApplication = () => {
       const countryCode = countryName.find(
         (country) => country.name.toLowerCase() === data?.Country.toLowerCase()
       );
-      console.log(countryCode);
       const allStates = State.getStatesOfCountry(countryCode?.isoCode);
       setStates(allStates);
     };
@@ -55,16 +54,20 @@ const PetitionApplication = () => {
     handleStates();
   }, [data?.Country]);
   // set cities
+  console.log("petition?.State", petition?.State, data?.Country);
   useEffect(() => {
     const handleCities = () => {
+      const countryCode = countryName.find(
+        (country) => country.name.toLowerCase() === data?.Country.toLowerCase()
+      );
       const allCities = City.getCitiesOfState(
-        petition?.Country,
+        countryCode?.isoCode,
         petition?.State
       );
       setCities(allCities);
     };
     handleCities();
-  }, [petition?.Country, petition?.State]);
+  }, [data?.Country, petition?.State]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {

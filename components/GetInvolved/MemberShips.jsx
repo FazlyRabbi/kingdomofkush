@@ -14,7 +14,6 @@ const stripePromise = loadStripe(
 function MemberShips() {
   const [isMember, setIsMember] = useState("yes");
   const [showMember, setShowMember] = useState(false);
-  console.log(showMember, isMember);
 
   const handleShowMember = () => {
     setShowMember(true);
