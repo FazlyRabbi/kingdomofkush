@@ -8,14 +8,14 @@ function Volunteer() {
   return (
     <section className="dark:bg-[#161519]  dark:text-[#ffffffbf]">
       <div className=" grid grid-cols-1 md:grid-cols-2   transition-all justify-items-center lg:justify-items-start  items-center ">
-        <div className={` ${styles.vulunteerBg}  min-h-[36rem]   `}></div>
-        <div className=" py-[4rem]  px-4 2xl:pl-[8rem] md:pl-[4rem] md:pr-8">
+        <div className={` ${styles.vulunteerBg}  min-h-[30rem]   `}></div>
+        <div className=" py-[4rem]  px-4 2xl:pl-[8rem] md:pl-[7rem] md:pr-8">
           <div className="content mb-[1.5rem] mt-4">
             <h1 className="leading-[3rem] dark:text-white xl:hidden font-bold  text-[2.8rem] ">
               Volunteer Registration
             </h1>
 
-            <h1 className="leading-[3rem] dark:text-white xl:leading-[5rem] hidden xl:block font-bold  text-[2.8rem] xl:text-[5.5rem]">
+            <h1 className="leading-[3rem] dark:text-white xl:leading-[4.5rem] hidden xl:block font-bold  text-[2.8rem] xl:text-[4rem]">
               Volunteer Registration
             </h1>
 

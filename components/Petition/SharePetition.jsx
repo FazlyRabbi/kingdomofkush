@@ -1,4 +1,5 @@
 import { Fragment, useState } from "react";
+import { API_URL } from "@/config/index";
 import {
   Button,
   Dialog,
@@ -17,37 +18,37 @@ import {
   WhatsappShareButton,
   WhatsappIcon,
 } from "next-share";
-import {
-  AiFillLinkedin,
-  AiFillYoutube,
-  AiOutlineInstagram,
-  AiOutlineTwitter,
-} from "react-icons/ai";
+import Head from "next/head";
 
 export default function SharePetition({ open, setOpen }) {
   const handleOpen = () => setOpen(!open);
+  const shareUrl = `${API_URL}/petition`;
+  const title = "My awesome website";
+  const quote = "Check out this awesome website!";
+  const hashtags = ["#MyWebsite", "#NextJS", "#AwesomeWebsite"];
 
   return (
     <Fragment>
+      <Head>
+        <meta property="og:title" content={title} key="title" />
+        <meta property="og:url" content={shareUrl} key="url" />
+      </Head>
       <Dialog open={open} handler={handleOpen}>
         <DialogHeader>Please Share With Support </DialogHeader>
         <DialogBody divider>
           <div className="flex  px-6 justify-evenly items-center">
             <FacebookShareButton
-              url={"https://www.facebook.com/next-share"}
-              quote={
-                "next-share is a social share buttons for your next React apps."
-              }
-              hashtag={"#nextshare"}
+              quote={"Kingdom of kush is..."}
+              hashtag={"#kingdomofkush"}
+              title="Hello world"
+              url={shareUrl}
             >
               <FacebookIcon size={32} round />
             </FacebookShareButton>
 
             <TwitterShareButton
               url={"https://twitter.com/?lang=en/next-share"}
-              quote={
-                "next-share is a social share buttons for your next React apps."
-              }
+              quote={"Kingdom of kush is..."}
               hashtag={"#nextshare"}
             >
               <TwitterIcon size={32} round />
@@ -55,9 +56,7 @@ export default function SharePetition({ open, setOpen }) {
 
             <LinkedinShareButton
               url={"https://www.linkedin.com/feed/next-share"}
-              quote={
-                "next-share is a social share buttons for your next React apps."
-              }
+              quote={"Kingdom of kush is..."}
               hashtag={"#nextshare"}
             >
               <LinkedinIcon size={32} round />
@@ -65,9 +64,7 @@ export default function SharePetition({ open, setOpen }) {
 
             <WhatsappShareButton
               url={"https://web.whatsapp.com//next-share"}
-              quote={
-                "next-share is a social share buttons for your next React apps."
-              }
+              quote={"Kingdom of kush is..."}
               hashtag={"#nextshare"}
             >
               <WhatsappIcon size={32} round />

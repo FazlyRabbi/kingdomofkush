@@ -5,14 +5,18 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 // alart and messages
 import useSweetAlert from "../lib/sweetalert2";
 import PhoneInput from "react-phone-number-input";
-import { Country, State, City } from "country-state-city";
+import countryNam from "../../public/country.json";
+import stateNam from "../../public/state.json";
+import cityNam from "../../public/city.json";
+import billingStateNam from "../../public/state.json";
+import billingCountryNam from "../../public/country.json";
+import billingCityNam from "../../public/city.json";
+
 function vendor_Contact() {
-
-
   const { vendor, setVendor, vendorInitial, postVendor } =
-  useContext(vendorContext);
+    useContext(vendorContext);
 
-  
+
   const generateRandomNumber = () => {
     const min = 10000000;
     const max = 99999999;
@@ -25,20 +29,12 @@ function vendor_Contact() {
     generateRandomNumber();
   }, []);
 
-
-
-
-
-
-
   // showing alert
   const { showAlert } = useSweetAlert();
   const [states, setStates] = useState("");
   const [cities, setCities] = useState("");
   const [billingStates, setBillingStates] = useState("");
   const [billingCities, setBillingCities] = useState("");
-  const countryName = Country.getAllCountries();
-  const billingCountryName = Country.getAllCountries();
 
   // email alert
   const showAlerts = (email, ammount) => {
@@ -72,42 +68,89 @@ function vendor_Contact() {
   const [cardError, setCardError] = useState(null);
   const [button, setButton] = useState(true);
 
-
   // set states
   useEffect(() => {
     const handleStates = () => {
-      const allStates = State.getStatesOfCountry(vendor?.Country);
+      const countryId = countryNam.find(
+        (country) =>
+          country.country_name.toLowerCase() === vendor.Country.toLowerCase()
+      );
+      const allStates = stateNam.filter(
+        (state) => state.country_id == countryId?.country_id
+      );
       setStates(allStates);
     };
     // const
     handleStates();
   }, [vendor?.Country]);
+
   // set cities
   useEffect(() => {
     const handleCities = () => {
-      const allCities = City.getCitiesOfState(vendor?.Country, vendor?.State);
-      setCities(allCities);
+      const countryId = countryNam.find(
+        (country) =>
+          country.country_name.toLowerCase() === vendor.Country.toLowerCase()
+      );
+      const allStates = stateNam.filter(
+        (state) => state.country_id == countryId?.country_id
+      );
+      const stateId = allStates.find(
+        (state) => state.state_name === vendor?.State
+      );
+      const city = cityNam.filter(
+        (city) => city.state_id === stateId?.state_id
+      );
+
+      setCities(city);
     };
     handleCities();
   }, [vendor?.Country, vendor?.State]);
-  // billing states
+
+  // set states
   useEffect(() => {
     const handleStates = () => {
-      const allStates = State.getStatesOfCountry(vendor?.BillingCountry);
+      const countryId = billingCountryNam.find(
+        (country) =>
+          country.country_name.toLowerCase() ===
+          vendor.BillingCountry.toLowerCase()
+      );
+      const allStates = billingStateNam.filter(
+        (state) => state.country_id == countryId?.country_id
+      );
       setBillingStates(allStates);
-      console.log(vendor?.BillingCountry);
     };
     // const
     handleStates();
   }, [vendor?.BillingCountry]);
-  // billing cities
+  // billing states
+  // useEffect(() => {
+  //   const handleStates = () => {
+  //     const allStates = State.getStatesOfCountry(vendor?.BillingCountry);
+  //     setBillingStates(allStates);
+  //   };
+  //   // const
+  //   handleStates();
+  // }, [vendor?.BillingCountry]);
+
+  // set cities
   useEffect(() => {
     const handleCities = () => {
-      const allCities = City.getCitiesOfState(
-        vendor?.BillingCountry,
-        vendor?.BillingState
+      const countryId = billingCountryNam.find(
+        (country) =>
+          country.country_name.toLowerCase() ===
+          vendor.BillingCountry.toLowerCase()
       );
-      setBillingCities(allCities);
+      const allStates = billingStateNam.filter(
+        (state) => state.country_id == countryId?.country_id
+      );
+      const stateId = allStates.find(
+        (state) => state.state_name === vendor?.BillingState
+      );
+      const city = billingCityNam.filter(
+        (city) => city.state_id === stateId?.state_id
+      );
+
+      setBillingCities(city);
     };
     handleCities();
   }, [vendor?.BillingCountry, vendor?.BillingState]);
@@ -391,9 +434,9 @@ function vendor_Contact() {
                 }
               >
                 <option selected>Choose a country</option>
-                {countryName?.map((country, countryIndex) => (
-                  <option key={countryIndex} value={country?.isoCode}>
-                    {country?.name}
+                {countryNam?.map((country, country_id) => (
+                  <option key={country_id} value={country?.country_name}>
+                    {country?.country_name}
                   </option>
                 ))}
               </select>
@@ -418,9 +461,9 @@ function vendor_Contact() {
               >
                 <option selected>Select State</option>
                 {states?.length > 0
-                  ? states?.map((state, stateIndex) => (
-                      <option key={stateIndex} value={state?.isoCode}>
-                        {state?.name}
+                  ? states?.map((state, state_id) => (
+                      <option key={state_id} value={state?.state_name}>
+                        {state?.state_name}
                       </option>
                     ))
                   : ""}
@@ -455,9 +498,9 @@ function vendor_Contact() {
               >
                 <option selected>Select City</option>
                 {cities?.length > 0
-                  ? cities?.map((city, cityIndex) => (
-                      <option key={cityIndex} value={city?.isoCode}>
-                        {city?.name}
+                  ? cities?.map((city, city_id) => (
+                      <option key={city_id} value={city?.city_name}>
+                        {city?.city_name}
                       </option>
                     ))
                   : ""}
@@ -639,9 +682,9 @@ function vendor_Contact() {
                 }
               >
                 <option selected>Choose a country</option>
-                {billingCountryName?.map((country, countryIndex) => (
-                  <option key={countryIndex} value={country?.isoCode}>
-                    {country?.name}
+                {billingCountryNam?.map((country, country_id) => (
+                  <option key={country_id} value={country?.country_name}>
+                    {country?.country_name}
                   </option>
                 ))}
               </select>
@@ -661,9 +704,9 @@ function vendor_Contact() {
               >
                 <option selected>Select State</option>
                 {billingStates?.length > 0
-                  ? billingStates?.map((state, stateIndex) => (
-                      <option key={stateIndex} value={state?.isoCode}>
-                        {state?.name}
+                  ? billingStates?.map((state, state_id) => (
+                      <option key={state_id} value={state?.state_name}>
+                        {state?.state_name}
                       </option>
                     ))
                   : ""}
@@ -694,9 +737,9 @@ function vendor_Contact() {
               >
                 <option selected>Select City</option>
                 {billingCities?.length > 0
-                  ? billingCities?.map((city, cityIndex) => (
-                      <option key={cityIndex} value={city?.isoCode}>
-                        {city?.name}
+                  ? billingCities?.map((city, city_id) => (
+                      <option key={city_id} value={city?.city_name}>
+                        {city?.city_name}
                       </option>
                     ))
                   : ""}

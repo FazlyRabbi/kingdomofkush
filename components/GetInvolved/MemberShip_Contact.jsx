@@ -9,7 +9,12 @@ import { API_URL, API_TOKEN } from "@/config/index";
 import useSweetAlert from "../lib/sweetalert2";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
-import { Country, State, City } from "country-state-city";
+import countryNam from "../../public/country.json";
+import stateNam from "../../public/state.json";
+import cityNam from "../../public/city.json";
+import billingStateNam from "../../public/state.json";
+import billingCountryNam from "../../public/country.json";
+import billingCityNam from "../../public/city.json";
 
 const MemberShip_Contact = ({ setShowMember }) => {
   // state to desable buttons when api is calling
@@ -20,8 +25,6 @@ const MemberShip_Contact = ({ setShowMember }) => {
   const [cities, setCities] = useState("");
   const [billingStates, setBillingStates] = useState("");
   const [billingCities, setBillingCities] = useState("");
-  const countryName = Country.getAllCountries();
-  const billingCountryName = Country.getAllCountries();
 
   // showing alert
   const { showAlert } = useSweetAlert();
@@ -54,13 +57,21 @@ const MemberShip_Contact = ({ setShowMember }) => {
 
   const { membership, setMembership, membershipInitial } =
     useContext(MembershipContext);
+  console.log(membership);
 
   const [cardError, setCardError] = useState(null);
 
   // set states
   useEffect(() => {
     const handleStates = () => {
-      const allStates = State.getStatesOfCountry(membership?.Country);
+      const countryId = countryNam.find(
+        (country) =>
+          country.country_name.toLowerCase() ===
+          membership.Country.toLowerCase()
+      );
+      const allStates = stateNam.filter(
+        (state) => state.country_id == countryId?.country_id
+      );
       setStates(allStates);
     };
     // const
@@ -70,33 +81,71 @@ const MemberShip_Contact = ({ setShowMember }) => {
   // set cities
   useEffect(() => {
     const handleCities = () => {
-      const allCities = City.getCitiesOfState(
-        membership?.Country,
-        membership?.State
+      const countryId = countryNam.find(
+        (country) =>
+          country.country_name.toLowerCase() ===
+          membership.Country.toLowerCase()
       );
-      setCities(allCities);
+      const allStates = stateNam.filter(
+        (state) => state.country_id == countryId?.country_id
+      );
+      const stateId = allStates.find(
+        (state) => state.state_name === membership?.State
+      );
+      const city = cityNam.filter(
+        (city) => city.state_id === stateId?.state_id
+      );
+
+      setCities(city);
     };
     handleCities();
   }, [membership?.Country, membership?.State]);
 
-  // billing states
+  // set states
   useEffect(() => {
     const handleStates = () => {
-      const allStates = State.getStatesOfCountry(membership?.BillingCountry);
+      const countryId = billingCountryNam.find(
+        (country) =>
+          country.country_name.toLowerCase() ===
+          membership.BillingCountry.toLowerCase()
+      );
+      const allStates = billingStateNam.filter(
+        (state) => state.country_id == countryId?.country_id
+      );
       setBillingStates(allStates);
     };
     // const
     handleStates();
   }, [membership?.BillingCountry]);
+  // billing states
+  // useEffect(() => {
+  //   const handleStates = () => {
+  //     const allStates = State.getStatesOfCountry(membership?.BillingCountry);
+  //     setBillingStates(allStates);
+  //   };
+  //   // const
+  //   handleStates();
+  // }, [membership?.BillingCountry]);
 
-  // billing cities
+  // set cities
   useEffect(() => {
     const handleCities = () => {
-      const allCities = City.getCitiesOfState(
-        membership?.BillingCountry,
-        membership?.BillingState
+      const countryId = billingCountryNam.find(
+        (country) =>
+          country.country_name.toLowerCase() ===
+          membership.BillingCountry.toLowerCase()
       );
-      setBillingCities(allCities);
+      const allStates = billingStateNam.filter(
+        (state) => state.country_id == countryId?.country_id
+      );
+      const stateId = allStates.find(
+        (state) => state.state_name === membership?.BillingState
+      );
+      const city = billingCityNam.filter(
+        (city) => city.state_id === stateId?.state_id
+      );
+
+      setBillingCities(city);
     };
     handleCities();
   }, [membership?.BillingCountry, membership?.BillingState]);
@@ -497,9 +546,9 @@ const MemberShip_Contact = ({ setShowMember }) => {
                 className=" bg-[#ededed] rounded-sm focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-[#ededed] text-[#787676e8]"
               >
                 <option selected>Select country</option>
-                {countryName?.map((country, countryIndex) => (
-                  <option key={countryIndex} value={country?.isoCode}>
-                    {country?.name}
+                {countryNam?.map((country, country_id) => (
+                  <option key={country_id} value={country?.country_name}>
+                    {country?.country_name}
                   </option>
                 ))}
               </select>
@@ -526,9 +575,9 @@ const MemberShip_Contact = ({ setShowMember }) => {
               >
                 <option selected>Select State</option>
                 {states?.length > 0
-                  ? states?.map((state, stateIndex) => (
-                      <option key={stateIndex} value={state?.isoCode}>
-                        {state?.name}
+                  ? states?.map((state, state_id) => (
+                      <option key={state_id} value={state?.state_name}>
+                        {state?.state_name}
                       </option>
                     ))
                   : ""}
@@ -567,9 +616,9 @@ const MemberShip_Contact = ({ setShowMember }) => {
               >
                 <option selected>Select City</option>
                 {cities?.length > 0
-                  ? cities?.map((city, cityIndex) => (
-                      <option key={cityIndex} value={city?.isoCode}>
-                        {city?.name}
+                  ? cities?.map((city, city_id) => (
+                      <option key={city_id} value={city?.city_name}>
+                        {city?.city_name}
                       </option>
                     ))
                   : ""}
@@ -779,9 +828,9 @@ const MemberShip_Contact = ({ setShowMember }) => {
                 }
               >
                 <option selected>Select country</option>
-                {billingCountryName?.map((country, countryIndex) => (
-                  <option key={countryIndex} value={country?.isoCode}>
-                    {country?.name}
+                {billingCountryNam?.map((country, country_id) => (
+                  <option key={country_id} value={country?.country_name}>
+                    {country?.country_name}
                   </option>
                 ))}
               </select>
@@ -807,10 +856,11 @@ const MemberShip_Contact = ({ setShowMember }) => {
                 className=" bg-[#ededed] rounded-sm focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-[#ededed] text-[#787676e8]"
               >
                 <option selected>Select State</option>
+
                 {billingStates?.length > 0
-                  ? billingStates?.map((state, stateIndex) => (
-                      <option key={stateIndex} value={state?.isoCode}>
-                        {state?.name}
+                  ? billingStates?.map((state, state_id) => (
+                      <option key={state_id} value={state?.state_name}>
+                        {state?.state_name}
                       </option>
                     ))
                   : ""}
@@ -848,9 +898,9 @@ const MemberShip_Contact = ({ setShowMember }) => {
               >
                 <option selected>Select City</option>
                 {billingCities?.length > 0
-                  ? billingCities?.map((city, cityIndex) => (
-                      <option key={cityIndex} value={city?.isoCode}>
-                        {city?.name}
+                  ? billingCities?.map((city, city_id) => (
+                      <option key={city_id} value={city?.city_name}>
+                        {city?.city_name}
                       </option>
                     ))
                   : ""}
@@ -899,6 +949,8 @@ const MemberShip_Contact = ({ setShowMember }) => {
             </div>
 
             <label className="w-full">
+              <span className="text-sm">Consent</span>
+              <br />
               <input type="checkbox" required className="mr-2" /> Yes, I agree
               with the{" "}
               <span className="text-[#cb9833] cursor-pointer">
@@ -920,7 +972,6 @@ const MemberShip_Contact = ({ setShowMember }) => {
               onChange={(e) => setCaptaToken(e)}
               sitekey={`${RECHAP_SITE_KEY}`}
             />
-            
           </div>
           <div>
             {/* // Signature field  */}

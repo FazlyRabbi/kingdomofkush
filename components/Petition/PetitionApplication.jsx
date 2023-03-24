@@ -5,25 +5,24 @@ import { toBlob } from "html-to-image";
 // import { TfiReload } from "react-icons/tfi";
 // import SignatureCanvas from "react-signature-canvas";
 import { petitionContext } from "@/context/PetitioContext";
-import { Button } from "@material-tailwind/react";
 // alart and messages
 import useSweetAlert from "../lib/sweetalert2";
-import SharePetition from "./SharePetition";
 import PhoneInput from "react-phone-number-input";
-// import countryName from "../../public/country.json";
 import ThankPetitionSubmit from "./ThankPetitionSubmit";
-import { Country, State, City } from "country-state-city";
+
+import countryNam from "../../public/country.json";
+import stateNam from "../../public/state.json";
+import cityNam from "../../public/city.json";
 
 const PetitionApplication = () => {
   // showing alert
   const { showAlert } = useSweetAlert();
   const [sumitPetitionSuccess, setSumitPetitionSuccess] = useState(false);
-  const [signatureText, setSignatureText] = useState(true);
+  // const [signatureText, setSignatureText] = useState(true);
 
   const [states, setStates] = useState("");
   const [cities, setCities] = useState("");
   const [data, setData] = useState();
-  const countryName = Country.getAllCountries();
 
   const showAlerts = () => {
     showAlert({
@@ -44,26 +43,37 @@ const PetitionApplication = () => {
   // set states
   useEffect(() => {
     const handleStates = () => {
-      const countryCode = countryName.find(
-        (country) => country.name.toLowerCase() === data?.Country.toLowerCase()
+      const countryId = countryNam.find(
+        (country) =>
+          country.country_name.toLowerCase() === data?.Country.toLowerCase()
       );
-      const allStates = State.getStatesOfCountry(countryCode?.isoCode);
+      const allStates = stateNam.filter(
+        (state) => state.country_id == countryId?.country_id
+      );
       setStates(allStates);
     };
     // const
     handleStates();
   }, [data?.Country]);
+
   // set cities
   useEffect(() => {
     const handleCities = () => {
-      const countryCode = countryName.find(
-        (country) => country.name.toLowerCase() === data?.Country.toLowerCase()
+      const countryId = countryNam.find(
+        (country) =>
+          country.country_name.toLowerCase() === data?.Country.toLowerCase()
       );
-      const allCities = City.getCitiesOfState(
-        countryCode?.isoCode,
-        petition?.State
+      const allStates = stateNam.filter(
+        (state) => state.country_id == countryId?.country_id
       );
-      setCities(allCities);
+      const stateId = allStates.find(
+        (state) => state.state_name === petition?.State
+      );
+      const city = cityNam.filter(
+        (city) => city.state_id === stateId?.state_id
+      );
+
+      setCities(city);
     };
     handleCities();
   }, [data?.Country, petition?.State]);
@@ -296,9 +306,9 @@ const PetitionApplication = () => {
                 >
                   <option selected>Select State</option>
                   {states?.length > 0
-                    ? states?.map((state, stateIndex) => (
-                        <option key={stateIndex} value={state?.isoCode}>
-                          {state?.name}
+                    ? states?.map((state, state_id) => (
+                        <option key={state_id} value={state?.state_name}>
+                          {state?.state_name}
                         </option>
                       ))
                     : ""}
@@ -334,9 +344,9 @@ const PetitionApplication = () => {
                 >
                   <option selected>Select City</option>
                   {cities?.length > 0
-                    ? cities?.map((city, cityIndex) => (
-                        <option key={cityIndex} value={city?.isoCode}>
-                          {city?.name}
+                    ? cities?.map((city, city_id) => (
+                        <option key={city_id} value={city?.city_name}>
+                          {city?.city_name}
                         </option>
                       ))
                     : ""}

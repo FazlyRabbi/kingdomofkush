@@ -5,6 +5,9 @@ import { Country, State, City } from "country-state-city";
 import ReCAPTCHA from "react-google-recaptcha";
 import { API_URL, API_TOKEN } from "@/config/index";
 import { RECHAP_SITE_KEY } from "@/config/index";
+import countryNam from "../../public/country.json";
+import stateNam from "../../public/state.json";
+import cityNam from "../../public/city.json";
 // alart and messages
 import useSweetAlert from "../lib/sweetalert2";
 import PhoneInput from "react-phone-number-input";
@@ -34,8 +37,6 @@ function Vulunteer_Contact() {
   const [states, setStates] = useState("");
   const [cities, setCities] = useState("");
 
-  const countryName = Country.getAllCountries();
-
   const showAlerts = () => {
     showAlert({
       text: " Vulunteer Application is Successfull!",
@@ -48,21 +49,34 @@ function Vulunteer_Contact() {
   // set states
   useEffect(() => {
     const handleStates = () => {
-      const allStates = State.getStatesOfCountry(volunteer?.Country);
+      const countryId = countryNam.find(
+        (country) =>
+          country.country_name.toLowerCase() === volunteer.Country.toLowerCase()
+      );
+      const allStates = stateNam.filter(
+        (state) => state.country_id == countryId?.country_id
+      );
       setStates(allStates);
     };
     // const
     handleStates();
   }, [volunteer?.Country]);
-  
+
   // set cities
   useEffect(() => {
     const handleCities = () => {
-      const allCities = City.getCitiesOfState(
-        volunteer?.Country,
-        volunteer?.State
+      const countryId = countryNam.find(
+        (country) =>
+          country.country_name.toLowerCase() === volunteer.Country.toLowerCase()
       );
-      setCities(allCities);
+      const allStates = stateNam.filter(
+        (state) => state.country_id == countryId?.country_id
+      );
+      const stateId = allStates.find(
+        (state) => state.state_name === volunteer?.State
+      );
+      const city = cityNam.filter((city) => city.state_id == stateId?.state_id);
+      setCities(city);
     };
     handleCities();
   }, [volunteer?.Country, volunteer?.State]);
@@ -296,9 +310,9 @@ function Vulunteer_Contact() {
                 }
               >
                 <option selected>Choose a country</option>
-                {countryName?.map((country, countryIndex) => (
-                  <option key={countryIndex} value={country?.isoCode}>
-                    {country?.name}
+                {countryNam?.map((country, country_id) => (
+                  <option key={country_id} value={country?.country_name}>
+                    {country?.country_name}
                   </option>
                 ))}
               </select>
@@ -323,9 +337,9 @@ function Vulunteer_Contact() {
               >
                 <option selected>Select State</option>
                 {states?.length > 0
-                  ? states?.map((state, stateIndex) => (
-                      <option key={stateIndex} value={state?.isoCode}>
-                        {state?.name}
+                  ? states?.map((state, state_id) => (
+                      <option key={state_id} value={state?.state_name}>
+                        {state?.state_name}
                       </option>
                     ))
                   : ""}
@@ -354,9 +368,9 @@ function Vulunteer_Contact() {
               >
                 <option selected>Select City</option>
                 {cities?.length > 0
-                  ? cities?.map((city, cityIndex) => (
-                      <option key={cityIndex} value={city?.isoCode}>
-                        {city?.name}
+                  ? cities?.map((city, city_id) => (
+                      <option key={city_id} value={city?.city_name}>
+                        {city?.city_name}
                       </option>
                     ))
                   : ""}
