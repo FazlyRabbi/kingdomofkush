@@ -21,10 +21,11 @@ import Head from "next/head";
 
 export default function SharePetition({ open, setOpen }) {
   const handleOpen = () => setOpen(!open);
-  const shareUrl = "https://kingdomofkush.org/petition";
+  const shareUrl =
+    "https://kingdomofkush-git-main-fazlyrabbi.vercel.app/petition";
   const title = "My awesome website";
   const quote = "Check out this awesome website!";
-  const hashtags = ["webdev", "reactjs"];
+  const hashtags = ["#MyWebsite", "#NextJS", "#AwesomeWebsite"];
 
   return (
     <Fragment>
@@ -37,18 +38,17 @@ export default function SharePetition({ open, setOpen }) {
         <DialogBody divider>
           <div className="flex  px-6 justify-evenly items-center">
             <FacebookShareButton
+              quote={"Kingdom of kush is..."}
+              hashtag={"#kingdomofkush"}
+              title="Hello world"
               url={shareUrl}
-              quote={quote}
-              hashtag={hashtags}
             >
               <FacebookIcon size={32} round />
             </FacebookShareButton>
 
             <TwitterShareButton
               url={"https://twitter.com/?lang=en/next-share"}
-              quote={
-                "next-share is a social share buttons for your next React apps."
-              }
+              quote={"Kingdom of kush is..."}
               hashtag={"#nextshare"}
             >
               <TwitterIcon size={32} round />
@@ -56,9 +56,7 @@ export default function SharePetition({ open, setOpen }) {
 
             <LinkedinShareButton
               url={"https://www.linkedin.com/feed/next-share"}
-              quote={
-                "next-share is a social share buttons for your next React apps."
-              }
+              quote={"Kingdom of kush is..."}
               hashtag={"#nextshare"}
             >
               <LinkedinIcon size={32} round />
@@ -66,9 +64,7 @@ export default function SharePetition({ open, setOpen }) {
 
             <WhatsappShareButton
               url={"https://web.whatsapp.com//next-share"}
-              quote={
-                "next-share is a social share buttons for your next React apps."
-              }
+              quote={"Kingdom of kush is..."}
               hashtag={"#nextshare"}
             >
               <WhatsappIcon size={32} round />
