@@ -1,5 +1,4 @@
-import { createContext, useEffect, useState } from "react";
-import { API_URL, API_TOKEN } from "@/config/index";
+import { createContext,  useState } from "react";
 export const VolunteerContext = createContext();
 
 export const VolunteerProvider = ({ children }) => {
@@ -55,20 +54,3 @@ export const VolunteerProvider = ({ children }) => {
   );
 };
 
-// AddressLine1: "fasf",
-// AddressLine2: "asf",
-// City: "saf",
-// Country: "CA",
-// DateofBirth: "2023-03-02",
-// Email: "rabbim74@gmail.com",
-// EmergencyEmail: "aslkfj@gmail.com",
-// EmergencyPhone: "4141",
-// FirstName: "asfd",
-// InterestAreas: "sadf",
-// InterestPlace: "asf",
-// LastName: "asdf",
-// Phone: "4545",
-// PostalCode: "10",
-// Skills: "sdfsa",
-// State: "sadf",
-// },

@@ -6,7 +6,7 @@ export const DonationProvider = ({ children }) => {
   const donationInitial = {
     Name: "",
     Email: "",
-    Amount: 2,
+    Amount: "2",
     Frequency: "on-time",
     CardInfo: "",
   };
@@ -23,7 +23,7 @@ export const DonationProvider = ({ children }) => {
 
         body: JSON.stringify({
           name: donation.Name,
-          ammount: donation.Amount,
+          ammount: donation.Amount.toString(),
           email: donation.Email,
           frequency: donation.Frequency,
           subject: "Kingdomofkush Donations",
@@ -31,9 +31,6 @@ export const DonationProvider = ({ children }) => {
       });
 
       const data = await res.json();
-
-      // router.push(`/donation`);
-
       console.log(data);
     } catch (error) {
       console.log(error);
@@ -45,11 +42,16 @@ export const DonationProvider = ({ children }) => {
       const res = await fetch(`${API_URL}/api/donations`, {
         method: "POST",
         headers: {
+          "Content-Type": "application/json",
           Authorization: API_TOKEN,
         },
         body: JSON.stringify({
           data: {
-            data: { ...donation },
+            Name: donation.Name,
+            Email: donation.Email,
+            Amount: donation.Amount.toString(),
+            Frequency: donation.Frequency,
+            CardInfo: donation.CardInfo,
           },
         }),
       });

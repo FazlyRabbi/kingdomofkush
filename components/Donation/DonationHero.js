@@ -70,7 +70,7 @@ const DonationHero = () => {
     try {
       if (elements.getElement("card") === null) return;
 
-      setIsFetching(true)
+      setIsFetching(true);
       const { error } = await stripe.createPaymentMethod({
         type: "card",
         card: elements.getElement("card"),
@@ -148,7 +148,7 @@ const DonationHero = () => {
   const createMonthlySubscription = async () => {
     try {
       if (elements.getElement("card") === null) return;
-
+      setIsFetching(true);
       const { paymentMethod, error } = await stripe.createPaymentMethod({
         type: "card",
         card: elements.getElement("card"), // for card info
@@ -158,6 +158,7 @@ const DonationHero = () => {
         return;
       }
       setCardError(null);
+
       const res = await fetch(`/api/monthlysubscripton`, {
         method: "POST",
         headers: {
@@ -172,18 +173,25 @@ const DonationHero = () => {
       });
 
       if (!res.ok) return alert("Payment unsuccessfull!");
+     
       const data = await res.json();
+
+
       const { paymentIntent, error: confirmError } =
-        await stripe.confirmCardPayment(data.clientSecret);
+      await stripe.confirmCardPayment(data.clientSecret);
+
+
       setDonation({
         ...donation,
         CardInfo: `Amount: $${paymentIntent.amount / 100}  \n ClientSecret: ${
           paymentIntent.client_secret
         }`,
       });
-      setButton(false);
+
+
+
       if (confirmError) return alert("Payment unsuccessfull!");
-      setButton(true);
+    
       elements.getElement(CardElement).clear();
 
       // send mail
@@ -205,6 +213,7 @@ const DonationHero = () => {
         paymentIntent.client_secret
       );
       setDonation(donationInitial);
+      setIsFetching(false);
     } catch (err) {
       console.error(err);
       alert("Payment Faild!" + err.message);

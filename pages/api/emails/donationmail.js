@@ -15,6 +15,8 @@ export default async function sendmail(req, res) {
       },
     });
 
+    console.log(req.body.ammount);
+
     // send mail with defined transport object
     let info = {
       from: "kingdomofkushking1070bc@gmail.com",
