@@ -2,7 +2,6 @@ import React, { useRef, useContext, useState, useEffect } from "react";
 // import SignatureCanvas from "react-signature-canvas";
 // import { TfiReload } from "react-icons/tfi";
 import { toBlob } from "html-to-image";
-
 import { MembershipContext } from "@/context/MembershipContext";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { RECHAP_SITE_KEY } from "@/config/index";
@@ -417,7 +416,10 @@ const MemberShip_Contact = ({ setShowMember }) => {
               <PhoneInput
                 required
                 international
-                className=" py-3 rounded-sm  w-[100%] px-2  bg-[#ededed]"
+                className=" py-3 rounded-sm 
+                [&>*]:bg-[#ededed]
+                
+                w-[100%] px-2  bg-[#ededed]"
                 defaultCountry="RU"
                 onChange={(e) => setMembership({ ...membership, Number: e })}
               />
@@ -919,7 +921,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
               onChange={(e) => setCaptaToken(e)}
               sitekey={`${RECHAP_SITE_KEY}`}
             />
-            ,
+            
           </div>
           <div>
             {/* // Signature field  */}

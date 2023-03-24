@@ -133,7 +133,9 @@ function InvestForm() {
                 /> */}
                 <PhoneInput
                   international
-                  className=" py-3 rounded-sm w-[100%]  px-2  bg-[#ededed]"
+                  className="
+                  [&>*]:bg-[#ededed] bg-[#ededed] py-3 rounded-sm w-[100%]  px-2  "
+
                   defaultCountry="RU"
                   onChange={(e) => console.log("hello")}
                   // onChange={(e) =>
@@ -284,11 +286,11 @@ function InvestForm() {
                   <div className="flex gap-2 items-center mb-4">
                     <input
                       type={"checkbox"}
-                      value="Angola"
+                      value="kingdomofkush"
                       className="mr-2 w-4 h-5  preferredInvest accent-black"
                       onChange={() => setChecked(!checked)}
                     />
-                    <label className="text-[14px]">Angola</label>
+                    <label className="text-[14px]">Kingdom of kush</label>
                   </div>
                   <div className="flex gap-2 items-center mb-4">
                     <input

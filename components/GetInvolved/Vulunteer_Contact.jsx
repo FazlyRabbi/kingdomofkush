@@ -2,12 +2,17 @@ import React, { useContext, useState, useEffect } from "react";
 import { Button } from "@material-tailwind/react";
 import { VolunteerContext } from "@/context/VolunteerContext";
 import { Country, State, City } from "country-state-city";
+import ReCAPTCHA from "react-google-recaptcha";
+import { API_URL, API_TOKEN } from "@/config/index";
+import { RECHAP_SITE_KEY } from "@/config/index";
 // alart and messages
 import useSweetAlert from "../lib/sweetalert2";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
+
 function Vulunteer_Contact() {
-  const { volunteer, setVolunteer, postVolunteers, volunteerInitial } =
+  const [isFetching, setIsFetching] = useState(false);
+  const { volunteer, setVolunteer, volunteerInitial, sendMailVolunteers } =
     useContext(VolunteerContext);
 
   const generateRandomNumber = () => {
@@ -37,9 +42,6 @@ function Vulunteer_Contact() {
       icon: "success",
       confirmButtonText: "CLOSE",
       confirmButtonColor: "green",
-      header: "hello",
-    }).then((result) => {
-      console.log(result);
     });
   };
 
@@ -52,6 +54,7 @@ function Vulunteer_Contact() {
     // const
     handleStates();
   }, [volunteer?.Country]);
+  
   // set cities
   useEffect(() => {
     const handleCities = () => {
@@ -64,11 +67,60 @@ function Vulunteer_Contact() {
     handleCities();
   }, [volunteer?.Country, volunteer?.State]);
 
+  const postVolunteers = async () => {
+    try {
+      setIsFetching(true);
+      const res = await fetch(`${API_URL}/api/volunteers`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: API_TOKEN,
+        },
+
+        body: JSON.stringify({
+          data: {
+            ...volunteer,
+          },
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!data.error) {
+        setIsFetching(false);
+
+        showAlerts();
+        sendMailVolunteers();
+      } else {
+        showAlert({
+          title: `${data.error.message}`,
+          icon: "Warning",
+          confirmButtonText: "CLOSE",
+          confirmButtonColor: "red",
+        });
+        setIsFetching(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const [captaToekn, setCaptaToken] = useState(null);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    postVolunteers();
-    setVolunteer(volunteerInitial);
-    showAlerts();
+    if (captaToekn !== null) {
+      postVolunteers();
+      setVolunteer(volunteerInitial);
+    } else {
+      showAlert({
+        title: "Complete I'am Not a Robot!",
+        icon: "Warning",
+        confirmButtonText: "CLOSE",
+        confirmButtonColor: "red",
+      });
+    }
   };
 
   return (
@@ -91,6 +143,7 @@ function Vulunteer_Contact() {
                 Name
               </label>
               <input
+                disabled={isFetching}
                 type="text"
                 id="name"
                 className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
@@ -101,15 +154,13 @@ function Vulunteer_Contact() {
                 required
               />
               <p className=" text-sm mt-2">First</p>
-              <p className=" text-sm mt-[1px] invisible warningMessage text-red  ">
-                This field is required.
-              </p>
             </div>
             <div>
               <label className="   invisible font-bold after:content-['*'] after:text-red  block">
                 Name
               </label>
               <input
+                disabled={isFetching}
                 required
                 type="text"
                 className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
@@ -132,6 +183,7 @@ function Vulunteer_Contact() {
                 Email
               </label>
               <input
+                disabled={isFetching}
                 required
                 type="email"
                 id="email"
@@ -141,9 +193,6 @@ function Vulunteer_Contact() {
                   setVolunteer({ ...volunteer, Email: e.target.value })
                 }
               />
-              <p className={`    text-sm mt-[1px]  invisible text-red`}>
-                This field is required.
-              </p>
             </div>
             <div>
               <label
@@ -153,6 +202,7 @@ function Vulunteer_Contact() {
                 Date of birth
               </label>
               <input
+                disabled={isFetching}
                 required
                 type="date"
                 id="dateOfBirth"
@@ -162,9 +212,6 @@ function Vulunteer_Contact() {
                   setVolunteer({ ...volunteer, DateofBirth: e.target.value })
                 }
               />
-              <p className=" invisible text-sm mt-[1px] warningMessage text-red">
-                This field is required.
-              </p>
             </div>
             <div>
               <label
@@ -173,28 +220,16 @@ function Vulunteer_Contact() {
               >
                 Phone number
               </label>
+
               <PhoneInput
+                disabled={isFetching}
+                required
                 international
+                value={volunteer.Phone}
                 className=" py-3 rounded-sm  w-[100%] px-2  border-softGray border-[1px]"
                 defaultCountry="RU"
-                onChange={() => ""}
-                // onChange={(e) =>
-                //   setVolunteer({ ...volunteer, Phone: e.target.value })
-                // }
+                onChange={(e) => setVolunteer({ ...volunteer, Phone: e })}
               />
-              {/* <input
-                required
-                type="tel"
-                id="phoneNumber"
-                className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
-                value={volunteer.Phone}
-                onChange={(e) =>
-                  setVolunteer({ ...volunteer, Phone: e.target.value })
-                }
-              /> */}
-              <p className=" invisible text-sm mt-[1px] warningMessage text-red">
-                This field is required.
-              </p>
             </div>
           </div>
           {/* ///////// */}
@@ -204,6 +239,8 @@ function Vulunteer_Contact() {
                 Address
               </label>
               <input
+                required
+                disabled={isFetching}
                 type="text"
                 id="address_1"
                 className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
@@ -226,6 +263,8 @@ function Vulunteer_Contact() {
                 Address
               </label>
               <input
+                required
+                disabled={isFetching}
                 type="text"
                 id="address_2"
                 className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
@@ -291,15 +330,6 @@ function Vulunteer_Contact() {
                     ))
                   : ""}
               </select>
-              {/* <input
-                type="text"
-                id="address_2"
-                className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
-                value={volunteer.State}
-                onChange={(e) =>
-                  setVolunteer({ ...volunteer, State: e.target.value })
-                }
-              /> */}
 
               <p className="  text-sm mt-[.5rem]">State / Province / Region</p>
             </div>
@@ -331,14 +361,6 @@ function Vulunteer_Contact() {
                     ))
                   : ""}
               </select>
-              {/* <input
-                type="text"
-                className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
-                value={volunteer.City}
-                onChange={(e) =>
-                  setVolunteer({ ...volunteer, City: e.target.value })
-                }
-              /> */}
 
               <p className="  text-sm mt-[.5rem]">City</p>
             </div>
@@ -350,6 +372,8 @@ function Vulunteer_Contact() {
                 Address
               </label>
               <input
+                required
+                disabled={isFetching}
                 type="number"
                 id="postalCode"
                 className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
@@ -369,6 +393,7 @@ function Vulunteer_Contact() {
                 Skills
               </label>
               <textarea
+                required
                 name="skills"
                 id="skills"
                 cols="30"
@@ -391,6 +416,7 @@ function Vulunteer_Contact() {
                 Areas of Interest
               </label>
               <textarea
+                required
                 name="skills"
                 id="areas"
                 cols="30"
@@ -414,6 +440,7 @@ function Vulunteer_Contact() {
               </label>
 
               <select
+                required
                 id="countries"
                 className=" border  border-softGray text-gray-900 text-sm rounded-md focus:ring-blue-500  px-2 focus:border-softGray block w-full py-[.9rem]  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 value={volunteer.InterestPlace}
@@ -421,7 +448,7 @@ function Vulunteer_Contact() {
                   setVolunteer({ ...volunteer, InterestPlace: e.target.value })
                 }
               >
-                <option selected>Choose a country</option>
+                <option selected> {volunteer.InterestPlace}</option>
                 <option value="Angola">Angola</option>
                 <option value="Benin">Benin</option>
                 <option value="Burkina Faso">Burkina Faso</option>
@@ -454,6 +481,7 @@ function Vulunteer_Contact() {
                   Email
                 </label>
                 <input
+                  disabled={isFetching}
                   required
                   type="email"
                   id="e_email"
@@ -478,29 +506,24 @@ function Vulunteer_Contact() {
                   Phone
                 </label>
                 <PhoneInput
+                  required
+                  disabled={isFetching}
                   international
                   className=" py-3 rounded-md  w-[100%] px-2 border-softGray border-[1px]"
                   defaultCountry="RU"
-                  onChange={() => ""}
-                  // onChange={(e) =>
-                  //   setVolunteer({ ...volunteer, Phone: e.target.value })
-                  // }
-                />
-                {/* <input
-                  required
-                  type="number"
-                  id="e_phone"
-                  
                   value={volunteer.EmergencyPhone}
                   onChange={(e) =>
-                    setVolunteer({
-                      ...volunteer,
-                      EmergencyPhone: e.target.value,
-                    })
+                    setVolunteer({ ...volunteer, EmergencyPhone: e })
                   }
-                /> */}
+                />
               </div>
             </div>
+          </div>
+          <div className=" mt-6">
+            <ReCAPTCHA
+              onChange={(e) => setCaptaToken(e)}
+              sitekey={`${RECHAP_SITE_KEY}`}
+            />
           </div>
           {/* ///////// */}
           <div className=" grid grid-cols-1 mt-6">
@@ -509,7 +532,11 @@ function Vulunteer_Contact() {
               className=" bg-black rounded-md w-[40%] xl:w-[20%] shadow-none capitalize text-base hover:shadow-none   font-normal text-primary
             "
             >
-              Submit
+              {isFetching ? (
+                <span className=" animate-ping">Loading...</span>
+              ) : (
+                "Submit"
+              )}
             </Button>
           </div>
         </form>

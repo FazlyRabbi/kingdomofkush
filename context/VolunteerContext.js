@@ -17,7 +17,7 @@ export const VolunteerProvider = ({ children }) => {
     Country: "",
     Skills: "",
     InterestAreas: "",
-    InterestPlace: "",
+    InterestPlace: "Choose a country",
     EmergencyEmail: "",
     EmergencyPhone: "",
     RegistrationId: null,
@@ -27,7 +27,6 @@ export const VolunteerProvider = ({ children }) => {
 
   const sendMailVolunteers = async () => {
     try {
-      
       const res = await fetch(`/api/emails/vendoremail`, {
         method: "POST",
         headers: {
@@ -42,34 +41,6 @@ export const VolunteerProvider = ({ children }) => {
       });
 
       const data = await res.json();
-
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const postVolunteers = async () => {
-    try {
-      const res = await fetch(`${API_URL}/api/volunteers`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: API_TOKEN,
-        },
-
-        body: JSON.stringify({
-          data: {
-            ...volunteer,
-          },
-        }),
-      });
-
-      const data = await res.json();
-      console.log(data);
-      sendMailVolunteers();
-      if (!res.ok) return;
     } catch (error) {
       console.log(error);
     }
@@ -77,7 +48,7 @@ export const VolunteerProvider = ({ children }) => {
 
   return (
     <VolunteerContext.Provider
-      value={{ volunteer, setVolunteer, postVolunteers, volunteerInitial }}
+      value={{ volunteer, setVolunteer, sendMailVolunteers, volunteerInitial }}
     >
       {children}
     </VolunteerContext.Provider>

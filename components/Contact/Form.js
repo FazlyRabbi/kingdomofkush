@@ -1,11 +1,17 @@
 import { useContext, useState } from "react";
 import { contactContext } from "@/context/ContactContext";
+import { RECHAP_SITE_KEY } from "@/config/index";
 // alart and messages
 import useSweetAlert from "../lib/sweetalert2";
 import PhoneInput from "react-phone-number-input";
 import ReCAPTCHA from "react-google-recaptcha";
-import Image from "next/image";
+
+
+
 const Form = () => {
+  
+  const [captaToken, setCaptaToken] = useState(null);
+
   // showing alert
   const { showAlert } = useSweetAlert();
 
@@ -122,8 +128,8 @@ const Form = () => {
           </div>
           <div>
             <ReCAPTCHA
-              sitekey="6LeEsh8lAAAAAH9hNk3ao0VVxJDsxALlbyIU_spT"
-              onChange={() => console.log(value)}
+              onChange={(e) => setCaptaToken(e)}
+              sitekey={`${RECHAP_SITE_KEY}`}
             />
           </div>
           <button
