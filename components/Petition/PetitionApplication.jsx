@@ -1,14 +1,16 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
 import { browserName, osName, fullBrowserVersion } from "react-device-detect";
-import { TfiReload } from "react-icons/tfi";
-import SignatureCanvas from "react-signature-canvas";
+import { API_URL, API_TOKEN } from "@/config/index";
+import { toBlob } from "html-to-image";
+// import { TfiReload } from "react-icons/tfi";
+// import SignatureCanvas from "react-signature-canvas";
 import { petitionContext } from "@/context/PetitioContext";
 import { Button } from "@material-tailwind/react";
 // alart and messages
 import useSweetAlert from "../lib/sweetalert2";
 import SharePetition from "./SharePetition";
 import PhoneInput from "react-phone-number-input";
-import countryName from "../../public/country.json";
+// import countryName from "../../public/country.json";
 import ThankPetitionSubmit from "./ThankPetitionSubmit";
 import { Country, State, City } from "country-state-city";
 
@@ -30,15 +32,13 @@ const PetitionApplication = () => {
       confirmButtonText: "ClOSE",
       confirmButtonColor: "green",
       header: "hello",
-    }).then((result) => {
-      console.log(result);
     });
   };
 
-  const sigPad = useRef();
+  // const sigPad = useRef();
   const currentDate = new Date();
 
-  const { petition, setPetition, postpetitions, petitionInitial } =
+  const { petition, setPetition, petitionInitial } =
     useContext(petitionContext);
 
   // set states
@@ -54,7 +54,6 @@ const PetitionApplication = () => {
     handleStates();
   }, [data?.Country]);
   // set cities
-  console.log("petition?.State", petition?.State, data?.Country);
   useEffect(() => {
     const handleCities = () => {
       const countryCode = countryName.find(
@@ -71,30 +70,78 @@ const PetitionApplication = () => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
+      const min = 10000000;
+      const max = 99999999;
+      const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+      const actualNum = `khusPetetion${randomNumber}`;
       // Get petition data items from Local Storage
       const userString = localStorage.getItem("pititonData");
       const pititonDatas = JSON.parse(userString);
       setData(pititonDatas);
       setPetition({
         ...petition,
-        DeviceActivity: `
-        Browser : ${browserName}
-        Platfrom: ${osName}
-        IP: ${fullBrowserVersion}
-        Date : ${currentDate.toLocaleDateString()}
-        `,
+        RegistrationId: actualNum,
+        FirstName: pititonDatas?.FirstName,
+        LastName: pititonDatas?.LastName,
+        Country: pititonDatas?.Country,
+        Email: pititonDatas?.Email,
+        DeviceRecentActivitys: {
+          BrowserName: browserName,
+          DeviceName: osName === "Windows" ? "Desktop" : "Mobile",
+          OperatingSystemName: osName,
+          IpAddress: fullBrowserVersion,
+          Locations: pititonDatas?.Country,
+          Date: currentDate.toLocaleDateString(),
+        },
       });
     }
   }, []);
 
+  const sig = useRef();
+  const [textSig, setTextSig] = useState(null);
+
+  const convertSigToBlob = () => {
+    toBlob(sig.current)
+      .then((blob) => {
+        formData.append(`files.Signature`, blob, `${petition.FirstName}.png`);
+        formData.append("data", JSON.stringify(petition));
+        postpetitions();
+        localStorage.removeItem("pititonData");
+        setPetition(petitionInitial);
+        setTextSig("");
+        // sigPad.current.clear();
+        showAlerts();
+        setSumitPetitionSuccess(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const formData = typeof window !== "undefined" ? new FormData() : "";
+
+  const postpetitions = async () => {
+    try {
+      const res = await fetch(`${API_URL}/api/petitions`, {
+        method: "POST",
+        headers: {
+          Authorization: API_TOKEN,
+        },
+
+        body: formData,
+      });
+      const data = await res.json();
+      sendMailpetitions();
+      if (!res.ok) return;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    postpetitions();
-    localStorage.removeItem("pititonData");
-    setPetition(petitionInitial);
-    sigPad.current.clear();
-    showAlerts();
-    setSumitPetitionSuccess(true);
+
+    convertSigToBlob();
   };
 
   return (
@@ -154,20 +201,11 @@ const PetitionApplication = () => {
                   international
                   className=" py-3 rounded-sm  w-[100%] px-2 border  border-[#ededed]"
                   defaultCountry="RU"
-                  // value={value}
-                  // onChange={setValue}
-                  onChange={(e) => setPetition({ ...petition, Number: e })}
-                />
-                {/* <input
-                  required
-                  type="number"
-                  id="phoneNumber"
-                  className=" py-3 rounded-sm  w-[100%] px-2 border-softGray border-[1px]"
                   value={petition.Phone}
-                  onChange={(e) =>
-                    setPetition({ ...petition, Phone: e.target.value })
-                  }
-                /> */}
+                  required
+                  onChange={(e) => setPetition({ ...petition, Phone: e })}
+                />
+
                 <p className=" invisible text-sm mt-[1px] text-red">
                   This field is required.
                 </p>
@@ -342,116 +380,24 @@ const PetitionApplication = () => {
             {/* ///////// */}
 
             {/* ///////// */}
-            {/* <div className=" grid grid-cols-1 mb-5">
-              <div className="mb-5">
-                <label
-                  className="after:pl-1 font-bold block mb-2 after:content-['*'] after:text-red"
-                  htmlFor="message"
-                >
-                  Please Type Your Thought About Kingdom of Kush
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  placeholder="Please Type Your Thought About Kingdom of Kush"
-                  rows="5"
-                  cols="40"
-                  required
-                  value={petition.Message}
-                  onChange={(e) =>
-                    setPetition({ ...petition, Message: e.target.value })
-                  }
-                  className="border p-2 border-softGray w-[100%] rounded-sm  "
-                ></textarea>
-              </div>
-            </div> */}
 
             <div className="grid grid-cols-1 mb-5">
-              <div className="after:pl-1 flex  font-bold  w-full mb-4 ">
+              <div className="after:pl-1 flex  font-bold  w-full  ">
                 Signature <span className="text-red">*</span>
-                <button
-                  onClick={() => setSignatureText(false)}
-                  className={`ml-4 ${!signatureText && "text-primary"}`}
-                >
-                  Type{" "}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 h-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
-                    />
-                  </svg>
-                </button>
-                <button
-                  onClick={() => setSignatureText(true)}
-                  className={`ml-4 ${signatureText && "text-primary"}`}
-                >
-                  Draw{" "}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 h-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zm-7.518-.267A8.25 8.25 0 1120.25 10.5M8.288 14.212A5.25 5.25 0 1117.25 10.5"
-                    />
-                  </svg>
-                </button>
               </div>
-              {signatureText ? (
-                <div className="relative">
-                  <SignatureCanvas
-                    ref={sigPad}
-                    penColor="black"
-                    dotSize={1}
-                    throttle={50}
-                    backgroundColor="#eeee"
-                    canvasProps={{
-                      className:
-                        " cursor-crosshair h-[156px] w-full  mb-6  rounded-sm bg-[#e6e6e6]",
-                    }}
-                  />
-                  <TfiReload
-                    onClick={(e) => {
-                      sigPad.current.clear();
-                    }}
-                    className=" absolute   top-[10px]    right-5  text-[1rem] font-bold cursor-pointer hover:text-black text-[#3a3a3a]"
-                  />
-                </div>
-              ) : (
-                <div>
-                  <textarea
-                    type="number"
-                    placeholder="Enter your text"
-                    // id="billing_zipcode"
-                    className=" py-3 rounded-sm w-full px-2  bg-[#ededed]"
-                    required
-                    // value={membership.BillingPostalCode}
-                    // onChange={(e) =>
-                    //   setMembership({
-                    //     ...membership,
-                    //     BillingPostalCode: e.target.value,
-                    //   })
-                    // }
-                    name=""
-                    id=""
-                    cols="18"
-                    rows="5"
-                  ></textarea>
-                </div>
-              )}
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 mb-5">
+              <input
+                type="text"
+                value={textSig}
+                onChange={(e) => setTextSig(e.target.value)}
+                ref={sig}
+                placeholder="Enter Your Signature"
+                className=" font-bold  text-center h-[8rem]
+               py-3 rounded-sm  w-[80%] text-[1.8rem] px-2  bg-[#ededed]"
+                required
+              ></input>
             </div>
 
             {/* ///////// */}

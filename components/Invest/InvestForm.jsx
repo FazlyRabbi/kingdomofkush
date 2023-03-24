@@ -121,26 +121,14 @@ function InvestForm() {
               </div>
 
               <div className="w-[95%] ">
-                {/* <input
-                  required
-                  type="number"
-                  className=" w-[100%] placeholder-black rounded-md bg-[#eaeaea] text-black px-2 py-2"
-                  placeholder="Phone"
-                  value={invest.Phone}
-                  onChange={(e) =>
-                    setInvest({ ...invest, Phone: e.target.value })
-                  }
-                /> */}
                 <PhoneInput
                   international
+                  required
                   className="
                   [&>*]:bg-[#ededed] bg-[#ededed] py-3 rounded-sm w-[100%]  px-2  "
-
                   defaultCountry="RU"
-                  onChange={(e) => console.log("hello")}
-                  // onChange={(e) =>
-                  //   setVolunteer({ ...volunteer, Phone: e.target.value })
-                  // }
+                  value={invest.Phone}
+                  onChange={(e) => setInvest({ ...invest, Phone: e })}
                 />
                 <Alert className=" bg-[#f9e4e8] invisible text-red text-[12px]  rounded-none py-1 mt-1">
                   Please input required a valid international phone number.
@@ -430,19 +418,7 @@ function InvestForm() {
                       }
                     />
                   </div>
-                  {/* <label className="text-[18px] font-bold text-[#777771]">
-                    Preferred Investment Amount (USD) *
-                  </label>
-                  <input
-                    required
-                    type={"number"}
-                    value={invest.InvestmentAmount}
-                    className="bg-[#EDEDED] px-3 py-3 text-black "
-                    placeholder="Amount"
-                    onChange={(e) =>
-                      setInvest({ ...invest, InvestmentAmount: e.target.value })
-                    }
-                  /> */}
+
                   <Alert className=" bg-[#f9e4e8] invisible text-red text-[12px]  rounded-none py-1 mt-1">
                     This field is required. Please select a value.
                   </Alert>
@@ -454,6 +430,7 @@ function InvestForm() {
                   <select
                     className="bg-[#EDEDED] px-3 py-3"
                     value={invest.InvestmentStartTime}
+                    required
                     onChange={(e) =>
                       setInvest({
                         ...invest,

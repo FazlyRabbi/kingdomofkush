@@ -1,6 +1,4 @@
 import React, { useRef, useContext, useState, useEffect } from "react";
-// import SignatureCanvas from "react-signature-canvas";
-// import { TfiReload } from "react-icons/tfi";
 import { toBlob } from "html-to-image";
 import { MembershipContext } from "@/context/MembershipContext";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
@@ -137,6 +135,7 @@ const MemberShip_Contact = ({ setShowMember }) => {
       return;
     }
   }, [membership.CardInfo]);
+
 
   const convertSigToBlob = () => {
     toBlob(testSig.current)

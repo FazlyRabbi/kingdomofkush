@@ -30,7 +30,7 @@ export const InvestProvider = ({ children }) => {
           email: invest.Email,
           subject: `Invest $${invest.InvestmentAmount}`,
           message: `Thank ${invest.FirstName} for the quality of service provided by your company. We sincerely appreciate your efficient, gracious customer service, the level of detail and accountability you have demonstrated on each project, and the way you conduct business as a whole.`,
-          ammount:invest.InvestmentAmount
+          ammount: invest.InvestmentAmount,
         }),
       });
 
@@ -47,7 +47,6 @@ export const InvestProvider = ({ children }) => {
       const res = await fetch(`${API_URL}/api/invests`, {
         method: "POST",
         headers: {
-          Accept: "application/json",
           "Content-Type": "application/json",
           Authorization: API_TOKEN,
         },
@@ -59,9 +58,8 @@ export const InvestProvider = ({ children }) => {
         }),
       });
 
-      sendMailInvest();
       const data = await res.json();
-      console.log(data);
+      sendMailInvest();
     } catch (error) {
       console.log(error);
     }

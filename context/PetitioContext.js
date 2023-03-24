@@ -14,13 +14,10 @@ export const PetitionProvider = ({ children }) => {
     LastName: "",
     Email: "",
     Phone: "",
-    AddressLine: "",
-    StreetAddress: "",
     City: "",
     State: "",
     PostalCode: "",
     Country: "",
-    Message: "",
     RegistrationId: "",
     DeviceRecentActivitys: {
       IpAddress: "",
@@ -89,7 +86,6 @@ export const PetitionProvider = ({ children }) => {
       value={{
         petition,
         setPetition,
-        postpetitions,
         petitionInitial,
         sendMailpetitions,
       }}

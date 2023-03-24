@@ -12,6 +12,8 @@ const Petition = () => {
   // const [calculateTimes, setCalculateTimes] = useState("");
   const [userTime, setUserTime] = useState(null);
 
+  const [totalSignCount, setTotalSignCount] = useState(0);
+
   const laodRecentUser = () => {
     fetch(`${API_URL}/api/petitions?sort=createdAt:desc`, {
       headers: {
@@ -31,6 +33,7 @@ const Petition = () => {
           return time;
         });
 
+        setTotalSignCount(data?.data?.length);
         setRecntUser(dateString);
       });
   };
@@ -95,8 +98,10 @@ const Petition = () => {
             <div className="flex  flex-col justify-between gap-4 col-span-1">
               <div className="flex flex-col gap-4 text-2xl py-8 lg:py-0">
                 <h1 className="">
-                  <span className="font-bold">534 have signed.</span> Let's get
-                  to 1,000!
+                  <span className="font-bold">
+                    {totalSignCount} have signed.
+                  </span>{" "}
+                  Let's get to 1,000!
                 </h1>
                 <div className="w-full h-5 bg-[#7f7e7e8e] rounded-full">
                   <div className="w-2/3 h-full text-center text-xs text-white bg-gradient-to-r from-yellow-900 to-red rounded-full"></div>
