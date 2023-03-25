@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import Head from "next/head";
 import { RxCrossCircled } from "react-icons/rx";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
@@ -12,7 +13,7 @@ import { setCookie } from "nookies";
 import { useRouter } from "next/router";
 
 export default function signin() {
-  const { error, singin, user, setError } = useContext(AuthContext);
+  const { error, singin, user, setError, isFatching } = useContext(AuthContext);
 
   const router = useRouter();
 
@@ -22,11 +23,8 @@ export default function signin() {
 
   useEffect(() => {
     if (user) {
-      setCookie(null, "token", user.jwt, {
-        maxAge: 30 * 24 * 60 * 60,
-        path: "/",
-        secure: true,
-      });
+
+      localStorage.setItem("Token", JSON.stringify(user.jwt));
       router.push("/dashboard");
       toast.success("Login Successfully!");
       setError(null);
@@ -46,6 +44,9 @@ export default function signin() {
 
   return (
     <>
+      <Head>
+        <title>Login</title>
+      </Head>
       <section className="bg-gray-50 dark:bg-gray-900 ">
         <Toaster position="top-center" />
         <div className="container mx-auto relative">
@@ -83,6 +84,7 @@ export default function signin() {
                       Your email
                     </label>
                     <input
+                      disabled={isFatching}
                       onChange={(e) => setEmail(e.target.value)}
                       type="email"
                       name="email"
@@ -100,6 +102,7 @@ export default function signin() {
                       Password
                     </label>
                     <input
+                      disabled={isFatching}
                       onChange={(e) => setPassword(e.target.value)}
                       type="password"
                       name="password"
@@ -121,7 +124,11 @@ export default function signin() {
                     type="submit"
                     className="w-full text-white bg-softBlack hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                   >
-                    Sign in
+                    {isFatching ? (
+                      <span className=" animate-ping">Loging..</span>
+                    ) : (
+                      "Sign in"
+                    )}
                   </button>
                   <p className="text-sm font-bold text-gray-600 dark:text-gray-400">
                     Don’t have an account yet?{" "}

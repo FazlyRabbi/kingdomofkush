@@ -10,6 +10,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
   const [open, setOpen] = useState(false);
+  const [isFatching, setIsFatching] = useState(false);
 
   useEffect(() => {
     checkUserLoggedId();
@@ -41,6 +42,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const singin = async ({ email: identifier, password }) => {
+    setIsFatching(true);
+
     const res = await fetch(`/api/login`, {
       method: "POST",
       headers: {
@@ -58,24 +61,38 @@ export const AuthProvider = ({ children }) => {
 
     if (data.user) {
       setUser(data);
+      setIsFatching(false);
     } else {
+      setIsFatching(false);
       setError(data);
     }
   };
 
-  const signOut = async (user) => {
+  const signOut = async () => {
     setUser(null);
     setError(null);
-    destroyCookie(null, "token");
+    localStorage.removeItem("Token");
+    // destroyCookie(null, "token");
     router.push("/");
   };
 
   const checkUserLoggedId = async () => {
-    const res = await fetch(`/api/user`);
-    const data = await res.json();
+    const token = localStorage.getItem("Token");
 
-    if (res.ok) {
-      setUser(data);
+    if (!token) return;
+
+    const strapiRes = await fetch(`${API_URL}/api/users/me`, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(token)}`,
+      },
+    });
+
+    const user = await strapiRes.json();
+
+    user.jwt = JSON.parse(token);
+
+    if (strapiRes.ok) {
+      setUser(user);
     } else {
       setUser(null);
     }
@@ -86,6 +103,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         signup,
         error,
+        isFatching,
         user,
         singin,
         setUser,

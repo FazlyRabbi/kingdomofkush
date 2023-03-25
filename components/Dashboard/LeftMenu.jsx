@@ -26,10 +26,10 @@ function LeftMenu() {
     
     max-w-[15rem]
            transition-all duration-300
-    absolute lg:static lg:z-0 z-30 top-0 left-0 
+    absolute lg:static lg:z-0 z-30  mt-[1.8rem] left-0 
     
      
-    w-full   mb-2 h-[100vh]  bg-[#F8F9FA]
+    w-full   mb-2 h-[90vh]  bg-[#F8F9FA]
  
     ${open ? "translate-x-0" : " -translate-x-[100rem] lg:translate-x-0"}
     
@@ -38,7 +38,7 @@ function LeftMenu() {
         {/* left menu header */}
         <div className="leftMenu__header relative">
           <div className="flex flex-col justify-center items-center py-4 ">
-            <Image src={logo} height={10} width={50} alt="logo" />
+            <Image src={logo} height={10} width={70} alt="logo" />
             <Link href={`/dashboard`}>
               <h5 className=" py-2  text-[1rem] font-bold">Dashboard</h5>
             </Link>

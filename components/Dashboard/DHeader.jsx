@@ -8,17 +8,17 @@ function DHeader() {
 
   return (
     <div
-      className="  bg-[#FDFDFD] fixed top-2 z-10  
+      className="  bg-[#e3b75f] fixed top-2 z-10  
       
       
       text-[10px] md:text-[1rem]
-      right-[0]  py-[1rem]  rounded-md text-[#262F85] font-bold 
-     flex  justify-between
+      right-[0]  py-[1rem] space-y-2  rounded-md text-[#262F85] font-bold 
+     flex  flex-col lg:flex-row items-center xl:items-start justify-between
     
-shadow-md w-[100%] lg:w-[75%] px-8 md:pr-[4rem] "
+ w-[100%] lg:w-[98%] px-8 md:pr-[4rem] "
     >
       <div>
-        <h1 className="  uppercase ">Welcome to kingdomofkush</h1>
+        <h1 className=" lg:pl-[13rem] text-[14px] lg:text-[1rem] xl:text-[1.5rem] uppercase ">Welcome to kingdomofkush Admin dashboard</h1>
       </div>
 
       <div className=" flex justify-center  items-center space-x-8">
