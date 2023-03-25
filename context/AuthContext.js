@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
   const singin = async ({ email: identifier, password }) => {
     setIsFatching(true);
 
-    const res = await fetch(`/api/login`, {
+    const res = await fetch(`${API_URL}/api/auth/local`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
