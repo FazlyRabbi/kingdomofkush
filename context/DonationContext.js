@@ -19,6 +19,7 @@ export const DonationProvider = ({ children }) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: API_TOKEN,
         },
 
         body: JSON.stringify({

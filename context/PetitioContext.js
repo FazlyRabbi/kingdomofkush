@@ -37,6 +37,7 @@ export const PetitionProvider = ({ children }) => {
       const res = await fetch(`/api/emails/petitionemail`, {
         method: "POST",
         headers: {
+          Authorization: API_TOKEN,
           "Content-Type": "application/json",
         },
 

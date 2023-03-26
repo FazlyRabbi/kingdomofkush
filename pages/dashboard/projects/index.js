@@ -383,6 +383,18 @@ function index() {
 
                   <Input
                     required
+                    label="Video Url"
+                    disabled={isFatching}
+                    value={projectForm.VideoUrl}
+                    onChange={(e) =>
+                      setProjectForm({
+                        ...projectForm,
+                        VideoUrl: e.target.value,
+                      })
+                    }
+                  />
+                  <Input
+                    required
                     label="Country"
                     disabled={isFatching}
                     value={projectForm.Country}

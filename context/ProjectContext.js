@@ -15,6 +15,7 @@ export const ProjectProvider = ({ children }) => {
     RegistrationId: "",
     Bradcamp: "",
     ProjectCategorie: "",
+    VideoUrl: "",
     Replay: {
       Name: "",
       Email: "",
@@ -27,7 +28,12 @@ export const ProjectProvider = ({ children }) => {
   const [projectData, setProjectData] = useState(null);
 
   const loadProjectData = async () => {
-    const res = await fetch(`${API_URL}/api/projects?populate=*`);
+    const res = await fetch(`${API_URL}/api/projects?populate=*`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: API_TOKEN,
+      },
+    });
     const projects = await res.json();
 
     setProjectData(projects);

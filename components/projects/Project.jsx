@@ -125,7 +125,7 @@ const Project = () => {
               </h3>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 py-3">
-              {projectData !== null && !click
+              {projectData  && !click
                 ? projectData?.data.map((project, index) => (
                     <Card key={index} data={project} />
                   ))

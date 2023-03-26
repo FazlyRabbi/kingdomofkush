@@ -23,7 +23,6 @@ export default function signin() {
 
   useEffect(() => {
     if (user) {
-
       localStorage.setItem("Token", JSON.stringify(user.jwt));
       router.push("/dashboard");
       toast.success("Login Successfully!");

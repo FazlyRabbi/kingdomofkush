@@ -20,6 +20,7 @@ export const ContactProvider = ({ children }) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: API_TOKEN,
         },
 
         body: JSON.stringify({

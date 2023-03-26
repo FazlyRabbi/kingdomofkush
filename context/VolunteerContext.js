@@ -29,6 +29,7 @@ export const VolunteerProvider = ({ children }) => {
       const res = await fetch(`/api/emails/vendoremail`, {
         method: "POST",
         headers: {
+          Authorization: API_TOKEN,
           "Content-Type": "application/json",
         },
 

@@ -212,7 +212,6 @@ function index() {
   // Fetch data from an external API or database
   useEffect(() => {
     fetch(`${API_URL}/api/vendors?populate=*`, {
-      method: "GET",
       headers: {
         Authorization: API_TOKEN,
       },
