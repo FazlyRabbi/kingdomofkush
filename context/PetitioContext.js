@@ -1,12 +1,13 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext,  useState } from "react";
 
 import { useRouter } from "next/router";
 
-import { API_URL, API_TOKEN } from "@/config/index";
+// import { API_URL, API_TOKEN } from "@/config/index";
 
 export const petitionContext = createContext();
 
 export const PetitionProvider = ({ children }) => {
+
   const router = useRouter();
 
   const petitionInitial = {
@@ -55,31 +56,31 @@ export const PetitionProvider = ({ children }) => {
     }
   };
 
-  const postpetitions = async () => {
-    try {
-      const res = await fetch(`${API_URL}/api/petitions`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: API_TOKEN,
-        },
+  // const postpetitions = async () => {
+  //   try {
+  //     const res = await fetch(`${API_URL}/api/petitions`, {
+  //       method: "POST",
+  //       headers: {
+  //         Accept: "application/json",
+  //         "Content-Type": "application/json",
+  //         Authorization: API_TOKEN,
+  //       },
 
-        body: JSON.stringify({
-          data: {
-            data: { ...petition },
-          },
-        }),
-      });
+  //       body: JSON.stringify({
+  //         data: {
+  //           data: { ...petition },
+  //         },
+  //       }),
+  //     });
 
-      const data = await res.json();
-      console.log(data);
-      sendMailpetitions();
-      if (!res.ok) return;
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     const data = await res.json();
+  //     console.log(data);
+  //     sendMailpetitions();
+  //     if (!res.ok) return;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <petitionContext.Provider

@@ -29,7 +29,7 @@ function LeftMenu() {
     absolute lg:static lg:z-0 z-30  mt-[1.8rem] left-0 
     
      
-    w-full   mb-2 h-[90vh]  bg-[#F8F9FA]
+    w-full   md:overflow-y-auto  overflow-y-scroll  mb-2 h-[100vh] lg:h-[90vh]  bg-[#F8F9FA]
  
     ${open ? "translate-x-0" : " -translate-x-[100rem] lg:translate-x-0"}
     

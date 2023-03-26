@@ -6,6 +6,10 @@ import ShowProject from "@/components/projects/ShowProject";
 
 function showProject() {
   const router = useRouter();
+  if (router.isFallback) {
+    return <div className="text-center font-bold text-primary">Loading...</div>;
+  }
+
   const { projectData } = useContext(projectContext);
 
   const filteredProduct = projectData?.data.find(
@@ -29,10 +33,12 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch(`https://kingdomofkush-backend.onrender.com/api/projects?populate=*`);
+  const res = await fetch(
+    `https://kingdomofkush-backend.onrender.com/api/projects?populate=*`
+  );
 
   const path = await res.json();
-  console.log(path);
+
   return {
     paths: path.data.map((project) => {
       return {
@@ -42,6 +48,6 @@ export async function getStaticPaths() {
       };
     }),
 
-    fallback: false,
+    fallback: true,
   };
 }

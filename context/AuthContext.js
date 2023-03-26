@@ -3,8 +3,6 @@ import { API_URL, API_TOKEN } from "@/config/index";
 import { useRouter } from "next/router";
 export const AuthContext = createContext();
 
-import { setCookie, destroyCookie, parseCookies } from "nookies";
-
 export const AuthProvider = ({ children }) => {
   const router = useRouter();
   const [user, setUser] = useState(null);

@@ -8,7 +8,7 @@ function DHeader() {
 
   return (
     <div
-      className="  bg-[#e3b75f] fixed top-2 z-10  
+      className="  bg-[#e3b75f] fixed top-0 lg:top-2 z-10  
       
       
       text-[10px] md:text-[1rem]
@@ -18,7 +18,7 @@ function DHeader() {
  w-[100%] lg:w-[98%] px-8 md:pr-[4rem] "
     >
       <div>
-        <h1 className=" lg:pl-[13rem] text-[14px] lg:text-[1rem] xl:text-[1.5rem] uppercase ">Welcome to kingdomofkush Admin dashboard</h1>
+        <h1 className=" lg:pl-[13rem] text-[14px] lg:text-[1rem] xl:text-[1.5rem] uppercase ">Welcome to kingdomofkush <span className="hidden  lg:inline-block">Admin dashboard</span></h1>
       </div>
 
       <div className=" flex justify-center  items-center space-x-8">
@@ -34,7 +34,7 @@ function DHeader() {
         <CgMenuRightAlt
           className=" 
         
-          md:hidden
+          lg:hidden
          animate-pulse
          cursor-pointer text-[1.5rem]"
           onClick={() => setOpen(!open)}

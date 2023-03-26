@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
   },
 });
 
+
 function index() {
   useProtectedRoute();
 
@@ -219,6 +220,7 @@ function index() {
     })
       .then((res) => res.json())
       .then((data) => {
+        
         setProjects(data?.data);
         setFilteredMembers(data?.data);
       })
