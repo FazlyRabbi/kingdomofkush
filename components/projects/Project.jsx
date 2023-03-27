@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { projectContext } from "@/context/ProjectContext";
 
 import Card from "./Card";
